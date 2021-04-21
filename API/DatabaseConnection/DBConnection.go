@@ -19,7 +19,6 @@ var database = "PlusGymProject"
 
 func main(){
 	connect()
-	_, _ = insert(1234)
 }
 
 func connect(){
@@ -42,53 +41,115 @@ func connect(){
 	fmt.Printf("Connected!\n")
 }
 
-func read(){
-
+type testyInt struct {
+	id int
 }
 
-func insert(testy int) (int64, error){
+func read() ([]testyInt, error){
+	ctx := context.Background()
+	// Check if database is alive.
+	err := db.PingContext(ctx)
+	if err != nil {
+		return []testyInt{}, err
+	}
+
+	tsql := fmt.Sprintf("SELECT testy FROM dbo.Test;")
+
+	// Execute query
+	rows, err := db.QueryContext(ctx, tsql)
+	if err != nil {
+		return []testyInt{}, err
+	}
+
+	defer rows.Close()
+
+	var count int
+
+	var result []testyInt
+	// Iterate through the result set.
+	for rows.Next() {
+		var testy int
+
+		// Get values from row.
+		err := rows.Scan(&testy)
+		if err != nil {
+			return []testyInt{}, err
+		}
+
+		result = append(result, testyInt{id: testy})
+
+		fmt.Printf("ID: %d \n", testy)
+		count++
+	}
+	return result, nil
+}
+
+func insert(pTesty int) (bool, error){
 	ctx := context.Background()
 	var err error
 
 	if db == nil {
 		err = errors.New("CreateEmployee: db is null")
-		return -1, err
+		return false, err
 	}
 
 	// Check if database is alive.
 	err = db.PingContext(ctx)
 	if err != nil {
-		return -1, err
+		return false, err
 	}
 
-	tsql := `
-      INSERT INTO dbo.Test (testy) VALUES (@testy);
-    `
+	query := fmt.Sprintf("INSERT INTO dbo.Test (testy) VALUES (%d);", pTesty)
 
-	stmt, err := db.Prepare(tsql)
+	_, err = db.ExecContext(ctx, query)
+
+	if err != nil{
+		return false, err
+	}
+	return true, nil
+}
+
+func update(id int, newId int) (bool, error){
+	ctx := context.Background()
+
+	// Check if database is alive.
+	err := db.PingContext(ctx)
 	if err != nil {
-		return -1, err
+		return false, err
 	}
-	defer stmt.Close()
 
-	row := stmt.QueryRowContext(
+	tsql := fmt.Sprintf("UPDATE dbo.Test SET testy = @NewTesty WHERE testy = @OldTesty")
+
+	// Execute non-query with named parameters
+	_, err = db.ExecContext(
 		ctx,
-		sql.Named("testy", testy),
-	)
-	var newID int64
-	err = row.Scan(&newID)
+		tsql,
+		sql.Named("NewTesty", newId),
+		sql.Named("OldTesty", id))
 	if err != nil {
-		return -1, err
+		return false, err
 	}
 
-	return newID, nil
+	return true, nil
 }
 
-func remove(){
+func remove(id int) (bool, error){
+	ctx := context.Background()
 
-}
+	// Check if database is alive.
+	err := db.PingContext(ctx)
+	if err != nil {
+		return false, err
+	}
 
-func update(){
+	tsql := fmt.Sprintf("DELETE FROM dbo.Test WHERE testy = @ID;")
 
+	// Execute non-query with named parameters
+	_, err = db.ExecContext(ctx, tsql, sql.Named("ID", id))
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
 
