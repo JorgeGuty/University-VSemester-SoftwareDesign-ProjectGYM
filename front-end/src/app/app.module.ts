@@ -13,11 +13,12 @@ import { MatTabsModule } from "@angular/material/tabs";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
+import { LoginComponent } from './Components/Registration/login/login.component';
 
 /* Components */
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
