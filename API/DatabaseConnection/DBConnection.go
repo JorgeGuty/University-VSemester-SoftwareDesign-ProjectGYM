@@ -1,12 +1,11 @@
-package main
+package DatabaseConnection
 
 import (
-	_ "github.com/denisenkom/go-mssqldb"
-	"database/sql"
 	"context"
-	"log"
+	"database/sql"
 	"fmt"
-	"errors"
+	_ "github.com/denisenkom/go-mssqldb"
+	"log"
 )
 
 var db *sql.DB
@@ -17,9 +16,6 @@ var user = "trabajadorResponsable"
 var password = "1231!#ASDF!a"
 var database = "PlusGymProject"
 
-func main(){
-	connect()
-}
 
 func connect(){
 	// Build connection string
@@ -41,57 +37,13 @@ func connect(){
 	fmt.Printf("Connected!\n")
 }
 
-type testyInt struct {
-	id int
-}
+func VoidTransaction(pQuery string) (bool, error){
 
-func read() ([]testyInt, error){
-	ctx := context.Background()
-	// Check if database is alive.
-	err := db.PingContext(ctx)
-	if err != nil {
-		return []testyInt{}, err
-	}
+	connect()
+	defer db.Close()
 
-	tsql := fmt.Sprintf("SELECT testy FROM dbo.Test;")
-
-	// Execute query
-	rows, err := db.QueryContext(ctx, tsql)
-	if err != nil {
-		return []testyInt{}, err
-	}
-
-	defer rows.Close()
-
-	var count int
-
-	var result []testyInt
-	// Iterate through the result set.
-	for rows.Next() {
-		var testy int
-
-		// Get values from row.
-		err := rows.Scan(&testy)
-		if err != nil {
-			return []testyInt{}, err
-		}
-
-		result = append(result, testyInt{id: testy})
-
-		fmt.Printf("ID: %d \n", testy)
-		count++
-	}
-	return result, nil
-}
-
-func insert(pTesty int) (bool, error){
 	ctx := context.Background()
 	var err error
-
-	if db == nil {
-		err = errors.New("CreateEmployee: db is null")
-		return false, err
-	}
 
 	// Check if database is alive.
 	err = db.PingContext(ctx)
@@ -99,57 +51,33 @@ func insert(pTesty int) (bool, error){
 		return false, err
 	}
 
-	query := fmt.Sprintf("INSERT INTO dbo.Test (testy) VALUES (%d);", pTesty)
-
-	_, err = db.ExecContext(ctx, query)
+	_, err = db.ExecContext(ctx, pQuery)
 
 	if err != nil{
 		return false, err
 	}
+
 	return true, nil
 }
 
-func update(id int, newId int) (bool, error){
-	ctx := context.Background()
+func ReadTransaction(pQuery string) (*sql.Rows, error){
 
+	connect()
+	defer db.Close()
+
+
+	ctx := context.Background()
 	// Check if database is alive.
 	err := db.PingContext(ctx)
 	if err != nil {
-		return false, err
+		return nil, err
 	}
 
-	tsql := fmt.Sprintf("UPDATE dbo.Test SET testy = @NewTesty WHERE testy = @OldTesty")
-
-	// Execute non-query with named parameters
-	_, err = db.ExecContext(
-		ctx,
-		tsql,
-		sql.Named("NewTesty", newId),
-		sql.Named("OldTesty", id))
+	// Execute query
+	rows, err := db.QueryContext(ctx, pQuery)
 	if err != nil {
-		return false, err
+		return nil, err
 	}
 
-	return true, nil
+	return rows, nil
 }
-
-func remove(id int) (bool, error){
-	ctx := context.Background()
-
-	// Check if database is alive.
-	err := db.PingContext(ctx)
-	if err != nil {
-		return false, err
-	}
-
-	tsql := fmt.Sprintf("DELETE FROM dbo.Test WHERE testy = @ID;")
-
-	// Execute non-query with named parameters
-	_, err = db.ExecContext(ctx, tsql, sql.Named("ID", id))
-	if err != nil {
-		return false, err
-	}
-
-	return true, nil
-}
-

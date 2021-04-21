@@ -4,6 +4,8 @@
     <list default="true" id="61fdbb78-fa60-4082-9148-daefe68d8bb4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatabaseConnection/DBConnection.go" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseConnection/DBConnection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebServer/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/Server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebServer/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +51,16 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RunManager" selected="Go Build.go build API/DatabaseConnection">
+  <component name="RunManager" selected="Go Build.go build API">
+    <configuration name="go build API" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="API" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <package value="API" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build API/DatabaseConnection" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="API" />
       <working_directory value="$PROJECT_DIR$" />
@@ -70,6 +81,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build API" />
         <item itemvalue="Go Build.go build API/DatabaseConnection" />
         <item itemvalue="Go Build.go build API/WebServer" />
       </list>
