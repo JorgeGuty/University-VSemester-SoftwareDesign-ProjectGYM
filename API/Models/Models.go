@@ -28,4 +28,5 @@ type User struct {
 	Username 	string	`json:"username"`
 	Type 		int		`json:"type"`
 	Password 	string	`json:"-"`
+	Token 		string	`json:"token"`
 }
