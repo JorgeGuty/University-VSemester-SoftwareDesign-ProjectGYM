@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(user).subscribe((data) => {
       console.log(data);
-      console.log("flag3");
     });
   }
 
