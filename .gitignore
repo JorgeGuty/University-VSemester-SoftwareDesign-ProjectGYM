@@ -15,3 +15,5 @@
 # vendor/
 
 front-end/node_modules/
+API/go.mod
+API/go.sum
