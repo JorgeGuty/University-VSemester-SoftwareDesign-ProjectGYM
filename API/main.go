@@ -6,12 +6,6 @@ import (
 	_ "API/WebServer"
 )
 
-type s struct {
-	Int       int
-	String    string
-	ByteSlice []byte
-}
-
 func main() {
 	WebServer.StartServer()
 }
