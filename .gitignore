@@ -17,3 +17,4 @@
 front-end/node_modules/
 API/go.mod
 API/go.sum
+API/.idea/workspace.xml
