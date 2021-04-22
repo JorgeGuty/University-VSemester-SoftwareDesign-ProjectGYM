@@ -1,4 +1,4 @@
-package DatabaseConnection
+package Database
 
 import (
 	"context"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "API/DatabaseConnection"
+	_ "API/Database"
 	"API/WebServer"
 	_ "API/WebServer"
 	"encoding/json"

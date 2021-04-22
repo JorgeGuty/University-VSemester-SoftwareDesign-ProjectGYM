@@ -1,8 +1,8 @@
 package WebServer
 
 import (
-	"API/DatabaseConnection"
-	_ "API/DatabaseConnection"
+	"API/Database"
+	_ "API/Database"
 	"encoding/json"
 	//"fmt"
 	"github.com/labstack/echo/v4"
@@ -25,7 +25,7 @@ type test struct {
 }
 
 func getTest(context echo.Context) error {
-	results, err := DatabaseConnection.ReadTransaction("SELECT * FROM dbo.Test;")
+	results, err := Database.ReadTransaction("SELECT * FROM dbo.Test;")
 	if err != nil {
 		context.String(http.StatusInternalServerError, err.Error())
 	}
@@ -49,7 +49,7 @@ func getTest(context echo.Context) error {
 
 func insertTest(context echo.Context) error {
 	value := context.Param("id")
-	success, err := DatabaseConnection.VoidTransaction("INSERT INTO dbo.Test VALUES ("+value+")")
+	success, err := Database.VoidTransaction("INSERT INTO dbo.Test VALUES ("+value+")")
 	if err != nil {
 		return context.String(http.StatusInternalServerError, err.Error())
 	}
