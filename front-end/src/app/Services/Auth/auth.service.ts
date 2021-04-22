@@ -35,4 +35,10 @@ export class AuthService {
   //     }
   //   );
   // }
+
+  authenticateUser(userInfo: any) {
+    return this.httpClient.post("http://localhost:3000/login", userInfo, {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
