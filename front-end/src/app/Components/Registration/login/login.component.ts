@@ -1,4 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../../Services/Auth/auth.service";
+import { Router } from "@angular/router";
+
+import { User } from "../../../Models/Users/User";
 
 @Component({
   selector: "app-login",
@@ -6,20 +10,28 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  log_email: string = "";
+  log_username: string = "";
   log_password: string = "";
   reg_username: string = "";
   reg_password: string = "";
   reg_passwordConfirmation: string = "";
 
-  constructor() {}
+  // TODO: implement flash message
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onLogin() {
     console.log("Se Logea");
-    console.log("Username: " + this.log_email);
-    console.log("Password: " + this.log_password);
+    const user = {
+      username: this.log_username,
+      password: this.log_password,
+    };
+
+    this.authService.authenticateUser(user).subscribe((data) => {
+      console.log(data);
+      console.log("flag3");
+    });
   }
 
   onRegister() {

@@ -5,8 +5,8 @@ import (
 	_ "API/Models"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gofiber/fiber/v2"
 	_ "github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber/v2"
 	"strconv"
 	"time"
 )
@@ -55,7 +55,10 @@ func Login(context *fiber.Ctx) error {
 		return context.JSON(fiber.Map{"message": "could not login"})
 	}
 
-	return context.JSON(token)
+	// Before late night fix
+	// return context.JSON(token)
 
+	user.Token = token
+	return context.JSON(user)
 }
 
