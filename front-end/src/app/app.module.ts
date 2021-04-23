@@ -21,6 +21,8 @@ import { LoginComponent } from "./Components/Registration/login/login.component"
 import { NavbarComponent } from "./Components/General/navbar/navbar.component";
 import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
+import { ClientDashboardComponent } from "./Components/Dashboards/client-dashboard/client-dashboard.component";
+import { AdminDashboardComponent } from "./Components/Dashboards/admin-dashboard/admin-dashboard.component";
 
 /* Components */
 
@@ -32,6 +34,8 @@ const appRoutes: Routes = [
     component: ProfileComponent,
     /* , canActivate:[AuthGuard] */
   },
+  { path: "admin/adminDashboard", component: AdminDashboardComponent },
+  { path: "client/clientDashboard", component: ClientDashboardComponent },
 ];
 
 @NgModule({
@@ -41,6 +45,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     HomeComponent,
     ProfileComponent,
+    ClientDashboardComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     AppRoutingModule,
