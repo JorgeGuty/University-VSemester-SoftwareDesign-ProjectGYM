@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 
 import { User } from "../../Models/Users/User";
 import { mixinColor } from "@angular/material/core";
+import { ConnectionsServices } from "../Connections/connectionsConstants";
 
 @Injectable({
   providedIn: "root",
@@ -38,21 +39,28 @@ export class AuthService {
   // }
 
   authenticateUser(userInfo: User) {
-    return this.httpClient.post("http://localhost:3000/login", userInfo, {
-      headers: { "Content-Type": "application/json" },
-    });
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/login",
+      userInfo,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 
   // TODO: register in API
-  // getProfile() {
-  //   let headers = new HttpHeaders();
-  //   this.loadToken();
-  //   headers.append("Authorization", this.authToken);
-  //   headers.append("Content-Type", "application/json");
-  //   return this.httpClient.get("http://localhost:3000/user/profile", {
-  //     headers,
-  //   });
-  // }
+  getProfile() {
+    let headers = new HttpHeaders();
+    this.loadToken();
+    headers.append("Authorization", this.authToken);
+    headers.append("Content-Type", "application/json");
+    return this.httpClient.get(
+      ConnectionsServices.currentConnection + "/user/profile",
+      {
+        headers,
+      }
+    );
+  }
 
   storeUserData(token: string, user: User) {
     localStorage.setItem("id_token", token);
