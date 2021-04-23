@@ -65,7 +65,6 @@ func ReadTransaction(pQuery string) (*sql.Rows, error){
 	connect()
 	defer db.Close()
 
-
 	ctx := context.Background()
 	// Check if database is alive.
 	err := db.PingContext(ctx)

@@ -36,7 +36,9 @@ func GetUserByUsername(pUsername string) (Models.User, bool) {
 		Password: password,
 	}
 
-	fmt.Println(len(user.Password))
-
 	return user, true
+}
+
+func GetCurrentSessionSchedule() Models.Schedule{
+	return Models.Schedule{}
 }
