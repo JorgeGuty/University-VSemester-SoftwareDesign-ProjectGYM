@@ -2,6 +2,7 @@ package WebServer
 
 import (
 	"API/Models"
+	"API/Database/Requests"
 	_ "API/Models"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
@@ -63,3 +64,22 @@ func Login(context *fiber.Ctx) error {
 	return context.JSON(user)
 }
 
+
+func TokenTest (context *fiber.Ctx) error {
+
+	if token := context.Request().Header.Peek("Authorization"); token != nil{
+		fmt.Println(token)
+		return context.JSON(Models.ClientUser{
+			ID:       1,
+			Username: "usuario1",
+			Type:     2,
+			Name:     "fulano",
+			Email:    "f@gmail.com",
+			Phone:    "70560910",
+			Balance:  842344,
+		})
+	}
+
+	context.Status(fiber.StatusUnauthorized)
+	return context.JSON(fiber.Map{"message": "unauthorized"})
+}
