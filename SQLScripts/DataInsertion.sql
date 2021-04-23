@@ -1,3 +1,4 @@
+/*
 insert into dbo.TipoUsuario VALUES ('administrador'),('cliente')
 insert into dbo.TipoInstructor VALUES ('planta'),('temporal')
 
@@ -21,3 +22,4 @@ values
     (Nombre, Fecha, DuracionMinutos, Cupos, Costo, Estado, InstructorId, EspecialidadId, SalaId),
     (Nombre, Fecha, DuracionMinutos, Cupos, Costo, Estado, InstructorId, EspecialidadId, SalaId),
     (Nombre, Fecha, DuracionMinutos, Cupos, Costo, Estado, InstructorId, EspecialidadId, SalaId)
+*/
