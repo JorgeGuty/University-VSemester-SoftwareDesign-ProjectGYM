@@ -3,6 +3,7 @@ import { AuthService } from "../../../Services/Auth/auth.service";
 import { Router } from "@angular/router";
 
 import { User } from "../../../Models/Users/User";
+import { UserTypes } from "../../../Models/Users/UserTypes";
 
 @Component({
   selector: "app-login",
@@ -28,10 +29,24 @@ export class LoginComponent implements OnInit {
       password: this.log_password,
     };
 
-    this.authService.authenticateUser(user).subscribe((data) => {
-      console.log(data);
-      console.log("flag3");
-    });
+    this.authService.authenticateUser(user).subscribe(
+      (data: User) => {
+        console.log(data.username);
+        console.log(data.token);
+        console.log(data.type);
+        if (data.token != undefined)
+          this.authService.storeUserData(data.token, data);
+
+        if (data.type == UserTypes.Admin)
+          this.router.navigateByUrl("admin/adminDashboard");
+        if (data.type == UserTypes.Client)
+          this.router.navigateByUrl("client/clientDashboard");
+      },
+      (error) => {
+        //TODO: Display FlashMessages
+        this.router.navigateByUrl("/login");
+      }
+    );
   }
 
   onRegister() {

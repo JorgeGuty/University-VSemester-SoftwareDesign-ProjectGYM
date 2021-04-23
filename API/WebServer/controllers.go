@@ -1,8 +1,8 @@
 package WebServer
 
 import (
-	"API/Database/Requests"
 	"API/Models"
+	"API/Database/Requests"
 	_ "API/Models"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
@@ -29,7 +29,8 @@ func Login(context *fiber.Ctx) error {
 	username := data["username"]
 	password := data["password"]
 
-	user, success := Requests.GetUserByUsername(username)
+	// user, success := Requests.GetUserByUsername(username)
+	user , success := Models.User{ID: 1, Username: username, Password: password, Type: 1,Token: "HolaMundo"} , true
 
 	if !success {
 
