@@ -1,9 +1,9 @@
 export interface User {
-  _id?: string;
+  id?: string;
   username?: string;
-  //name?: string;
   password?: string;
-  isAdmin?: boolean;
+  type?: number;
+  token?: string;
 }
 
 export default User;
