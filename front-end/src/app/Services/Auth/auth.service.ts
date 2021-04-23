@@ -12,7 +12,7 @@ import { ConnectionsServices } from "../Connections/connectionsConstants";
 export class AuthService {
   private isAuthenticated: boolean;
   private currentUser: User;
-  private authToken: string;
+  private authToken: any;
   private user: any;
 
   constructor(private httpClient: HttpClient) {
@@ -52,12 +52,13 @@ export class AuthService {
   getProfile() {
     let headers = new HttpHeaders();
     this.loadToken();
-    headers.append("Authorization", this.authToken);
-    headers.append("Content-Type", "application/json");
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/user/profile",
+      ConnectionsServices.currentConnection + "/tokenTest",
       {
-        headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${this.authToken}`,
+        },
       }
     );
   }
@@ -72,11 +73,20 @@ export class AuthService {
   loadToken() {
     const token = localStorage.getItem("id_token");
     if (token != null) this.authToken = token;
+    console.log("Auth: " + this.authToken);
   }
+
+  // loadUserData() {
+  //   const userData = localStorage.getItem("user");
+  //   if (userData != null) {
+  //     return userData;
+  //   }
+  //   return "";
+  // }
 
   logout() {
     //null authToken is ""
-    this.authToken = "";
+    this.authToken = null;
     this.user = null;
     localStorage.clear();
   }

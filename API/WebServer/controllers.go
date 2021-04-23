@@ -2,7 +2,6 @@ package WebServer
 
 import (
 	"API/Models"
-	"API/Database/Requests"
 	_ "API/Models"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
