@@ -3,22 +3,11 @@ package WebServer
 import (
 	"API/Database/Requests"
 	_ "API/Database/Requests"
-	"API/Models"
 	_ "API/Models"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	_ "github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
-	"time"
 )
-
-type customClaims struct {
-	Username 	string `json:"username"`
-	Type		int		`json:"type"`
-	jwt.StandardClaims
-}
-
-const SecretKey = "secret"
 
 func Start(c *fiber.Ctx) error {
 	return c.SendString("Hello, World!")
@@ -52,21 +41,11 @@ func Login(context *fiber.Ctx) error {
 		return context.JSON(fiber.Map{"message":"incorrect password"})
 	}
 
-	claims := &jwt.StandardClaims{
-		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
-		Issuer:    "test",
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	signedToken, err := token.SignedString([]byte(SecretKey))
+	signedToken, err := getUserSignedToken(user.Username, user.Type)
 	if err != nil{
 		context.Status(fiber.StatusInternalServerError)
 		return context.JSON(fiber.Map{"message": "could not login"})
 	}
-
-	// Before late night fix
-	// return context.JSON(token)
 
 	user.Token = signedToken
 	return context.JSON(user)
@@ -76,33 +55,16 @@ func TokenTest (context *fiber.Ctx) error {
 
 	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
 
-	token, err := jwt.Parse(jwtFromHeader, func(token *jwt.Token) (interface{}, error) {
-		return []byte(SecretKey), nil
-	})
+	isValid, token := validateUserToken(jwtFromHeader)
 
-	if token.Valid {
-		return context.JSON(Models.ClientUser{
-			ID:       1,
-			Username: "usuario1",
-			Type:     2,
-			Name:     "fulano",
-			Email:    "f@gmail.com",
-			Phone:    "70560910",
-			Balance:  842344,
-		})
-	} else if ve, ok := err.(*jwt.ValidationError); ok {
-		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-			context.Status(fiber.StatusNotFound)
-			return context.JSON(fiber.Map{"message":"invalid token structure"})
-		} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
-			context.Status(fiber.StatusUnauthorized)
-			return context.JSON(fiber.Map{"message":"invalid token structure"})
-		} else {
-			context.Status(fiber.StatusInternalServerError)
-			return context.JSON(fiber.Map{"message": "could not handle token"})
-		}
+	if isValid {
+		return context.JSON(token.Claims)
 	} else {
-		context.Status(fiber.StatusInternalServerError)
-		return context.JSON(fiber.Map{"message": "could not handle token"})
+		context.Status(fiber.StatusUnauthorized)
+		return context.JSON(fiber.Map{
+			"success":"false",
+			"message":"invalid token",
+		})
 	}
+
 }
