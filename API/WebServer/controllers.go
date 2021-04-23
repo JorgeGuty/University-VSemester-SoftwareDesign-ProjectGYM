@@ -1,8 +1,9 @@
 package WebServer
 
 import (
-	"API/Models"
 	"API/Database/Requests"
+	"API/Models"
+	_ "API/Database/Requests"
 	_ "API/Models"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
@@ -29,8 +30,8 @@ func Login(context *fiber.Ctx) error {
 	username := data["username"]
 	password := data["password"]
 
-	// user, success := Requests.GetUserByUsername(username)
-	user , success := Models.User{ID: 1, Username: username, Password: password, Type: 1,Token: "HolaMundo"} , true
+	 user, success := Requests.GetUserByUsername(username)
+	//user , success := Models.User{ID: 1, Username: username, Password: password, Type: 1,Token: "HolaMundo"} , true
 
 	if !success {
 
@@ -83,3 +84,5 @@ func TokenTest (context *fiber.Ctx) error {
 	context.Status(fiber.StatusUnauthorized)
 	return context.JSON(fiber.Map{"message": "unauthorized"})
 }
+
+
