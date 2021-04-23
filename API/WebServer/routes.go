@@ -7,6 +7,7 @@ import (
 func setup(app *fiber.App){
 	app.Get("/", Start)
 	app.Post("/login", Login)
+	app.Get("/tokenTest", TokenTest)
 }
 
 
