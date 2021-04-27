@@ -50,24 +50,6 @@ func Login(context *fiber.Ctx) error {
 	return giveJSONResponse(context, user, fiber.StatusOK)
 }
 
-func TokenTest (context *fiber.Ctx) error {
-
-	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
-
-	isValid, token := validateUserToken(jwtFromHeader)
-
-	if isValid {
-		return context.JSON(token.Claims)
-	} else {
-		context.Status(fiber.StatusUnauthorized)
-		return context.JSON(fiber.Map{
-			"success":"false",
-			"message":"invalid token",
-		})
-	}
-
-}
-
 func getUserInfo (context *fiber.Ctx) error {
 
 	isValid, token := AnalyzeToken(context)
@@ -92,7 +74,6 @@ func getUserInfo (context *fiber.Ctx) error {
 	}
 
 	return giveJSONResponse(context, dummyUser, fiber.StatusOK)
-
 }
 
 func AnalyzeToken (context *fiber.Ctx) (bool, *jwt.Token) {
