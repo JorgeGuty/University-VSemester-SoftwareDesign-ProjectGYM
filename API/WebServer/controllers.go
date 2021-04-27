@@ -14,33 +14,33 @@ func Start(c *fiber.Ctx) error {
 }
 
 func Login(context *fiber.Ctx) error {
-
+	// mapping data parameters from body
 	var data map[string]string
-
 	if err := context.BodyParser(&data); err != nil {
 		return err
 	}
-
 	username := data["username"]
 	password := data["password"]
 
+
+	// db request
 	 user, success := Requests.GetUserByUsername(username)
-	//user , success := Models.User{ID: 1, Username: username, Password: password, Type: 1,Token: "HolaMundo"} , true
 
+	// user existence validation
 	if !success {
-
 		context.Status(fiber.StatusNotFound)
 		return context.JSON(fiber.Map{"message":"user not found"})
 
 	}
 
+	//  password validation
 	if  user.Password != password {
-
 		context.Status(fiber.StatusUnauthorized)
 		fmt.Println(password+user.Password)
 		return context.JSON(fiber.Map{"message":"incorrect password"})
 	}
 
+	// token creation
 	signedToken, err := getUserSignedToken(user.Username, user.Type)
 	if err != nil{
 		context.Status(fiber.StatusInternalServerError)
