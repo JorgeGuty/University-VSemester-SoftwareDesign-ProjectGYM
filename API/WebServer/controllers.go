@@ -30,45 +30,24 @@ func Login(context *fiber.Ctx) error {
 
 	// user existence validation
 	if !success {
-		context.Status(fiber.StatusNotFound)
-		return context.JSON(fiber.Map{"message":"user not found"})
+		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusNotFound)
 
 	}
 
 	//  password validation
 	if  user.Password != password {
-		context.Status(fiber.StatusUnauthorized)
-		fmt.Println(password+user.Password)
-		return context.JSON(fiber.Map{"message":"incorrect password"})
+		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
 	// token creation
 	signedToken, err := getUserSignedToken(user.Username, user.Type)
 	if err != nil{
-		context.Status(fiber.StatusInternalServerError)
-		return context.JSON(fiber.Map{"message": "could not login"})
+		return giveJSONResponse(context, Models.Error{Message: CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
+	// returns user info
 	user.Token = signedToken
-	return context.JSON(user)
-}
-
-func TokenTest (context *fiber.Ctx) error {
-
-	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
-
-	isValid, token := validateUserToken(jwtFromHeader)
-
-	if isValid {
-		return context.JSON(token.Claims)
-	} else {
-		context.Status(fiber.StatusUnauthorized)
-		return context.JSON(fiber.Map{
-			"success":"false",
-			"message":"invalid token",
-		})
-	}
-
+	return giveJSONResponse(context, user, fiber.StatusOK)
 }
 
 func getUserInfo (context *fiber.Ctx) error {
@@ -76,10 +55,7 @@ func getUserInfo (context *fiber.Ctx) error {
 	isValid, token := AnalyzeToken(context)
 
 	if !isValid {
-		return context.JSON(fiber.Map{
-			"success":"false",
-			"message":"invalid token",
-		})
+		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
 	}
 
 	user := getUsernameFromToken(token)
@@ -87,7 +63,7 @@ func getUserInfo (context *fiber.Ctx) error {
 
 	fmt.Println(user)
 
-	return context.JSON(Models.ClientUser{
+	dummyUser := Models.ClientUser{
 		ID:       10,
 		Username: user,
 		Type:     userType,
@@ -95,10 +71,10 @@ func getUserInfo (context *fiber.Ctx) error {
 		Email:    "e@e.com",
 		Phone:    "70560910",
 		Balance:  12345.0,
-	})
+	}
 
+	return giveJSONResponse(context, dummyUser, fiber.StatusOK)
 }
-
 
 func AnalyzeToken (context *fiber.Ctx) (bool, *jwt.Token) {
 	
@@ -110,7 +86,7 @@ func AnalyzeToken (context *fiber.Ctx) (bool, *jwt.Token) {
 	return isValid, token
 }
 
-func GiveJSONResponse(context *fiber.Ctx, pJSON string, pStatus int) error {
+func giveJSONResponse(context *fiber.Ctx, pJSON interface{}, pStatus int) error {
 	context.Status(pStatus)
 	return context.JSON(pJSON)
 }
