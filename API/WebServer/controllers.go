@@ -42,7 +42,7 @@ func Login(context *fiber.Ctx) error {
 	// token creation
 	signedToken, err := getUserSignedToken(user.Username, user.Type)
 	if err != nil{
-		return giveJSONResponse(context, Models.Error{Message: CouldNotloginError}, fiber.StatusInternalServerError)
+		return giveJSONResponse(context, Models.Error{Message: CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
 	// returns user info

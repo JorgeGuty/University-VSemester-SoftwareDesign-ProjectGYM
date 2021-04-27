@@ -24,7 +24,7 @@ type Sesion struct {
 }
 
 type Schedule struct {
-
+	Sessions []Sesion `json:"sessions"`
 }
 
 type User struct {
