@@ -1,5 +1,9 @@
 package Models
 
+type Error struct {
+	Message string `json:"message"`
+}
+
 type Client struct {
 	Name	string
 	Email	string
