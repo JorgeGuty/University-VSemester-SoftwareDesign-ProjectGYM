@@ -19,7 +19,7 @@
     >
     <a
       *ngIf="authService.loggedIn() && this.isAdmin()"
-      [routerLink]="['/client/clientDashboard']"
+      [routerLink]="['/admin/adminDashboard']"
       mat-button
       color="primary"
       >Admin Dashboard</a
