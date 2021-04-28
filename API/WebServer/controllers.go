@@ -59,20 +59,10 @@ func getUserInfo (context *fiber.Ctx) error {
 	}
 
 	user := getUsernameFromToken(token)
-	userType := getUserTypeFromToken(token)
 
 	fmt.Println(user)
 
-	dummyUser := Models.ClientUser{
-		ID:       10,
-		Username: user,
-		Type:     userType,
-		Name:     "Elfu Lano",
-		Email:    "e@e.com",
-		Phone:    "70560910",
-		Balance:  12345.0,
-	}
-
+	dummyUser := Requests.GetClientProfileInfo(user)
 	return giveJSONResponse(context, dummyUser, fiber.StatusOK)
 }
 
@@ -84,11 +74,7 @@ func getActiveSchedule(context *fiber.Ctx) error {
 		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
 	}
 
-	dummySession1 := Models.Session{}
-	dummySession2 := Models.Session{}
-	dummySession3 := Models.Session{}
-
-	dummySchedule := Models.Schedule{Sessions: []Models.Session{dummySession1,dummySession2,dummySession3}}
+	dummySchedule := Requests.GetCurrentSessionSchedule()
 
 	return giveJSONResponse(context, dummySchedule, fiber.StatusOK)
 
