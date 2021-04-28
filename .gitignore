@@ -12,6 +12,15 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
 
 front-end/node_modules/
+
+API/.idea/
+
+sqltools_20210422205540_15848.log
+*.log
+
+.vscode/
+
+.vscode/

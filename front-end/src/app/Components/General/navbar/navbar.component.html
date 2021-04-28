@@ -1,0 +1,17 @@
+<p>
+  <mat-toolbar>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <a [routerLink]="['/']" mat-button color="primary">Home</a>
+    <a [routerLink]="['/profile']" mat-button color="primary">Profile</a>
+    <a [routerLink]="['/login']" mat-button color="primary">Login</a>
+    <a (click)="onLogout()" href="#" mat-button color="primary">Logout</a>
+  </mat-toolbar>
+</p>
