@@ -30,7 +30,7 @@ type Service struct {
 }
 
 type Session struct {
-	ID					int		`json:"id"`
+	ID					int				`json:"id"`
 	Name 				string 			`json:"name"`
 	Date 				civil.DateTime 	`json:"date"`
 	DurationMin 		int 			`json:"duration_min"`
@@ -42,7 +42,6 @@ type Session struct {
 
 type Schedule struct {
 	Sessions []Session `json:"sessions"`
-
 }
 
 type User struct {
