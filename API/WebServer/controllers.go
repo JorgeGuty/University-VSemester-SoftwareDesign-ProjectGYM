@@ -71,6 +71,7 @@ func getUserInfo (context *fiber.Ctx) error {
 		Email:    "e@e.com",
 		Phone:    "70560910",
 		Balance:  12345.0,
+		Identification: 117880578,
 	}
 
 	return giveJSONResponse(context, dummyUser, fiber.StatusOK)

@@ -1,6 +1,6 @@
 export enum UserTypes {
   Admin = 1,
-  Client,
+  Client = 2,
 }
 
 export default UserTypes;

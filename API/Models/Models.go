@@ -37,11 +37,12 @@ type User struct {
 
 
 type ClientUser struct {
-	ID			int		`json:"id"`
-	Username 	string	`json:"username"`
-	Type 		int		`json:"type"`
-	Name		string	`json:"name"`
-	Email		string	`json:"email"`
-	Phone		string	`json:"phone"`
-	Balance		int		`json:"balance"`
+	ID             int    `json:"id"`
+	Username       string `json:"username"`
+	Type           int    `json:"type"`
+	Name           string `json:"name"`
+	Email          string `json:"email"`
+	Phone          string `json:"phone"`
+	Balance        int    `json:"balance"`
+	Identification int	  `json:"identification"`
 }
