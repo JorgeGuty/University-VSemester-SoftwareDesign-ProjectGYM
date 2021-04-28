@@ -42,7 +42,7 @@ func GetUserByUsername(pUsername string) (Models.User, bool) {
 
 func GetCurrentSessionSchedule() Models.Schedule{
 
-	var dummySession1 = Models.Session{
+	dummySession1 := Models.Session{
 		ID:                1,
 		Name:              "Yoga con Juan",
 		Date:              civil.DateTime{
@@ -84,13 +84,13 @@ func GetCurrentSessionSchedule() Models.Schedule{
 				Day:   30,
 			},
 			Time: civil.Time{
-				Hour:       15,
+				Hour:       13,
 				Minute:     30,
 				Second:     0,
 				Nanosecond: 0,
 			},
 		},
-		DurationMin:       120,
+		DurationMin:       60,
 		AvailableSpaces:   15,
 		Cost:              20000000,
 		SessionInstructor: Models.Instructor{
@@ -116,7 +116,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 				Day:   30,
 			},
 			Time: civil.Time{
-				Hour:       15,
+				Hour:       11,
 				Minute:     30,
 				Second:     0,
 				Nanosecond: 0,
