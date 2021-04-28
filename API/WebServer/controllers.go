@@ -76,12 +76,28 @@ func getUserInfo (context *fiber.Ctx) error {
 	return giveJSONResponse(context, dummyUser, fiber.StatusOK)
 }
 
+func getActiveSchedule(context *fiber.Ctx) error {
+
+	isValid, _ := analyzeToken(context)
+
+	if !isValid {
+		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
+	}
+
+	dummySession1 := Models.Session{}
+	dummySession2 := Models.Session{}
+	dummySession3 := Models.Session{}
+
+	dummySchedule := Models.Schedule{Sessions: []Models.Session{dummySession1,dummySession2,dummySession3}}
+
+	return giveJSONResponse(context, dummySchedule, fiber.StatusOK)
+
+}
+
 func analyzeToken(context *fiber.Ctx) (bool, *jwt.Token) {
 	
 	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
 	isValid, token := validateUserToken(jwtFromHeader)
-	fmt.Println("isValid: ")
-	fmt.Println(isValid)
 
 	return isValid, token
 }
