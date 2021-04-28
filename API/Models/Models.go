@@ -32,7 +32,8 @@ type Service struct {
 type Session struct {
 	ID					int				`json:"id"`
 	Name 				string 			`json:"name"`
-	Date 				civil.DateTime 	`json:"date"`
+	Date 				civil.Date 		`json:"date"`
+	Time 				civil.Time		`json:"time"`
 	DurationMin 		int 			`json:"duration_min"`
 	AvailableSpaces 	int 			`json:"available_spaces"`
 	Cost 				int				`json:"cost"`

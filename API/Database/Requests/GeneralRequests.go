@@ -45,18 +45,16 @@ func GetCurrentSessionSchedule() Models.Schedule{
 	dummySession1 := Models.Session{
 		ID:                1,
 		Name:              "Yoga con Juan",
-		Date:              civil.DateTime{
-			Date: civil.Date{
-				Year:  2021,
-				Month: 4,
-				Day:   30,
-			},
-			Time: civil.Time{
-				Hour:       15,
-				Minute:     30,
-				Second:     0,
-				Nanosecond: 0,
-			},
+		Date: civil.Date{
+			Year:  2021,
+			Month: 4,
+			Day:   30,
+		},
+		Time: civil.Time{
+			Hour:       15,
+			Minute:     30,
+			Second:     0,
+			Nanosecond: 0,
 		},
 		DurationMin:       120,
 		AvailableSpaces:   15,
@@ -77,18 +75,16 @@ func GetCurrentSessionSchedule() Models.Schedule{
 	dummySession2 := Models.Session{
 		ID:                1,
 		Name:              "Yoga con Pedro",
-		Date:              civil.DateTime{
-			Date: civil.Date{
-				Year:  2021,
-				Month: 4,
-				Day:   30,
-			},
-			Time: civil.Time{
-				Hour:       13,
-				Minute:     30,
-				Second:     0,
-				Nanosecond: 0,
-			},
+		Date: civil.Date{
+			Year:  2021,
+			Month: 4,
+			Day:   30,
+		},
+		Time: civil.Time{
+			Hour:       13,
+			Minute:     30,
+			Second:     0,
+			Nanosecond: 0,
 		},
 		DurationMin:       60,
 		AvailableSpaces:   15,
@@ -109,18 +105,16 @@ func GetCurrentSessionSchedule() Models.Schedule{
 	dummySession3 := Models.Session{
 		ID:                1,
 		Name:              "Funcional con Fulano",
-		Date:              civil.DateTime{
-			Date: civil.Date{
-				Year:  2021,
-				Month: 4,
-				Day:   30,
-			},
-			Time: civil.Time{
-				Hour:       11,
-				Minute:     30,
-				Second:     0,
-				Nanosecond: 0,
-			},
+		Date: civil.Date{
+			Year:  2021,
+			Month: 4,
+			Day:   30,
+		},
+		Time: civil.Time{
+			Hour:       11,
+			Minute:     30,
+			Second:     0,
+			Nanosecond: 0,
 		},
 		DurationMin:       120,
 		AvailableSpaces:   15,
