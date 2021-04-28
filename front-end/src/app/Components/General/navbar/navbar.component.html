@@ -9,13 +9,7 @@
     </button>
     <span>My App</span>
     <span class="example-spacer"></span>
-    <a
-      *ngIf="authService.loggedIn()"
-      [routerLink]="['/']"
-      mat-button
-      color="primary"
-      >Home</a
-    >
+    <a [routerLink]="['/']" mat-button color="primary">Home</a>
     <a
       *ngIf="authService.loggedIn() && !this.isAdmin()"
       [routerLink]="['/client/clientDashboard']"
