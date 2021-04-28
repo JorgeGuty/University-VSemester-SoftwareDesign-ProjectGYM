@@ -1,41 +1,41 @@
 <p>
-  <mat-toolbar>
+  <mat-toolbar class="navbar-color">
     <button
       mat-icon-button
       class="example-icon"
       aria-label="Example icon-button with menu icon"
     >
-      <mat-icon>menu</mat-icon>
+      <mat-icon class="button-color">menu</mat-icon>
     </button>
-    <span>My App</span>
+    <span class="button-color">+ GYM</span>
     <span class="example-spacer"></span>
-    <a [routerLink]="['/']" mat-button color="primary">Home</a>
+    <a [routerLink]="['/']" mat-button class="button-color">Home</a>
     <a
       *ngIf="authService.loggedIn() && !this.isAdmin()"
       [routerLink]="['/client/clientDashboard']"
       mat-button
-      color="primary"
+      class="button-color"
       >My Dashboard</a
     >
     <a
       *ngIf="authService.loggedIn() && this.isAdmin()"
       [routerLink]="['/admin/adminDashboard']"
       mat-button
-      color="primary"
+      class="button-color"
       >Admin Dashboard</a
     >
     <a
       *ngIf="authService.loggedIn() && !this.isAdmin()"
       [routerLink]="['/profile']"
       mat-button
-      color="primary"
+      class="button-color"
       >Profile</a
     >
     <a
       *ngIf="!authService.loggedIn()"
       [routerLink]="['/login']"
       mat-button
-      color="primary"
+      class="button-color"
       >Login</a
     >
     <a
@@ -43,7 +43,7 @@
       (click)="onLogout()"
       href="#"
       mat-button
-      color="primary"
+      class="button-color"
       >Logout</a
     >
   </mat-toolbar>
