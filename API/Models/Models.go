@@ -1,5 +1,9 @@
 package Models
 
+type Error struct {
+	Message string `json:"message"`
+}
+
 type Client struct {
 	Name	string
 	Email	string
@@ -15,12 +19,12 @@ type Instructor struct {
 
 }
 
-type Sesion struct {
+type Session struct {
 
 }
 
 type Schedule struct {
-
+	Sessions []Session `json:"sessions"`
 }
 
 type User struct {
