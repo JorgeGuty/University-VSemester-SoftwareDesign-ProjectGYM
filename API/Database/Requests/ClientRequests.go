@@ -2,7 +2,7 @@ package Requests
 
 import "API/Models"
 
-func GetProfileInfo(pUsername string) Models.ClientUser {
+func GetClientProfileInfo(pUsername string) Models.ClientUser {
 
 	dummyUser := Models.ClientUser{
 		ID:       10,

@@ -65,7 +65,6 @@ type ClientUser struct {
 type AdminUser struct {
 	ID			int		`json:"id"`
 	Username 	string	`json:"username"`
-	Type 		int		`json:"type"`
 	Name		string	`json:"name"`
 }
 
