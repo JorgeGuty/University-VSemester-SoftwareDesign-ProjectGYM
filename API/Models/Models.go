@@ -19,12 +19,12 @@ type Instructor struct {
 
 }
 
-type Sesion struct {
+type Session struct {
 
 }
 
 type Schedule struct {
-	Sessions []Sesion `json:"sessions"`
+	Sessions []Session `json:"sessions"`
 }
 
 type User struct {
