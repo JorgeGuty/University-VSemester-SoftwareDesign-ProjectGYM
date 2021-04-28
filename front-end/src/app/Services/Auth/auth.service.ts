@@ -53,7 +53,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     this.loadToken();
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/tokenTest",
+      ConnectionsServices.currentConnection + "/userInfo",
       {
         headers: {
           "Content-Type": "application/json",
@@ -68,6 +68,7 @@ export class AuthService {
     localStorage.setItem("user", JSON.stringify(user));
     this.authToken = token;
     this.user = user;
+    console.log("Guarde los datos");
   }
 
   loadToken() {
