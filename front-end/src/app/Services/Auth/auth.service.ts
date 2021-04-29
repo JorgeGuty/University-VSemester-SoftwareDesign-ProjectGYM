@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 import { User } from "../../Models/Users/User";
 import { mixinColor } from "@angular/material/core";
@@ -11,18 +12,14 @@ import { ConnectionsServices } from "../Connections/connectionsConstants";
 })
 export class AuthService {
   private isAuthenticated: boolean;
-  private currentUser: User;
+  private currentUser?: User;
   private authToken: any;
-  private user: any;
+  private helper = new JwtHelperService();
 
   constructor(private httpClient: HttpClient) {
     this.isAuthenticated = false;
     this.authToken = "";
-    this.currentUser = {
-      id: "",
-      username: "",
-      password: "",
-    };
+    this.currentUser = undefined;
   }
 
   // TODO: register in API
@@ -53,7 +50,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     this.loadToken();
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/tokenTest",
+      ConnectionsServices.currentConnection + "/userInfo",
       {
         headers: {
           "Content-Type": "application/json",
@@ -67,13 +64,18 @@ export class AuthService {
     localStorage.setItem("id_token", token);
     localStorage.setItem("user", JSON.stringify(user));
     this.authToken = token;
-    this.user = user;
+    this.currentUser = user;
+    console.log(this.currentUser);
+    console.log("Guarde los datos");
   }
 
   loadToken() {
     const token = localStorage.getItem("id_token");
     if (token != null) this.authToken = token;
-    console.log("Auth: " + this.authToken);
+    const user = localStorage.getItem("user");
+    if (user != undefined) this.currentUser = JSON.parse(user);
+    console.log("Token Loaded: " + this.authToken);
+    console.log("User Loaded: " + this.currentUser);
   }
 
   // loadUserData() {
@@ -84,10 +86,20 @@ export class AuthService {
   //   return "";
   // }
 
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
+  loggedIn() {
+    const isExpired = this.helper.isTokenExpired(this.authToken);
+    return !isExpired;
+  }
+
   logout() {
     //null authToken is ""
+    console.log("Sali");
     this.authToken = null;
-    this.user = null;
+    this.currentUser = undefined;
     localStorage.clear();
   }
 }
