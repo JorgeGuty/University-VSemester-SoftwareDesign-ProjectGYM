@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS dbo.TipoUsuario;
 DROP TABLE IF EXISTS dbo.Credito;
 DROP TABLE IF EXISTS dbo.Movimientos;
 DROP TABLE IF EXISTS dbo.TipoMovimiento;
-DROP TABLE IF EXISTS dbo.FormasDePago;
+DROP TABLE IF EXISTS dbo.FormaDePago;
 
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
@@ -43,7 +43,7 @@ GO
 -- Catalog
 
 CREATE TABLE [dbo].[TipoUsuario](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] NOT NULL,
 	[Nombre] [nvarchar](50) NOT NULL
 ) ON [PRIMARY]
 GO
@@ -54,7 +54,7 @@ ALTER TABLE [dbo].[TipoUsuario] ADD  CONSTRAINT [PK_TipoUsuario] PRIMARY KEY CLU
 GO
 
 CREATE TABLE [dbo].[TipoMovimiento](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] NOT NULL,
 	[Nombre] [nvarchar](50) NOT NULL
 ) ON [PRIMARY]
 GO
@@ -64,12 +64,12 @@ ALTER TABLE [dbo].[TipoMovimiento] ADD  CONSTRAINT [PK_TipoMovimiento] PRIMARY K
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 
-CREATE TABLE [dbo].[FormasDePago](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+CREATE TABLE [dbo].[FormaDePago](
+	[Id] [int] NOT NULL,
 	[Nombre] [nvarchar](50) NOT NULL
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[FormasDePago] ADD  CONSTRAINT [PK_FormasDePago] PRIMARY KEY CLUSTERED 
+ALTER TABLE [dbo].[FormaDePago] ADD  CONSTRAINT [PK_FormaDePago] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -111,7 +111,7 @@ CREATE TABLE [dbo].[Cliente](
 	[Nombre] [nvarchar](50) NOT NULL,
 	[Correo] [nvarchar](50) NOT NULL,
 	[Celular] [nvarchar](50) NOT NULL,
-	[Saldo] [decimal](19, 4) NOT NULL,
+	[Saldo] [decimal](19, 4) NOT NULL DEFAULT 0.0,
 	[Active] [bit] NOT NULL DEFAULT 1
 ) ON [PRIMARY]
 
@@ -164,7 +164,7 @@ GO
 
 CREATE TABLE [dbo].[UsuarioAdmin](
 	[Id] [int] NOT NULL,
-	[Nombre] [int] NOT NULL
+	[Nombre] nvarchar(50) NOT NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[UsuarioAdmin] ADD  CONSTRAINT [PK_UsuarioAdmin] PRIMARY KEY CLUSTERED 
@@ -204,7 +204,7 @@ ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_TipoMovimiento]
 GO
 
 CREATE TABLE [dbo].[Credito](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] NOT NULL,
 	[FormaDePagoId] [int] NOT NULL
 ) ON [PRIMARY]
 GO
@@ -213,10 +213,10 @@ ALTER TABLE [dbo].[Credito] ADD  CONSTRAINT [PK_Credito] PRIMARY KEY CLUSTERED
 	[Id] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_FormasDePago] FOREIGN KEY([FormaDePagoId])
-REFERENCES [dbo].[FormasDePago] ([Id])
+ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_FormaDePago] FOREIGN KEY([FormaDePagoId])
+REFERENCES [dbo].[FormaDePago] ([Id])
 GO
-ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_FormasDePago]
+ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_FormaDePago]
 GO
 ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_Movimientos] FOREIGN KEY([Id])
 REFERENCES [dbo].[Movimientos] ([Id])
