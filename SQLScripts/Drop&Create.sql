@@ -127,7 +127,7 @@ CREATE TABLE [dbo].[Usuario](
 	[Username] [nvarchar](50) NOT NULL UNIQUE,
 	[Password] [nvarchar](50) NOT NULL,
 	[TipoUsuario] [int] NOT NULL,
-	[Estado] [bit] NOT NULL DEFAULT 1
+	[Activo] [bit] NOT NULL DEFAULT 1
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[Usuario] ADD  CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
@@ -143,7 +143,7 @@ GO
 
 CREATE TABLE [dbo].[UsuarioCliente](
 	[Id] [int]  NOT NULL,
-	[ClientId] [int] NOT NULL
+	[ClienteId] [int] NOT NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[UsuarioCliente] ADD  CONSTRAINT [PK_UsuarioCliente] PRIMARY KEY CLUSTERED 
@@ -151,7 +151,7 @@ ALTER TABLE [dbo].[UsuarioCliente] ADD  CONSTRAINT [PK_UsuarioCliente] PRIMARY K
 	[Id] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[UsuarioCliente]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioCliente_Cliente] FOREIGN KEY([ClientId])
+ALTER TABLE [dbo].[UsuarioCliente]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioCliente_Cliente] FOREIGN KEY([ClienteId])
 REFERENCES [dbo].[Cliente] ([Id])
 GO
 ALTER TABLE [dbo].[UsuarioCliente] CHECK CONSTRAINT [FK_UsuarioCliente_Cliente]
