@@ -142,7 +142,7 @@ ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_TipoUsuario]
 GO
 
 CREATE TABLE [dbo].[UsuarioCliente](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int]  NOT NULL,
 	[ClientId] [int] NOT NULL
 ) ON [PRIMARY]
 GO
@@ -163,7 +163,7 @@ ALTER TABLE [dbo].[UsuarioCliente] CHECK CONSTRAINT [FK_UsuarioCliente_Usuario]
 GO
 
 CREATE TABLE [dbo].[UsuarioAdmin](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] NOT NULL,
 	[Nombre] [int] NOT NULL
 ) ON [PRIMARY]
 GO
