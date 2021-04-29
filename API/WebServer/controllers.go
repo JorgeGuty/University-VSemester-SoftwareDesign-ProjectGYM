@@ -52,37 +52,38 @@ func Login(context *fiber.Ctx) error {
 
 func getUserInfo (context *fiber.Ctx) error {
 
-	isValid, token := AnalyzeToken(context)
+	isValid, token := analyzeToken(context)
 
 	if !isValid {
 		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
 	}
 
 	user := getUsernameFromToken(token)
-	userType := getUserTypeFromToken(token)
 
 	fmt.Println(user)
-
-	dummyUser := Models.ClientUser{
-		ID:       10,
-		Username: user,
-		Type:     userType,
-		Name:     "Elfu Lano",
-		Email:    "e@e.com",
-		Phone:    "70560910",
-		Balance:  12345.0,
-		Identification: 117880578,
-	}
-
+	
+	dummyUser := Requests.GetClientProfileInfo(user)
 	return giveJSONResponse(context, dummyUser, fiber.StatusOK)
 }
 
-func AnalyzeToken (context *fiber.Ctx) (bool, *jwt.Token) {
+func getActiveSchedule(context *fiber.Ctx) error {
+
+	isValid, _ := analyzeToken(context)
+
+	if !isValid {
+		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
+	}
+
+	dummySchedule := Requests.GetCurrentSessionSchedule()
+
+	return giveJSONResponse(context, dummySchedule, fiber.StatusOK)
+
+}
+
+func analyzeToken(context *fiber.Ctx) (bool, *jwt.Token) {
 	
 	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
 	isValid, token := validateUserToken(jwtFromHeader)
-	fmt.Println("isValid: ")
-	fmt.Println(isValid)
 
 	return isValid, token
 }
