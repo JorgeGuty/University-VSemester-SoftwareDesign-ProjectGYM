@@ -83,5 +83,7 @@ insert into
 values 
     ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 12:00:00'), 120, 12, 5000.00, 1, 1, 1),
     ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 14:00:00'), 120, 12, 5000.00, 2, 2, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-26 16:00:00'), 120, 12, 5000.00, 3, 1, 1)
+    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-26 16:00:00'), 120, 12, 5000.00, 3, 1, 1),
+     ('Sesion de Super Yoga ', CONVERT(DATETIME, '2021-04-27 12:00:00'), 120, 12, 5000.00, 3, 1, 1),
+     ('Sesion de Super Yoga ', CONVERT(DATETIME, '2021-04-28 10:00:00'), 120, 12, 5000.00, 3, 1, 1)
 
