@@ -1,6 +1,7 @@
-package WebServer
+package Controllers
 
 import (
+	"API/Database/Common"
 	"API/Database/Requests"
 	"API/Models"
 	"github.com/gofiber/fiber/v2"
@@ -20,19 +21,19 @@ func Login(context *fiber.Ctx) error {
 
 	// user existence validation
 	if !success {
-		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusNotFound)
+		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusNotFound)
 
 	}
 
 	//  password validation
 	if  user.Password != password {
-		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusUnauthorized)
+		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
 	// token creation
 	signedToken, err := GetUserSignedToken(user.Username, user.Type)
 	if err != nil{
-		return giveJSONResponse(context, Models.Error{Message: CouldNotLoginError}, fiber.StatusInternalServerError)
+		return giveJSONResponse(context, Models.Error{Message: Common.CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
 	// returns user info

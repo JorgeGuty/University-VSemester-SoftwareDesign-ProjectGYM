@@ -1,4 +1,4 @@
-package WebServer
+package Controllers
 
 import (
 	"fmt"

@@ -13,7 +13,7 @@ func GetClientProfileInfo(pUsername string) Models.ClientUser {
 		Name:     "Elfu Lano",
 		Email:    "e@e.com",
 		Phone:    "70560910",
-		Balance:  12345.0,
+		Balance:  "12345.0",
 	}
 
 	return dummyUser
@@ -38,7 +38,7 @@ func GetReservedSessions() Models.Schedule {
 		},
 		DurationMin:       120,
 		AvailableSpaces:   15,
-		Cost:              20000000,
+		Cost:              "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             2,
 			Name:           "Juan",

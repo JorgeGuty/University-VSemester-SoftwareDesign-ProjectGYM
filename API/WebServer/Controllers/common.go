@@ -1,6 +1,7 @@
-package WebServer
+package Controllers
 
 import (
+	"API/Database/Common"
 	_ "API/Database/Requests"
 	"API/Models"
 	_ "API/Models"
@@ -21,7 +22,7 @@ func analyzeToken(context *fiber.Ctx) *jwt.Token {
 	isValid, token := ValidateUserToken(jwtFromHeader)
 
 	if !isValid {
-		_ = giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
+		_ = giveJSONResponse(context, Models.Error{Message: Common.InvalidTokenError}, fiber.StatusUnauthorized)
 		return nil
 	}
 
