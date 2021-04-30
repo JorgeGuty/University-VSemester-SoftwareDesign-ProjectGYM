@@ -24,19 +24,9 @@ import { ProfileComponent } from "./Components/Profile/profile/profile.component
 import { ClientDashboardComponent } from "./Components/Dashboards/client-dashboard/client-dashboard.component";
 import { AdminDashboardComponent } from "./Components/Dashboards/admin-dashboard/admin-dashboard.component";
 
-/* Components */
-
-const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  { path: "login", component: LoginComponent },
-  {
-    path: "profile",
-    component: ProfileComponent,
-    /* , canActivate:[AuthGuard] */
-  },
-  { path: "admin/adminDashboard", component: AdminDashboardComponent },
-  { path: "client/clientDashboard", component: ClientDashboardComponent },
-];
+/* Routes Guarding */
+import { AuthAdminGuard } from "./Guards/authAdmin.guard";
+import { AuthUserGuard } from "./Guards/authUser.guard";
 
 @NgModule({
   declarations: [
@@ -60,9 +50,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatTabsModule,
     MatToolbarModule,
-    RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
