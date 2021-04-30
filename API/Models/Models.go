@@ -36,7 +36,7 @@ type Session struct {
 	Time 				civil.Time		`json:"time"`
 	DurationMin 		int 			`json:"duration_min"`
 	AvailableSpaces 	int 			`json:"available_spaces"`
-	Cost 				int				`json:"cost"`
+	Cost 				string			`json:"cost"`
 	SessionInstructor 	Instructor 		`json:"session_instructor"`
 	SessionService 		Service 		`json:"session_service"`
 }
@@ -61,8 +61,8 @@ type ClientUser struct {
 	Name           string `json:"name"`
 	Email          string `json:"email"`
 	Phone          string `json:"phone"`
-	Balance        int    `json:"balance"`
-	Identification int	  `json:"identification"`
+	Balance        string `json:"balance"`
+	Identification string `json:"identification"`
 }
 
 type AdminUser struct {

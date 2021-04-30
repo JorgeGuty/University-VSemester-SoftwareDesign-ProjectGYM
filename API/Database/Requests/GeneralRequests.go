@@ -44,7 +44,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		},
 		DurationMin:       120,
 		AvailableSpaces:   15,
-		Cost:              20000000,
+		Cost:              "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             2,
 			Name:           "Juan",
@@ -74,7 +74,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		},
 		DurationMin:       60,
 		AvailableSpaces:   15,
-		Cost:              20000000,
+		Cost:              "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             1,
 			Name:           "Pedro",
@@ -104,7 +104,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		},
 		DurationMin:       120,
 		AvailableSpaces:   15,
-		Cost:              20000000,
+		Cost:              "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             3,
 			Name:           "Fulano",
