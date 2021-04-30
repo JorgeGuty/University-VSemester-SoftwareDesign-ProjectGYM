@@ -32,7 +32,8 @@ type Service struct {
 type Session struct {
 	ID					int				`json:"id"`
 	Name 				string 			`json:"name"`
-	Date 				civil.DateTime 	`json:"date"`
+	Date 				civil.Date 		`json:"date"`
+	Time 				civil.Time		`json:"time"`
 	DurationMin 		int 			`json:"duration_min"`
 	AvailableSpaces 	int 			`json:"available_spaces"`
 	Cost 				int				`json:"cost"`
@@ -44,7 +45,7 @@ type Schedule struct {
 	Sessions []Session `json:"sessions"`
 }
 
-type User struct {
+type Login struct {
 	ID			int		`json:"id"`
 	Username 	string	`json:"username"`
 	Type 		int		`json:"type"`
@@ -54,12 +55,14 @@ type User struct {
 
 
 type ClientUser struct {
-	ID			int		`json:"id"`
-	Username 	string	`json:"username"`
-	Name		string	`json:"name"`
-	Email		string	`json:"email"`
-	Phone		string	`json:"phone"`
-	Balance		int		`json:"balance"`
+	ID             int    `json:"id"`
+	Username       string `json:"username"`
+	Type           int    `json:"type"`
+	Name           string `json:"name"`
+	Email          string `json:"email"`
+	Phone          string `json:"phone"`
+	Balance        int    `json:"balance"`
+	Identification int	  `json:"identification"`
 }
 
 type AdminUser struct {

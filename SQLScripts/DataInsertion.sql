@@ -1,6 +1,60 @@
+USE PlusGymProject
 
-insert into dbo.TipoUsuario VALUES ('administrador'),('cliente')
-insert into dbo.TipoInstructor VALUES ('planta'),('temporal')
+INSERT INTO FormaDePago (Id, Nombre)
+VALUES (1, 'Tarjeta');
+
+INSERT INTO TipoUsuario (Id, Nombre)
+VALUES (1, 'Administrador');
+INSERT INTO TipoUsuario (Id, Nombre)
+VALUES (2, 'Cliente');
+
+INSERT INTO dbo.TipoInstructor VALUES ('planta'),('temporal');
+
+INSERT INTO TipoMovimiento (Id, Nombre)
+VALUES (1, 'Credito');
+
+INSERT INTO Usuario (Username, [Password], TipoUsuario)
+VALUES ('Admin1',1234,1);
+
+INSERT INTO Usuario (Username, [Password], TipoUsuario)
+VALUES ('Cliente1',1234,2);
+
+INSERT INTO Usuario (Username, [Password], TipoUsuario)
+VALUES ('Cliente2',1234,2);
+
+INSERT INTO UsuarioAdmin (Id, Nombre)
+VALUES (1, 'Jorge El Curioso');
+-- Id varia segun tabla Usuario
+
+INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
+VALUES ('1100','Popeye','popeyeElMarino@gmail.com','60009999');
+
+insert into
+    dbo.Cliente (Cedula, Nombre, Correo, Celular)
+VALUES
+    ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910')
+
+INSERT INTO UsuarioCliente (Id, ClienteId)
+VALUES (2, 1);
+
+INSERT INTO dbo.UsuarioCliente (Id, ClienteId)
+VALUES(3,2);
+-- Id varia segun tabla Usuario
+
+INSERT INTO Movimientos (Monto, Fecha, ClienteId,TipoMovimiento,Asunto)
+VALUES (1000,GETDATE(),1,1, 'Mil colones de abono');
+INSERT INTO Movimientos (Monto, Fecha, ClienteId,TipoMovimiento,Asunto)
+VALUES (2000,GETDATE(),1,1, 'Abono antes de la quincena');
+
+UPDATE Cliente
+SET Saldo=3000
+WHERE Id=1
+
+-- Hay que hacer DROP & Create 
+INSERT INTO Credito (Id,FormaDePagoId)
+VALUES (1,1);
+INSERT INTO Credito (Id,FormaDePagoId)
+VALUES (2,1);
 
 
 insert into 
@@ -16,40 +70,18 @@ values
     ('instructor2', '762435', 'b@b.com', 1), 
     ('instructor3', '55555', 'c@c.com', 2)
 
+INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
+VALUES(1,1);
+
 insert INTO
-    dbo.Sala (NumeroSala, AforoMaximo, CostoMatricula, Nombre)
+    dbo.Sala (nombre,AforoMaximo, CostoMatricula)
 VALUES
-    (13, 30, 36000.00, 'PlusGym')
+    ('PlusGym', 30, 36000.00)
 
 insert into 
-    dbo.Sesion (Nombre, Fecha, DuracionMinutos, Cupos, Costo, Estado, InstructorId, EspecialidadId, SalaId) 
+    dbo.Sesion (Nombre, Fecha, DuracionMinutos, Cupos, Costo, InstructorId, EspecialidadId, SalaId) 
 values 
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 12:00:00'), 120, 12, 5000.00, 1, 1, 1, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 14:00:00'), 120, 12, 5000.00, 1, 2, 2, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-26 16:00:00'), 120, 12, 5000.00, 1, 3, 1, 1)
+    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 12:00:00'), 120, 12, 5000.00, 1, 1, 1),
+    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 14:00:00'), 120, 12, 5000.00, 2, 2, 1),
+    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-26 16:00:00'), 120, 12, 5000.00, 3, 1, 1)
 
-
-insert into
-    dbo.Usuario (Username, [Password], TipoUsuario, Estado)
-VALUES
-    ('Cliente1', '1234', 2, 1),
-    ('Admin1', '1234', 1, 1)
-
-insert into
-    dbo.UsuarioAdmin (Nombre)
-VALUES
-    (42312)    
-
-insert into
-    dbo.Cliente (Cedula, Nombre, Correo, Celular, Saldo, Estado)
-VALUES
-    ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910', 0.0, 1)
-       
-
-insert into
-    dbo.UsuarioCliente (ClientId)
-VALUES
-    (1)    
-
-
-EXEC SP_GetUserByUsername 'Cliente1'

@@ -61,7 +61,7 @@ func getUserInfo (context *fiber.Ctx) error {
 	user := getUsernameFromToken(token)
 
 	fmt.Println(user)
-
+	
 	dummyUser := Requests.GetClientProfileInfo(user)
 	return giveJSONResponse(context, dummyUser, fiber.StatusOK)
 }

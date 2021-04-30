@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../Services/Auth/auth.service";
 import { Router } from "@angular/router";
+import UserTypes from "src/app/Models/Users/UserTypes";
 
 @Component({
   selector: "app-navbar",
@@ -8,7 +9,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -17,5 +18,11 @@ export class NavbarComponent implements OnInit {
     //TODO: "You logged out" message
     this.router.navigateByUrl("/login");
     return false;
+  }
+
+  isAdmin() {
+    let type = this.authService.getCurrentUser()?.type;
+    if (type != undefined) return type == UserTypes.Admin;
+    return 0;
   }
 }
