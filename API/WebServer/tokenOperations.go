@@ -37,6 +37,9 @@ func GetUserSignedToken(pUsername string, pType int) (string, error) {
 
 }
 
+func GetUserToken(){
+
+}
 
 func ValidateUserToken (pSignedToken string) (bool, *jwt.Token) {
 	token, err := jwt.ParseWithClaims(pSignedToken, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {

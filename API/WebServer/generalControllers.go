@@ -1,9 +1,8 @@
-package Controllers
+package WebServer
 
 import (
 	"API/Database/Requests"
 	"API/Models"
-	"API/WebServer"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -21,19 +20,19 @@ func Login(context *fiber.Ctx) error {
 
 	// user existence validation
 	if !success {
-		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidLoginError}, fiber.StatusNotFound)
+		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusNotFound)
 
 	}
 
 	//  password validation
 	if  user.Password != password {
-		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidLoginError}, fiber.StatusUnauthorized)
+		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
 	// token creation
-	signedToken, err := WebServer.GetUserSignedToken(user.Username, user.Type)
+	signedToken, err := GetUserSignedToken(user.Username, user.Type)
 	if err != nil{
-		return giveJSONResponse(context, Models.Error{Message: WebServer.CouldNotLoginError}, fiber.StatusInternalServerError)
+		return giveJSONResponse(context, Models.Error{Message: CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
 	// returns user info
@@ -41,12 +40,12 @@ func Login(context *fiber.Ctx) error {
 	return giveJSONResponse(context, user, fiber.StatusOK)
 }
 
-func getActiveSchedule(context *fiber.Ctx) error {
+func GetActiveSchedule(context *fiber.Ctx) error {
 
-	isValid, _ := analyzeToken(context)
+	token := analyzeToken(context)
 
-	if !isValid {
-		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidTokenError}, fiber.StatusUnauthorized)
+	if token == nil {
+		return nil
 	}
 
 	dummySchedule := Requests.GetCurrentSessionSchedule()
