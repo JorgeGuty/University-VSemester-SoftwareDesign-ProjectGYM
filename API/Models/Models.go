@@ -62,7 +62,7 @@ type ClientUser struct {
 	Email          string `json:"email"`
 	Phone          string `json:"phone"`
 	Balance        string `json:"balance"`
-	Identification int	  `json:"identification"`
+	Identification string `json:"identification"`
 }
 
 type AdminUser struct {
