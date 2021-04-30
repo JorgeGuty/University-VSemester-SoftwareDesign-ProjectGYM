@@ -45,7 +45,7 @@ type Schedule struct {
 	Sessions []Session `json:"sessions"`
 }
 
-type User struct {
+type Login struct {
 	ID			int		`json:"id"`
 	Username 	string	`json:"username"`
 	Type 		int		`json:"type"`

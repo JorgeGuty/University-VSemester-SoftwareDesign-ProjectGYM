@@ -7,35 +7,21 @@ import (
 	"github.com/golang-sql/civil"
 )
 
-func GetUserByUsername(pUsername string) (Models.User, bool) {
+func GetUserByUsername(pUsername string) (Models.Login, bool) {
 
 	query := fmt.Sprintf(`EXEC SP_GetUserByUsername '%v';`, pUsername)
 
-	result, err := Database.ReadTransaction(query)
+	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil{
-		return Models.User{}, false
+		return Models.Login{}, false
 	}
 
-	var id int
-	var username string
-	var password string
-	var userType int
-
-	if !result.Next(){
-		return Models.User{}, false
+	if !resultSet.Next(){
+		return Models.Login{}, false
 	}
 
-	if err := result.Scan(&id, &username, &password, &userType); err != nil{
-		return Models.User{}, false
-	}
-
-	user := Models.User{
-		ID:       id,
-		Username: username,
-		Type:     userType,
-		Password: password,
-	}
+	user := Database.ParseUserWithPassword(resultSet)
 
 	return user, true
 }
