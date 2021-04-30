@@ -7,10 +7,16 @@ import (
 
 func Setup(app *fiber.App){
 	app.Get("/", Controllers.Start)
-	app.Post("/login", Controllers.Login)
-	app.Get("/userInfo", Controllers.GetUserInfo)
-	app.Get("/activeSchedule", Controllers.GetActiveSchedule)
-	app.Get("/reservedSessions", Controllers.GetReservedSessions)
+
+	general := app.Group("/general")
+	client := app.Group("/client")
+	//admin := app.Group("/admin")
+
+	general.Post("/login", Controllers.Login)
+	general.Get("/activeSchedule", Controllers.GetActiveSchedule)
+
+	client.Get("/userInfo", Controllers.GetUserInfo)
+	client.Get("/reservedSessions", Controllers.GetReservedSessions)
 }
 
 
