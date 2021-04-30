@@ -1,1 +1,4 @@
-<p>client-dashboard works!</p>
+<app-client-card
+  *ngFor="let session of this.schedule"
+  [session]="session"
+></app-client-card>

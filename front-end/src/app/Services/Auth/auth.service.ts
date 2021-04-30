@@ -11,6 +11,9 @@ import { ConnectionsServices } from "../Connections/connectionsConstants";
   providedIn: "root",
 })
 export class AuthService {
+  static getAuthToken() {
+    return localStorage.getItem("id_token");
+  }
   private isAuthenticated: boolean;
   private currentUser?: User;
   private authToken: any;

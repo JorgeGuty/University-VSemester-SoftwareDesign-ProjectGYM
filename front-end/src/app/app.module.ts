@@ -27,6 +27,8 @@ import { AdminDashboardComponent } from "./Components/Dashboards/admin-dashboard
 /* Routes Guarding */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
 import { AuthUserGuard } from "./Guards/authUser.guard";
+import { AdminCardComponent } from './Components/Dashboards/admin-card/admin-card.component';
+import { ClientCardComponent } from './Components/Dashboards/client-card/client-card.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { AuthUserGuard } from "./Guards/authUser.guard";
     ProfileComponent,
     ClientDashboardComponent,
     AdminDashboardComponent,
+    AdminCardComponent,
+    ClientCardComponent,
   ],
   imports: [
     AppRoutingModule,
