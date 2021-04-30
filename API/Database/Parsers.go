@@ -5,7 +5,7 @@ import (
 	"database/sql"
 )
 
-func ParseUserWithPassword(resultSet  *sql.Rows) Models.UserWithPassword {
+func ParseUserWithPassword(resultSet  *sql.Rows) Models.Login {
 
 	var id int
 	var username string
@@ -15,10 +15,10 @@ func ParseUserWithPassword(resultSet  *sql.Rows) Models.UserWithPassword {
 
 
 	if err := resultSet.Scan(&id, &username, &password, &userType); err != nil{
-		return Models.UserWithPassword{}
+		return Models.Login{}
 	}
 
-	user := Models.UserWithPassword{
+	user := Models.Login{
 		ID:       id,
 		Username: username,
 		Type:     userType,
