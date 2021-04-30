@@ -14,7 +14,7 @@ type UserClaims struct {
 
 const SecretKey = "secret"
 
-func getUserSignedToken(pUsername string, pType int) (string, error) {
+func GetUserSignedToken(pUsername string, pType int) (string, error) {
 
 
 	claims := UserClaims{
@@ -38,7 +38,7 @@ func getUserSignedToken(pUsername string, pType int) (string, error) {
 }
 
 
-func validateUserToken (pSignedToken string) (bool, *jwt.Token) {
+func ValidateUserToken (pSignedToken string) (bool, *jwt.Token) {
 	token, err := jwt.ParseWithClaims(pSignedToken, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(SecretKey), nil
 	})
@@ -56,10 +56,10 @@ func validateUserToken (pSignedToken string) (bool, *jwt.Token) {
 
 }
 
-func getUsernameFromToken(pToken *jwt.Token) string {
+func GetUsernameFromToken(pToken *jwt.Token) string {
 	return pToken.Claims.(*UserClaims).Username
 }
 
-func getUserTypeFromToken(pToken *jwt.Token) int {
+func GetUserTypeFromToken(pToken *jwt.Token) int {
 	return pToken.Claims.(*UserClaims).Type
 }

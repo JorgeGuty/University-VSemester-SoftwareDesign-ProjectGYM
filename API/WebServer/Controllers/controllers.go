@@ -1,10 +1,11 @@
-package WebServer
+package Controllers
 
 import (
 	"API/Database/Requests"
 	_ "API/Database/Requests"
 	"API/Models"
 	_ "API/Models"
+	"API/WebServer"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	_ "github.com/dgrijalva/jwt-go"
@@ -24,25 +25,24 @@ func Login(context *fiber.Ctx) error {
 	username := data["username"]
 	password := data["password"]
 
-
 	// db request
 	 user, success := Requests.GetUserByUsername(username)
 
 	// user existence validation
 	if !success {
-		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusNotFound)
+		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidLoginError}, fiber.StatusNotFound)
 
 	}
 
 	//  password validation
 	if  user.Password != password {
-		return giveJSONResponse(context, Models.Error{Message: InvalidLoginError}, fiber.StatusUnauthorized)
+		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
 	// token creation
-	signedToken, err := getUserSignedToken(user.Username, user.Type)
+	signedToken, err := WebServer.GetUserSignedToken(user.Username, user.Type)
 	if err != nil{
-		return giveJSONResponse(context, Models.Error{Message: CouldNotLoginError}, fiber.StatusInternalServerError)
+		return giveJSONResponse(context, Models.Error{Message: WebServer.CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
 	// returns user info
@@ -55,10 +55,10 @@ func getUserInfo (context *fiber.Ctx) error {
 	isValid, token := analyzeToken(context)
 
 	if !isValid {
-		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
+		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidTokenError}, fiber.StatusUnauthorized)
 	}
 
-	user := getUsernameFromToken(token)
+	user := WebServer.GetUsernameFromToken(token)
 
 	fmt.Println(user)
 	
@@ -71,7 +71,7 @@ func getActiveSchedule(context *fiber.Ctx) error {
 	isValid, _ := analyzeToken(context)
 
 	if !isValid {
-		return giveJSONResponse(context, Models.Error{Message: InvalidTokenError}, fiber.StatusUnauthorized)
+		return giveJSONResponse(context, Models.Error{Message: WebServer.InvalidTokenError}, fiber.StatusUnauthorized)
 	}
 
 	dummySchedule := Requests.GetCurrentSessionSchedule()
@@ -83,7 +83,7 @@ func getActiveSchedule(context *fiber.Ctx) error {
 func analyzeToken(context *fiber.Ctx) (bool, *jwt.Token) {
 	
 	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
-	isValid, token := validateUserToken(jwtFromHeader)
+	isValid, token := WebServer.ValidateUserToken(jwtFromHeader)
 
 	return isValid, token
 }
