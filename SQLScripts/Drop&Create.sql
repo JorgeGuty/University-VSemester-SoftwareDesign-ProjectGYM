@@ -383,9 +383,10 @@ CREATE TABLE dbo.Sesion
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(50) NOT NULL,
-	Fecha datetime NOT NULL,
+	Fecha date NOT NULL,
+	HoraInicio time NOT NULL,
 	DuracionMinutos int NOT NULL,
-	Cupos int NOT NULL,
+	Cupo int NOT NULL,
 	Costo decimal(19, 4) NOT NULL,
 	Cancelada bit NOT NULL DEFAULT 0,
 	InstructorId int NOT NULL,
@@ -421,6 +422,9 @@ ALTER TABLE dbo.Sesion ADD CONSTRAINT
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
 GO
+
+CREATE INDEX SesionDateIndex
+ON dbo.Sesion (Fecha);
 
 CREATE TABLE dbo.Reserva
 	(

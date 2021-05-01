@@ -72,6 +72,8 @@ values
 
 INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
 VALUES(1,1);
+INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
+VALUES(2,2);
 
 insert INTO
     dbo.Sala (nombre,AforoMaximo, CostoMatricula)
@@ -79,9 +81,9 @@ VALUES
     ('PlusGym', 30, 36000.00)
 
 insert into 
-    dbo.Sesion (Nombre, Fecha, DuracionMinutos, Cupos, Costo, InstructorId, EspecialidadId, SalaId) 
+    dbo.Sesion (Nombre, Fecha, HoraInicio, DuracionMinutos, Cupo, Costo, InstructorId, EspecialidadId, SalaId) 
 values 
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 12:00:00'), 120, 12, 5000.00, 1, 1, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 14:00:00'), 120, 12, 5000.00, 2, 2, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-26 16:00:00'), 120, 12, 5000.00, 3, 1, 1)
+    ('Sesion de Yoga', CONVERT(DATE, '2021-04-25'), CONVERT(TIME, '8:00'), 120, 12, 5000.00, 1, 1, 1),
+    ('Sesion de Funcional', CONVERT(DATE, '2021-04-25'), CONVERT(TIME, '9:30'), 120, 12, 5000.00, 2, 2, 1),
+    ('Sesion de Yoga', CONVERT(DATE, '2021-04-26'), CONVERT(TIME, '14:30'), 120, 12, 5000.00, 3, 1, 1)
 
