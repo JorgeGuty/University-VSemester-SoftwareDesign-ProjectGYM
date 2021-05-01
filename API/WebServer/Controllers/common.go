@@ -34,5 +34,18 @@ func giveJSONResponse(context *fiber.Ctx, pJSON interface{}, pStatus int) error 
 	return context.JSON(pJSON)
 }
 
+func giveVoidOperationResponse(context *fiber.Ctx, pResult Models.VoidOperationResult) error{
+
+	var resultStatus int
+
+	if pResult.Success {
+		resultStatus = fiber.StatusOK
+	} else {
+		resultStatus = fiber.StatusLocked
+	}
+
+	return giveJSONResponse(context, pResult, resultStatus)
+}
+
 
 

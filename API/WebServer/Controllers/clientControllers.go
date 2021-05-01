@@ -45,14 +45,6 @@ func BookSession (context *fiber.Ctx) error {
 
 	result := Requests.BookSession(username, sessionID)
 
-	var resultStatus int
-
-	if result.Success {
-		resultStatus = fiber.StatusOK
-	} else {
-		resultStatus = fiber.StatusLocked
-	}
-
-	return giveJSONResponse(context, result, resultStatus)
+	return giveVoidOperationResponse(context, result)
 
 }
