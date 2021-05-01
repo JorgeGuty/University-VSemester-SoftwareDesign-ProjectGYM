@@ -48,7 +48,7 @@ func DeletePreliminarySession(context *fiber.Ctx) error {
 
 	sessionID := 1 //TODO: set session id from body parameter
 
-	result := Requests.CancelSession(sessionID)
+	result := Requests.DeletePreliminarySession(sessionID)
 
 	return giveVoidOperationResponse(context, result)
 }
@@ -62,7 +62,7 @@ func InsertPreliminarySession(context *fiber.Ctx) error {
 
 	sessionID := 1 //TODO: set session id from body parameter
 
-	result := Requests.CancelSession(sessionID)
+	result := Requests.InsertPreliminarySession(sessionID)
 
 	return giveVoidOperationResponse(context, result)
 
