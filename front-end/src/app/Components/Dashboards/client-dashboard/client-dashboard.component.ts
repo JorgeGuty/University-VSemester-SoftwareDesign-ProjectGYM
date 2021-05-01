@@ -43,6 +43,7 @@ export class ClientDashboardComponent implements OnInit {
           };
 
           this.schedule.push(scheduledSession);
+          console.log(scheduledSession);
         });
       });
 

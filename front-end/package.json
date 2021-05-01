@@ -23,6 +23,11 @@
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
     "@auth0/angular-jwt": "^5.0.2",
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^2.0.0",
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
