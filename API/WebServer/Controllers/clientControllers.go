@@ -32,3 +32,7 @@ func GetReservedSessions (context *fiber.Ctx) error {
 
 	return giveJSONResponse(context, user, fiber.StatusOK)
 }
+
+func BookSession (context *fiber.Ctx) error {
+	
+}
