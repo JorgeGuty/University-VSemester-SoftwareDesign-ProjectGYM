@@ -28,6 +28,9 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 
 func GetCurrentSessionSchedule() Models.Schedule{
 
+
+	// TODO: real db request
+
 	dummySession1 := Models.Session{
 		ID:                1,
 		Name:              "Yoga con Juan",

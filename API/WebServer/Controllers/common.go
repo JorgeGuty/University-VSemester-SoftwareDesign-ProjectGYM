@@ -5,6 +5,7 @@ import (
 	_ "API/Database/Requests"
 	"API/Models"
 	_ "API/Models"
+	"API/WebServer/Token"
 	"github.com/dgrijalva/jwt-go"
 	_ "github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
@@ -19,7 +20,7 @@ func Start(c *fiber.Ctx) error {
 func analyzeToken(context *fiber.Ctx) *jwt.Token {
 
 	jwtFromHeader := string(context.Request().Header.Peek("Authorization"))
-	isValid, token := ValidateUserToken(jwtFromHeader)
+	isValid, token := Token.ValidateUserToken(jwtFromHeader)
 
 	if !isValid {
 		_ = giveJSONResponse(context, Models.Error{Message: Common.InvalidTokenError}, fiber.StatusUnauthorized)
@@ -32,6 +33,19 @@ func analyzeToken(context *fiber.Ctx) *jwt.Token {
 func giveJSONResponse(context *fiber.Ctx, pJSON interface{}, pStatus int) error {
 	context.Status(pStatus)
 	return context.JSON(pJSON)
+}
+
+func giveVoidOperationResponse(context *fiber.Ctx, pResult Models.VoidOperationResult) error{
+
+	var resultStatus int
+
+	if pResult.Success {
+		resultStatus = fiber.StatusOK
+	} else {
+		resultStatus = fiber.StatusLocked
+	}
+
+	return giveJSONResponse(context, pResult, resultStatus)
 }
 
 
