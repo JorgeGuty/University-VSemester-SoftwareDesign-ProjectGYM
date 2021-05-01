@@ -1,4 +1,4 @@
-package Controllers
+package Token
 
 import (
 	"fmt"

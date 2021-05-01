@@ -2,6 +2,7 @@ package Controllers
 
 import (
 	"API/Database/Requests"
+	"API/WebServer/Token"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -13,7 +14,7 @@ func GetUserInfo (context *fiber.Ctx) error {
 		return nil
 	}
 
-	registeredUser := GetUsernameFromToken(token)
+	registeredUser := Token.GetUsernameFromToken(token)
 
 	user := Requests.GetClientProfileInfo(registeredUser)
 
@@ -28,7 +29,23 @@ func GetReservedSessions (context *fiber.Ctx) error {
 		return nil
 	}
 
-	user := Requests.GetReservedSessions()
+	sessions := Requests.GetReservedSessions()
 
-	return giveJSONResponse(context, user, fiber.StatusOK)
+	return giveJSONResponse(context, sessions, fiber.StatusOK)
+}
+
+func BookSession (context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	username := Token.GetUsernameFromToken(token)
+	sessionID := 1 //TODO: set session id from body parameter
+
+	result := Requests.BookSession(username, sessionID)
+
+	return giveVoidOperationResponse(context, result)
+
 }
