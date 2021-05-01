@@ -8,6 +8,10 @@ type Error struct {
 	Message string `json:"message"`
 }
 
+type VoidOperationResult struct {
+	Success bool `json:"success"`
+}
+
 type Gym struct {
 	GymNumber		int		`json:"gym_number"`
 	Capacity		int		`json:"capacity"`

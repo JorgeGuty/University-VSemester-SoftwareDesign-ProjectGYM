@@ -7,6 +7,7 @@ import (
 
 func GetClientProfileInfo(pUsername string) Models.ClientUser {
 
+	// TODO: real db request
 	dummyUser := Models.ClientUser{
 		ID:      		10,
 		Username: 		pUsername,
@@ -22,6 +23,8 @@ func GetClientProfileInfo(pUsername string) Models.ClientUser {
 }
 
 func GetReservedSessions() Models.Schedule {
+
+	// TODO: real db request
 
 	dummySession1 := Models.Session{
 		ID:                1,
@@ -57,4 +60,8 @@ func GetReservedSessions() Models.Schedule {
 	dummySchedule := Models.Schedule{Sessions: []Models.Session{dummySession1}}
 
 	return dummySchedule
+}
+
+func BookSession(pUsername string, pSessionID int) Models.VoidOperationResult {
+
 }
