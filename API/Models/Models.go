@@ -8,6 +8,10 @@ type Error struct {
 	Message string `json:"message"`
 }
 
+type VoidOperationResult struct {
+	Success bool `json:"success"`
+}
+
 type Gym struct {
 	GymNumber		int		`json:"gym_number"`
 	Capacity		int		`json:"capacity"`
@@ -36,7 +40,7 @@ type Session struct {
 	Time 				civil.Time		`json:"time"`
 	DurationMin 		int 			`json:"duration_min"`
 	AvailableSpaces 	int 			`json:"available_spaces"`
-	Cost 				int				`json:"cost"`
+	Cost 				string			`json:"cost"`
 	SessionInstructor 	Instructor 		`json:"session_instructor"`
 	SessionService 		Service 		`json:"session_service"`
 }
@@ -45,7 +49,7 @@ type Schedule struct {
 	Sessions []Session `json:"sessions"`
 }
 
-type User struct {
+type Login struct {
 	ID			int		`json:"id"`
 	Username 	string	`json:"username"`
 	Type 		int		`json:"type"`
@@ -61,8 +65,8 @@ type ClientUser struct {
 	Name           string `json:"name"`
 	Email          string `json:"email"`
 	Phone          string `json:"phone"`
-	Balance        int    `json:"balance"`
-	Identification int	  `json:"identification"`
+	Balance        string `json:"balance"`
+	Identification string `json:"identification"`
 }
 
 type AdminUser struct {
