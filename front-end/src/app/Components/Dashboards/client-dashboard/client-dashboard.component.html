@@ -1,4 +1,4 @@
-<mat-expansion-panel
+<!-- <mat-expansion-panel
   [expanded]="true"
   hideToggle
   style="background-color: #f8f9fc; width: auto"
@@ -15,4 +15,24 @@
     [instructor]="this.session.instructor"
     [sessionService]="this.session.sessionService"
   ></app-client-card>
-</mat-expansion-panel>
+</mat-expansion-panel> -->
+<div *ngFor="let sessionArray of this.scheduleMap.values()">
+  <mat-expansion-panel
+    [expanded]="true"
+    hideToggle
+    style="background-color: #f8f9fc; width: auto"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ sessionArray[0].date }} </mat-panel-title>
+      <mat-panel-description>
+        This are the classes for the day!!!
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-client-card
+      *ngFor="let session of sessionArray"
+      [session]="this.session"
+      [instructor]="this.session.instructor"
+      [sessionService]="this.session.sessionService"
+    ></app-client-card>
+  </mat-expansion-panel>
+</div>

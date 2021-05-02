@@ -11,11 +11,14 @@ import { Session } from "../../../Models/Schedule/Session";
 })
 export class ClientDashboardComponent implements OnInit {
   schedule: Session[] = [];
+  scheduleMap: Map<Date, any>;
 
   constructor(
     private authService: AuthService,
     private clientScheduleService: ClientScheduleService
-  ) {}
+  ) {
+    this.scheduleMap = new Map();
+  }
 
   ngOnInit(): void {
     //testing loading schedule
@@ -42,11 +45,23 @@ export class ClientDashboardComponent implements OnInit {
             duration: session.duration_min,
           };
 
+          //Hashmap creation function
           this.schedule.push(scheduledSession);
-          console.log(scheduledSession);
+          if (scheduledSession.date != undefined) {
+            let currentDay: any[] = this.scheduleMap.get(scheduledSession.date);
+            if (currentDay == undefined) {
+              this.scheduleMap.set(scheduledSession.date, [scheduledSession]);
+            } else {
+              console.log("Antes de insertar");
+              console.log(currentDay);
+              currentDay.push(scheduledSession);
+              this.scheduleMap.set(scheduledSession.date, currentDay);
+            }
+          }
         });
       });
 
     //console.log(this.schedule);
+    console.log(this.scheduleMap);
   }
 }

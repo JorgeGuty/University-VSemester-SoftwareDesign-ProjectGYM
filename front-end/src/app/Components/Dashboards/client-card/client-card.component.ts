@@ -18,11 +18,11 @@ export interface Tile {
 })
 export class ClientCardComponent implements OnInit {
   @Input()
-  session!: Session;
+  session!: any;
   @Input()
-  instructor!: Instructor;
+  instructor!: any;
   @Input()
-  sessionService!: Service;
+  sessionService!: any;
 
   isReserved: boolean = false;
 
@@ -35,7 +35,7 @@ export class ClientCardComponent implements OnInit {
   }
 
   onRegister() {
-    console.log("Registrandose!!!");
     this.isReserved = !this.isReserved;
+    console.log("Reservada" + this.isReserved);
   }
 }

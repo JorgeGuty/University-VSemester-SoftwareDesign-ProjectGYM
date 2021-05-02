@@ -48,7 +48,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		Date: civil.Date{
 			Year:  2021,
 			Month: 4,
-			Day:   29,
+			Day:   30,
 		},
 		Time: civil.Time{
 			Hour:       15,
