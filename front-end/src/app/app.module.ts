@@ -14,6 +14,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
@@ -23,10 +26,13 @@ import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
 import { ClientDashboardComponent } from "./Components/Dashboards/client-dashboard/client-dashboard.component";
 import { AdminDashboardComponent } from "./Components/Dashboards/admin-dashboard/admin-dashboard.component";
+import { MatListModule } from "@angular/material/list";
 
 /* Routes Guarding */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
 import { AuthUserGuard } from "./Guards/authUser.guard";
+import { AdminCardComponent } from "./Components/Dashboards/admin-card/admin-card.component";
+import { ClientCardComponent } from "./Components/Dashboards/client-card/client-card.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +43,8 @@ import { AuthUserGuard } from "./Guards/authUser.guard";
     ProfileComponent,
     ClientDashboardComponent,
     AdminDashboardComponent,
+    AdminCardComponent,
+    ClientCardComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -46,10 +54,14 @@ import { AuthUserGuard } from "./Guards/authUser.guard";
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatTabsModule,
     MatToolbarModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule,
   ],
   providers: [AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],

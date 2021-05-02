@@ -107,8 +107,8 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		Name:              "Funcional con Fulano",
 		Date: civil.Date{
 			Year:  2021,
-			Month: 4,
-			Day:   30,
+			Month: 5,
+			Day:   1,
 		},
 		Time: civil.Time{
 			Hour:       11,
