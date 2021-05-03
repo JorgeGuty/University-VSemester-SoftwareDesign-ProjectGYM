@@ -42,6 +42,6 @@ export class ClientCardComponent implements OnInit {
       this.clientScheduleService.cancelBookedSession(this.session.id);
     }
 
-    this.isReserved = !this.isReserved;
+    this.isReserved = !this.isReserved; // bool
   }
 }

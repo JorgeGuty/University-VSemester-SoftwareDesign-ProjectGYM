@@ -24,15 +24,18 @@ import { LoginComponent } from "./Components/Registration/login/login.component"
 import { NavbarComponent } from "./Components/General/navbar/navbar.component";
 import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
-import { ClientDashboardComponent } from "./Components/Dashboards/client-dashboard/client-dashboard.component";
-import { AdminDashboardComponent } from "./Components/Dashboards/admin-dashboard/admin-dashboard.component";
+import { ClientDashboardComponent } from "./Components/Dashboards/Client/client-dashboard/client-dashboard.component";
+import { AdminDashboardComponent } from "./Components/Dashboards/Admin/admin-dashboard/admin-dashboard.component";
 import { MatListModule } from "@angular/material/list";
 
 /* Routes Guarding */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
 import { AuthUserGuard } from "./Guards/authUser.guard";
-import { AdminCardComponent } from "./Components/Dashboards/admin-card/admin-card.component";
-import { ClientCardComponent } from "./Components/Dashboards/client-card/client-card.component";
+import { AdminCardComponent } from "./Components/Dashboards/Admin/admin-card/admin-card.component";
+import { ClientCardComponent } from "./Components/Dashboards/Client/client-card/client-card.component";
+import { AdminPreliminaryDashboardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dashboard/admin-preliminary-dashboard.component";
+import { AdminPreliminaryCardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-card/admin-preliminary-card.component";
+import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dialog/admin-preliminary-dialog.component";
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { ClientCardComponent } from "./Components/Dashboards/client-card/client-
     AdminDashboardComponent,
     AdminCardComponent,
     ClientCardComponent,
+    AdminPreliminaryDashboardComponent,
+    AdminPreliminaryCardComponent,
+    AdminPreliminaryDialogComponent,
   ],
   imports: [
     AppRoutingModule,

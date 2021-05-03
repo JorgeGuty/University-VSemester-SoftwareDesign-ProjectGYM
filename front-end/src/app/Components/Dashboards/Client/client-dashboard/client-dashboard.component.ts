@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/Services/Auth/auth.service";
 import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
 
-import { Session } from "../../../Models/Schedule/Session";
+import { Session } from "../../../../Models/Schedule/Session";
 
 @Component({
   selector: "app-client-dashboard",
