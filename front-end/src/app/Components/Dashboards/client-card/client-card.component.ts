@@ -31,10 +31,6 @@ export class ClientCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  isTileNumber(number: string, tile: Tile) {
-    return tile.text === number;
-  }
-
   onRegister() {
     if (!this.isReserved) {
       this.clientScheduleService.bookSession(this.session.id);

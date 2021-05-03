@@ -12,8 +12,6 @@ import User from "src/app/Models/Users/User";
   providedIn: "root",
 })
 export class ClientScheduleService {
-  private sessions = [];
-
   constructor(private httpClient: HttpClient) {}
 
   getCurrentSessionSchedule(): Observable<any> {
