@@ -49,3 +49,19 @@ func BookSession (context *fiber.Ctx) error {
 	return giveVoidOperationResponse(context, result)
 
 }
+
+func CancelBookedSession (context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	username := Token.GetUsernameFromToken(token)
+	sessionID := 1 //TODO: set session id from body parameter
+
+	result := Requests.CancelBookedSession(username, sessionID)
+
+	return giveVoidOperationResponse(context, result)
+
+}
