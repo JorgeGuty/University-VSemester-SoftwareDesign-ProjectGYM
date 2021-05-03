@@ -62,7 +62,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		},
 	}
 	dummySession2 := Models.Session{
-		ID:                1,
+		ID:                2,
 		Name:              "Yoga con Pedro",
 		Date: civil.Date{
 			Year:  2021,
@@ -92,7 +92,7 @@ func GetCurrentSessionSchedule() Models.Schedule{
 		},
 	}
 	dummySession3 := Models.Session{
-		ID:                1,
+		ID:                3,
 		Name:              "Funcional con Fulano",
 		Date: civil.Date{
 			Year:  2021,

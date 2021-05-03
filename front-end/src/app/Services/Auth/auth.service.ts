@@ -39,8 +39,9 @@ export class AuthService {
   // }
 
   authenticateUser(userInfo: User) {
+    console.log(userInfo);
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/login",
+      ConnectionsServices.currentConnection + "/general/login",
       userInfo,
       {
         headers: { "Content-Type": "application/json" },
@@ -53,7 +54,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     this.loadToken();
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/userInfo",
+      ConnectionsServices.currentConnection + "/client/userInfo",
       {
         headers: {
           "Content-Type": "application/json",

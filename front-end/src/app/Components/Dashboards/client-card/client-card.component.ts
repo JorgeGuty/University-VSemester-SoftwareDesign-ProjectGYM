@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Session } from "src/app/Models/Schedule/Session";
 import { Instructor } from "src/app/Models/Schedule/Instructor";
 import { Service } from "src/app/Models/Schedule/Service";
+import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
 
 export interface Tile {
   color: string;
@@ -23,10 +24,10 @@ export class ClientCardComponent implements OnInit {
   instructor!: any;
   @Input()
   sessionService!: any;
+  @Input()
+  isReserved!: boolean;
 
-  isReserved: boolean = false;
-
-  constructor() {}
+  constructor(private clientScheduleService: ClientScheduleService) {}
 
   ngOnInit(): void {}
 
@@ -35,7 +36,16 @@ export class ClientCardComponent implements OnInit {
   }
 
   onRegister() {
+    if (!this.isReserved) {
+      this.clientScheduleService.bookSession(this.session.id);
+      console.log(
+        "Session with ID:" + this.session.id + " reservation completed"
+      );
+    } else {
+      //Todo: Implement cancelBookedSession route in API
+      this.clientScheduleService.cancelBookedSession(this.session.id);
+    }
+
     this.isReserved = !this.isReserved;
-    console.log("Reservada" + this.isReserved);
   }
 }

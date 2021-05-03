@@ -28,9 +28,10 @@ export class LoginComponent implements OnInit {
       username: this.log_username,
       password: this.log_password,
     };
-
+    console.log(" mundo");
     this.authService.authenticateUser(user).subscribe(
       (data: User) => {
+        console.log("hola mundo");
         console.log(data.username);
         console.log(data.token);
         console.log(data.type);
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/login");
       }
     );
+    console.log(" mundo");
   }
 
   onRegister() {

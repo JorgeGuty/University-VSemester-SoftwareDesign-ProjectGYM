@@ -11,6 +11,7 @@
       [session]="this.session"
       [instructor]="this.session.instructor"
       [sessionService]="this.session.sessionService"
+      [isReserved]="this.isSessionReserved(this.session.id)"
     ></app-client-card>
   </mat-expansion-panel>
 </div>
