@@ -48,7 +48,7 @@ func GetActiveSchedule(context *fiber.Ctx) error {
 
 	if token == nil {
 		return nil
-
+	}
 	schedule := Requests.GetCurrentSessionSchedule()
 
 	return giveJSONResponse(context, schedule, fiber.StatusOK)
