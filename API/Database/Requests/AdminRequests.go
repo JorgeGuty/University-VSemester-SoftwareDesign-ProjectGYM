@@ -134,6 +134,5 @@ func ConfirmPreliminarySchedule() Models.VoidOperationResult {
 	// TODO: real db request
 
 	dummyResult := Models.VoidOperationResult{Success: true}
-
 	return dummyResult
 }
