@@ -16,24 +16,18 @@ AS
 BEGIN
     -- body of the stored procedure
     SELECT 
-        [user].Username AS  [Username],
-        [user].Id         AS  [UserId],
-        client.Id       AS  [ClientId],
-        client.Nombre   AS  [Name],
-        client.Correo   AS  [Email],
-        client.Celular  AS  [PhoneNumber],
-        client.Cedula   AS  [Identification],
-        client.Saldo    AS  [Balance]
+        client.Username         AS  [Username],
+        client.ClientId         AS  [ClientId],
+        client.UserId           AS  [UserId],
+        client.Name             AS  [Name],
+        client.Email            AS  [Email],
+        client.PhoneNumber      AS  [PhoneNumber],
+        client.Identification   AS  [Identification],
+        client.Balance          AS  [Balance]
     FROM 
-        dbo.Usuario AS [user]
-    INNER JOIN 
-        dbo.UsuarioCliente AS clientUser
-        ON [user].Id = clientUser.Id
-    INNER JOIN 
-        dbo.Cliente AS client
-        ON clientUser.ClienteId = client.Id
-    WHERE 
-        [user].Username = @pUsername
+        dbo.CompleteClients AS client
+    WHERE
+        client.Username = @pUsername
 END
 GO
 -- example to execute the stored procedure we just created
