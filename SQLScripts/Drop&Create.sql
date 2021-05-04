@@ -430,7 +430,7 @@ CREATE TABLE dbo.Reserva
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	FechaReserva datetime NOT NULL,
-	Activa bit NOT NULL,
+	Activa bit NOT NULL DEFAULT 1,
 	ClienteId int NOT NULL,
 	SesionId int NOT NULL
 	)  ON [PRIMARY]
