@@ -27,11 +27,11 @@ BEGIN
         SET @TotalSpaces = 
             (
                 SELECT 
-                    [session].Cupo 
+                    [session].Spaces 
                 FROM 
-                    dbo.Sesion AS [session]
+                    dbo.CompleteSessions AS [session]
                 WHERE 
-                    [session].Id = @pSessionID                
+                    [session].SessionId = @pSessionID                
             )
 
         SET @ClientID = 
@@ -45,13 +45,12 @@ BEGIN
             )
 
         -- Checks if client already booked that session.
-        IF @ClientID IN ( SELECT booking.ClienteId FROM dbo.Reserva AS booking WHERE booking.SesionId = @pSessionID )
-            SET @ReturnCode = -2 -- Returns client 
+        IF @ClientID IN ( SELECT booking.ClienteId FROM dbo.Reserva AS booking WHERE booking.SesionId = @pSessionID AND booking.Activa = 1 )
+            RAISERROR (N'Session already booked by user %s', 11, 1, @pUsername);            
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
                 BEGIN TRANSACTION
-
                     -- Gets count of already booked spaces for that session
                     SET @BookedSpaces = 
                         (
@@ -67,22 +66,24 @@ BEGIN
                     SET @AvailableSpaces = @TotalSpaces - @BookedSpaces
 
                     IF @AvailableSpaces > 0
-                        BEGIN
-                            SET @ReturnCode = 1
-                            INSERT INTO 
-                                dbo.Reserva (FechaReserva, Activa, ClienteId, SesionId)
-                            VALUES
-                                (GETDATE(), 1, @ClientID, @pSessionID)
-                        END
-                    ELSE SET @ReturnCode = -1                
+                        INSERT INTO 
+                            dbo.Reserva (FechaReserva, Activa, ClienteId, SesionId)
+                        VALUES
+                            (GETDATE(), 1, @ClientID, @pSessionID)
+                    ELSE RAISERROR (N'Session %s is out of spaces', 11, 2, @pSessionID);                
                 COMMIT
             END
-        RETURN @ReturnCode;
+        RETURN 1;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK
-        RETURN @@Error * -1
+        SELECT ERROR_MESSAGE() AS ErrorMessage; 
+        RETURN -1
     END CATCH
 END
 GO
+
+DECLARE @returnvalue int
+EXEC @returnvalue = SP_BookSession 'Cliente1', 1
+SELECT @returnvalue AS errorCode
