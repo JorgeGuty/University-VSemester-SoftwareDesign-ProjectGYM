@@ -24,10 +24,11 @@ VALUES ('Cliente2',1234,2);
 
 INSERT INTO UsuarioAdmin (Id, Nombre)
 VALUES (1, 'Jorge El Curioso');
--- Id varia segun tabla Usuario
 
 INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
-VALUES ('1100','Popeye','popeyeElMarino@gmail.com','60009999');
+    VALUES 
+    ('1100','Popeye','popeyeElMarino@gmail.com','60009999'),
+    ('1111','Cliente','cliente@gmail.com','99999999');
 
 insert into
     dbo.Cliente (Cedula, Nombre, Correo, Celular)
@@ -50,7 +51,6 @@ UPDATE Cliente
 SET Saldo=3000
 WHERE Id=1
 
--- Hay que hacer DROP & Create 
 INSERT INTO Credito (Id,FormaDePagoId)
 VALUES (1,1);
 INSERT INTO Credito (Id,FormaDePagoId)
@@ -87,3 +87,22 @@ values
     ('Sesion de Funcional', CONVERT(DATE, '2021-04-25'), CONVERT(TIME, '9:30'), 120, 12, 5000.00, 2, 2, 1),
     ('Sesion de Yoga', CONVERT(DATE, '2021-04-26'), CONVERT(TIME, '14:30'), 120, 12, 5000.00, 3, 1, 1)
 
+insert into 
+    dbo.Sesion (Nombre, Fecha, HoraInicio, DuracionMinutos, Cupo, Costo, InstructorId, EspecialidadId, SalaId) 
+values 
+    ('Sesion de YogaMax', CONVERT(DATE, '2021-05-10'), CONVERT(TIME, '10:00'), 120, 12, 5000.00, 1, 1, 1),
+    ('Sesion de FuncionalMax', CONVERT(DATE, '2021-05-01'), CONVERT(TIME, '9:30'), 120, 12, 5000.00, 2, 2, 1),
+    ('Sesion de YogaPro', CONVERT(DATE, '2021-05-15'), CONVERT(TIME, '14:30'), 120, 12, 5000.00, 3, 1, 1)
+
+INSERT INTO
+    dbo.Reserva(FechaReserva,ClienteId,SesionId)
+    values
+        (GETDATE(),1,4),
+        (GETDATE(),1,5),
+        (GETDATE(),1,1),
+        (GETDATE(),2,4),
+        (GETDATE(),2,5);
+
+UPDATE dbo.Reserva 
+    SET Activa = 0 
+    WHERE Id = 2;

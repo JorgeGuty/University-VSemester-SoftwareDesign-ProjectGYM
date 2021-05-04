@@ -27,7 +27,7 @@ func Login(context *fiber.Ctx) error {
 	}
 
 	//  password validation
-	if  user.Password != password {
+	if user.Password != password {
 		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
@@ -49,9 +49,7 @@ func GetActiveSchedule(context *fiber.Ctx) error {
 	if token == nil {
 		return nil
 	}
+	schedule := Requests.GetCurrentSessionSchedule()
 
-	dummySchedule := Requests.GetCurrentSessionSchedule()
-
-	return giveJSONResponse(context, dummySchedule, fiber.StatusOK)
-
+	return giveJSONResponse(context, schedule, fiber.StatusOK)
 }
