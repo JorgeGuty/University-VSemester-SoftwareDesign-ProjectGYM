@@ -81,18 +81,24 @@ VALUES
     ('PlusGym', 30, 36000.00)
 
 insert into 
-    dbo.Sesion (Nombre, Fecha, HoraInicio, DuracionMinutos, Cupo, Costo, InstructorId, EspecialidadId, SalaId) 
+    dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo, Costo,EspecialidadId,SalaId) 
 values 
-    ('Sesion de Yoga', CONVERT(DATE, '2021-04-25'), CONVERT(TIME, '8:00'), 120, 12, 5000.00, 1, 1, 1),
-    ('Sesion de Funcional', CONVERT(DATE, '2021-04-25'), CONVERT(TIME, '9:30'), 120, 12, 5000.00, 2, 2, 1),
-    ('Sesion de Yoga', CONVERT(DATE, '2021-04-26'), CONVERT(TIME, '14:30'), 120, 12, 5000.00, 3, 1, 1)
+    ('Sesion de Yoga',         0, 5, 2021, CONVERT(TIME, '8:00'),  120, 12, 5000.00, 1, 1),
+    ('Sesion de Funcional',    1, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 5000.00, 2, 1),
+    ('Sesion de Yoga',         2, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 5000.00, 1, 1),
+    ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 5000.00, 1, 1),
+    ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 5000.00, 2, 1),
+    ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 5000.00, 1, 1)
 
-insert into 
-    dbo.Sesion (Nombre, Fecha, HoraInicio, DuracionMinutos, Cupo, Costo, InstructorId, EspecialidadId, SalaId) 
-values 
-    ('Sesion de YogaMax', CONVERT(DATE, '2021-05-10'), CONVERT(TIME, '10:00'), 120, 12, 5000.00, 1, 1, 1),
-    ('Sesion de FuncionalMax', CONVERT(DATE, '2021-05-01'), CONVERT(TIME, '9:30'), 120, 12, 5000.00, 2, 2, 1),
-    ('Sesion de YogaPro', CONVERT(DATE, '2021-05-15'), CONVERT(TIME, '14:30'), 120, 12, 5000.00, 3, 1, 1)
+INSERT INTO 
+    dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
+VALUES
+    (CONVERT(DATE, '2021-05-16'), 1, 1),
+    (CONVERT(DATE, '2021-05-17'), 2, 2),
+    (CONVERT(DATE, '2021-05-18'), 1, 3),
+    (CONVERT(DATE, '2021-05-19'), 1, 4),
+    (CONVERT(DATE, '2021-05-20'), 2, 5),
+    (CONVERT(DATE, '2021-05-20'), 1, 6)
 
 INSERT INTO
     dbo.Reserva(FechaReserva,ClienteId,SesionId)
