@@ -1,1 +1,57 @@
-<p>admin-preliminary-dialog works!</p>
+<h2 mat-dialog-title><mat-card-title>User Profile</mat-card-title></h2>
+<mat-dialog-content>
+  <mat-card class="home-card example-card">
+    <mat-card-content class="home-card-content">
+      <mat-card-title>Create Session</mat-card-title>
+      <mat-card-subtitle>Profile Information</mat-card-subtitle>
+      <mat-tab-group>
+        <!-- Login Tab -->
+        <mat-tab label="Profile">
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width" style="margin-top: 3rem">
+            <mat-label>Username</mat-label>
+            <input matInput value="Valor de prueba" #message />
+          </mat-form-field>
+
+          <!-- Email Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput value="Valor de prueba" #message />
+          </mat-form-field>
+
+          <!-- Phone Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Phone</mat-label>
+            <input
+              matInput
+              value="Valor de prueba"
+              #message
+              placeholder="Phone"
+            />
+          </mat-form-field>
+
+          <!-- Identification Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Identification</mat-label>
+            <input matInput value="Valor de prueba" #message />
+          </mat-form-field>
+
+          <!-- Balance Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Balance</mat-label>
+            <input disabled matInput value="Valor de prueba" #message />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="onSave()"
+          >
+            Save
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

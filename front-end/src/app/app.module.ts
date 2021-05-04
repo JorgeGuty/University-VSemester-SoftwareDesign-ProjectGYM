@@ -10,12 +10,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 /* Angular Material */
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { MatDividerModule } from "@angular/material/divider";
 import { MatExpansionModule } from "@angular/material/expansion";
 
 /* Angular Forms */
@@ -66,6 +67,7 @@ import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_P
     MatTabsModule,
     MatToolbarModule,
     MatDividerModule,
+    MatDialogModule,
     MatListModule,
     MatExpansionModule,
   ],
