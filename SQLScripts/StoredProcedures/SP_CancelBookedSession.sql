@@ -1,16 +1,16 @@
--- Create a new stored procedure called 'SP_CancelBookedSession' in schema 'dbo'
+-- Create a new stored procedure called 'SP_CancelBooking' in schema 'dbo'
 -- Drop the stored procedure if it already exists
 IF EXISTS (
 SELECT *
     FROM INFORMATION_SCHEMA.ROUTINES
 WHERE SPECIFIC_SCHEMA = N'dbo'
-    AND SPECIFIC_NAME = N'SP_CancelBookedSession'
+    AND SPECIFIC_NAME = N'SP_CancelBooking'
     AND ROUTINE_TYPE = N'PROCEDURE'
 )
-DROP PROCEDURE dbo.SP_CancelBookedSession
+DROP PROCEDURE dbo.SP_CancelBooking
 GO
 -- Create the stored procedure in the specified schema
-CREATE PROCEDURE dbo.SP_CancelBookedSession
+CREATE PROCEDURE dbo.SP_CancelBooking
     @pUsername  VARCHAR(50),
     @pSessionID INT
 
@@ -59,5 +59,6 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_CancelBookedSession 1 /*value_for_param1*/, 2 /*value_for_param2*/
-GO
+DECLARE @returnvalue int
+EXEC @returnvalue = SP_CancelBooking 'Cliente1', 1
+SELECT @returnvalue AS returnValue
