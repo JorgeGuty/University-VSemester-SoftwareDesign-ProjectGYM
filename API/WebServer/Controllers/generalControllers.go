@@ -4,7 +4,7 @@ import (
 	"API/Database/Common"
 	"API/Database/Requests"
 	"API/Models"
-
+	"API/WebServer/Token"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -32,8 +32,8 @@ func Login(context *fiber.Ctx) error {
 	}
 
 	// token creation
-	signedToken, err := GetUserSignedToken(user.Username, user.Type)
-	if err != nil {
+	signedToken, err := Token.GetUserSignedToken(user.Username, user.Type)
+	if err != nil{
 		return giveJSONResponse(context, Models.Error{Message: Common.CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 

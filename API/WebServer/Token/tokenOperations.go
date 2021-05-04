@@ -1,4 +1,4 @@
-package Controllers
+package Token
 
 import (
 	"fmt"
@@ -34,10 +34,6 @@ func GetUserSignedToken(pUsername string, pType int) (string, error) {
 	}
 
 	return signedToken, nil
-
-}
-
-func GetUserToken(){
 
 }
 
