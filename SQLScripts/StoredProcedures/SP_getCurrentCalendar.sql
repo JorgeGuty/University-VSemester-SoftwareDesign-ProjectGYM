@@ -11,14 +11,17 @@ AS
 
         SELECT 
             s.Id, 
-            s.Nombre AS name,
+            s.Nombre                             AS name,
             s.Fecha                              AS [date],
             s.HoraInicio                         AS startTime,
             s.DuracionMinutos                    AS duration,
             ISNULL((s.Cupo - r.Reservas),s.Cupo) AS availableSpaces,
             s.Costo                              AS cost,
             s.Cancelada                          AS isCanceled,
-            i.Nombre                             AS instructor, 
+            i.Nombre                             AS instructor,
+            i.Cedula                             AS identification,
+            i.Correo                             AS email,
+            i.Tipo                               AS [type],
             es.Nombre                            AS Service
         FROM dbo.Sesion s
         INNER JOIN dbo.Especialidades es
