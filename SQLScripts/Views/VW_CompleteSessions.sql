@@ -1,6 +1,6 @@
 USE PlusGymProject ;
 GO  
-CREATE VIEW dbo.CompleteSessions AS  
+ALTER VIEW dbo.CompleteSessions AS  
     SELECT 
         [session].Id                            AS SessionID,
         [session].Fecha                         AS SessionDate,
@@ -34,7 +34,7 @@ CREATE VIEW dbo.CompleteSessions AS
         ON [service].Id = [preliminarySession].EspecialidadId
     INNER JOIN
         dbo.Instructor AS instructor
-        ON instructor.Id = preliminarySession.InstructorId
+        ON instructor.Id = [session].InstructorId
     INNER JOIN
         dbo.TipoInstructor AS instructorType
         ON instructor.Tipo = instructorType.Id

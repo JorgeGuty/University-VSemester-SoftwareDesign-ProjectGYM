@@ -1,6 +1,6 @@
 USE PlusGymProject ;
 GO  
-CREATE VIEW dbo.CompleteClients AS  
+ALTER VIEW dbo.CompleteClients AS  
     SELECT 
         [user].Username AS  [Username],
         [user].Id       AS  [UserId],
