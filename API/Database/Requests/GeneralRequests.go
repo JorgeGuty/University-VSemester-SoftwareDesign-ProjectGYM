@@ -4,7 +4,6 @@ import (
 	"API/Database"
 	"API/Models"
 	"fmt"
-	"github.com/golang-sql/civil"
 )
 
 func GetUserByUsername(pUsername string) (Models.Login, bool) {
@@ -13,11 +12,11 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 
 	resultSet, err := Database.ReadTransaction(query)
 
-	if err != nil{
+	if err != nil {
 		return Models.Login{}, false
 	}
 
-	if !resultSet.Next(){
+	if !resultSet.Next() {
 		return Models.Login{}, false
 	}
 
@@ -26,9 +25,12 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 	return user, true
 }
 
-func GetCurrentSessionSchedule() Models.Schedule{
+func GetCurrentSessionSchedule() Models.Schedule {
+	query := fmt.Sprintf(`EXEC SP_getCurrentCalendar;`)
 
+	resultSet, err := Database.ReadTransaction(query)
 
+<<<<<<< HEAD
 	// TODO: real db request
 
 	dummySession1 := Models.Session{
@@ -120,9 +122,13 @@ func GetCurrentSessionSchedule() Models.Schedule{
 			Name:      "Funcional",
 			MaxSpaces: 30,
 		},
+=======
+	if err != nil {
+		return Models.Schedule{}
+>>>>>>> dev
 	}
 
-	dummySchedule := Models.Schedule{Sessions: []Models.Session{dummySession1,dummySession2,dummySession3}}
+	schedule := Database.ParseSchedule(resultSet)
 
-	return dummySchedule
+	return schedule
 }
