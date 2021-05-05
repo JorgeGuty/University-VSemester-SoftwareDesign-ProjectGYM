@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	mssql "github.com/denisenkom/go-mssqldb"
 	_ "github.com/denisenkom/go-mssqldb"
 	"log"
 )
@@ -18,6 +19,8 @@ var database = "PlusGymProject"
 
 
 func connect(){
+
+
 	// Build connection string
 	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
 		server, user, password, port, database)
@@ -26,6 +29,7 @@ func connect(){
 
 	// Create connection pool
 	db, err = sql.Open("sqlserver", connString)
+
 	if err != nil {
 		log.Fatal("Error creating connection pool: ", err.Error())
 	}
@@ -37,46 +41,25 @@ func connect(){
 	fmt.Printf("Connected!\n")
 }
 
-func VoidTransaction(pQuery string) (bool, error){
+func ReadTransaction(pQuery string) (*sql.Rows, mssql.ReturnStatus, error){
 
 	connect()
 	defer db.Close()
 
-	ctx := context.Background()
-	var err error
 
-	// Check if database is alive.
-	err = db.PingContext(ctx)
-	if err != nil {
-		return false, err
-	}
-
-	_, err = db.ExecContext(ctx, pQuery)
-
-	if err != nil{
-		return false, err
-	}
-
-	return true, nil
-}
-
-func ReadTransaction(pQuery string) (*sql.Rows, error){
-
-	connect()
-	defer db.Close()
 
 	ctx := context.Background()
 	// Check if database is alive.
 	err := db.PingContext(ctx)
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
-
+	var returnStatus mssql.ReturnStatus
 	// Execute query
-	rows, err := db.QueryContext(ctx, pQuery)
+	rows, err := db.QueryContext(ctx, pQuery, &returnStatus)
 	if err != nil {
-		return nil, err
+		return nil, returnStatus, err
 	}
-
-	return rows, nil
+	fmt.Println(returnStatus == 0)
+	return rows, returnStatus, nil
 }

@@ -45,7 +45,6 @@ func GetPreliminarySchedule() Models.Schedule {
 		SessionService: Models.Service{
 			ID:        1,
 			Name:      "Yoga",
-			MaxSpaces: 20,
 		},
 	}
 	dummySession2 := Models.Session{
@@ -75,7 +74,6 @@ func GetPreliminarySchedule() Models.Schedule {
 		SessionService: Models.Service{
 			ID:        1,
 			Name:      "Yoga",
-			MaxSpaces: 20,
 		},
 	}
 	dummySession3 := Models.Session{
@@ -105,7 +103,6 @@ func GetPreliminarySchedule() Models.Schedule {
 		SessionService: Models.Service{
 			ID:        2,
 			Name:      "Funcional",
-			MaxSpaces: 30,
 		},
 	}
 

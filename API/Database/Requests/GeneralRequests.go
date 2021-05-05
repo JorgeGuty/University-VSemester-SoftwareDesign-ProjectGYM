@@ -4,13 +4,14 @@ import (
 	"API/Database"
 	"API/Models"
 	"fmt"
+	"log"
 )
 
 func GetUserByUsername(pUsername string) (Models.Login, bool) {
 
 	query := fmt.Sprintf(`EXEC SP_GetUserByUsername '%v';`, pUsername)
 
-	resultSet, err := Database.ReadTransaction(query)
+	resultSet, returnStatus, err := Database.ReadTransaction(query)
 
 	if err != nil {
 		return Models.Login{}, false
@@ -20,6 +21,8 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 		return Models.Login{}, false
 	}
 
+	log.Printf("status=%d", returnStatus)
+
 	user := Database.ParseUserWithPassword(resultSet)
 
 	return user, true
@@ -28,7 +31,7 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 func GetCurrentSessionSchedule() Models.Schedule {
 	query := fmt.Sprintf(`EXEC SP_getCurrentCalendar;`)
 
-	resultSet, err := Database.ReadTransaction(query)
+	resultSet, _,  err := Database.ReadTransaction(query)
 
 	if err != nil {
 		return Models.Schedule{}
