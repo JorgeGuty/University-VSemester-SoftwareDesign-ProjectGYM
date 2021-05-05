@@ -54,7 +54,6 @@ func GetReservedSessions() Models.Schedule {
 		SessionService: Models.Service{
 			ID:        1,
 			Name:      "Yoga",
-			MaxSpaces: 20,
 		},
 	}
 
@@ -64,6 +63,15 @@ func GetReservedSessions() Models.Schedule {
 }
 
 func BookSession(pUsername string, pSessionID int) Models.VoidOperationResult {
+
+	// TODO: real db request
+
+	dummyResult := Models.VoidOperationResult{Success: true}
+
+	return dummyResult
+}
+
+func CancelBookedSession(pUsername string, pSessionID int) Models.VoidOperationResult {
 
 	// TODO: real db request
 
