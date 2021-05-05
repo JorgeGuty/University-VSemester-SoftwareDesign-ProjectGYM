@@ -6,6 +6,7 @@ ALTER VIEW dbo.CompleteSessions AS
         [session].Fecha                         AS SessionDate,
         [session].Cancelada                     AS IsCancelled,
         
+        [preliminarySession].Nombre             AS [Name],
         [preliminarySession].Costo              AS Cost,
         [preliminarySession].Cupo               AS Spaces,
         [preliminarySession].DuracionMinutos    AS Duration,
