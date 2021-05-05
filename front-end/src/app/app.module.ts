@@ -6,6 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from "@angular/forms";
 
 /* Angular Material */
 import { MatButtonModule } from "@angular/material/button";
@@ -18,6 +19,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
@@ -37,6 +39,7 @@ import { ClientCardComponent } from "./Components/Dashboards/Client/client-card/
 import { AdminPreliminaryDashboardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dashboard/admin-preliminary-dashboard.component";
 import { AdminPreliminaryCardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-card/admin-preliminary-card.component";
 import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dialog/admin-preliminary-dialog.component";
+import { AdminPreliminaryDatePickerComponent } from './Components/Dashboards/admin-preliminary-date-picker/admin-preliminary-date-picker.component';
 
 @NgModule({
   declarations: [
@@ -52,15 +55,18 @@ import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_P
     AdminPreliminaryDashboardComponent,
     AdminPreliminaryCardComponent,
     AdminPreliminaryDialogComponent,
+    AdminPreliminaryDatePickerComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,

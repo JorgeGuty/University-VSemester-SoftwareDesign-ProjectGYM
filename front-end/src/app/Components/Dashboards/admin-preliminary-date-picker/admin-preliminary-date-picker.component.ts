@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { AdminPreliminaryDialogComponent } from "../admin-preliminary-dialog/admin-preliminary-dialog.component";
 import { FormControl } from "@angular/forms";
 import {
   DateAdapter,
@@ -14,7 +13,6 @@ import {
 } from "@angular/material-moment-adapter";
 
 import * as moment from "moment";
-import { AdminPreliminaryDatePickerComponent } from "../../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 
 export const MY_FORMATS = {
   parse: {
@@ -29,9 +27,9 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: "app-admin-preliminary-dashboard",
-  templateUrl: "./admin-preliminary-dashboard.component.html",
-  styleUrls: ["./admin-preliminary-dashboard.component.scss"],
+  selector: "app-admin-preliminary-date-picker",
+  templateUrl: "./admin-preliminary-date-picker.component.html",
+  styleUrls: ["./admin-preliminary-date-picker.component.scss"],
   providers: [
     {
       provide: DateAdapter,
@@ -42,7 +40,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class AdminPreliminaryDashboardComponent implements OnInit {
+export class AdminPreliminaryDatePickerComponent implements OnInit {
   date = new FormControl(moment());
 
   chosenYearHandler(normalizedYear: moment.Moment) {
@@ -61,23 +59,7 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
     datepicker.close();
   }
 
-  constructor(public dialog: MatDialog) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  openForm() {
-    const dialogRef = this.dialog.open(AdminPreliminaryDialogComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  openDatePicker() {
-    const dialogRef = this.dialog.open(AdminPreliminaryDatePickerComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
 }

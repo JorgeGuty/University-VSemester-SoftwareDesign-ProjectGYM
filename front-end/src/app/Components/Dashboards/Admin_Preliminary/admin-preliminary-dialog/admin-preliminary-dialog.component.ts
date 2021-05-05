@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
@@ -11,23 +12,19 @@ export class AdminPreliminaryDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  preliminaryForm = new FormGroup({
+    className: new FormControl("", Validators.required),
+    day: new FormControl("", Validators.required),
+    cost: new FormControl("", Validators.required),
+    hour: new FormControl(0, Validators.pattern("([01]?[0-9]|2[0-3])")),
+    min: new FormControl(0, Validators.pattern("[0-5][0-9]")),
+    duration: new FormControl("", Validators.required),
+    instructorId: new FormControl("", Validators.required),
+    sessionServiceId: new FormControl("", Validators.required),
+  });
+
   onSave() {
     console.log("Clase creada");
+    if (this.preliminaryForm.valid) console.log(this.preliminaryForm.value);
   }
 }
-
-// @Component({
-//   selector: 'dialog-overview-example-dialog',
-//   templateUrl: 'dialog-overview-example-dialog.html',
-// })
-// export class DialogOverviewExampleDialog {
-
-//   constructor(
-//     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-//     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
-
-// }

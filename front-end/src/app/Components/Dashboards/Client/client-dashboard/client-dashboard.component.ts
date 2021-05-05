@@ -31,10 +31,16 @@ export class ClientDashboardComponent implements OnInit {
     this.clientScheduleService
       .getCurrentSessionSchedule()
       .subscribe((sessions: any) => {
-        sessions.sessions.forEach((session: any, key: any) => {
-          let scheduledSession = this.initSession(session);
-          this.fillScheduleHashmap(scheduledSession);
-        });
+        console.log(sessions);
+        if (sessions.sessions != null) {
+          sessions.sessions.forEach((session: any, key: any) => {
+            let scheduledSession = this.initSession(session);
+            this.fillScheduleHashmap(scheduledSession);
+          });
+        } else {
+          //TODO: Mostrar Error de vacio
+          console.log("Erroooooor!!! no hay clases");
+        }
       });
   }
   getMonthlyReservedSessions() {

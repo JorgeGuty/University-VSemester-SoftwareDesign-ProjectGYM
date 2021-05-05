@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>
+  <mat-card-title>Filter Preliminary Sessions</mat-card-title>
+</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill" class="example-form">
+    <mat-label>Month and Year</mat-label>
+    <input matInput [matDatepicker]="dp" [formControl]="date" />
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker
+      #dp
+      startView="multi-year"
+      (yearSelected)="chosenYearHandler($event)"
+      (monthSelected)="chosenMonthHandler($event, dp)"
+      panelClass="example-month-picker"
+      style="background-color: #2a2b31"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+</mat-dialog-content>
+<div class="container">
+  <div class="spaceMargin">
+    <button
+      mat-raised-button
+      style="width: 100%; margin-top: 0.5rem"
+      color="basic"
+      class="myButton"
+    >
+      Cancel
+    </button>
+  </div>
+  <div>
+    <button
+      mat-raised-button
+      style="
+        width: 100%;
+        margin-top: 0.5rem;
+        background-color: #2a2b31;
+        color: #f8f9fc;
+      "
+      class="myButton"
+    >
+      Open
+    </button>
+  </div>
+</div>
