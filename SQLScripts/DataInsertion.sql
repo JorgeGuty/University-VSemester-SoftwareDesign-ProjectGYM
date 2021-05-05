@@ -24,10 +24,11 @@ VALUES ('Cliente2',1234,2);
 
 INSERT INTO UsuarioAdmin (Id, Nombre)
 VALUES (1, 'Jorge El Curioso');
--- Id varia segun tabla Usuario
 
 INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
-VALUES ('1100','Popeye','popeyeElMarino@gmail.com','60009999');
+    VALUES 
+    ('1100','Popeye','popeyeElMarino@gmail.com','60009999'),
+    ('1111','Cliente','cliente@gmail.com','99999999');
 
 insert into
     dbo.Cliente (Cedula, Nombre, Correo, Celular)
@@ -50,7 +51,6 @@ UPDATE Cliente
 SET Saldo=3000
 WHERE Id=1
 
--- Hay que hacer DROP & Create 
 INSERT INTO Credito (Id,FormaDePagoId)
 VALUES (1,1);
 INSERT INTO Credito (Id,FormaDePagoId)
@@ -58,10 +58,10 @@ VALUES (2,1);
 
 
 insert into 
-    dbo.Especialidades (Nombre, Aforo) 
+    dbo.Especialidades (Nombre, Aforo, Costo) 
 values 
-    ('Yoga', 15), 
-    ('Funcional', 20)
+    ('Yoga', 15, 2000), 
+    ('Funcional', 20, 2000)
 
 insert into 
     dbo.Instructor (Nombre, Cedula, Correo, Tipo) 
@@ -72,6 +72,10 @@ values
 
 INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
 VALUES(1,1);
+INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
+VALUES(2,2);
+INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
+VALUES(3,2);
 
 insert INTO
     dbo.Sala (nombre,AforoMaximo, CostoMatricula)
@@ -79,9 +83,34 @@ VALUES
     ('PlusGym', 30, 36000.00)
 
 insert into 
-    dbo.Sesion (Nombre, Fecha, DuracionMinutos, Cupos, Costo, InstructorId, EspecialidadId, SalaId) 
+    dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo,EspecialidadId,SalaId, InstructorId) 
 values 
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 12:00:00'), 120, 12, 5000.00, 1, 1, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-25 14:00:00'), 120, 12, 5000.00, 2, 2, 1),
-    ('Sesion de Yoga', CONVERT(DATETIME, '2021-04-26 16:00:00'), 120, 12, 5000.00, 3, 1, 1)
+    ('Sesion de Yoga',         0, 5, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
+    ('Sesion de Funcional',    1, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 2),
+    ('Sesion de Yoga',         2, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 1),
+    ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
+    ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
+    ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
 
+INSERT INTO 
+    dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
+VALUES
+    (CONVERT(DATE, '2021-05-16'), 1, 1),
+    (CONVERT(DATE, '2021-05-17'), 2, 2),
+    (CONVERT(DATE, '2021-05-18'), 1, 3),
+    (CONVERT(DATE, '2021-05-19'), 1, 4),
+    (CONVERT(DATE, '2021-05-20'), 2, 5),
+    (CONVERT(DATE, '2021-05-20'), 1, 6)
+
+INSERT INTO
+    dbo.Reserva(FechaReserva,ClienteId,SesionId)
+    values
+        (GETDATE(),1,4),
+        (GETDATE(),1,5),
+        (GETDATE(),1,1),
+        (GETDATE(),2,4),
+        (GETDATE(),2,5);
+
+UPDATE dbo.Reserva 
+    SET Activa = 0 
+    WHERE Id = 2;
