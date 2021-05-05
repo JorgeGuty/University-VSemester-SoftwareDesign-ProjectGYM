@@ -53,7 +53,6 @@ func GetReservedSessions() Models.Schedule {
 		SessionService:    Models.Service{
 			ID:        1,
 			Name:      "Yoga",
-			MaxSpaces: 20,
 		},
 	}
 
