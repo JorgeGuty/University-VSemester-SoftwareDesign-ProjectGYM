@@ -72,7 +72,7 @@ BEGIN
                     AND preliminary.DiaSemana = @pWeekDay
                     AND preliminary.SalaId = @pRoomId
                     AND preliminary.Activa = 1
-                    AND @FinishTime >= preliminary.HoraInicio --> If the begin hour of a session is lower than the finish time calculated.
+                    AND @FinishTime > preliminary.HoraInicio --> If the begin hour of a session is lower than the finish time calculated.
                     AND @StartTime <= preliminary.HoraInicio
             )
             RAISERROR ('Time not available for the selected week day.', 11, 1);            
