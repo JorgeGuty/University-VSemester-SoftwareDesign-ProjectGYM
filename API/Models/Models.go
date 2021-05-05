@@ -24,7 +24,7 @@ type Instructor struct {
 	Name           string `json:"name"`
 	Identification string `json:"identification"`
 	Email          string `json:"email"`
-	Type           int    `json:"type"`
+	Type           string `json:"type"`
 }
 
 type Service struct {
