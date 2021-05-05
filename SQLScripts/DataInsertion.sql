@@ -74,6 +74,8 @@ INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
 VALUES(1,1);
 INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
 VALUES(2,2);
+INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
+VALUES(3,2);
 
 insert INTO
     dbo.Sala (nombre,AforoMaximo, CostoMatricula)
