@@ -257,6 +257,7 @@ CREATE TABLE dbo.Especialidades
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(50) NOT NULL,
+	Costo decimal(19, 4) NOT NULL,
 	Aforo int NOT NULL
 	)  ON [PRIMARY]
 GO
@@ -390,7 +391,6 @@ CREATE TABLE dbo.SesionPreliminar
 	HoraInicio time NOT NULL,
 	DuracionMinutos int NOT NULL,
 	Cupo int NOT NULL,
-	Costo decimal(19, 4) NOT NULL,
 	Activa bit NOT NULL DEFAULT 1,
 	EspecialidadId int NOT NULL,
 	InstructorId int NOT NULL,

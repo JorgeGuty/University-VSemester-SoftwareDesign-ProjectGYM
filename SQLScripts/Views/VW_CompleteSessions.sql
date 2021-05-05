@@ -7,13 +7,14 @@ ALTER VIEW dbo.CompleteSessions AS
         [session].Cancelada                     AS IsCancelled,
         
         [preliminarySession].Nombre             AS [Name],
-        [preliminarySession].Costo              AS Cost,
+        
         [preliminarySession].Cupo               AS Spaces,
         [preliminarySession].DuracionMinutos    AS Duration,
         [preliminarySession].HoraInicio         AS StartTime,
         
         [service].Id                            AS ServiceId,
         [service].Nombre                        AS ServiceName,
+        [service].Costo                         AS Cost,
 
         [instructor].Id                         AS InstructorId,
         [instructor].Nombre                     AS InstructorName,

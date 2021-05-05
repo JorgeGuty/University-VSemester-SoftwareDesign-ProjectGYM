@@ -58,6 +58,5 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_GetInstructors 1,'temporal',1,'Yoga'
+EXECUTE dbo.SP_GetInstructors 1,'temporal',1,'Funcional'
 GO
-
