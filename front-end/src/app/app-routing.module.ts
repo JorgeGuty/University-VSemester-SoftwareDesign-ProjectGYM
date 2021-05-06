@@ -2,8 +2,9 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 /* Routes */
-import { AdminDashboardComponent } from "./Components/Dashboards/admin-dashboard/admin-dashboard.component";
-import { ClientDashboardComponent } from "./Components/Dashboards/client-dashboard/client-dashboard.component";
+import { AdminDashboardComponent } from "./Components/Dashboards/Admin/admin-dashboard/admin-dashboard.component";
+import { AdminPreliminaryDashboardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dashboard/admin-preliminary-dashboard.component";
+import { ClientDashboardComponent } from "./Components/Dashboards/Client/client-dashboard/client-dashboard.component";
 import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
 import { LoginComponent } from "./Components/Registration/login/login.component";
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: "client/clientDashboard",
     component: ClientDashboardComponent,
     canActivate: [AuthUserGuard],
+  },
+  {
+    path: "admin/adminPreliminaryDashboard",
+    component: AdminPreliminaryDashboardComponent,
+    canActivate: [AuthAdminGuard],
   },
 ];
 

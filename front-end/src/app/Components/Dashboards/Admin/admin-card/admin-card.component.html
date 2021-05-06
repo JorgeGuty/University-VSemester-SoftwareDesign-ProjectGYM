@@ -1,0 +1,84 @@
+<mat-toolbar class="matToolBar-enactive">
+  <span>{{ this.session.date }} </span>
+</mat-toolbar>
+<mat-card class="card-layout notReservedColor">
+  <mat-card-header style="margin-bottom: 10px" class="myHeader">
+    <mat-card-title>{{ this.session.name }}</mat-card-title>
+    <mat-card-subtitle style="text-align: left">{{
+      this.sessionService.name
+    }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <!-- Instructor -->
+      <mat-list-item class="list-layout"
+        ><mat-form-field class="example-full-width">
+          <mat-label class="cardColor">Instructor</mat-label>
+          <input
+            class="cardColor"
+            disabled
+            matInput
+            *ngIf="this.instructor.name != undefined"
+            value="{{ this.instructor.name }}"
+            #message
+          /> </mat-form-field
+      ></mat-list-item>
+      <!-- Starting Time -->
+      <mat-list-item class="list-layout"
+        ><mat-form-field class="example-full-width">
+          <mat-label class="cardColor">Starting</mat-label>
+          <input
+            class="cardColor"
+            disabled
+            matInput
+            value="{{ this.session.time }}"
+            #message
+          /> </mat-form-field
+      ></mat-list-item>
+      <!-- Duration -->
+      <mat-list-item class="list-layout"
+        ><mat-form-field class="example-full-width">
+          <mat-label class="cardColor">Duration</mat-label>
+          <input
+            class="cardColor"
+            disabled
+            matInput
+            value="{{ this.session.duration }} minutes"
+            #message
+          /> </mat-form-field
+      ></mat-list-item>
+      <!-- Cost -->
+      <mat-list-item class="list-layout"
+        ><mat-form-field class="example-full-width">
+          <mat-label class="cardColor">Cost</mat-label>
+          <input
+            class="cardColor"
+            disabled
+            matInput
+            value="$ {{ this.session.cost }}"
+            #message
+          /> </mat-form-field
+      ></mat-list-item>
+      <!-- Footer -->
+      <div class="myFooter">
+        <mat-list-item class="list-layout" style="text-align: left"
+          ><mat-icon mat-list-icon>person</mat-icon>
+          <div mat-line class="cardColor">Available Spots</div>
+          <div mat-line class="cardColor">
+            {{ this.session.availableSpaces }} open spaces
+          </div>
+        </mat-list-item>
+        <div>
+          <button
+            mat-raised-button
+            class="myButton"
+            style="background-color: #2a2b31; color: #f8f9fc"
+            (click)="onInstructorChange()"
+          >
+            Change Instructor
+          </button>
+        </div>
+      </div>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

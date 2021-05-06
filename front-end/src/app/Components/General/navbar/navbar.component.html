@@ -25,6 +25,14 @@
       >Admin Dashboard</a
     >
     <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/adminPreliminaryDashboard']"
+      mat-button
+      class="button-color"
+    >
+      Preliminary Schedule
+    </a>
+    <a
       *ngIf="authService.loggedIn() && !this.isAdmin()"
       [routerLink]="['/profile']"
       mat-button
