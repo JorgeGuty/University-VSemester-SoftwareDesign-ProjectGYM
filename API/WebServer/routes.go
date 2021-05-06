@@ -7,6 +7,7 @@ import (
 
 func Setup(app *fiber.App){
 	app.Get("/", Controllers.Start)
+	app.Get("/test", Controllers.SqlTests)
 
 	general := app.Group("/general")
 	client := app.Group("/client")
