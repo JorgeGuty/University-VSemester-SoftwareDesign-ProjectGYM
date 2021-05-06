@@ -43,9 +43,8 @@ func GetPreliminarySchedule() Models.Schedule {
 			Type:           "Planta",
 		},
 		SessionService: Models.Service{
-			ID:        1,
-			Name:      "Yoga",
-			MaxSpaces: 20,
+			ID:   1,
+			Name: "Yoga",
 		},
 	}
 	dummySession2 := Models.Session{
@@ -73,9 +72,8 @@ func GetPreliminarySchedule() Models.Schedule {
 			Type:           "De afuera",
 		},
 		SessionService: Models.Service{
-			ID:        1,
-			Name:      "Yoga",
-			MaxSpaces: 20,
+			ID:   1,
+			Name: "Yoga",
 		},
 	}
 	dummySession3 := Models.Session{
@@ -103,9 +101,8 @@ func GetPreliminarySchedule() Models.Schedule {
 			Type:           "Planta",
 		},
 		SessionService: Models.Service{
-			ID:        2,
-			Name:      "Funcional",
-			MaxSpaces: 30,
+			ID:   2,
+			Name: "Funcional",
 		},
 	}
 
