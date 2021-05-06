@@ -1,67 +1,24 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { AdminPreliminaryDialogComponent } from "../admin-preliminary-dialog/admin-preliminary-dialog.component";
-import { FormControl } from "@angular/forms";
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from "@angular/material/core";
-import { MatDatepicker } from "@angular/material/datepicker";
-import {
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from "@angular/material-moment-adapter";
-
-import * as moment from "moment";
 import { AdminPreliminaryDatePickerComponent } from "../../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: "MM/YYYY",
-  },
-  display: {
-    dateInput: "MM/YYYY",
-    monthYearLabel: "MMM YYYY",
-    dateA11yLabel: "LL",
-    monthYearA11yLabel: "MMMM YYYY",
-  },
-};
+import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 
 @Component({
   selector: "app-admin-preliminary-dashboard",
   templateUrl: "./admin-preliminary-dashboard.component.html",
   styleUrls: ["./admin-preliminary-dashboard.component.scss"],
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ],
 })
 export class AdminPreliminaryDashboardComponent implements OnInit {
-  date = new FormControl(moment());
+  exampleList01: Array<string> = ["hola", "hola", "hola"]; // Prueba
+  exampleList02: Array<string> = ["fecha", "fecha", "fecha"]; // Prueba
+  currentSchedule: Array<string> = [];
+  // Todo : currentPreliminarySchedule : Array<PreliminarySession> = [];
 
-  chosenYearHandler(normalizedYear: moment.Moment) {
-    const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
-  }
-
-  chosenMonthHandler(
-    normalizedMonth: moment.Moment,
-    datepicker: MatDatepicker<moment.Moment>
-  ) {
-    const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
-
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private adminScheduleService: AdminScheduleService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -73,11 +30,34 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
     });
   }
 
+  //Todo: implmentar array de schedules con el get de preliminary schedule
   openDatePicker() {
     const dialogRef = this.dialog.open(AdminPreliminaryDatePickerComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      console.log(result);
+      if (result.year === "2021") {
+        this.currentSchedule = this.exampleList01;
+      } else {
+        this.currentSchedule = this.exampleList02;
+      }
+      //this.fillScheduleData(result);
     });
+  }
+
+  fillScheduleData(date: any) {
+    //Todo: implement method
+    this.adminScheduleService
+      .getPreliminarySessionSchedule(date)
+      .subscribe((sessions: any) => {
+        if (sessions.sessions != null) {
+          sessions.sessions.forEach((session: any, key: any) => {
+            //this.currentPreliminarySchedule.push(session)
+          });
+        } else {
+          //TODO: Mostrar Error de vacio
+          console.log("Erroooooor!!! no hay clases");
+        }
+      });
   }
 }

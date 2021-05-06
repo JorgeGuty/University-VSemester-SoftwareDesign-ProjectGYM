@@ -1,4 +1,10 @@
-<div class="element">
+<div *ngFor="let item of this.currentSchedule">
+  <p>
+    {{ item }}
+  </p>
+</div>
+
+<h2 class="element">
   <div class="flex-container">
     <div class="elem">
       <button
@@ -24,4 +30,4 @@
       </button>
     </div>
   </div>
-</div>
+</h2>

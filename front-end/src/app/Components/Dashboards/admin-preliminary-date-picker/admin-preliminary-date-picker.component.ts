@@ -13,6 +13,9 @@ import {
 } from "@angular/material-moment-adapter";
 
 import * as moment from "moment";
+import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
+import { Output } from "@angular/core";
+import { EventEmitter } from "@angular/core";
 
 export const MY_FORMATS = {
   parse: {
@@ -41,7 +44,38 @@ export const MY_FORMATS = {
   ],
 })
 export class AdminPreliminaryDatePickerComponent implements OnInit {
+  // @Output() openPreliminary: EventEmitter<any>;
+
   date = new FormControl(moment());
+
+  constructor(private adminScheduleService: AdminScheduleService) {
+    // this.openPreliminary = new EventEmitter();
+  }
+
+  ngOnInit(): void {}
+
+  openPreliminarySchedule(): any {
+    // console.log(this.getYear(this.date.value._d));
+    // console.log(this.getMonth(this.date.value._d));
+    let dateJSON: any = {
+      year: this.getYear(this.date.value._d),
+      month: this.getMonth(this.date.value._d),
+    };
+    //this.openPreliminary.emit(dateJSON);
+    return dateJSON;
+  }
+
+  getYear(date: any) {
+    date = date.toString();
+    let dateString = date.split(" ");
+    return dateString[3];
+  }
+
+  getMonth(date: any) {
+    date = date.toString();
+    let dateString = date.split(" ");
+    return dateString[1];
+  }
 
   chosenYearHandler(normalizedYear: moment.Moment) {
     const ctrlValue = this.date.value;
@@ -58,8 +92,4 @@ export class AdminPreliminaryDatePickerComponent implements OnInit {
     this.date.setValue(ctrlValue);
     datepicker.close();
   }
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -21,6 +21,7 @@
   <div class="spaceMargin">
     <button
       mat-raised-button
+      mat-dialog-close
       style="width: 100%; margin-top: 0.5rem"
       color="basic"
       class="myButton"
@@ -31,6 +32,7 @@
   <div>
     <button
       mat-raised-button
+      [mat-dialog-close]="this.openPreliminarySchedule()"
       style="
         width: 100%;
         margin-top: 0.5rem;
