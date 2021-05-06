@@ -2,6 +2,7 @@ package Requests
 
 import (
 	"API/Models"
+
 	"github.com/golang-sql/civil"
 )
 
@@ -18,8 +19,8 @@ func GetPreliminarySchedule() Models.Schedule {
 	// TODO: real db request
 
 	dummySession1 := Models.Session{
-		ID:                1,
-		Name:              "Yoga con Juan",
+		ID:   1,
+		Name: "Yoga con Juan",
 		Date: civil.Date{
 			Year:  2021,
 			Month: 4,
@@ -31,25 +32,24 @@ func GetPreliminarySchedule() Models.Schedule {
 			Second:     0,
 			Nanosecond: 0,
 		},
-		DurationMin:       120,
-		AvailableSpaces:   15,
-		Cost:              "20000000",
+		DurationMin:     120,
+		AvailableSpaces: 15,
+		Cost:            "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             2,
 			Name:           "Juan",
 			Identification: "123123",
 			Email:          "a@a",
-			Type:           1,
+			Type:           "Planta",
 		},
-		SessionService:    Models.Service{
-			ID:        1,
-			Name:      "Yoga",
-			MaxSpaces: 20,
+		SessionService: Models.Service{
+			ID:   1,
+			Name: "Yoga",
 		},
 	}
 	dummySession2 := Models.Session{
-		ID:                1,
-		Name:              "Yoga con Pedro",
+		ID:   1,
+		Name: "Yoga con Pedro",
 		Date: civil.Date{
 			Year:  2021,
 			Month: 4,
@@ -61,25 +61,24 @@ func GetPreliminarySchedule() Models.Schedule {
 			Second:     0,
 			Nanosecond: 0,
 		},
-		DurationMin:       60,
-		AvailableSpaces:   15,
-		Cost:              "20000000",
+		DurationMin:     60,
+		AvailableSpaces: 15,
+		Cost:            "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             1,
 			Name:           "Pedro",
 			Identification: "222222",
 			Email:          "p@a",
-			Type:           2,
+			Type:           "De afuera",
 		},
-		SessionService:    Models.Service{
-			ID:        1,
-			Name:      "Yoga",
-			MaxSpaces: 20,
+		SessionService: Models.Service{
+			ID:   1,
+			Name: "Yoga",
 		},
 	}
 	dummySession3 := Models.Session{
-		ID:                1,
-		Name:              "Funcional con Fulano",
+		ID:   1,
+		Name: "Funcional con Fulano",
 		Date: civil.Date{
 			Year:  2021,
 			Month: 4,
@@ -91,24 +90,23 @@ func GetPreliminarySchedule() Models.Schedule {
 			Second:     0,
 			Nanosecond: 0,
 		},
-		DurationMin:       120,
-		AvailableSpaces:   15,
-		Cost:              "20000000",
+		DurationMin:     120,
+		AvailableSpaces: 15,
+		Cost:            "20000000",
 		SessionInstructor: Models.Instructor{
 			ID:             3,
 			Name:           "Fulano",
 			Identification: "789789",
 			Email:          "l@a",
-			Type:           1,
+			Type:           "Planta",
 		},
-		SessionService:    Models.Service{
-			ID:        2,
-			Name:      "Funcional",
-			MaxSpaces: 30,
+		SessionService: Models.Service{
+			ID:   2,
+			Name: "Funcional",
 		},
 	}
 
-	dummySchedule := Models.Schedule{Sessions: []Models.Session{dummySession1,dummySession2,dummySession3}}
+	dummySchedule := Models.Schedule{Sessions: []Models.Session{dummySession1, dummySession2, dummySession3}}
 
 	return dummySchedule
 }

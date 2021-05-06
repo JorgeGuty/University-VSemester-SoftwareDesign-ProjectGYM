@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS dbo.FormaDePago;
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
 DROP TABLE IF EXISTS dbo.Sesion;
+DROP TABLE IF EXISTS dbo.SesionPreliminar
 
 
 DROP TABLE IF EXISTS dbo.DiaDeAtencion;
@@ -256,6 +257,7 @@ CREATE TABLE dbo.Especialidades
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(50) NOT NULL,
+	Costo decimal(19, 4) NOT NULL,
 	Aforo int NOT NULL
 	)  ON [PRIMARY]
 GO
@@ -379,19 +381,68 @@ ALTER TABLE dbo.DiaDeAtencion ADD CONSTRAINT
 	
 GO
 
-CREATE TABLE dbo.Sesion
+CREATE TABLE dbo.SesionPreliminar
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(50) NOT NULL,
-	Fecha date NOT NULL,
+	DiaSemana int NOT NULL,
+	Mes int NOT NULL,
+	Año int NOT NULL,
 	HoraInicio time NOT NULL,
 	DuracionMinutos int NOT NULL,
 	Cupo int NOT NULL,
-	Costo decimal(19, 4) NOT NULL,
+	Activa bit NOT NULL DEFAULT 1,
+	EspecialidadId int NOT NULL,
+	InstructorId int NOT NULL,
+	SalaId int NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
+	PK_SesionPreliminar PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
+	FK_SesionPreliminarn_Especialidades FOREIGN KEY
+	(
+	EspecialidadId
+	) REFERENCES dbo.Especialidades
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
+	FK_SesionPreliminar_Sala FOREIGN KEY
+	(
+	SalaId
+	) REFERENCES dbo.Sala
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+GO
+ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
+	FK_SesionPreliminar_Instructor FOREIGN KEY
+	(
+	InstructorId
+	) REFERENCES dbo.Instructor
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+GO
+
+CREATE TABLE dbo.Sesion
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Fecha date NOT NULL,
 	Cancelada bit NOT NULL DEFAULT 0,
 	InstructorId int NOT NULL,
-	EspecialidadId int NOT NULL,
-	SalaId int NOT NULL
+	SessionPreliminarId int NOT NULL
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Sesion ADD CONSTRAINT
@@ -402,21 +453,10 @@ ALTER TABLE dbo.Sesion ADD CONSTRAINT
 
 GO
 ALTER TABLE dbo.Sesion ADD CONSTRAINT
-	FK_Sesion_Especialidades FOREIGN KEY
+	FK_Sesion_Instructor FOREIGN KEY
 	(
-	EspecialidadId
-	) REFERENCES dbo.Especialidades
-	(
-	Id
-	) ON UPDATE  NO ACTION 
-	 ON DELETE  NO ACTION 
-	
-GO
-ALTER TABLE dbo.Sesion ADD CONSTRAINT
-	FK_Sesion_Sala FOREIGN KEY
-	(
-	SalaId
-	) REFERENCES dbo.Sala
+	InstructorId
+	) REFERENCES dbo.Instructor
 	(
 	Id
 	) ON UPDATE  NO ACTION 
@@ -430,7 +470,7 @@ CREATE TABLE dbo.Reserva
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	FechaReserva datetime NOT NULL,
-	Activa bit NOT NULL,
+	Activa bit NOT NULL DEFAULT 1,
 	ClienteId int NOT NULL,
 	SesionId int NOT NULL
 	)  ON [PRIMARY]

@@ -7,6 +7,7 @@ import (
 
 func Setup(app *fiber.App){
 	app.Get("/", Controllers.Start)
+	app.Get("/test", Controllers.SqlTests)
 
 	general := app.Group("/general")
 	client := app.Group("/client")
@@ -18,7 +19,7 @@ func Setup(app *fiber.App){
 	client.Get("/userInfo", Controllers.GetUserInfo)
 	client.Get("/reservedSessions", Controllers.GetReservedSessions)
 	client.Post("/bookSession", Controllers.BookSession)
-
+	client.Post("/cancelBookedSession", Controllers.CancelBookedSession)
 
 	admin.Get("/preliminarySchedule", Controllers.GetPreliminarySchedule)
 	admin.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)

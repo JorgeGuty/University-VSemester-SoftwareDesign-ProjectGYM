@@ -1,55 +1,133 @@
-<h2 mat-dialog-title><mat-card-title>User Profile</mat-card-title></h2>
+<h2 mat-dialog-title><mat-card-title>Create Session</mat-card-title></h2>
 <mat-dialog-content>
   <mat-card class="home-card example-card">
     <mat-card-content class="home-card-content">
-      <mat-card-title>Create Session</mat-card-title>
-      <mat-card-subtitle>Profile Information</mat-card-subtitle>
+      <mat-card-subtitle>Session Form</mat-card-subtitle>
       <mat-tab-group>
         <!-- Login Tab -->
-        <mat-tab label="Session Form">
-          <!-- Username Field -->
-          <mat-form-field class="example-full-width" style="margin-top: 3rem">
-            <mat-label>Username</mat-label>
-            <input matInput value="Valor de prueba" #message />
-          </mat-form-field>
+        <mat-tab label="Session">
+          <form [formGroup]="preliminaryForm">
+            <!-- Class Name Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Class Name</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="className"
+              />
+            </mat-form-field>
 
-          <!-- Email Field -->
-          <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
-            <input matInput value="Valor de prueba" #message />
-          </mat-form-field>
+            <!-- Day Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Day of the Week</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="day"
+              />
+            </mat-form-field>
 
-          <!-- Phone Field -->
-          <mat-form-field class="example-full-width">
-            <mat-label>Phone</mat-label>
-            <input
-              matInput
-              value="Valor de prueba"
-              #message
-              placeholder="Phone"
-            />
-          </mat-form-field>
+            <!-- Time Field -->
+            <mat-form-field class="example-half-width">
+              <mat-label>Hour</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="hour"
+              />
+            </mat-form-field>
 
-          <!-- Identification Field -->
-          <mat-form-field class="example-full-width">
-            <mat-label>Identification</mat-label>
-            <input matInput value="Valor de prueba" #message />
-          </mat-form-field>
+            <!-- Time Field -->
+            <mat-form-field class="example-half-width">
+              <mat-label>Minutes</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="min"
+              />
+            </mat-form-field>
 
-          <!-- Balance Field -->
-          <mat-form-field class="example-full-width">
-            <mat-label>Balance</mat-label>
-            <input disabled matInput value="Valor de prueba" #message />
-          </mat-form-field>
+            <!-- Duration Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Duration</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="duration"
+              />
+            </mat-form-field>
 
-          <button
-            mat-raised-button
-            style="width: 100%; margin-top: 0.5rem"
-            color="primary"
-            (click)="onSave()"
-          >
-            Save
-          </button>
+            <!-- Year Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Year</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="year"
+              />
+            </mat-form-field>
+
+            <!-- Month Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Month</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="month"
+              />
+            </mat-form-field>
+
+            <!-- Cost Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Cost</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="cost"
+              />
+            </mat-form-field>
+
+            <!-- Instructor Id Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Instructor</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="instructorId"
+              />
+            </mat-form-field>
+
+            <!-- Session Service Id Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Service Type</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="sessionServiceId"
+              />
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              mat-dialog-close
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+              (click)="onSave()"
+              [disabled]="this.preliminaryForm.invalid"
+            >
+              Save
+            </button>
+          </form>
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>

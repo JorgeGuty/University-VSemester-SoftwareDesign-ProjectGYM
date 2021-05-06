@@ -1,11 +1,33 @@
-<div class="element">
-  <button
-    mat-fab
-    color="primary"
-    aria-label="Example icon button with a delete icon"
-    class="button-create"
-    (click)="openForm()"
-  >
-    <mat-icon>create</mat-icon>
-  </button>
+<div *ngFor="let item of this.currentSchedule">
+  <p>
+    {{ item }}
+  </p>
 </div>
+
+<h2 class="element">
+  <div class="flex-container">
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
+        style="background-color: #1cc88a; color: #1b1c1f"
+        (click)="openDatePicker()"
+      >
+        <mat-icon>today</mat-icon>
+      </button>
+    </div>
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
+        (click)="openForm()"
+      >
+        <mat-icon>create</mat-icon>
+      </button>
+    </div>
+  </div>
+</h2>
