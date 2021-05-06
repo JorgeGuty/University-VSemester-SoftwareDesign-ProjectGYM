@@ -38,22 +38,6 @@ func connect() {
 	fmt.Printf("Connected!\n")
 }
 
-func VoidTransaction(pQuery string) (bool, error) {
-
-	connect()
-	defer db.Close()
-
-
-
-	_, err = db.ExecContext(ctx, pQuery)
-
-	if err != nil {
-		return false, err
-	}
-
-	return true, nil
-}
-
 func ReadTransaction(pQuery string) (*sql.Rows, error) {
 
 	connect()
@@ -63,16 +47,16 @@ func ReadTransaction(pQuery string) (*sql.Rows, error) {
 	// Check if database is alive.
 	err := db.PingContext(ctx)
 	if err != nil {
-		return nil, 0, err
+		return nil, err
 	}
 	var returnStatus mssql.ReturnStatus
 	// Execute query
-	rows, err := db.QueryContext(ctx, pQuery, &returnStatus)
+	rows, err := db.QueryContext(ctx, pQuery)
 	if err != nil {
-		return nil, returnStatus, err
+		return nil, err
 	}
 	fmt.Println(returnStatus == 0)
-	return rows, returnStatus, nil
+	return rows, nil
 }
 
 func TestTran(pQuery string) (bool, error) {
