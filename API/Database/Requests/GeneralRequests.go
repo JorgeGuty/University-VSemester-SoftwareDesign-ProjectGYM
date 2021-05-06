@@ -41,3 +41,15 @@ func GetCurrentSessionSchedule() Models.Schedule {
 
 	return schedule
 }
+
+func TestRequest() bool {
+	query := fmt.Sprintf(`EXEC test;`)
+
+	good, err := Database.TestTran(query)
+
+	if err != nil {
+		return false
+	}
+
+	return good
+}

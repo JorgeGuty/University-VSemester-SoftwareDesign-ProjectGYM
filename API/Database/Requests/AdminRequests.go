@@ -43,8 +43,13 @@ func GetPreliminarySchedule() Models.Schedule {
 			Type:           "Planta",
 		},
 		SessionService: Models.Service{
+<<<<<<< HEAD
 			ID:        1,
 			Name:      "Yoga",
+=======
+			ID:   1,
+			Name: "Yoga",
+>>>>>>> dev
 		},
 	}
 	dummySession2 := Models.Session{
@@ -72,8 +77,13 @@ func GetPreliminarySchedule() Models.Schedule {
 			Type:           "De afuera",
 		},
 		SessionService: Models.Service{
+<<<<<<< HEAD
 			ID:        1,
 			Name:      "Yoga",
+=======
+			ID:   1,
+			Name: "Yoga",
+>>>>>>> dev
 		},
 	}
 	dummySession3 := Models.Session{
@@ -101,8 +111,13 @@ func GetPreliminarySchedule() Models.Schedule {
 			Type:           "Planta",
 		},
 		SessionService: Models.Service{
+<<<<<<< HEAD
 			ID:        2,
 			Name:      "Funcional",
+=======
+			ID:   2,
+			Name: "Funcional",
+>>>>>>> dev
 		},
 	}
 
