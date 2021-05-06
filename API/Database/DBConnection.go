@@ -49,37 +49,36 @@ func ReadTransaction(pQuery string) (*sql.Rows, error) {
 	if err != nil {
 		return nil, err
 	}
-	var returnStatus mssql.ReturnStatus
+
 	// Execute query
 	rows, err := db.QueryContext(ctx, pQuery)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(returnStatus == 0)
+
 	return rows, nil
 }
 
-func TestTran(pQuery string) (bool, error) {
+func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 
 	connect()
 	defer db.Close()
-
-	var rs mssql.ReturnStatus
 
 	ctx := context.Background()
 	// Check if database is alive.
 	err := db.PingContext(ctx)
 	if err != nil {
-		return false, err
+		return -1, err
 	}
+	var returnStatus mssql.ReturnStatus
 
 	// Execute query
-	result, err := db.ExecContext(ctx, pQuery, &rs)
-	if err != nil {
-		return false, err
-	}
-	println(result.LastInsertId())
-	println(rs)
+	_, err = db.QueryContext(ctx, pQuery, &returnStatus)
 
-	return true, nil
+	if err != nil {
+		return -1, err
+	}
+
+	fmt.Println(returnStatus == 0)
+	return returnStatus, nil
 }

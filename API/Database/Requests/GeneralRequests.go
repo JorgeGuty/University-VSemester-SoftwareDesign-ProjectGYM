@@ -28,7 +28,7 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 func GetCurrentSessionSchedule() Models.Schedule {
 	query := fmt.Sprintf(`EXEC SP_getCurrentCalendar;`)
 
-	resultSet,  err := Database.ReadTransaction(query)
+	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil {
 		return Models.Schedule{}
@@ -40,13 +40,6 @@ func GetCurrentSessionSchedule() Models.Schedule {
 }
 
 func TestRequest() bool {
-	query := fmt.Sprintf(`EXEC test;`)
 
-	good, err := Database.TestTran(query)
-
-	if err != nil {
-		return false
-	}
-
-	return good
+	return true
 }
