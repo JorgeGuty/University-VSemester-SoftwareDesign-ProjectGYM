@@ -1,0 +1,81 @@
+.card-layout {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.tile-footer {
+  text-align: center;
+  width: 193px;
+  margin-top: 30px;
+  background-color: #ffff;
+  color: #2a2b31;
+  font-size: 20px;
+  line-height: 30px;
+  justify-content: center;
+}
+
+.tile-header {
+  text-align: center;
+  width: 193px;
+  margin-top: 0px;
+  background-color: #ffff;
+  color: #2a2b31;
+  font-size: 25px;
+  line-height: 30px;
+  justify-content: center;
+}
+
+.example-full-width {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.list-layout {
+  margin-bottom: 1rem;
+}
+
+.myFooter {
+  display: flex;
+  align-items: baseline;
+}
+
+.myButton {
+  margin-top: 0.5rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 30px;
+  padding-right: 15px;
+}
+
+.cardColor {
+  color: #2a2b31;
+}
+
+.matToolBar-enactive {
+  margin: 0px;
+  background-color: #2a2b31;
+  color: #f8f9fc;
+  height: 40px;
+  font-size: 15px;
+}
+
+.matToolBar-active {
+  margin: 0px;
+  background-color: #73d689;
+  color: #2a2b31;
+  height: 40px;
+  font-size: 15px;
+}
+
+.notReservedColor {
+  background-color: #f8f9fc;
+}
+
+.reservedColor {
+  background-color: #c4e9d9;
+}
+
+.myHeader {
+  display: flex;
+  justify-content: space-between;
+}
