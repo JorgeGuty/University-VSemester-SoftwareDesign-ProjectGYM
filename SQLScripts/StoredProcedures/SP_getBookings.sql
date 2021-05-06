@@ -3,11 +3,17 @@
 -- Description:	Retrieves the sesions of the current month
 -- =============================================
 
-CREATE OR ALTER PROCEDURE dbo.SP_getCurrentCalendar
+CREATE OR ALTER PROCEDURE dbo.SP_getBookings
+    @pUsername  VARCHAR(50)
 AS
     BEGIN
         DECLARE @StartDate Date;
+        DECLARE @ClientId int;
         SET @StartDate = GETDATE();
+
+        SELECT @ClientId = ClientId
+            FROM dbo.CompleteClients cc
+            WHERE cc.Username = @pUsername;
 
         SELECT 
             cs.SessionID,
@@ -24,12 +30,24 @@ AS
             cs.InstructorType,
             cs.ServiceName
         FROM dbo.CompleteSessions cs
-        LEFT JOIN
+        INNER JOIN
+            (
+                SELECT SesionId
+                    FROM dbo.Reserva
+                    WHERE 
+                        ClienteId = @ClientId
+                        AND 
+                        Activa = 1
+
+            ) AS clientSessions
+        ON clientSessions.SesionId = cs.SessionID
+        INNER JOIN
             (
                 SELECT SesionId, COUNT(SesionId) AS Bookings 
                     FROM dbo.Reserva
                     GROUP BY SesionId
             ) AS r
             ON r.SesionId = cs.SessionID
-        WHERE cs.SessionDate >= @StartDate
+        WHERE 
+        cs.SessionDate >= @StartDate 
     END

@@ -257,6 +257,7 @@ CREATE TABLE dbo.Especialidades
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(50) NOT NULL,
+	Costo decimal(19, 4) NOT NULL,
 	Aforo int NOT NULL
 	)  ON [PRIMARY]
 GO
@@ -390,9 +391,9 @@ CREATE TABLE dbo.SesionPreliminar
 	HoraInicio time NOT NULL,
 	DuracionMinutos int NOT NULL,
 	Cupo int NOT NULL,
-	Costo decimal(19, 4) NOT NULL,
 	Activa bit NOT NULL DEFAULT 1,
 	EspecialidadId int NOT NULL,
+	InstructorId int NOT NULL,
 	SalaId int NOT NULL
 	)  ON [PRIMARY]
 GO
@@ -419,6 +420,16 @@ ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
 	(
 	SalaId
 	) REFERENCES dbo.Sala
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+GO
+ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
+	FK_SesionPreliminar_Instructor FOREIGN KEY
+	(
+	InstructorId
+	) REFERENCES dbo.Instructor
 	(
 	Id
 	) ON UPDATE  NO ACTION 

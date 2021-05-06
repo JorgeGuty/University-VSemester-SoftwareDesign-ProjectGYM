@@ -5,6 +5,7 @@ import (
 	"API/Database/Requests"
 	"API/Models"
 	"API/WebServer/Token"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -33,7 +34,7 @@ func Login(context *fiber.Ctx) error {
 
 	// token creation
 	signedToken, err := Token.GetUserSignedToken(user.Username, user.Type)
-	if err != nil{
+	if err != nil {
 		return giveJSONResponse(context, Models.Error{Message: Common.CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
@@ -52,4 +53,11 @@ func GetActiveSchedule(context *fiber.Ctx) error {
 	schedule := Requests.GetCurrentSessionSchedule()
 
 	return giveJSONResponse(context, schedule, fiber.StatusOK)
+}
+
+func SqlTests(context *fiber.Ctx) error {
+
+	good := Requests.TestRequest()
+
+	return giveJSONResponse(context, good, fiber.StatusOK)
 }
