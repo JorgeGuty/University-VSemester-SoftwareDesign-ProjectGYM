@@ -20,6 +20,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatListModule } from "@angular/material/list";
+import { MatSelectModule } from "@angular/material/select";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
@@ -29,7 +31,6 @@ import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
 import { ClientDashboardComponent } from "./Components/Dashboards/Client/client-dashboard/client-dashboard.component";
 import { AdminDashboardComponent } from "./Components/Dashboards/Admin/admin-dashboard/admin-dashboard.component";
-import { MatListModule } from "@angular/material/list";
 
 /* Routes Guarding */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
@@ -78,6 +79,7 @@ import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboar
     MatDialogModule,
     MatListModule,
     MatExpansionModule,
+    MatSelectModule,
   ],
   providers: [AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
