@@ -14,6 +14,7 @@ ALTER VIEW dbo.CompleteSessions AS
         
         [service].Id                            AS ServiceId,
         [service].Nombre                        AS ServiceName,
+        [service].Aforo                         AS ServiceMaxSpaces,
         [service].Costo                         AS Cost,
 
         [instructor].Id                         AS InstructorId,

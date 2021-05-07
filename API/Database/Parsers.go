@@ -3,6 +3,7 @@ package Database
 import (
 	"API/Models"
 	"database/sql"
+	mssql "github.com/denisenkom/go-mssqldb"
 	"time"
 
 	"github.com/golang-sql/civil"
@@ -58,8 +59,10 @@ func ParseSchedule(resultSet *sql.Rows) Models.Schedule {
 			&session.SessionInstructor.Identification,
 			&session.SessionInstructor.Email,
 			&session.SessionInstructor.Type,
-
-			&session.SessionService.Name)
+			&session.SessionService.Name,
+			&session.SessionService.Cost,
+			&session.SessionService.MaxSpaces,
+			)
 
 		if err != nil {
 			println(err.Error())
@@ -84,3 +87,122 @@ func ParseSchedule(resultSet *sql.Rows) Models.Schedule {
 
 	return schedule
 }
+
+func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
+
+	var instructors []Models.Instructor
+
+	for resultSet.Next() {
+		newInstructor := Models.Instructor{}
+
+		err := resultSet.Scan(
+			&newInstructor.ID,
+			&newInstructor.Name,
+			&newInstructor.Identification,
+			&newInstructor.Email,
+			&newInstructor.Type,
+			)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Instructor{}
+		}
+
+		instructors = append(instructors, newInstructor)
+	}
+
+	return instructors
+}
+
+
+func ParseServices(resultSet *sql.Rows) []Models.Service {
+
+	var services []Models.Service
+
+	for resultSet.Next() {
+		newService := Models.Service{}
+
+		err := resultSet.Scan(
+			&newService.ID,
+			&newService.Name,
+			&newService.MaxSpaces,
+			&newService.Cost,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Service{}
+		}
+
+		services = append(services, newService)
+	}
+
+	return services
+}
+
+func ParsePreliminarySchedule(resultSet *sql.Rows) Models.PreliminarySchedule {
+
+	var err error
+	var preliminarySchedule Models.PreliminarySchedule
+
+	for resultSet.Next() {
+		newSession := Models.PreliminarySession{}
+
+		var preliminarySessionTime time.Time
+
+		err = resultSet.Scan(
+			&newSession.ID,
+			&newSession.WeekDay,
+			&newSession.AvailableSpaces,
+			&preliminarySessionTime,
+			&newSession.Name,
+			&newSession.DurationMin,
+			&newSession.SessionService.ID,
+			&newSession.SessionService.Cost,
+			&newSession.SessionService.Name,
+			&newSession.SessionService.MaxSpaces,
+			&newSession.SessionInstructor.ID,
+			&newSession.SessionInstructor.Name,
+			&newSession.SessionInstructor.Identification,
+			&newSession.SessionInstructor.Email,
+			&newSession.SessionInstructor.Type,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return Models.PreliminarySchedule{}
+		}
+
+		newSession.Time = civil.Time{
+			Hour:       preliminarySessionTime.Hour(),
+			Minute:     preliminarySessionTime.Minute(),
+			Second:     preliminarySessionTime.Second(),
+			Nanosecond: preliminarySessionTime.Nanosecond(),
+		}
+
+		preliminarySchedule.Sessions = append(preliminarySchedule.Sessions, newSession)
+	}
+	return preliminarySchedule
+}
+
+func ParseVoidResult(pReturnStatus mssql.ReturnStatus) Models.VoidOperationResult {
+
+	var success bool
+
+	if pReturnStatus < 0 {
+		success = false
+	} else {
+		success = true
+	}
+
+	voidOperationResult := Models.VoidOperationResult{
+		Success: success,
+		ReturnStatus: pReturnStatus,
+		Message: "por el momento nada",
+	}
+
+	return voidOperationResult
+
+}
+
+
