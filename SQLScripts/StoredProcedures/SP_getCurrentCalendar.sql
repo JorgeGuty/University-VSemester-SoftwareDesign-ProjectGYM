@@ -36,4 +36,3 @@ AS
         WHERE cs.SessionDate >= @StartDate
     END
 
-exec SP_getCurrentCalendar

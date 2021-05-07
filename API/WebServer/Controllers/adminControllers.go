@@ -3,6 +3,7 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"github.com/gofiber/fiber/v2"
+	"strconv"
 )
 
 func CancelSession(context *fiber.Ctx) error {
@@ -34,7 +35,15 @@ func GetPreliminarySchedule(context *fiber.Ctx) error {
 		return nil
 	}
 
-	dummySchedule := Requests.GetPreliminarySchedule()
+	// mapping data parameters from body
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+
+	dummySchedule := Requests.GetPreliminarySchedule(month, year)
 
 	return giveJSONResponse(context, dummySchedule, fiber.StatusOK)
 }
