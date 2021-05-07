@@ -3,7 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { AdminPreliminaryDialogComponent } from "../admin-preliminary-dialog/admin-preliminary-dialog.component";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 import { Session } from "src/app/Models/Schedule/Session";
-import { AdminPreliminaryDatePickerComponent } from "../../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
+import { AdminPreliminaryDatePickerComponent } from "../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 import DaysEnum from "src/app/Models/Calendar/DaysEnum";
 
 @Component({
