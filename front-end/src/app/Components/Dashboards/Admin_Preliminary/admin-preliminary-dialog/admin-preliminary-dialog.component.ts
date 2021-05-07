@@ -16,14 +16,13 @@ export class AdminPreliminaryDialogComponent implements OnInit {
   preliminaryForm = new FormGroup({
     className: new FormControl("", Validators.required),
     day: new FormControl("", Validators.required),
-    cost: new FormControl("", Validators.required),
     hour: new FormControl(0, Validators.pattern("([01]?[0-9]|2[0-3])")),
     min: new FormControl(0, Validators.pattern("[0-5][0-9]")),
     year: new FormControl(2000, Validators.pattern("^[12][0-9]{3}$")),
     month: new FormControl(1, Validators.pattern("^(0?[1-9]|1[012])$")),
     duration: new FormControl("", Validators.required),
-    instructorId: new FormControl("", Validators.required),
-    sessionServiceId: new FormControl("", Validators.required),
+    instructorIdNum: new FormControl("", Validators.required),
+    sessionServiceName: new FormControl("", Validators.required),
   });
 
   onSave() {

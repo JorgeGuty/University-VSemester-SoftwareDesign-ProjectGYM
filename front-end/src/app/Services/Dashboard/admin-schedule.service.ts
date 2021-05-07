@@ -40,10 +40,22 @@ export class AdminScheduleService {
 
   // Receives a date json {"year" : "yyyy", "month" : "monthName"}
   // Todo: Avisarle a Jorge acerca del json que se envia
+  // getPreliminarySessionSchedule(dateJSON: any): Observable<any> {
+  //   return this.httpClient.post(
+  //     ConnectionsServices.currentConnection + "/admin/preliminarySchedule",
+  //     dateJSON,
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `${AuthService.getAuthToken()}`,
+  //       },
+  //     }
+  //   );
+  // }
+
   getPreliminarySessionSchedule(dateJSON: any): Observable<any> {
-    return this.httpClient.post(
+    return this.httpClient.get(
       ConnectionsServices.currentConnection + "/admin/preliminarySchedule",
-      dateJSON,
       {
         headers: {
           "Content-Type": "application/json",
