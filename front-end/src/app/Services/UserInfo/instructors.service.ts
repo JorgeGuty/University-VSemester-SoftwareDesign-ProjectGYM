@@ -22,4 +22,22 @@ export class InstructorsService {
       }
     );
   }
+
+  getInstructorsFromService(serviceName: string): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/general/instructors",
+      {
+        filterByService: "1",
+        service: serviceName,
+        filterByType: "0",
+        type: "",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }
