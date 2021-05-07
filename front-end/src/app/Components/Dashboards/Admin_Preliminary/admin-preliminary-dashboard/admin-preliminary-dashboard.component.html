@@ -1,12 +1,19 @@
-<div *ngFor="let sessionArray of this.scheduleMap.keys()">
+<!-- <app-admin-preliminary-information-cards
+  [sessionSchedule]="this.scheduleMap"
+></app-admin-preliminary-information-cards> -->
+
+<app-admin-preliminary-information-cards
+  [sessionSchedule]="this.scheduleMap"
+></app-admin-preliminary-information-cards>
+
+<!-- <div *ngFor="let sessionArray of this.scheduleMap.keys()">
   <mat-expansion-panel [expanded]="true" hideToggle class="myExpansion-panel">
     <mat-expansion-panel-header>
-      <mat-panel-title> {{ sessionArray }} </mat-panel-title>
+      <mat-panel-title> {{ getDayName(sessionArray) }} </mat-panel-title>
       <mat-panel-description>
         This are the classes for the day!!!
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <!-- Cambiar a admin card -->
     <app-admin-preliminary-card
       *ngFor="let session of this.scheduleMap.get(sessionArray)"
       [session]="this.session"
@@ -14,7 +21,7 @@
       [sessionService]="this.session.sessionService"
     ></app-admin-preliminary-card>
   </mat-expansion-panel>
-</div>
+</div> -->
 
 <h2 class="element">
   <div class="flex-container">

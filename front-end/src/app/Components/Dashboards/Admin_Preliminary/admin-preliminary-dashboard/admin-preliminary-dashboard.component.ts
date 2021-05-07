@@ -4,6 +4,7 @@ import { AdminPreliminaryDialogComponent } from "../admin-preliminary-dialog/adm
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 import { Session } from "src/app/Models/Schedule/Session";
 import { AdminPreliminaryDatePickerComponent } from "../../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
+import DaysEnum from "src/app/Models/Calendar/DaysEnum";
 
 @Component({
   selector: "app-admin-preliminary-dashboard",
@@ -11,11 +12,9 @@ import { AdminPreliminaryDatePickerComponent } from "../../admin-preliminary-dat
   styleUrls: ["./admin-preliminary-dashboard.component.scss"],
 })
 export class AdminPreliminaryDashboardComponent implements OnInit {
-  scheduleMap: Map<string, any>;
+  scheduleMap: Map<number, any>;
+  public show = true;
 
-  exampleList01: Array<string> = ["hola", "hola", "hola"]; // Prueba
-  exampleList02: Array<string> = ["fecha", "fecha", "fecha"]; // Prueba
-  currentSchedule: Array<string> = [];
   // Todo : currentPreliminarySchedule : Array<PreliminarySession> = [];
 
   constructor(
@@ -26,7 +25,7 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fillScheduleData("hola");
+    //this.fillScheduleData("hola");
   }
 
   openForm() {
@@ -42,12 +41,9 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(AdminPreliminaryDatePickerComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log("FECHAAAA");
       console.log(result);
-      if (result.year === "2021") {
-        this.currentSchedule = this.exampleList01;
-      } else {
-        this.currentSchedule = this.exampleList02;
-      }
+      this.scheduleMap = new Map();
       this.fillScheduleData(result);
     });
   }
@@ -57,14 +53,20 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
     this.adminScheduleService
       .getPreliminarySessionSchedule(date)
       .subscribe((sessions: any) => {
-        if (sessions.sessions != null) {
-          sessions.sessions.forEach((session: Session, key: any) => {
-            //this.currentPreliminarySchedule.push(session)
-            console.log(session);
-            let scheduledSession = this.initSession(session);
-            this.fillScheduleHashmap(scheduledSession);
-            console.log(this.scheduleMap.get("Thu"));
-          });
+        console.log(sessions);
+        if (sessions != null) {
+          sessions.preliminary_sessions.forEach(
+            (session: Session, key: any) => {
+              //this.currentPreliminarySchedule.push(session)
+              console.log("holis mundo");
+              console.log(session);
+              //let scheduledSession = this.initSession(session);
+              console.log(session);
+              this.fillScheduleHashmap(session);
+              console.log(this.scheduleMap.get(4));
+            }
+          );
+          console.log(this.scheduleMap);
         } else {
           //TODO: Mostrar Error de vacio
           console.log("Erroooooor!!! no hay clases");
@@ -72,15 +74,18 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
       });
   }
 
-  fillScheduleHashmap(scheduledSession: Session) {
-    let date: Date;
-    if (scheduledSession.date?.toString() != undefined) {
-      date = new Date(scheduledSession.date?.toString());
-    } else {
-      date = new Date();
-    }
-    let keyDay: string = date.toString().split(" ")[0];
-    if (scheduledSession.date != undefined) {
+  fillScheduleHashmap(scheduledSession: any) {
+    console.log("puta vida");
+    console.log(scheduledSession.week_day);
+    // let date: Date;
+    // if (scheduledSession.date?.toString() != undefined) {
+    //   date = new Date(scheduledSession.date?.toString());
+    // } else {
+    //   date = new Date();
+    // }
+    // let keyDay: string = date.toString().split(" ")[0];
+    let keyDay: number = scheduledSession.week_day;
+    if (scheduledSession.week_day != undefined) {
       let dayOfWeek: any[] = this.scheduleMap.get(keyDay);
       if (dayOfWeek == undefined) {
         this.scheduleMap.set(keyDay, [scheduledSession]);
@@ -111,5 +116,14 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
     };
 
     return scheduledSession;
+  }
+
+  reload() {
+    this.show = false;
+    setTimeout(() => (this.show = true));
+  }
+
+  getDayName(day: any) {
+    return DaysEnum[day];
   }
 }
