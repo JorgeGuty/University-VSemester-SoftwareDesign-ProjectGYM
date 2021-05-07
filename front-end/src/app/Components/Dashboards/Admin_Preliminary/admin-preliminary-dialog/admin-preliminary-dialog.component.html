@@ -101,9 +101,9 @@
                 <mat-option>--</mat-option>
                 <mat-option
                   *ngFor="let instructor of this.instructorArray"
-                  [value]="instructor"
+                  [value]="instructor.id"
                 >
-                  {{ instructor.name }} id:{{ instructor.id }}
+                  {{ instructor.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
