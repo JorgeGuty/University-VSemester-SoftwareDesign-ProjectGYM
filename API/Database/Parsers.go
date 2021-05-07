@@ -121,6 +121,18 @@ func ParseServices(resultSet *sql.Rows) []Models.Service {
 	for resultSet.Next() {
 		newService := Models.Service{}
 
+		err := resultSet.Scan(
+			&newService.ID,
+			&newService.Name,
+			&newService.MaxSpaces,
+			&newService.Cost,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Service{}
+		}
+
 		services = append(services, newService)
 	}
 

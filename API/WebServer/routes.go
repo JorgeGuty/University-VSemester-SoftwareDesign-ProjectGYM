@@ -17,7 +17,7 @@ func Setup(app *fiber.App) {
 	general.Post("/login", Controllers.Login)
 	general.Get("/activeSchedule", Controllers.GetActiveSchedule)
 	general.Post("/instructors", Controllers.GetInstructors)
-
+	general.Get("/services", Controllers.GetServices)
 
 	client.Get("/userInfo", Controllers.GetUserInfo)
 	client.Get("/reservedSessions", Controllers.GetReservedSessions)
