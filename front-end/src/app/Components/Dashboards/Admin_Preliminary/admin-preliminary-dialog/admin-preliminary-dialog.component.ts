@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatDialogRef } from "@angular/material/dialog";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import Service from "src/app/Models/Schedule/Service";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
@@ -23,8 +22,8 @@ export class AdminPreliminaryDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadInstructors();
     this.loadServicesTypes();
+    //this.loadInstructors();
   }
 
   preliminaryForm = new FormGroup({
@@ -64,6 +63,9 @@ export class AdminPreliminaryDialogComponent implements OnInit {
         serviceTypesList.forEach((serviceType: any, key: any) => {
           this.serviceArray.push(serviceType);
         });
+        console.log(serviceTypesList);
+        console.log(this.serviceArray);
+        this.loadInstructors();
       });
   }
 

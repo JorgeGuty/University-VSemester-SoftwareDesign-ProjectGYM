@@ -84,20 +84,10 @@
               />
             </mat-form-field>
 
-            <!-- Instructor Id Field -->
-            <!-- <mat-form-field class="example-full-width">
-              <mat-label>Instructor</mat-label>
-              <input
-                matInput
-                value="Valor de prueba"
-                #message
-                formControlName="instructorId"
-              />
-            </mat-form-field> -->
             <h4>mat select</h4>
             <mat-form-field appearance="fill">
               <mat-label>Designated Instructor</mat-label>
-              <mat-select formControlName="instructor" required>
+              <mat-select formControlName="instructorIdNum" required>
                 <mat-option>--</mat-option>
                 <mat-option
                   *ngFor="let instructor of this.instructorArray"
