@@ -26,10 +26,16 @@ AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @Spaces         INT
-        DECLARE @StartTime      TIME
-        DECLARE @RoomCapacity   INT
-        DECLARE @FinishTime     TIME
+        DECLARE @Spaces                     INT
+        DECLARE @StartTime                  TIME
+        DECLARE @RoomCapacity               INT
+        DECLARE @FinishTime                 TIME
+
+        DECLARE @TimeUnavailableErrorCode   INT
+        DECLARE @SPErrorCode                INT     
+
+        SET @TimeUnavailableErrorCode = -5001
+        SET @SPErrorCode = -1    
 
         -- Sets service spaces based on the provided service's max spaces.
         SET @Spaces = 
@@ -75,7 +81,7 @@ BEGIN
                     AND @FinishTime > preliminary.HoraInicio --> If the begin hour of a session is lower than the finish time calculated.
                     AND @StartTime <= preliminary.HoraInicio
             )
-            RAISERROR ('Time not available for the selected week day.', 11, 1);            
+            RETURN @TimeUnavailableErrorCode          
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
@@ -115,15 +121,14 @@ BEGIN
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK
-        SELECT ERROR_MESSAGE() AS ErrorMessage; 
-        RETURN -1
+        RETURN @SPErrorCode
     END CATCH
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_InsertPreliminarySession 'Yoga con Pedro', 1, 6, 2021, '8:00', 120, 1, 1, 1
-GO
-
+DECLARE @returnvalue int
+EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga con Pedro', 1, 6, 2021, '8:00', 120, 1, 1, 1
+SELECT @returnvalue AS returnValue
 SELECT * FROM SesionPreliminar
 
 /*

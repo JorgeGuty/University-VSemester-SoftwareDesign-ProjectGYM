@@ -2,8 +2,6 @@ package Controllers
 
 import (
 	"API/Database/Requests"
-	"API/Models"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -84,28 +82,4 @@ func ConfirmPreliminarySchedule(context *fiber.Ctx) error {
 
 }
 
-func GetInstructors(context *fiber.Ctx) error {
-	token := analyzeToken(context)
 
-	if token == nil {
-		return nil
-	}
-
-	dummyInstructor := []Models.Instructor{
-		Models.Instructor{
-			ID:             1,
-			Name:           "Instructor1",
-			Identification: "1234",
-			Email:          "a@aaa.com",
-			Type:           "Planta",
-		},
-		Models.Instructor{
-			ID:             2,
-			Name:           "Instructor2",
-			Identification: "7777",
-			Email:          "a@bbba.com",
-			Type:           "Temp",
-		},
-	}
-	return giveJSONResponse(context, dummyInstructor, fiber.StatusOK)
-}

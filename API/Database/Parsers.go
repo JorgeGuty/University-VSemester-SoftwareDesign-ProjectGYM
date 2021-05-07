@@ -58,8 +58,10 @@ func ParseSchedule(resultSet *sql.Rows) Models.Schedule {
 			&session.SessionInstructor.Identification,
 			&session.SessionInstructor.Email,
 			&session.SessionInstructor.Type,
-
-			&session.SessionService.Name)
+			&session.SessionService.Name,
+			&session.SessionService.Cost,
+			&session.SessionService.MaxSpaces,
+			)
 
 		if err != nil {
 			println(err.Error())
@@ -84,3 +86,44 @@ func ParseSchedule(resultSet *sql.Rows) Models.Schedule {
 
 	return schedule
 }
+
+func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
+
+	var instructors = []Models.Instructor{}
+
+	for resultSet.Next() {
+		newInstructor := Models.Instructor{}
+
+		err := resultSet.Scan(
+			&newInstructor.ID,
+			&newInstructor.Name,
+			&newInstructor.Identification,
+			&newInstructor.Email,
+			&newInstructor.Type,
+			)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Instructor{}
+		}
+
+		instructors = append(instructors, newInstructor)
+	}
+
+	return instructors
+}
+
+
+func ParseServices(resultSet *sql.Rows) []Models.Service {
+
+	var services = []Models.Service{}
+
+	for resultSet.Next() {
+		newService := Models.Service{}
+
+		services = append(services, newService)
+	}
+
+	return services
+}
+

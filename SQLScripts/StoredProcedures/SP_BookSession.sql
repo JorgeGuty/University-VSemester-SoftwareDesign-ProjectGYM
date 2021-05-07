@@ -17,11 +17,17 @@ AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @BookedSpaces       INT
-        DECLARE @TotalSpaces        INT
-        DECLARE @AvailableSpaces    INT
-        DECLARE @ClientID           INT
-        DECLARE @ReturnCode         INT
+        DECLARE @BookedSpaces                   INT
+        DECLARE @TotalSpaces                    INT
+        DECLARE @AvailableSpaces                INT
+        DECLARE @ClientID                       INT
+        DECLARE @AlreadyBookedErrorCode         INT
+        DECLARE @SessionOutOfSpacesErrorCode    INT
+        DECLARE @SPErrorCode                    INT     
+
+        SET @AlreadyBookedErrorCode = -5001
+        SET @SessionOutOfSpacesErrorCode = -5002
+        SET @SPErrorCode = -1    
 
         -- Gets the total available spaces for a certain session.
         SET @TotalSpaces = 
@@ -46,7 +52,7 @@ BEGIN
 
         -- Checks if client already booked that session.
         IF @ClientID IN ( SELECT booking.ClienteId FROM dbo.Reserva AS booking WHERE booking.SesionId = @pSessionID AND booking.Activa = 1 )
-            RAISERROR (N'Session already booked by user %s', 11, 1, @pUsername);            
+            RETURN @AlreadyBookedErrorCode           
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
@@ -70,7 +76,7 @@ BEGIN
                             dbo.Reserva (FechaReserva, Activa, ClienteId, SesionId)
                         VALUES
                             (GETDATE(), 1, @ClientID, @pSessionID)
-                    ELSE RAISERROR (N'Session %s is out of spaces', 11, 2, @pSessionID);                
+                    ELSE RETURN @SessionOutOfSpacesErrorCode                  
                 COMMIT
             END
         RETURN 1;
@@ -78,8 +84,7 @@ BEGIN
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK
-        SELECT ERROR_MESSAGE() AS ErrorMessage; 
-        RETURN -1
+        RETURN @SPErrorCode
     END CATCH
 END
 GO
