@@ -56,6 +56,19 @@ export class AdminPreliminaryDialogComponent implements OnInit {
       });
   }
 
+  loadInstructorsByService(serviceName: string) {
+    this.instructorService
+      .getInstructorsFromService(serviceName)
+      .subscribe((instructorList: [Instructor]) => {
+        this.instructorArray = [];
+        instructorList.forEach((instructor: any, key: any) => {
+          this.instructorArray.push(instructor);
+        });
+        console.log(instructorList);
+        console.log(this.instructorArray);
+      });
+  }
+
   loadServicesTypes() {
     this.servicesService
       .getServicesTypes()
@@ -63,9 +76,9 @@ export class AdminPreliminaryDialogComponent implements OnInit {
         serviceTypesList.forEach((serviceType: any, key: any) => {
           this.serviceArray.push(serviceType);
         });
-        console.log(serviceTypesList);
-        console.log(this.serviceArray);
-        this.loadInstructors();
+        // console.log(serviceTypesList);
+        // console.log(this.serviceArray);
+        //this.loadInstructors();
       });
   }
 
@@ -83,5 +96,13 @@ export class AdminPreliminaryDialogComponent implements OnInit {
           console.log("Erroooooor!!! no hay clases");
         }
       });
+  }
+
+  onCategoryChange() {
+    console.log(this.preliminaryForm.value.sessionServiceName);
+
+    this.loadInstructorsByService(
+      this.preliminaryForm.value.sessionServiceName
+    );
   }
 }

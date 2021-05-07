@@ -84,34 +84,47 @@
               />
             </mat-form-field>
 
-            <h4>mat select</h4>
-            <mat-form-field appearance="fill">
-              <mat-label>Designated Instructor</mat-label>
-              <mat-select formControlName="instructorIdNum" required>
-                <mat-option>--</mat-option>
-                <mat-option
-                  *ngFor="let instructor of this.instructorArray"
-                  [value]="instructor.id"
-                >
-                  {{ instructor.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
             <!-- Session Service Id Field -->
-            <h4>mat select</h4>
             <mat-form-field appearance="fill">
               <mat-label>Designated Service</mat-label>
-              <mat-select formControlName="sessionServiceName" required>
+              <mat-select
+                formControlName="sessionServiceName"
+                (ngModelChange)="onCategoryChange()"
+                required
+              >
                 <mat-option>--</mat-option>
                 <mat-option
                   *ngFor="let service of this.serviceArray"
-                  [value]="service.id"
+                  [value]="service.name"
                 >
                   {{ service.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
+            <div class="button-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Designated Instructor</mat-label>
+                <mat-select formControlName="instructorIdNum" required>
+                  <mat-option>--</mat-option>
+                  <div *ngFor="let instructor of this.instructorArray">
+                    <mat-option [value]="instructor.id">
+                      {{ instructor.name }}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- <button
+                mat-mini-fab
+                color="primary"
+                aria-label="Example icon button with a menu icon"
+                style="margin: 0.5rem"
+                (click)="onRefresh()"
+              >
+                <mat-icon>refresh</mat-icon>
+              </button> -->
+            </div>
 
             <!-- <button
               mat-raised-button
