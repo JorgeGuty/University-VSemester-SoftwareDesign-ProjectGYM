@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
+import Instructor from "src/app/Models/Schedule/Instructor";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
+import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
 
 @Component({
   selector: "app-admin-preliminary-dialog",
@@ -9,9 +11,16 @@ import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.
   styleUrls: ["./admin-preliminary-dialog.component.scss"],
 })
 export class AdminPreliminaryDialogComponent implements OnInit {
-  constructor(private adminScheduleService: AdminScheduleService) {}
+  instructorArray: any = [];
 
-  ngOnInit(): void {}
+  constructor(
+    private adminScheduleService: AdminScheduleService,
+    private instructorService: InstructorsService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadInstructors();
+  }
 
   preliminaryForm = new FormGroup({
     className: new FormControl("", Validators.required),
@@ -29,6 +38,16 @@ export class AdminPreliminaryDialogComponent implements OnInit {
     console.log("Clase creada");
     if (this.preliminaryForm.valid) console.log(this.preliminaryForm.value);
     // this.sendForm(this.preliminaryForm.value);
+  }
+
+  loadInstructors() {
+    this.instructorService
+      .getRegisteredInstructors()
+      .subscribe((instructorList: [Instructor]) => {
+        instructorList.forEach((instructor: any, key: any) => {
+          this.instructorArray.push(instructor);
+        });
+      });
   }
 
   sendForm(form: any) {
