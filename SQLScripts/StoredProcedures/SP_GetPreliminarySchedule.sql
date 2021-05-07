@@ -56,5 +56,5 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_GetPreliminarySchedule 7, 2021
+EXECUTE dbo.SP_GetPreliminarySchedule 5, 2021
 GO

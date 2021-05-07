@@ -69,9 +69,22 @@ func InsertPreliminarySession(context *fiber.Ctx) error {
 		return nil
 	}
 
-	sessionID := 1 //TODO: set session id from body parameter
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
 
-	result := Requests.InsertPreliminarySession(sessionID)
+	name := data["name"]
+	weekDay, _ := strconv.Atoi(data["weekDay"])
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+	startTime := data["startTime"]
+	durationMins, _ := strconv.Atoi(data["durationMins"])
+	service := data["service"]
+	instructorIdentification := data["instructorIdentification"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+
+	result := Requests.InsertPreliminarySession(name, weekDay, month, year, startTime, durationMins, service, instructorIdentification, roomId)
 
 	return giveVoidOperationResponse(context, result)
 

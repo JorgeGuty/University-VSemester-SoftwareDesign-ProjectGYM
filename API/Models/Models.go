@@ -1,6 +1,7 @@
 package Models
 
 import (
+	mssql "github.com/denisenkom/go-mssqldb"
 	"github.com/golang-sql/civil"
 )
 
@@ -10,6 +11,8 @@ type Error struct {
 
 type VoidOperationResult struct {
 	Success bool `json:"success"`
+	ReturnStatus mssql.ReturnStatus `json:"return_code"`
+	Message string `json:"message"`
 }
 
 type Gym struct {
