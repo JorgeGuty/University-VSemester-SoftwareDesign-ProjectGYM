@@ -35,9 +35,26 @@ BEGIN
 
         DECLARE @TimeUnavailableErrorCode   INT
         DECLARE @SPErrorCode                INT     
-
-        SET @TimeUnavailableErrorCode = -5001
-        SET @SPErrorCode = -1    
+        
+        -- SETS ERROR CODES SET TO BE RETURNED IN CASE OF ERROR
+        SET @TimeUnavailableErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'TimeUnavailableError'
+            )
+        SET @SPErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'SPError'
+            )   
 
 
         -- Sets the service id based on the provided identification number

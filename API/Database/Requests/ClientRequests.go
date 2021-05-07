@@ -33,7 +33,7 @@ func GetReservedSessions(pUsername string) Models.Schedule {
 		return Models.Schedule{}
 	}
 
-	schedule := Database.ParseSchedule(resultSet)
+	schedule := ParseSchedule(resultSet)
 
 	return schedule
 }

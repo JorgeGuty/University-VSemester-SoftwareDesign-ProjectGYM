@@ -22,9 +22,26 @@ BEGIN
         DECLARE @NotBookedErrorCode INT
         DECLARE @SPErrorCode        INT     
 
-        SET @NotBookedErrorCode = -5001
-        SET @SPErrorCode = -1                   
-
+        -- SETS ERROR CODES SET TO BE RETURNED IN CASE OF ERROR
+        SET @NotBookedErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'NotBookedError'
+            )   
+        SET @SPErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'SPError'
+            )
+           
         -- Gets client id from the username
         SET @ClientID = 
             (

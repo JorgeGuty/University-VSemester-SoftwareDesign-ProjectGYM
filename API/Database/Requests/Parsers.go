@@ -1,4 +1,4 @@
-package Database
+package Requests
 
 import (
 	"API/Models"
@@ -142,7 +142,6 @@ func ParseServices(resultSet *sql.Rows) []Models.Service {
 
 func ParsePreliminarySchedule(resultSet *sql.Rows) Models.PreliminarySchedule {
 
-	var err error
 	var preliminarySchedule Models.PreliminarySchedule
 
 	for resultSet.Next() {
@@ -150,7 +149,7 @@ func ParsePreliminarySchedule(resultSet *sql.Rows) Models.PreliminarySchedule {
 
 		var preliminarySessionTime time.Time
 
-		err = resultSet.Scan(
+		err := resultSet.Scan(
 			&newSession.ID,
 			&newSession.WeekDay,
 			&newSession.AvailableSpaces,
@@ -189,20 +188,40 @@ func ParseVoidResult(pReturnStatus mssql.ReturnStatus) Models.VoidOperationResul
 
 	var success bool
 
-	if pReturnStatus < 0 {
-		success = false
-	} else {
-		success = true
-	}
+	var voidOperationResult Models.VoidOperationResult
 
-	voidOperationResult := Models.VoidOperationResult{
-		Success: success,
-		ReturnStatus: pReturnStatus,
-		Message: "por el momento nada",
+	if pReturnStatus < 0 {
+		voidOperationResult = GetError(pReturnStatus)
+	} else {
+		voidOperationResult = Models.VoidOperationResult{
+			Success: success,
+			ReturnStatus: pReturnStatus,
+			Message: "Operation performed with success.",
+		}
 	}
 
 	return voidOperationResult
 
 }
+func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 
+	var errorName string
+	var errorCode mssql.ReturnStatus
+	var errorMessage string
+
+
+	if err := resultSet.Scan(&errorName, &errorCode, &errorMessage); err != nil {
+		return Models.VoidOperationResult{}
+	}
+
+
+	errorResult := Models.VoidOperationResult{
+		Success:      false,
+		ReturnStatus: errorCode,
+		Message:      errorName +": "+errorMessage,
+	}
+
+	return errorResult
+
+}
 

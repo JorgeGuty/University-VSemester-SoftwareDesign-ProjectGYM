@@ -24,7 +24,7 @@ func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 		return Models.PreliminarySchedule {}
 	}
 
-	schedule := Database.ParsePreliminarySchedule(resultSet)
+	schedule := ParsePreliminarySchedule(resultSet)
 
 	return schedule
 
@@ -71,7 +71,9 @@ func InsertPreliminarySession(	pName string,
 		}
 	}
 
-	result := Database.ParseVoidResult(returnStatus)
+
+
+	result := ParseVoidResult(returnStatus)
 
 	return result
 }

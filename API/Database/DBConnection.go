@@ -79,7 +79,6 @@ func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 	}
 
 
-
 	// Execute query
 	_, err = db.QueryContext(ctx, pQuery, &returnStatus)
 
