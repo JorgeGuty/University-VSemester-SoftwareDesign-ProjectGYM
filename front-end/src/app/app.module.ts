@@ -39,8 +39,8 @@ import { ClientCardComponent } from "./Components/Dashboards/Client/client-card/
 import { AdminPreliminaryDashboardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dashboard/admin-preliminary-dashboard.component";
 import { AdminPreliminaryCardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-card/admin-preliminary-card.component";
 import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dialog/admin-preliminary-dialog.component";
-import { AdminPreliminaryDatePickerComponent } from './Components/Dashboards/admin-preliminary-date-picker/admin-preliminary-date-picker.component';
-import { AdminPreliminaryInformationCardsComponent } from './Components/Dashboards/admin-preliminary-information-cards/admin-preliminary-information-cards.component';
+import { AdminPreliminaryDatePickerComponent } from "./Components/Dashboards/admin-preliminary-date-picker/admin-preliminary-date-picker.component";
+import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboards/admin-preliminary-information-cards/admin-preliminary-information-cards.component";
 
 @NgModule({
   declarations: [
