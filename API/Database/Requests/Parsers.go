@@ -3,6 +3,7 @@ package Requests
 import (
 	"API/Models"
 	"database/sql"
+	"fmt"
 	mssql "github.com/denisenkom/go-mssqldb"
 	"time"
 
@@ -15,6 +16,10 @@ func ParseUserWithPassword(resultSet *sql.Rows) Models.Login {
 	var username string
 	var password string
 	var userType int
+
+	if !resultSet.Next() {
+		return Models.Login{}
+	}
 
 	if err := resultSet.Scan(&id, &username, &password, &userType); err != nil {
 		return Models.Login{}
@@ -210,10 +215,14 @@ func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 	var errorMessage string
 
 
-	if err := resultSet.Scan(&errorName, &errorCode, &errorMessage); err != nil {
+	if !resultSet.Next() {
+		errorName = "UnidentifiedError"
+		errorCode = -50404
+		errorMessage = "unknown error occurred"
+	} else if err := resultSet.Scan(&errorName, &errorCode, &errorMessage); err != nil {
+		fmt.Println(err.Error())
 		return Models.VoidOperationResult{}
 	}
-
 
 	errorResult := Models.VoidOperationResult{
 		Success:      false,

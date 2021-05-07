@@ -71,8 +71,6 @@ func InsertPreliminarySession(	pName string,
 		}
 	}
 
-
-
 	result := ParseVoidResult(returnStatus)
 
 	return result
