@@ -47,8 +47,24 @@ type Session struct {
 	SessionService    Service    `json:"session_service"`
 }
 
+type PreliminarySession struct {
+	ID                int        `json:"id"`
+	Name              string     `json:"name"`
+	WeekDay           int		 `json:"week_day"`
+	Time              civil.Time `json:"time"`
+	DurationMin       int        `json:"duration_min"`
+	AvailableSpaces   int        `json:"available_spaces"`
+	Cost              string     `json:"cost"`
+	SessionInstructor Instructor `json:"session_instructor"`
+	SessionService    Service    `json:"session_service"`
+}
+
 type Schedule struct {
 	Sessions []Session `json:"sessions"`
+}
+
+type PreliminarySchedule struct {
+	Sessions []PreliminarySession `json:"preliminary_sessions"`
 }
 
 type Login struct {

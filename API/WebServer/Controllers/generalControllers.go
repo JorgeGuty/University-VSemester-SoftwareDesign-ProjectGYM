@@ -78,6 +78,19 @@ func GetInstructors(context *fiber.Ctx) error {
 	return giveJSONResponse(context, instructors, fiber.StatusOK)
 }
 
+func GetServices(context *fiber.Ctx) error {
+	token := analyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	services := Requests.GetServices()
+
+	return giveJSONResponse(context, services, fiber.StatusOK)
+}
+
+
 func SqlTests(context *fiber.Ctx) error {
 
 	good := Requests.TestRequest()

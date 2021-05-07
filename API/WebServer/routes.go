@@ -17,7 +17,7 @@ func Setup(app *fiber.App) {
 	general.Post("/login", Controllers.Login)
 	general.Get("/activeSchedule", Controllers.GetActiveSchedule)
 	general.Post("/instructors", Controllers.GetInstructors)
-
+	general.Get("/services", Controllers.GetServices)
 
 	client.Get("/userInfo", Controllers.GetUserInfo)
 	client.Get("/reservedSessions", Controllers.GetReservedSessions)
@@ -25,7 +25,7 @@ func Setup(app *fiber.App) {
 	client.Post("/bookSession", Controllers.BookSession)
 	client.Post("/cancelBookedSession", Controllers.CancelBookedSession)
 
-	admin.Get("/preliminarySchedule", Controllers.GetPreliminarySchedule)
+	admin.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)
 
 	admin.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)
 	admin.Post("/deletePreliminarySession", Controllers.DeletePreliminarySession)
