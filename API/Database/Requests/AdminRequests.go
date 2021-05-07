@@ -38,13 +38,38 @@ func DeletePreliminarySession(pSessionID int) Models.VoidOperationResult {
 	return dummyResult
 }
 
-func InsertPreliminarySession(pSessionID int) Models.VoidOperationResult {
-	// TODO: add real session parameters
-	// TODO: real db request
+func InsertPreliminarySession(	pName string,
+								pWeekDay int,
+								pMonth int,
+								pYear int,
+								pStartTime string,
+								pDurationMins int,
+								pService string,
+								pInstructorIdentification string,
+								pRoomId int,
+							 ) 	Models.VoidOperationResult {
 
-	dummyResult := Models.VoidOperationResult{Success: true}
+	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession %s, '%d', %d, '%d',%s, '%d', %s, '%s','%d';`,
+		pName,
+		pWeekDay,
+		pMonth,
+		pYear,
+		pStartTime,
+		pDurationMins,
+		pService,
+		pInstructorIdentification,
+		pRoomId,
+	)
 
-	return dummyResult
+	returnStatus, err := Database.VoidTransaction(query)
+
+	if err != nil {
+		return Models.VoidOperationResult{}
+	}
+
+	result := Database.ParseVoidResult(returnStatus)
+
+	return result
 }
 
 func ConfirmPreliminarySchedule() Models.VoidOperationResult {

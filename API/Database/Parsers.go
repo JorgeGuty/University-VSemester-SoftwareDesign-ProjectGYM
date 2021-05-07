@@ -3,6 +3,7 @@ package Database
 import (
 	"API/Models"
 	"database/sql"
+	mssql "github.com/denisenkom/go-mssqldb"
 	"time"
 
 	"github.com/golang-sql/civil"
@@ -182,6 +183,26 @@ func ParsePreliminarySchedule(resultSet *sql.Rows) Models.PreliminarySchedule {
 		preliminarySchedule.Sessions = append(preliminarySchedule.Sessions, newSession)
 	}
 	return preliminarySchedule
+}
+
+func ParseVoidResult(pReturnStatus mssql.ReturnStatus) Models.VoidOperationResult {
+
+	var success bool
+
+	if pReturnStatus < 0 {
+		success = false
+	} else {
+		success = true
+	}
+
+	voidOperationResult := Models.VoidOperationResult{
+		Success: success,
+		ReturnStatus: pReturnStatus,
+		Message: "por el momento nada",
+	}
+
+	return voidOperationResult
+
 }
 
 
