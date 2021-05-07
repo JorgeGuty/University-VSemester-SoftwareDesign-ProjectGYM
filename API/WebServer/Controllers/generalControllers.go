@@ -5,6 +5,7 @@ import (
 	"API/Database/Requests"
 	"API/Models"
 	"API/WebServer/Token"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -53,6 +54,28 @@ func GetActiveSchedule(context *fiber.Ctx) error {
 	schedule := Requests.GetCurrentSessionSchedule()
 
 	return giveJSONResponse(context, schedule, fiber.StatusOK)
+}
+
+func GetInstructors(context *fiber.Ctx) error {
+	token := analyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+	filterByService, _ := strconv.Atoi(data["filterByService"])
+	instructorService := data["service"]
+	filterByType, _ := strconv.Atoi(data["filterByType"])
+	instructorType := data["type"]
+
+	instructors := Requests.GetInstructors(filterByService, instructorService, filterByType, instructorType)
+
+	return giveJSONResponse(context, instructors, fiber.StatusOK)
 }
 
 func SqlTests(context *fiber.Ctx) error {

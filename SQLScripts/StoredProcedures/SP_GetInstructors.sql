@@ -24,7 +24,6 @@ BEGIN
         instructor.InstructorName AS InstructorName,
         instructor.InstructorEmail AS InstructorEmail,
         instructor.InstructorIdentification AS InstructorIdentification,
-        instructor.TypeID AS TypeID,
         instructor.[Type] AS [Type]
     FROM
         dbo.CompleteInstructors AS instructor
