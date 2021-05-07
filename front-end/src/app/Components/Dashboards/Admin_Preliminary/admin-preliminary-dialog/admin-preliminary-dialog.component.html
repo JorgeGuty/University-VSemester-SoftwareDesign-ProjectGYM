@@ -85,7 +85,7 @@
             </mat-form-field>
 
             <!-- Instructor Id Field -->
-            <mat-form-field class="example-full-width">
+            <!-- <mat-form-field class="example-full-width">
               <mat-label>Instructor</mat-label>
               <input
                 matInput
@@ -93,7 +93,17 @@
                 #message
                 formControlName="instructorId"
               />
-            </mat-form-field>
+            </mat-form-field> -->
+            <!-- <h4>mat select</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>Designated Instructor</mat-label>
+              <mat-select formControlName="instructor" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let instructor of Instructors" [value]="instructor">
+                   {{instructor.name}} -- {{ instructor.id }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
 
             <!-- Session Service Id Field -->
             <mat-form-field class="example-full-width">
