@@ -89,7 +89,7 @@ BEGIN
 
         SET @StartTime = CONVERT(TIME, @pStartTimeStr)
         SET @FinishTime = DATEADD(MINUTE, @pDuration, @StartTime)
-        
+
         -- Checks if client already booked that session.
         IF EXISTS 
             ( 
@@ -103,8 +103,11 @@ BEGIN
                     AND preliminary.DiaSemana = @pWeekDay
                     AND preliminary.SalaId = @pRoomId
                     AND preliminary.Activa = 1
-                    AND @FinishTime > preliminary.HoraInicio --> If the begin hour of a session is lower than the finish time calculated.
-                    AND @StartTime <= preliminary.HoraInicio
+                    AND
+                        (
+                                (@FinishTime >= preliminary.HoraInicio)
+                            AND (DATEADD(MINUTE, preliminary.DuracionMinutos, preliminary.HoraInicio) >= @StartTime)                             
+                        )
             )
             RETURN @TimeUnavailableErrorCode          
         ELSE
@@ -152,19 +155,31 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga con Pedro', 1, 7, 2021, '8:00', 120, "Funcional", "55555", 1
+EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga avanzado', 5, 5, 2021, '15:00', 60, 'Funcional', '55555', 1
 SELECT @returnvalue AS returnValue
 SELECT * FROM SesionPreliminar
 
-/*
 
-    @pName          NVARCHAR(50),
-    @pWeekDay       INT,
-    @pMonth         INT,
-    @pYear          INT,
-    @pStartTime     TIME,
-    @pDuration      INT,
-    @pServiceId     INT,
-    @pInstructorId  INT,
-    @pRoomId        INT
-*/
+DECLARE @Ii TIME
+DECLARE @Fi TIME
+
+SET @Ii = '15:40:00'
+SET @Fi = '16:30:00'
+
+SELECT  
+    *
+FROM
+    dbo.SesionPreliminar AS preliminary
+WHERE
+        preliminary.Año = 2021
+    AND preliminary.Mes = 5
+    AND preliminary.DiaSemana = 5
+    AND preliminary.SalaId = 1
+    AND preliminary.Activa = 1
+    AND
+        (
+                (@Fi >= preliminary.HoraInicio)
+            AND (DATEADD(MINUTE, preliminary.DuracionMinutos, preliminary.HoraInicio) >= @Ii)                             
+        )
+
+SELECT * FROM SesionPreliminar

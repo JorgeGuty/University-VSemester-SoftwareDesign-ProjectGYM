@@ -64,21 +64,31 @@ func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 	connect()
 	defer db.Close()
 
+	fmt.Println("ejecutó el método de la llamada")
+
 	ctx := context.Background()
+
+	var returnStatus mssql.ReturnStatus
+
 	// Check if database is alive.
 	err := db.PingContext(ctx)
+
 	if err != nil {
-		return -1, err
+		returnStatus = -1
+		return returnStatus, err
 	}
-	var returnStatus mssql.ReturnStatus
+
+
 
 	// Execute query
 	_, err = db.QueryContext(ctx, pQuery, &returnStatus)
 
 	if err != nil {
-		return -1, err
+		returnStatus = -1
+		return returnStatus, err
 	}
 
 	fmt.Println(returnStatus == 0)
+
 	return returnStatus, nil
 }
