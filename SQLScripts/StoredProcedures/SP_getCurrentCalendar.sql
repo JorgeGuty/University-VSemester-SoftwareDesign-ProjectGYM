@@ -3,7 +3,7 @@
 -- Description:	Retrieves the sesions of the current month
 -- =============================================
 
-CREATE OR ALTER PROCEDURE dbo.SP_getCurrentCalendar
+ALTER PROCEDURE dbo.SP_getCurrentCalendar
 AS
     BEGIN
         DECLARE @StartDate Date;
@@ -16,13 +16,15 @@ AS
             cs.StartTime,
             cs.Duration,
             ISNULL((cs.Spaces - r.Bookings), cs.Spaces) AS AvailableSpaces,
-            cs.Cost,
+            cs.Cost AS SessionCost,
             cs.IsCancelled,
             cs.InstructorName,
             cs.InstructorIdentification,
             cs.InstructorEmail,
             cs.InstructorType,
-            cs.ServiceName
+            cs.ServiceName,
+            cs.Cost AS ServiceTypeCost,
+            cs.ServiceMaxSpaces AS ServiceMaxSpaces
         FROM dbo.CompleteSessions cs
         LEFT JOIN
             (
@@ -33,3 +35,4 @@ AS
             ON r.SesionId = cs.SessionID
         WHERE cs.SessionDate >= @StartDate
     END
+

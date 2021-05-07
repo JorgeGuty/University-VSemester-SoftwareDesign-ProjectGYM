@@ -11,26 +11,46 @@ DROP PROCEDURE dbo.SP_InsertPreliminarySession
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_InsertPreliminarySession
-    @pName          NVARCHAR(50),
-    @pWeekDay       INT,
-    @pMonth         INT,
-    @pYear          INT,
-    @pStartTimeStr  NVARCHAR(10),
-    @pDuration      INT,
-    @pServiceId     INT,
-    @pInstructorId  INT,
-    @pRoomId        INT
+    @pName              NVARCHAR(50),
+    @pWeekDay           INT,
+    @pMonth             INT,
+    @pYear              INT,
+    @pStartTimeStr      NVARCHAR(10),
+    @pDuration          INT,
+    @pService           NVARCHAR(50),
+    @pInstructorIdNum   NVARCHAR(50),
+    @pRoomId            INT
 
 -- add more stored procedure parameters here
 AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @Spaces         INT
-        DECLARE @StartTime      TIME
-        DECLARE @RoomCapacity   INT
-        DECLARE @FinishTime     TIME
+        DECLARE @Spaces                     INT
+        DECLARE @StartTime                  TIME
+        DECLARE @RoomCapacity               INT
+        DECLARE @FinishTime                 TIME
+        DECLARE @InstructorId               INT
+        DECLARE @ServiceId                  INT
 
+        DECLARE @TimeUnavailableErrorCode   INT
+        DECLARE @SPErrorCode                INT     
+
+        SET @TimeUnavailableErrorCode = -5001
+        SET @SPErrorCode = -1    
+
+
+        -- Sets the service id based on the provided identification number
+        SET @ServiceId = 
+            (
+                SELECT 
+                    [service].[Id] 
+                FROM 
+                    dbo.Especialidades AS [service]
+                WHERE 
+                    [service].Nombre = @pService                 
+            )
+        
         -- Sets service spaces based on the provided service's max spaces.
         SET @Spaces = 
             (
@@ -39,7 +59,18 @@ BEGIN
                 FROM 
                     dbo.Especialidades AS [service]
                 WHERE 
-                    [service].Id = @pServiceId                 
+                    [service].Id = @ServiceId                 
+            )
+
+        -- Sets the instructor id based on the provided identification number
+        SET @InstructorId = 
+            (
+                SELECT 
+                    [instructor].[Id] 
+                FROM 
+                    dbo.Instructor AS [instructor]
+                WHERE 
+                    [instructor].Cedula = @pInstructorIdNum                 
             )
 
         -- Sets room capacity based on the provided room id.
@@ -52,7 +83,7 @@ BEGIN
                 WHERE 
                     [room].Id = @pRoomId                 
             )
-
+        
         -- If the room capacity is lower than the service max spaces, then the available spaces will be the room capacity
         IF @RoomCapacity < @Spaces SET @Spaces = @RoomCapacity
 
@@ -75,7 +106,7 @@ BEGIN
                     AND @FinishTime > preliminary.HoraInicio --> If the begin hour of a session is lower than the finish time calculated.
                     AND @StartTime <= preliminary.HoraInicio
             )
-            RAISERROR ('Time not available for the selected week day.', 11, 1);            
+            RETURN @TimeUnavailableErrorCode          
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
@@ -104,8 +135,8 @@ BEGIN
                             @pDuration, 
                             @Spaces, 
                             1, 
-                            @pServiceId, 
-                            @pInstructorId, 
+                            @ServiceId, 
+                            @InstructorId, 
                             @pRoomId
                         )
                 COMMIT
@@ -115,15 +146,14 @@ BEGIN
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK
-        SELECT ERROR_MESSAGE() AS ErrorMessage; 
-        RETURN -1
+        RETURN @SPErrorCode
     END CATCH
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_InsertPreliminarySession 'Yoga con Pedro', 1, 6, 2021, '8:00', 120, 1, 1, 1
-GO
-
+DECLARE @returnvalue int
+EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga con Pedro', 1, 7, 2021, '8:00', 120, "Funcional", "55555", 1
+SELECT @returnvalue AS returnValue
 SELECT * FROM SesionPreliminar
 
 /*

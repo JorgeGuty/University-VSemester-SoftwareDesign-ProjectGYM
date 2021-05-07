@@ -39,14 +39,39 @@ func GetCurrentSessionSchedule() Models.Schedule {
 	return schedule
 }
 
-func TestRequest() bool {
-	query := fmt.Sprintf(`EXEC test;`)
+func GetInstructors(pFilterByService int, pService string, pFilterByType int, pType string) []Models.Instructor {
 
-	good, err := Database.TestTran(query)
+	query := fmt.Sprintf(`EXEC SP_GetInstructors %d, '%s', %d, '%s';`, pFilterByType, pType, pFilterByService, pService)
+
+	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil {
-		return false
+		return []Models.Instructor{}
 	}
 
-	return good
+	instructors := Database.ParseInstructors(resultSet)
+
+	return instructors
+
+}
+
+func GetServices() []Models.Service {
+
+	query := fmt.Sprintf(`EXEC SP_GetServices;`)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return []Models.Service{}
+	}
+
+	services := Database.ParseServices(resultSet)
+
+	return services
+
+}
+
+func TestRequest() bool {
+
+	return true
 }
