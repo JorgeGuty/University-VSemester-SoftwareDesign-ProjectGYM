@@ -109,14 +109,18 @@
             </mat-form-field>
 
             <!-- Session Service Id Field -->
-            <mat-form-field class="example-full-width">
-              <mat-label>Service Type</mat-label>
-              <input
-                matInput
-                value="Valor de prueba"
-                #message
-                formControlName="sessionServiceName"
-              />
+            <h4>mat select</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>Designated Service</mat-label>
+              <mat-select formControlName="sessionServiceName" required>
+                <mat-option>--</mat-option>
+                <mat-option
+                  *ngFor="let service of this.serviceArray"
+                  [value]="service.id"
+                >
+                  {{ service.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
 
             <!-- <button

@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 import Instructor from "src/app/Models/Schedule/Instructor";
+import Service from "src/app/Models/Schedule/Service";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
+import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
 
 @Component({
@@ -12,14 +14,17 @@ import { InstructorsService } from "src/app/Services/UserInfo/instructors.servic
 })
 export class AdminPreliminaryDialogComponent implements OnInit {
   instructorArray: any = [];
+  serviceArray: any = [];
 
   constructor(
     private adminScheduleService: AdminScheduleService,
-    private instructorService: InstructorsService
+    private instructorService: InstructorsService,
+    private servicesService: ServicesService
   ) {}
 
   ngOnInit(): void {
     this.loadInstructors();
+    this.loadServicesTypes();
   }
 
   preliminaryForm = new FormGroup({
@@ -46,6 +51,18 @@ export class AdminPreliminaryDialogComponent implements OnInit {
       .subscribe((instructorList: [Instructor]) => {
         instructorList.forEach((instructor: any, key: any) => {
           this.instructorArray.push(instructor);
+        });
+        console.log(instructorList);
+        console.log(this.instructorArray);
+      });
+  }
+
+  loadServicesTypes() {
+    this.servicesService
+      .getServicesTypes()
+      .subscribe((serviceTypesList: [Service]) => {
+        serviceTypesList.forEach((serviceType: any, key: any) => {
+          this.serviceArray.push(serviceType);
         });
       });
   }
