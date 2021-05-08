@@ -19,15 +19,19 @@
             </mat-form-field>
 
             <!-- Day Field -->
-            <mat-form-field class="example-full-width">
-              <mat-label>Day of the Week</mat-label>
-              <input
-                matInput
-                value="Valor de prueba"
-                #message
-                formControlName="day"
-              />
-            </mat-form-field>
+            <div class="button-container">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Day of the Week</mat-label>
+                <mat-select formControlName="day" required>
+                  <mat-option>--</mat-option>
+                  <div *ngFor="let dayNumber of daysNumber">
+                    <mat-option [value]="dayNumber">
+                      {{ this.DaysEnum[dayNumber] }}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
             <!-- Time Field -->
             <mat-form-field class="example-half-width">
@@ -85,7 +89,7 @@
             </mat-form-field>
 
             <!-- Session Service Id Field -->
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" style="width: 100%">
               <mat-label>Designated Service</mat-label>
               <mat-select
                 formControlName="sessionServiceName"
@@ -103,7 +107,7 @@
             </mat-form-field>
 
             <div class="button-container">
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Designated Instructor</mat-label>
                 <mat-select formControlName="instructorIdNum" required>
                   <mat-option>--</mat-option>

@@ -5,6 +5,7 @@ import Service from "src/app/Models/Schedule/Service";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
+import { DaysEnum } from "../../../../Models/Calendar/DaysEnum";
 
 @Component({
   selector: "app-admin-preliminary-dialog",
@@ -14,6 +15,9 @@ import { InstructorsService } from "src/app/Services/UserInfo/instructors.servic
 export class AdminPreliminaryDialogComponent implements OnInit {
   instructorArray: any = [];
   serviceArray: any = [];
+
+  DaysEnum = DaysEnum;
+  daysNumber = [0, 1, 2, 3, 4, 5, 6];
 
   constructor(
     private adminScheduleService: AdminScheduleService,
@@ -33,7 +37,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
     min: new FormControl(0, Validators.pattern("[0-5][0-9]")),
     year: new FormControl(2000, Validators.pattern("^[12][0-9]{3}$")),
     month: new FormControl(1, Validators.pattern("^(0?[1-9]|1[012])$")),
-    duration: new FormControl("", Validators.required),
+    duration: new FormControl("", Validators.pattern("^[0-9]*$")),
     instructorIdNum: new FormControl("", Validators.required),
     sessionServiceName: new FormControl("", Validators.required),
   });
