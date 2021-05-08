@@ -20,6 +20,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatListModule } from "@angular/material/list";
+import { MatSelectModule } from "@angular/material/select";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
@@ -29,7 +31,6 @@ import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
 import { ClientDashboardComponent } from "./Components/Dashboards/Client/client-dashboard/client-dashboard.component";
 import { AdminDashboardComponent } from "./Components/Dashboards/Admin/admin-dashboard/admin-dashboard.component";
-import { MatListModule } from "@angular/material/list";
 
 /* Routes Guarding */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
@@ -39,7 +40,8 @@ import { ClientCardComponent } from "./Components/Dashboards/Client/client-card/
 import { AdminPreliminaryDashboardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dashboard/admin-preliminary-dashboard.component";
 import { AdminPreliminaryCardComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-card/admin-preliminary-card.component";
 import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dialog/admin-preliminary-dialog.component";
-import { AdminPreliminaryDatePickerComponent } from './Components/Dashboards/admin-preliminary-date-picker/admin-preliminary-date-picker.component';
+import { AdminPreliminaryDatePickerComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-date-picker/admin-preliminary-date-picker.component";
+import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-information-cards/admin-preliminary-information-cards.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { AdminPreliminaryDatePickerComponent } from './Components/Dashboards/adm
     AdminPreliminaryCardComponent,
     AdminPreliminaryDialogComponent,
     AdminPreliminaryDatePickerComponent,
+    AdminPreliminaryInformationCardsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -76,6 +79,7 @@ import { AdminPreliminaryDatePickerComponent } from './Components/Dashboards/adm
     MatDialogModule,
     MatListModule,
     MatExpansionModule,
+    MatSelectModule,
   ],
   providers: [AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
