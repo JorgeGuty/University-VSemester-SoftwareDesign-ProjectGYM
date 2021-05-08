@@ -2,7 +2,6 @@ package Controllers
 
 import (
 	"API/Database/Common"
-	_ "API/Database/Requests"
 	"API/Models"
 	_ "API/Models"
 	"API/WebServer/Token"
