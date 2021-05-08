@@ -1,12 +1,12 @@
 export interface PreliminarySession {
   name?: string;
   year?: number;
+  month?: number;
   day?: number;
   time?: string; // { hour: number; min: number }
   duration?: number;
-  cost?: number;
-  instructorId?: string;
-  serviceName?: string;
+  instructorIdNum?: string;
+  sessionServiceName?: string;
   roomId?: number;
 }
 

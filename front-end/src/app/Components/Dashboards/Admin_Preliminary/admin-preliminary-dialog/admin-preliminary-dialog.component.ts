@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import PreliminarySession from "src/app/Models/Prelimimary/PreliminarySession";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import Service from "src/app/Models/Schedule/Service";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
@@ -35,17 +36,37 @@ export class AdminPreliminaryDialogComponent implements OnInit {
     day: new FormControl("", Validators.required),
     hour: new FormControl(0, Validators.pattern("([01]?[0-9]|2[0-3])")),
     min: new FormControl(0, Validators.pattern("[0-5][0-9]")),
-    year: new FormControl(2000, Validators.pattern("^[12][0-9]{3}$")),
-    month: new FormControl(1, Validators.pattern("^(0?[1-9]|1[012])$")),
-    duration: new FormControl("", Validators.pattern("^[0-9]*$")),
+    year: new FormControl(2000, Validators.pattern("^[12][0-9]{3}")),
+    month: new FormControl(1, Validators.pattern("^(0?[1-9]|1[012])")),
+    duration: new FormControl(0, Validators.pattern("^[0-9]*")),
     instructorIdNum: new FormControl("", Validators.required),
     sessionServiceName: new FormControl("", Validators.required),
+    roomId: new FormControl(0, Validators.required),
   });
 
+  initPreliminarySession(formJSON: any): PreliminarySession {
+    let time: string = formJSON.value.hour + ":" + formJSON.value.min;
+    let scheduledSession: PreliminarySession = {
+      name: formJSON.value.className,
+      day: formJSON.value.day,
+      time: time,
+      year: parseInt(formJSON.value.year),
+      month: parseInt(formJSON.value.month),
+      duration: parseInt(formJSON.value.duration),
+      instructorIdNum: formJSON.value.instructorIdNum,
+      sessionServiceName: formJSON.value.sessionServiceName,
+      roomId: formJSON.value.roomId,
+    };
+
+    return scheduledSession;
+  }
+
   onSave() {
-    console.log("Clase creada");
-    if (this.preliminaryForm.valid) console.log(this.preliminaryForm.value);
-    // this.sendForm(this.preliminaryForm.value);
+    console.log("On Save");
+    let preliminarySession: PreliminarySession = this.initPreliminarySession(
+      this.preliminaryForm
+    );
+    console.log(preliminarySession);
   }
 
   loadInstructors() {
