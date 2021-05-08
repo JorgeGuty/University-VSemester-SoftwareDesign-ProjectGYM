@@ -11,6 +11,10 @@ const (
 	InvalidTokenError  = "invalid token"
 
 
+	/*
+		DB Requests constants
+	 */
 
+	ErrorExecutingTransaction = "error executing transaction"
 
 )
