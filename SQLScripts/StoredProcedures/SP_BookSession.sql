@@ -25,9 +25,34 @@ BEGIN
         DECLARE @SessionOutOfSpacesErrorCode    INT
         DECLARE @SPErrorCode                    INT     
 
-        SET @AlreadyBookedErrorCode = -5001
-        SET @SessionOutOfSpacesErrorCode = -5002
-        SET @SPErrorCode = -1    
+        -- SETS ERROR CODES SET TO BE RETURNED IN CASE OF ERROR
+        SET @AlreadyBookedErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'AlreadyBookedError'
+            )   
+        SET @SessionOutOfSpacesErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'SessionOutOfSpacesError'
+            )   
+        SET @SPErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'SPError'
+            )   
 
         -- Gets the total available spaces for a certain session.
         SET @TotalSpaces = 

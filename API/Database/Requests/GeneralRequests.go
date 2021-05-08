@@ -2,8 +2,10 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
+	mssql "github.com/denisenkom/go-mssqldb"
 )
 
 func GetUserByUsername(pUsername string) (Models.Login, bool) {
@@ -20,7 +22,7 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 		return Models.Login{}, false
 	}
 
-	user := Database.ParseUserWithPassword(resultSet)
+	user := ParseUserWithPassword(resultSet)
 
 	return user, true
 }
@@ -34,7 +36,7 @@ func GetCurrentSessionSchedule() Models.Schedule {
 		return Models.Schedule{}
 	}
 
-	schedule := Database.ParseSchedule(resultSet)
+	schedule := ParseSchedule(resultSet)
 
 	return schedule
 }
@@ -49,7 +51,7 @@ func GetInstructors(pFilterByService int, pService string, pFilterByType int, pT
 		return []Models.Instructor{}
 	}
 
-	instructors := Database.ParseInstructors(resultSet)
+	instructors := ParseInstructors(resultSet)
 
 	return instructors
 
@@ -65,13 +67,33 @@ func GetServices() []Models.Service {
 		return []Models.Service{}
 	}
 
-	services := Database.ParseServices(resultSet)
+	services := ParseServices(resultSet)
 
 	return services
 
 }
 
-func TestRequest() bool {
+func GetError(pErrorCode mssql.ReturnStatus) Models.VoidOperationResult {
 
+	query := fmt.Sprintf(`EXEC SP_GetErrorByCode %d`, pErrorCode)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+
+	if err != nil {
+		return Models.VoidOperationResult{
+			Success:      false,
+			ReturnStatus: 0,
+			Message:      Common.ErrorExecutingTransaction,
+		}
+	}
+
+	errorResult := ParseErrorResult(resultSet)
+
+	return errorResult
+
+}
+
+func TestRequest() bool {
 	return true
 }

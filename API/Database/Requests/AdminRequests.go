@@ -24,7 +24,7 @@ func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 		return Models.PreliminarySchedule {}
 	}
 
-	schedule := Database.ParsePreliminarySchedule(resultSet)
+	schedule := ParsePreliminarySchedule(resultSet)
 
 	return schedule
 
@@ -49,7 +49,7 @@ func InsertPreliminarySession(	pName string,
 								pRoomId int,
 							 ) 	Models.VoidOperationResult {
 
-	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession %s, '%d', %d, '%d',%s, '%d', %s, '%s','%d';`,
+	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession '%s', %d, %d, %d,'%s', %d, '%s', '%s',%d;`,
 		pName,
 		pWeekDay,
 		pMonth,
@@ -64,10 +64,14 @@ func InsertPreliminarySession(	pName string,
 	returnStatus, err := Database.VoidTransaction(query)
 
 	if err != nil {
-		return Models.VoidOperationResult{}
+		return Models.VoidOperationResult{
+			Success:      false,
+			ReturnStatus: returnStatus,
+			Message:      err.Error(),
+		}
 	}
 
-	result := Database.ParseVoidResult(returnStatus)
+	result := ParseVoidResult(returnStatus)
 
 	return result
 }
