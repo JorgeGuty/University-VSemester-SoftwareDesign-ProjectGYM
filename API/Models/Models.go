@@ -1,6 +1,7 @@
 package Models
 
 import (
+	mssql "github.com/denisenkom/go-mssqldb"
 	"github.com/golang-sql/civil"
 )
 
@@ -10,6 +11,8 @@ type Error struct {
 
 type VoidOperationResult struct {
 	Success bool `json:"success"`
+	ReturnStatus mssql.ReturnStatus `json:"return_code"`
+	Message string `json:"message"`
 }
 
 type Gym struct {
@@ -24,12 +27,14 @@ type Instructor struct {
 	Name           string `json:"name"`
 	Identification string `json:"identification"`
 	Email          string `json:"email"`
-	Type           int    `json:"type"`
+	Type           string `json:"type"`
 }
 
 type Service struct {
 	ID        int    `json:"id"`
 	Name      string `json:"name"`
+	MaxSpaces int 	 `json:"max_spaces"`
+	Cost	  string `json:"cost"`
 }
 
 type Session struct {
@@ -45,8 +50,24 @@ type Session struct {
 	SessionService    Service    `json:"session_service"`
 }
 
+type PreliminarySession struct {
+	ID                int        `json:"id"`
+	Name              string     `json:"name"`
+	WeekDay           int		 `json:"week_day"`
+	Time              civil.Time `json:"time"`
+	DurationMin       int        `json:"duration_min"`
+	AvailableSpaces   int        `json:"available_spaces"`
+	Cost              string     `json:"cost"`
+	SessionInstructor Instructor `json:"session_instructor"`
+	SessionService    Service    `json:"session_service"`
+}
+
 type Schedule struct {
 	Sessions []Session `json:"sessions"`
+}
+
+type PreliminarySchedule struct {
+	Sessions []PreliminarySession `json:"preliminary_sessions"`
 }
 
 type Login struct {

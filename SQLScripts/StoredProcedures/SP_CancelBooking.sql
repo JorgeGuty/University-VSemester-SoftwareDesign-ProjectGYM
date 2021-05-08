@@ -18,9 +18,30 @@ AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @ClientID           INT
-        DECLARE @ReturnCode         INT
+        DECLARE @ClientID           INT                
+        DECLARE @NotBookedErrorCode INT
+        DECLARE @SPErrorCode        INT     
 
+        -- SETS ERROR CODES SET TO BE RETURNED IN CASE OF ERROR
+        SET @NotBookedErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'NotBookedError'
+            )   
+        SET @SPErrorCode = 
+            (
+                SELECT
+                    [error].Code
+                FROM
+                    dbo.Errors AS [error]
+                WHERE
+                    [error].[ErrorName] = 'SPError'
+            )
+           
         -- Gets client id from the username
         SET @ClientID = 
             (
@@ -34,7 +55,7 @@ BEGIN
 
         -- Checks if client has not booked that session
         IF @ClientID NOT IN ( SELECT booking.ClienteId FROM dbo.Reserva AS booking WHERE booking.SesionId = @pSessionID AND booking.Activa = 1)
-            RAISERROR (N'Session not booked by user %s', 11, 1, @pUsername);  
+            RETURN @NotBookedErrorCode 
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
@@ -53,8 +74,7 @@ BEGIN
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK
-        SELECT ERROR_MESSAGE() AS ErrorMessage; 
-        RETURN -1
+        RETURN @SPErrorCode 
     END CATCH
 END
 GO

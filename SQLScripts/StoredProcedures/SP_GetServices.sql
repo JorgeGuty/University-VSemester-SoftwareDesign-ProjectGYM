@@ -17,7 +17,8 @@ BEGIN
     SELECT 
         [service].Id AS ID,
         [service].Nombre AS [Name],
-        [service].Aforo AS MaxSpaces
+        [service].Aforo AS MaxSpaces,
+        [service].Costo AS Cost
     FROM
         dbo.Especialidades AS [service]
 END

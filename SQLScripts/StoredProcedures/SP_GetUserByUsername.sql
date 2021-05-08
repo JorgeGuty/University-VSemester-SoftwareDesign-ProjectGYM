@@ -28,5 +28,10 @@ BEGIN
 		dbo.Usuario AS [user]
 	WHERE 
 		[user].Username = @pUsername AND [user].Activo = 1
+	RETURN 3
 END
 GO
+
+DECLARE @resultStatus INT
+exec @resultStatus = SP_GetUserByUsername 'Cliente1'
+select @resultStatus
