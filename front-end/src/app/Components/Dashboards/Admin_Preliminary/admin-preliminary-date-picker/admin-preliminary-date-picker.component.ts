@@ -55,6 +55,7 @@ export class AdminPreliminaryDatePickerComponent implements OnInit {
   ngOnInit(): void {}
 
   openPreliminarySchedule(): any {
+    console.log(this.date.value._d);
     // console.log(this.getYear(this.date.value._d));
     // console.log(this.getMonth(this.date.value._d));
     let dateJSON: any = {
@@ -74,7 +75,8 @@ export class AdminPreliminaryDatePickerComponent implements OnInit {
   getMonth(date: any) {
     date = date.toString();
     let dateString = date.split(" ");
-    return dateString[1];
+    dateString = dateString[1];
+    return this.getMonthFromString(dateString).toString();
   }
 
   chosenYearHandler(normalizedYear: moment.Moment) {
@@ -88,8 +90,14 @@ export class AdminPreliminaryDatePickerComponent implements OnInit {
     datepicker: MatDatepicker<moment.Moment>
   ) {
     const ctrlValue = this.date.value;
+    console.log("LOOOOOG");
+    console.log(ctrlValue.month());
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
+  }
+
+  getMonthFromString(mon: string) {
+    return new Date(Date.parse(mon + " 1, 2012")).getMonth() + 1;
   }
 }
