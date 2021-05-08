@@ -2,11 +2,11 @@ export interface PreliminarySession {
   name?: string;
   year?: number;
   month?: number;
-  day?: number;
-  time?: string; // { hour: number; min: number }
-  duration?: number;
-  instructorIdNum?: string;
-  sessionServiceName?: string;
+  weekDay?: number;
+  startTime?: string; // { hour: number; min: number }
+  durationMins?: number;
+  instructorIdentification?: string;
+  service?: string;
   roomId?: number;
 }
 
