@@ -114,34 +114,15 @@
                   </div>
                 </mat-select>
               </mat-form-field>
-
-              <!-- <button
-                mat-mini-fab
-                color="primary"
-                aria-label="Example icon button with a menu icon"
-                style="margin: 0.5rem"
-                (click)="onRefresh()"
-              >
-                <mat-icon>refresh</mat-icon>
-              </button> -->
             </div>
 
-            <!-- <button
-              mat-raised-button
-              mat-dialog-close
-              style="width: 100%; margin-top: 0.5rem"
-              color="primary"
-              (click)="onSave()"
-              [disabled]="this.preliminaryForm.invalid"
-            >
-              Save
-            </button> -->
             <button
               mat-raised-button
               mat-dialog-close
               style="width: 100%; margin-top: 0.5rem"
               color="primary"
               (click)="onSave()"
+              [disabled]="this.preliminaryForm.invalid"
             >
               Save
             </button>
