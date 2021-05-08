@@ -66,6 +66,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
     let preliminarySession: PreliminarySession = this.initPreliminarySession(
       this.preliminaryForm
     );
+    console.log(preliminarySession);
     this.adminScheduleService.insertPreliminarySessionSchedule(
       preliminarySession
     );
