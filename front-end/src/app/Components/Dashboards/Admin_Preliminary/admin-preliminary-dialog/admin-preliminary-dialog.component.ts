@@ -48,14 +48,14 @@ export class AdminPreliminaryDialogComponent implements OnInit {
     let time: string = formJSON.value.hour + ":" + formJSON.value.min;
     let scheduledSession: PreliminarySession = {
       name: formJSON.value.className,
-      day: formJSON.value.day,
+      day: formJSON.value.day.toString(),
       time: time,
-      year: parseInt(formJSON.value.year),
-      month: parseInt(formJSON.value.month),
-      duration: parseInt(formJSON.value.duration),
-      instructorIdNum: formJSON.value.instructorIdNum,
+      year: formJSON.value.year.toString(),
+      month: formJSON.value.month.toString(),
+      duration: formJSON.value.duration,
+      instructorIdNum: formJSON.value.instructorIdNum.toString(),
       sessionServiceName: formJSON.value.sessionServiceName,
-      roomId: formJSON.value.roomId,
+      roomId: formJSON.value.roomId.toString(),
     };
 
     return scheduledSession;
