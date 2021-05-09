@@ -103,8 +103,8 @@ func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
 		err := resultSet.Scan(
 			&newInstructor.ID,
 			&newInstructor.Name,
-			&newInstructor.Identification,
 			&newInstructor.Email,
+			&newInstructor.Identification,
 			&newInstructor.Type,
 			)
 

@@ -66,7 +66,8 @@ BEGIN
                     SET
                         Activa = 0
                     WHERE 
-                        ClienteId = @ClientID             
+                            ClienteId   = @ClientID 
+                        AND Activa      = 1            
                 COMMIT
             END
         RETURN 1;
