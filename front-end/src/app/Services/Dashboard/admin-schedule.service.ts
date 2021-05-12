@@ -54,6 +54,8 @@ export class AdminScheduleService {
   }
 
   insertPreliminarySessionSchedule(form: any): Observable<any> {
+    console.log("A form has arrieved");
+    console.log(form);
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/admin/insertPreliminarySession",
       form,
@@ -62,6 +64,7 @@ export class AdminScheduleService {
           "Content-Type": "application/json",
           Authorization: `${AuthService.getAuthToken()}`,
         },
+        observe: "response",
       }
     );
   }

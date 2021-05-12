@@ -25,7 +25,7 @@ func GetClientProfileInfo(pUsername string) Models.ClientUser {
 
 func GetReservedSessions(pUsername string) Models.Schedule {
 
-	query := fmt.Sprintf(`EXEC SP_getBookings '%v';`, pUsername)
+	query := fmt.Sprintf(`EXEC SP_getBookings '%s';`, pUsername)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -38,20 +38,3 @@ func GetReservedSessions(pUsername string) Models.Schedule {
 	return schedule
 }
 
-func BookSession(pUsername string, pSessionID int) Models.VoidOperationResult {
-
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-
-	return dummyResult
-}
-
-func CancelBookedSession(pUsername string, pSessionID int) Models.VoidOperationResult {
-
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-
-	return dummyResult
-}
