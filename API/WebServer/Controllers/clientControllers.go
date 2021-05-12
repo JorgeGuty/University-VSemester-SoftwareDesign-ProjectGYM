@@ -50,9 +50,11 @@ func BookSession(context *fiber.Ctx) error {
 	}
 
 	username := Token.GetUsernameFromToken(token)
-	sessionID, _ := strconv.Atoi(data["SessionID"])
+	date := data["roomId"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
 
-	result := Requests.BookSession(username, sessionID)
+	result := Requests.BookSession(username, date, roomId, startTime)
 
 	return giveVoidOperationResponse(context, result)
 
@@ -65,10 +67,17 @@ func CancelBookedSession(context *fiber.Ctx) error {
 		return nil
 	}
 
-	username := Token.GetUsernameFromToken(token)
-	sessionID := 1 //TODO: set session id from body parameter
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
 
-	result := Requests.CancelBookedSession(username, sessionID)
+	username := Token.GetUsernameFromToken(token)
+	date := data["roomId"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	result := Requests.CancelBooking(username, date, roomId, startTime)
 
 	return giveVoidOperationResponse(context, result)
 

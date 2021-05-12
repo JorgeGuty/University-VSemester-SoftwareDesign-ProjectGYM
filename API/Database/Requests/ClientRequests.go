@@ -38,7 +38,7 @@ func GetReservedSessions(pUsername string) Models.Schedule {
 	return schedule
 }
 
-func BookSession(pUsername string, pSessionID int) Models.VoidOperationResult {
+func BookSession(pUsername string, pDate string, pRoomId  int, pHour string) Models.VoidOperationResult {
 
 	// TODO: real db request
 
@@ -47,7 +47,7 @@ func BookSession(pUsername string, pSessionID int) Models.VoidOperationResult {
 	return dummyResult
 }
 
-func CancelBookedSession(pUsername string, pSessionID int) Models.VoidOperationResult {
+func CancelBooking(pUsername string, pDate string, pRoomId  int, pHour string) Models.VoidOperationResult {
 
 	// TODO: real db request
 
