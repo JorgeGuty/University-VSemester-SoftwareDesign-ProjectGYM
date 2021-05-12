@@ -41,7 +41,7 @@ func giveVoidOperationResponse(context *fiber.Ctx, pResult Models.VoidOperationR
 	if pResult.Success {
 		resultStatus = fiber.StatusOK
 	} else {
-		resultStatus = fiber.StatusLocked
+		resultStatus = fiber.StatusInternalServerError
 	}
 
 	return giveJSONResponse(context, pResult, resultStatus)

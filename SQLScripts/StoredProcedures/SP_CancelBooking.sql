@@ -11,14 +11,17 @@ DROP PROCEDURE dbo.SP_CancelBooking
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_CancelBooking
-    @pUsername  VARCHAR(50),
-    @pSessionID INT
+    @pClientIdentification  NVARCHAR(50),
+    @pDate                  NVARCHAR(50),
+    @pStartTime             NVARCHAR(50),
+    @pRoomId                INT
 
 AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @ClientID           INT                
+        DECLARE @ClientID           INT 
+        DECLARE @SessionID          INT              
         DECLARE @NotBookedErrorCode INT
         DECLARE @SPErrorCode        INT     
 
@@ -42,7 +45,20 @@ BEGIN
                     [error].[ErrorName] = 'SPError'
             )
            
-        -- Gets client id from the username
+        -- Sets session id based on the session info provided.
+        SET @SessionID = 
+            (
+                SELECT 
+                    [session].SessionID
+                FROM 
+                    dbo.CompleteSessions AS [session]
+                WHERE 
+                        [session].SessionDate   = CONVERT(DATE, @pDate)
+                    AND [session].RoomId        = @pRoomId
+                    AND [session].StartTime     = CONVERT(TIME, @pStartTime)
+            )
+
+        -- Sets client id based on the client identification provided.
         SET @ClientID = 
             (
                 SELECT 
@@ -50,11 +66,20 @@ BEGIN
                 FROM
                     dbo.CompleteClients AS client
                 WHERE
-                    client.Username = @pUsername               
+                    client.Identification = @pClientIdentification               
             )
 
         -- Checks if client has not booked that session
-        IF @ClientID NOT IN ( SELECT booking.ClienteId FROM dbo.Reserva AS booking WHERE booking.SesionId = @pSessionID AND booking.Activa = 1)
+        IF @ClientID NOT IN 
+            ( 
+                SELECT 
+                    booking.ClienteId 
+                FROM 
+                    dbo.Reserva AS booking 
+                WHERE 
+                        booking.SesionId = @SessionID 
+                    AND booking.Activa = 1
+            )
             RETURN @NotBookedErrorCode 
         ELSE
             BEGIN 
@@ -81,5 +106,5 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_CancelBooking 'Cliente1', 1
+EXEC @returnvalue = SP_CancelBooking '1100', '2021-05-19', '10:00:00', 1
 SELECT @returnvalue AS returnValue
