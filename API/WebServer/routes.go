@@ -26,7 +26,6 @@ func Setup(app *fiber.App) {
 	client.Post("/cancelBookedSession", Controllers.CancelBookedSession)
 
 	admin.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)
-
 	admin.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)
 	admin.Post("/deletePreliminarySession", Controllers.DeletePreliminarySession)
 	admin.Post("/confirmPreliminarySchedule", Controllers.ConfirmPreliminarySchedule)

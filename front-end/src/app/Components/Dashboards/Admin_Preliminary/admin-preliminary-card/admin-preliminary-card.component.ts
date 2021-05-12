@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import DaysEnum from "src/app/Models/Calendar/DaysEnum";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 
 @Component({
@@ -20,5 +21,9 @@ export class AdminPreliminaryCardComponent implements OnInit {
 
   onEliminateCard() {
     console.log("Eliminada papichulo!!!");
+  }
+
+  getDayName(day: any) {
+    return DaysEnum[day];
   }
 }
