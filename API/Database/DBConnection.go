@@ -64,8 +64,6 @@ func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 	connect()
 	defer db.Close()
 
-	fmt.Println("ejecutó el método de la llamada")
-
 	ctx := context.Background()
 
 	var returnStatus mssql.ReturnStatus
@@ -80,7 +78,7 @@ func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 
 
 	// Execute query
-	_, err = db.QueryContext(ctx, pQuery, &returnStatus)
+	_, err = db.ExecContext(ctx, pQuery, &returnStatus)
 
 	if err != nil {
 		returnStatus = -1

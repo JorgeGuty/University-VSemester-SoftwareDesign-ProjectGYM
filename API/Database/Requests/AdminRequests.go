@@ -6,12 +6,10 @@ import (
 	"fmt"
 )
 
-func CancelSession(pSessionID int) Models.VoidOperationResult {
-	// TODO: real db request
+func CancelSession(pYear int, pMonth int, pWeekDay int, pRoomId  int, pHour string) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_DeletePreliminary %d, %d, %d, %d, %q `, pYear, pMonth, pWeekDay, pRoomId, pHour)
 
-	dummyResult := Models.VoidOperationResult{Success: true}
-
-	return dummyResult
+	return VoidRequest(query)
 }
 
 func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
@@ -49,7 +47,7 @@ func InsertPreliminarySession(	pName string,
 								pRoomId int,
 							 ) 	Models.VoidOperationResult {
 
-	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession '%s', %d, %d, %d,'%s', %d, '%s', '%s',%d;`,
+	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession %q, %d, %d, %d,%q, %d, %q, %q,%d;`,
 		pName,
 		pWeekDay,
 		pMonth,
@@ -61,19 +59,7 @@ func InsertPreliminarySession(	pName string,
 		pRoomId,
 	)
 
-	returnStatus, err := Database.VoidTransaction(query)
-
-	if err != nil {
-		return Models.VoidOperationResult{
-			Success:      false,
-			ReturnStatus: returnStatus,
-			Message:      err.Error(),
-		}
-	}
-
-	result := ParseVoidResult(returnStatus)
-
-	return result
+	return VoidRequest(query)
 }
 
 func ConfirmPreliminarySchedule() Models.VoidOperationResult {

@@ -13,9 +13,9 @@ func CancelSession(context *fiber.Ctx) error {
 		return nil
 	}
 
-	sessionID := 1 //TODO: set session id from body parameter
+	//sessionID := 1 //TODO: set session id from body parameter
 
-	result := Requests.CancelSession(sessionID)
+	result := Requests.CancelSession(1, 1, 1,1 , "")
 
 	var resultStatus int
 
