@@ -25,7 +25,7 @@ VALUES
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
-    ('SessionOutOfSpacesErrorCode',-50003, 'The session is already booked by the user.')
+    ('AlreadyBookedError',-50003, 'The session is already booked by the user.')
 
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
@@ -36,3 +36,9 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('TimeUnavailableError',-50005, 'The time selected for the session is unavailable.')
+
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('PreliminaryNotFoundError',-50006, 'The preliminary session data does not correspond to an existing preliminary session.')
