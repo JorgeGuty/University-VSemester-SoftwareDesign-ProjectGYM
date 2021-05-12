@@ -1,6 +1,7 @@
 package Requests
 
 import (
+	"API/Database/Common"
 	"API/Models"
 	"database/sql"
 	"fmt"
@@ -189,25 +190,18 @@ func ParsePreliminarySchedule(resultSet *sql.Rows) Models.PreliminarySchedule {
 	return preliminarySchedule
 }
 
-func ParseVoidResult(pReturnStatus mssql.ReturnStatus) Models.VoidOperationResult {
+func ParseSuccessfulResult(pReturnStatus mssql.ReturnStatus) Models.VoidOperationResult {
 
-	var success bool
-
-	var voidOperationResult Models.VoidOperationResult
-
-	if pReturnStatus < 0 {
-		voidOperationResult = GetError(pReturnStatus)
-	} else {
-		voidOperationResult = Models.VoidOperationResult{
-			Success: success,
-			ReturnStatus: pReturnStatus,
-			Message: "Operation performed with success.",
-		}
+	voidOperationResult := Models.VoidOperationResult{
+		Success: true,
+		ReturnStatus: pReturnStatus,
+		Message: "Operation performed with success.",
 	}
 
 	return voidOperationResult
 
 }
+
 func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 
 	var errorName string
@@ -216,12 +210,14 @@ func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 
 
 	if !resultSet.Next() {
-		errorName = "UnidentifiedError"
-		errorCode = -50404
-		errorMessage = "unknown error occurred"
+		errorName = Common.UnknownErrorName
+		errorCode = Common.UnknownErrorCode
+		errorMessage = Common.UnknownErrorMessage
+
 	} else if err := resultSet.Scan(&errorName, &errorCode, &errorMessage); err != nil {
 		fmt.Println(err.Error())
 		return Models.VoidOperationResult{}
+
 	}
 
 	errorResult := Models.VoidOperationResult{

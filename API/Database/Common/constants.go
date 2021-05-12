@@ -17,4 +17,10 @@ const (
 
 	ErrorExecutingTransaction = "error executing transaction"
 
+	UnknownErrorName 	= "UnidentifiedError"
+	UnknownErrorCode 	= -50404
+	UnknownErrorMessage = "unknown error occurred"
+
+	SuccessfulReturnCodeLimit = 0
+
 )
