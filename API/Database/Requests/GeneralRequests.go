@@ -97,3 +97,20 @@ func GetError(pErrorCode mssql.ReturnStatus) Models.VoidOperationResult {
 func TestRequest() bool {
 	return true
 }
+
+
+func VoidRequest(pQuery string) Models.VoidOperationResult {
+	returnStatus, err := Database.VoidTransaction(pQuery)
+
+	if err != nil {
+		return Models.VoidOperationResult{
+			Success:      false,
+			ReturnStatus: returnStatus,
+			Message:      err.Error(),
+		}
+	}
+
+	result := ParseVoidResult(returnStatus)
+
+	return result
+}

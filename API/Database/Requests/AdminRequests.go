@@ -61,19 +61,7 @@ func InsertPreliminarySession(	pName string,
 		pRoomId,
 	)
 
-	returnStatus, err := Database.VoidTransaction(query)
-
-	if err != nil {
-		return Models.VoidOperationResult{
-			Success:      false,
-			ReturnStatus: returnStatus,
-			Message:      err.Error(),
-		}
-	}
-
-	result := ParseVoidResult(returnStatus)
-
-	return result
+	return VoidRequest(query)
 }
 
 func ConfirmPreliminarySchedule() Models.VoidOperationResult {
