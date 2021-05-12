@@ -21,6 +21,6 @@ const (
 	UnknownErrorCode 	= -50404
 	UnknownErrorMessage = "unknown error occurred"
 
-	SuccessfulReturnCodeLimit = 0
+	MinimalSuccessfulReturnCode = 1
 
 )

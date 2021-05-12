@@ -26,7 +26,7 @@ func VoidRequest(pQuery string) Models.VoidOperationResult {
 
 	var result Models.VoidOperationResult
 
-	if returnStatus < Common.SuccessfulReturnCodeLimit {
+	if returnStatus < Common.MinimalSuccessfulReturnCode {
 		result = GetError(returnStatus)
 	} else  {
 		result = ParseSuccessfulResult(returnStatus)
@@ -40,7 +40,6 @@ func GetError(pErrorCode mssql.ReturnStatus) Models.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_GetErrorByCode %d`, pErrorCode)
 
 	resultSet, err := Database.ReadTransaction(query)
-
 
 	if err != nil {
 		return ErrorExecutingTransaction()

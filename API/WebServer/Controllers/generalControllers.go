@@ -89,6 +89,51 @@ func GetServices(context *fiber.Ctx) error {
 	return giveJSONResponse(context, services, fiber.StatusOK)
 }
 
+func BookSession(context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	clientIdentification := data["clientIdentification"]
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	result := Requests.BookSession(clientIdentification, date, roomId, startTime)
+
+	return giveVoidOperationResponse(context, result)
+
+}
+
+func CancelBooking(context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	clientIdentification := data["clientIdentification"]
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	result := Requests.CancelBooking(clientIdentification, date, roomId, startTime)
+
+	return giveVoidOperationResponse(context, result)
+
+}
 
 func SqlTests(context *fiber.Ctx) error {
 

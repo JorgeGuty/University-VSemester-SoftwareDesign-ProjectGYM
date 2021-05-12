@@ -59,13 +59,11 @@ func DeletePreliminarySession(context *fiber.Ctx) error {
 		return err
 	}
 
-
 	year, _ := strconv.Atoi(data["year"])
 	month, _ := strconv.Atoi(data["month"])
 	weekDay, _ := strconv.Atoi(data["weekDay"])
 	roomId, _ := strconv.Atoi(data["roomId"])
 	startTime := data["startTime"]
-
 
 	result := Requests.DeletePreliminarySession(year, month, weekDay, roomId, startTime)
 

@@ -32,7 +32,6 @@ func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 
 func DeletePreliminarySession(pYear int, pMonth int, pWeekDay int, pRoomId int, pStartTime string) Models.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_DeletePreliminarySession %d, %d, %d, %d, '%s'`, pYear, pMonth, pWeekDay, pRoomId, pStartTime)
-
 	return VoidRequest(query)
 }
 

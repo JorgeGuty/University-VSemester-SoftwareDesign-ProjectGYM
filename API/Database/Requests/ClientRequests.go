@@ -38,20 +38,3 @@ func GetReservedSessions(pUsername string) Models.Schedule {
 	return schedule
 }
 
-func BookSession(pUsername string, pSessionID int) Models.VoidOperationResult {
-
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-
-	return dummyResult
-}
-
-func CancelBookedSession(pUsername string, pSessionID int) Models.VoidOperationResult {
-
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-
-	return dummyResult
-}
