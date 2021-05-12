@@ -23,6 +23,8 @@ func ParseUserWithPassword(resultSet *sql.Rows) Models.Login {
 	}
 
 	if err := resultSet.Scan(&id, &username, &password, &userType); err != nil {
+		fmt.Println(err.Error())
+
 		return Models.Login{}
 	}
 

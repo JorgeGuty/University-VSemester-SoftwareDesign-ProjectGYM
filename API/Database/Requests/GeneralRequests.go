@@ -10,20 +10,13 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 
 	query := fmt.Sprintf(`EXEC SP_GetUserByUsername %q;`, pUsername)
 
-	fmt.Println(query)
-
 	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil {
 		return Models.Login{}, false
 	}
 
-	if !resultSet.Next() {
-		return Models.Login{}, false
-	}
-
 	user := ParseUserWithPassword(resultSet)
-	fmt.Println(user.Password == "")
 	return user, true
 }
 

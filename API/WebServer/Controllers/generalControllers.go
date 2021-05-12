@@ -24,14 +24,11 @@ func Login(context *fiber.Ctx) error {
 
 	// user existence validation
 	if !success {
-
 		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusNotFound)
-
 	}
 
 	//  password validation
 	if user.Password != password {
-
 		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
