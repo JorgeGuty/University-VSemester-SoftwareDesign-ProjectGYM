@@ -41,7 +41,6 @@ func GetError(pErrorCode mssql.ReturnStatus) Models.VoidOperationResult {
 
 	resultSet, err := Database.ReadTransaction(query)
 
-
 	if err != nil {
 		return ErrorExecutingTransaction()
 	}
