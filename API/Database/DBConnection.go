@@ -35,7 +35,6 @@ func connect() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	fmt.Printf("Connected!\n")
 }
 
 func ReadTransaction(pQuery string) (*sql.Rows, error) {

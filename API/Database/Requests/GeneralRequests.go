@@ -8,7 +8,7 @@ import (
 
 func GetUserByUsername(pUsername string) (Models.Login, bool) {
 
-	query := fmt.Sprintf(`EXEC SP_GetUserByUsername %q;`, pUsername)
+	query := fmt.Sprintf(`EXEC SP_GetUserByUsername '%s';`, pUsername)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -36,11 +36,12 @@ func GetCurrentSessionSchedule() Models.Schedule {
 
 func GetInstructors(pFilterByService int, pService string, pFilterByType int, pType string) []Models.Instructor {
 
-	query := fmt.Sprintf(`EXEC SP_GetInstructors %d, %q, %d, %q;`, pFilterByType, pType, pFilterByService, pService)
+	query := fmt.Sprintf(`EXEC SP_GetInstructors %d, '%s', %d, '%s';`, pFilterByType, pType, pFilterByService, pService)
 
 	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil {
+		fmt.Println(err.Error())
 		return []Models.Instructor{}
 	}
 

@@ -15,7 +15,7 @@ func CancelSession(context *fiber.Ctx) error {
 
 	//sessionID := 1 //TODO: set session id from body parameter
 
-	result := Requests.CancelSession(1, 1, 1,1 , "")
+	result := Requests.CancelSession("", 1, "")
 
 	var resultStatus int
 
@@ -54,10 +54,20 @@ func DeletePreliminarySession(context *fiber.Ctx) error {
 	if token == nil {
 		return nil
 	}
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
 
-	sessionID := 1 //TODO: set session id from body parameter
 
-	result := Requests.DeletePreliminarySession(sessionID)
+	year, _ := strconv.Atoi(data["year"])
+	month, _ := strconv.Atoi(data["month"])
+	weekDay, _ := strconv.Atoi(data["weekDay"])
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+
+	result := Requests.DeletePreliminarySession(year, month, weekDay, roomId, startTime)
 
 	return giveVoidOperationResponse(context, result)
 }
