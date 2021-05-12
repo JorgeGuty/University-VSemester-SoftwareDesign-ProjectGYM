@@ -25,7 +25,7 @@ VALUES
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
-    ('SessionOutOfSpacesErrorCode',-50003, 'The session is already booked by the user.')
+    ('AlreadyBookedError',-50003, 'The session is already booked by the user.')
 
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 

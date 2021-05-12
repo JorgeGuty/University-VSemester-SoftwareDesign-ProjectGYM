@@ -77,7 +77,7 @@ GO
 -- example to execute the stored procedure we just created
 
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_DeletePreliminarySession 2021,5,4,1,'16:00:00'
+EXEC @returnvalue = dbo.SP_DeletePreliminarySession 2021,5,4,1,"16:00:00"
 SELECT @returnvalue AS returnValue
 
 SELECT * FROM DBO.SesionPreliminar 

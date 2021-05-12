@@ -11,8 +11,10 @@ DROP PROCEDURE dbo.SP_BookSession
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_BookSession
-    @pUsername VARCHAR(50),
-    @pSessionID INT
+    @pClientIdentification  NVARCHAR(50),
+    @pDate                  NVARCHAR(50),
+    @pStartTime             NVARCHAR(50),
+    @pRoomId                INT
 AS
 BEGIN
     BEGIN TRY
@@ -21,6 +23,8 @@ BEGIN
         DECLARE @TotalSpaces                    INT
         DECLARE @AvailableSpaces                INT
         DECLARE @ClientID                       INT
+        DECLARE @SessionID                      INT
+
         DECLARE @AlreadyBookedErrorCode         INT
         DECLARE @SessionOutOfSpacesErrorCode    INT
         DECLARE @SPErrorCode                    INT     
@@ -54,6 +58,40 @@ BEGIN
                     [error].[ErrorName] = 'SPError'
             )   
 
+                SET @ClientID = 
+            (
+                SELECT 
+                    client.ClientId
+                FROM
+                    dbo.CompleteClients AS client
+                WHERE
+                    client.Identification = @pClientIdentification               
+            )
+
+        -- Sets session id based on the session info provided.
+        SET @SessionID = 
+            (
+                SELECT 
+                    [session].SessionID
+                FROM 
+                    dbo.CompleteSessions AS [session]
+                WHERE 
+                        [session].SessionDate   = CONVERT(DATE, @pDate)
+                    AND [session].RoomId        = @pRoomId
+                    AND [session].StartTime     = CONVERT(TIME, @pStartTime)
+            )
+
+        -- Sets client id based on the client identification provided.
+        SET @ClientID = 
+            (
+                SELECT 
+                    client.ClientId
+                FROM
+                    dbo.CompleteClients AS client
+                WHERE
+                    client.Identification = @pClientIdentification               
+            )
+
         -- Gets the total available spaces for a certain session.
         SET @TotalSpaces = 
             (
@@ -62,21 +100,20 @@ BEGIN
                 FROM 
                     dbo.CompleteSessions AS [session]
                 WHERE 
-                    [session].SessionId = @pSessionID                
-            )
-
-        SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Username = @pUsername               
+                    [session].SessionId = @SessionID                
             )
 
         -- Checks if client already booked that session.
-        IF @ClientID IN ( SELECT booking.ClienteId FROM dbo.Reserva AS booking WHERE booking.SesionId = @pSessionID AND booking.Activa = 1 )
+        IF @ClientID IN 
+            ( 
+                SELECT 
+                    booking.ClienteId 
+                FROM 
+                    dbo.Reserva AS booking 
+                WHERE 
+                        booking.SesionId = @SessionID 
+                    AND booking.Activa = 1 
+            )
             RETURN @AlreadyBookedErrorCode           
         ELSE
             BEGIN 
@@ -90,19 +127,17 @@ BEGIN
                             FROM 
                                 dbo.Reserva AS booking
                             WHERE 
-                                booking.SesionId = @pSessionID
-                        )
-                    
+                                booking.SesionId = @SessionID
+                        )                    
                     -- Calculates the available spaces based on the previuos sets
                     SET @AvailableSpaces = @TotalSpaces - @BookedSpaces
-
                     IF @AvailableSpaces > 0
                         INSERT INTO 
                             dbo.Reserva (FechaReserva, Activa, ClienteId, SesionId)
                         VALUES
-                            (GETDATE(), 1, @ClientID, @pSessionID)
-                    ELSE RETURN @SessionOutOfSpacesErrorCode                  
+                            (GETDATE(), 1, @ClientID, @SessionID)
                 COMMIT
+                IF @AvailableSpaces <= 0 RETURN @SessionOutOfSpacesErrorCode   
             END
         RETURN 1;
     END TRY
@@ -115,5 +150,15 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_BookSession 'Cliente1', 1
+EXEC @returnvalue = SP_BookSession '1100', '2021-05-19', '10:00:00', 1
 SELECT @returnvalue AS errorCode
+
+
+SELECT 
+    [session].SessionID
+FROM 
+    dbo.CompleteSessions AS [session]
+WHERE 
+        [session].SessionDate   = CONVERT(DATE, '2021-05-19')
+    AND [session].RoomId        = 1
+    AND [session].StartTime     = CONVERT(TIME, '10:00:00')
