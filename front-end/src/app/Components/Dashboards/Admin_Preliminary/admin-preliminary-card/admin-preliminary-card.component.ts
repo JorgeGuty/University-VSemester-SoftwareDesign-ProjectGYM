@@ -18,12 +18,15 @@ export class AdminPreliminaryCardComponent implements OnInit {
   @Input()
   dateJSON!: any;
 
+  hidden: boolean = false;
+
   constructor(private adminScheduleService: AdminScheduleService) {}
 
   ngOnInit(): void {}
 
   onEliminateCard() {
-    let deteledPreliminarySession: DeletePreliminarySession = this.initDeleteForm();
+    let deteledPreliminarySession: DeletePreliminarySession =
+      this.initDeleteForm();
     this.adminScheduleService
       .deletePreliminarySessionSchedule(deteledPreliminarySession)
       .subscribe(
@@ -34,6 +37,7 @@ export class AdminPreliminaryCardComponent implements OnInit {
           console.log(err);
         }
       );
+    this.hidden = true;
   }
 
   initDeleteForm(): DeletePreliminarySession {
