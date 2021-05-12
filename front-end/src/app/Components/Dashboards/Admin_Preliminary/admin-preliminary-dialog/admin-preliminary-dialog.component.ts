@@ -70,6 +70,14 @@ export class AdminPreliminaryDialogComponent implements OnInit {
     this.adminScheduleService.insertPreliminarySessionSchedule(
       preliminarySession
     );
+    // .subscribe(
+    //   (res) => {
+    //     console.log(res);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
   }
 
   loadInstructors() {
