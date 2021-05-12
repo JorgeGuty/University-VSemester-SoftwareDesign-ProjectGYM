@@ -127,7 +127,8 @@ BEGIN
                             FROM 
                                 dbo.Reserva AS booking
                             WHERE 
-                                booking.SesionId = @SessionID
+                                    booking.SesionId    =   @SessionID
+                                AND booking.Activa      =   1
                         )                    
                     -- Calculates the available spaces based on the previuos sets
                     SET @AvailableSpaces = @TotalSpaces - @BookedSpaces

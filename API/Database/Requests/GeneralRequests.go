@@ -68,12 +68,12 @@ func GetServices() []Models.Service {
 }
 
 func BookSession(pClientIdentification string, pDate string, pRoomId  int, pStartTime string) Models.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_BookSession %d, %d, %d, %d, '%s'`, pClientIdentification, pDate, pRoomId, pStartTime)
+	query := fmt.Sprintf(`EXEC SP_BookSession '%s', '%s', '%s', %d;`, pClientIdentification, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }
 
 func CancelBooking(pClientIdentification string, pDate string, pRoomId  int, pStartTime string) Models.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_CancelBooking %d, %d, %d, %d, '%s'`, pClientIdentification, pDate, pRoomId, pStartTime)
+	query := fmt.Sprintf(`EXEC SP_CancelBooking '%s', '%s', '%s', %d;`, pClientIdentification, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }
 

@@ -26,7 +26,7 @@ func VoidRequest(pQuery string) Models.VoidOperationResult {
 
 	var result Models.VoidOperationResult
 
-	if returnStatus < Common.SuccessfulReturnCodeLimit {
+	if returnStatus < Common.MinimalSuccessfulReturnCode {
 		result = GetError(returnStatus)
 	} else  {
 		result = ParseSuccessfulResult(returnStatus)

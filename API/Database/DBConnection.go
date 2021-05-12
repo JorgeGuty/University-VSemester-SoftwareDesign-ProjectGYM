@@ -84,7 +84,5 @@ func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 		return returnStatus, err
 	}
 
-	fmt.Println(returnStatus == 0)
-
 	return returnStatus, nil
 }

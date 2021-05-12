@@ -102,7 +102,7 @@ func BookSession(context *fiber.Ctx) error {
 	}
 
 	clientIdentification := data["clientIdentification"]
-	date := data["roomId"]
+	date := data["date"]
 	roomId, _ := strconv.Atoi(data["roomId"])
 	startTime := data["startTime"]
 
@@ -125,7 +125,7 @@ func CancelBooking(context *fiber.Ctx) error {
 	}
 
 	clientIdentification := data["clientIdentification"]
-	date := data["roomId"]
+	date := data["date"]
 	roomId, _ := strconv.Atoi(data["roomId"])
 	startTime := data["startTime"]
 
