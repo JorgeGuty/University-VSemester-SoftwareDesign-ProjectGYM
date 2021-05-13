@@ -23,9 +23,9 @@ func GetClientProfileInfo(pUsername string) Models.ClientUser {
 
 }
 
-func GetReservedSessions(pUsername string) Models.Schedule {
+func GetReservedSessions(pIdentification string) Models.Schedule {
 
-	query := fmt.Sprintf(`EXEC SP_getBookings '%s';`, pUsername)
+	query := fmt.Sprintf(`EXEC SP_getBookings '%s';`, pIdentification)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -37,4 +37,3 @@ func GetReservedSessions(pUsername string) Models.Schedule {
 
 	return schedule
 }
-

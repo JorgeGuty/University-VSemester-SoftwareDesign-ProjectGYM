@@ -137,7 +137,8 @@ func CancelBooking(context *fiber.Ctx) error {
 
 func SqlTests(context *fiber.Ctx) error {
 
-	good := Requests.TestRequest()
+	//good := Requests.TestRequest()
+	good := Requests.GetReservedSessions("1100")
 
 	return giveJSONResponse(context, good, fiber.StatusOK)
 }
