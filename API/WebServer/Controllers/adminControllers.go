@@ -106,7 +106,15 @@ func ConfirmPreliminarySchedule(context *fiber.Ctx) error {
 		return nil
 	}
 
-	result := Requests.ConfirmPreliminarySchedule()
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+
+	result := Requests.ConfirmPreliminarySchedule(month, year)
 
 	return giveVoidOperationResponse(context, result)
 
