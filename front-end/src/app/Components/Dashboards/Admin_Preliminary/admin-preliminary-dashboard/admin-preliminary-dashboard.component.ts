@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵɵsetComponentScope } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { AdminPreliminaryDialogComponent } from "../admin-preliminary-dialog/admin-preliminary-dialog.component";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
@@ -80,6 +80,19 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
         this.scheduleMap.set(keyDay, dayOfWeek);
       }
     }
+  }
+
+  confirmSchedule() {
+    this.adminScheduleService
+      .confirmPreliminarySchedule(this.dateJSON)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
   reload() {

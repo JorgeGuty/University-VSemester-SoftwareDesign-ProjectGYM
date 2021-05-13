@@ -80,4 +80,20 @@ export class AdminScheduleService {
       }
     );
   }
+
+  // dateJSON
+  confirmPreliminarySchedule(form: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection +
+        "/admin/confirmPreliminarySchedule",
+      form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
 }
