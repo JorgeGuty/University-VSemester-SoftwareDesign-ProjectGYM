@@ -61,9 +61,7 @@ func InsertPreliminarySession(	pName string,
 	return VoidRequest(query)
 }
 
-func ConfirmPreliminarySchedule() Models.VoidOperationResult {
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-	return dummyResult
+func ConfirmPreliminarySchedule(pMonth int) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_ConfirmPreliminarySchedule %d`, pMonth)
+	return VoidRequest(query)
 }
