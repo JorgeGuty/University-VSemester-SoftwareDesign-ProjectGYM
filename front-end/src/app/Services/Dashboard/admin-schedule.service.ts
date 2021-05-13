@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 import { AuthService } from "../Auth/auth.service";
@@ -54,10 +54,22 @@ export class AdminScheduleService {
   }
 
   insertPreliminarySessionSchedule(form: any): Observable<any> {
-    console.log("A form has arrieved");
-    console.log(form);
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/admin/insertPreliminarySession",
+      form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
+
+  deletePreliminarySessionSchedule(form: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/admin/deletePreliminarySession",
       form,
       {
         headers: {

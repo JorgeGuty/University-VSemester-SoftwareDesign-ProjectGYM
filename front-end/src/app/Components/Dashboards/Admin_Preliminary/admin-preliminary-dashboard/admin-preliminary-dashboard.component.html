@@ -1,5 +1,7 @@
 <app-admin-preliminary-information-cards
+  *ngIf="this.dateJSON != undefined"
   [sessionSchedule]="this.scheduleMap"
+  [dateJSON]="this.dateJSON"
 ></app-admin-preliminary-information-cards>
 
 <h2 class="element">
