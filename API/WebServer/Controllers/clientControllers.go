@@ -3,6 +3,7 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Token"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -28,10 +29,15 @@ func GetReservedSessions(context *fiber.Ctx) error {
 	if token == nil {
 		return nil
 	}
-	username := Token.GetUsernameFromToken(token)
 
-	sessions := Requests.GetReservedSessions(username)
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	clientIdentification := data["clientIdentification"]
+
+	sessions := Requests.GetReservedSessions(clientIdentification)
 
 	return giveJSONResponse(context, sessions, fiber.StatusOK)
 }
-
