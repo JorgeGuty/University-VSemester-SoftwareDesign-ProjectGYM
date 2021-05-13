@@ -91,7 +91,7 @@ values
     ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
     ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
     ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
-
+/*
 INSERT INTO 
     dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
 VALUES
@@ -114,3 +114,5 @@ INSERT INTO
 UPDATE dbo.Reserva 
     SET Activa = 0 
     WHERE Id = 2;
+
+*/
