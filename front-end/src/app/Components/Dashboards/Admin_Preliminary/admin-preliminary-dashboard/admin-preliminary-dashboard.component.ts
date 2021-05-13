@@ -35,6 +35,7 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      this.fillScheduleData(this.dateJSON);
     });
   }
 
