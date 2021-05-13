@@ -1,10 +1,10 @@
 -- =============================================
 -- Author:		Eduardo Madrigal Marin
--- Description:	Retrieves the sesions of the current month
+-- Description:	Retrieves the booked sessions for a given client
 -- =============================================
 
 CREATE OR ALTER PROCEDURE dbo.SP_getBookings
-    @pUsername  VARCHAR(50)
+    @pClientIdentification  VARCHAR(50)
 AS
     BEGIN
         DECLARE @StartDate Date;
@@ -13,7 +13,7 @@ AS
 
         SELECT @ClientId = ClientId
             FROM dbo.CompleteClients cc
-            WHERE cc.Username = @pUsername;
+            WHERE cc.Identification = @pClientIdentification;
 
         SELECT 
             cs.SessionID,
