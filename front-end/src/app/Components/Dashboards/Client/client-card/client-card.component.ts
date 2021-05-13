@@ -4,6 +4,7 @@ import { Session } from "src/app/Models/Schedule/Session";
 import { Instructor } from "src/app/Models/Schedule/Instructor";
 import { Service } from "src/app/Models/Schedule/Service";
 import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
+import { SessionsService } from "src/app/Services/SessionService/sessions.service";
 
 export interface Tile {
   color: string;
@@ -27,19 +28,19 @@ export class ClientCardComponent implements OnInit {
   @Input()
   isReserved!: boolean;
 
-  constructor(private clientScheduleService: ClientScheduleService) {}
+  constructor(private sessionScheduleService: SessionsService) {}
 
   ngOnInit(): void {}
 
   onRegister() {
     if (!this.isReserved) {
-      this.clientScheduleService.bookSession(this.session.id);
+      this.sessionScheduleService.bookSession(this.session.id);
       console.log(
         "Session with ID:" + this.session.id + " reservation completed"
       );
     } else {
       //Todo: Implement cancelBookedSession route in API
-      this.clientScheduleService.cancelBookedSession(this.session.id);
+      this.sessionScheduleService.cancelBookedSession(this.session.id);
     }
 
     this.isReserved = !this.isReserved; // bool
