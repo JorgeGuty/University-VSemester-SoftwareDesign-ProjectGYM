@@ -6,11 +6,12 @@
         This are the classes for the day!!!
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-admin-preliminary-card
-      *ngFor="let session of this.sessionSchedule.get(sessionArray)"
-      [session]="this.session"
-      [instructor]="this.session.instructor"
-      [sessionService]="this.session.sessionService"
-    ></app-admin-preliminary-card>
+    <div *ngIf="this.dateJSON != undefined">
+      <app-admin-preliminary-card
+        *ngFor="let session of this.sessionSchedule.get(sessionArray)"
+        [session]="this.session"
+        [dateJSON]="this.dateJSON"
+      ></app-admin-preliminary-card>
+    </div>
   </mat-expansion-panel>
 </div>
