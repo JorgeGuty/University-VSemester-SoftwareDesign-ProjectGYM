@@ -112,8 +112,9 @@ func ConfirmPreliminarySchedule(context *fiber.Ctx) error {
 	}
 
 	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
 
-	result := Requests.ConfirmPreliminarySchedule(month)
+	result := Requests.ConfirmPreliminarySchedule(month, year)
 
 	return giveVoidOperationResponse(context, result)
 
