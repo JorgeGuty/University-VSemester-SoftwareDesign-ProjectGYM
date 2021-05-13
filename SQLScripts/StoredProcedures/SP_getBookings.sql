@@ -28,7 +28,9 @@ AS
             cs.InstructorIdentification,
             cs.InstructorEmail,
             cs.InstructorType,
-            cs.ServiceName
+            cs.ServiceName,
+            cs.Cost                                      AS ServiceTypeCost,
+            cs.ServiceMaxSpaces
         FROM dbo.CompleteSessions cs
         INNER JOIN
             (
