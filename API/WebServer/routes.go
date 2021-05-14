@@ -22,7 +22,7 @@ func Setup(app *fiber.App) {
 	general.Post("/cancelBooking", Controllers.CancelBooking)
 
 	client.Get("/userInfo", Controllers.GetUserInfo)
-	client.Get("/reservedSessions", Controllers.GetReservedSessions)
+	client.Post("/reservedSessions", Controllers.GetReservedSessions)
 
 	admin.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)
 	admin.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)
