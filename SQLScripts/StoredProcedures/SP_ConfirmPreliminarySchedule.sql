@@ -80,6 +80,7 @@ BEGIN
                 preliminarySession.Mes = @pMonthToConfirm
             AND preliminarySession.Año = @pYearOfMonthToConfirm
             AND preliminarySession.Activa = 1
+            AND preliminarySession.Confirmada = 0
 
         IF NOT EXISTS (SELECT * FROM @MonthsPreliminarySessions) RETURN @NoSessionsInMonthErrorCode
         
@@ -112,7 +113,7 @@ BEGIN
             UPDATE
                 dbo.SesionPreliminar
             SET 
-                Activa = 0
+                Confirmada = 1
             WHERE
                 Id IN   (
                             SELECT 
@@ -141,7 +142,10 @@ BEGIN
         RETURN @SPErrorCode
     END CATCH
 END
+GO
 
 DECLARE @returnvalue int
 EXEC @returnvalue = SP_ConfirmPreliminarySchedule  5, 2021;
 SELECT @returnvalue AS errorCode
+GO
+

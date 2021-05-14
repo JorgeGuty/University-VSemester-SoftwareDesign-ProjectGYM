@@ -13,19 +13,18 @@ func CancelSession(context *fiber.Ctx) error {
 		return nil
 	}
 
-	//sessionID := 1 //TODO: set session id from body parameter
-
-	result := Requests.CancelSession("", 1, "")
-
-	var resultStatus int
-
-	if result.Success {
-		resultStatus = fiber.StatusOK
-	} else {
-		resultStatus = fiber.StatusLocked
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
 	}
 
-	return giveJSONResponse(context, result, resultStatus)
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	result := Requests.CancelSession(date, roomId, startTime)
+
+	return giveVoidOperationResponse(context, result)
 }
 
 func GetPreliminarySchedule(context *fiber.Ctx) error {
