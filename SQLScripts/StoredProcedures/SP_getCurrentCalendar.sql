@@ -11,20 +11,20 @@ AS
 
         SELECT 
             cs.SessionID,
-            cs.Name                                    AS SessionName,
+            cs.Name                                     AS SessionName,
             cs.SessionDate,
             cs.StartTime,
             cs.Duration,
             ISNULL((cs.Spaces - r.Bookings), cs.Spaces) AS AvailableSpaces,
-            cs.Cost AS SessionCost,
+            cs.Cost                                     AS SessionCost,
             cs.IsCancelled,
             cs.InstructorName,
             cs.InstructorIdentification,
             cs.InstructorEmail,
             cs.InstructorType,
             cs.ServiceName,
-            cs.Cost AS ServiceTypeCost,
-            cs.ServiceMaxSpaces AS ServiceMaxSpaces
+            cs.Cost                                     AS ServiceTypeCost,
+            cs.ServiceMaxSpaces                         AS ServiceMaxSpaces
         FROM dbo.CompleteSessions cs
         LEFT JOIN
             (

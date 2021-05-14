@@ -26,7 +26,7 @@ export class ClientScheduleService {
     );
   }
 
-  getReservedSessions(): Observable<any> {
+  getReservedSessions(form: any): Observable<any> {
     return this.httpClient.get(
       ConnectionsServices.currentConnection + "/client/reservedSessions",
       {
@@ -38,10 +38,10 @@ export class ClientScheduleService {
     );
   }
 
-  bookSession(sessionId: any): Observable<any> {
+  bookSession(clientIdentification: any): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/client/bookSession",
-      sessionId,
+      ConnectionsServices.currentConnection + "/general/bookSession",
+      clientIdentification,
       {
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export class ClientScheduleService {
 
   cancelBookedSession(sessionId: any): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/client/cancelBookedSession",
+      ConnectionsServices.currentConnection + "/general/cancelBookedSession",
       sessionId,
       {
         headers: {

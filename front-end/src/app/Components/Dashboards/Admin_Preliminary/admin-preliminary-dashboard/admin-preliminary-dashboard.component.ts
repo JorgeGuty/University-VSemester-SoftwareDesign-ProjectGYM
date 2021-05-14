@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵɵsetComponentScope } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { AdminPreliminaryDialogComponent } from "../admin-preliminary-dialog/admin-preliminary-dialog.component";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 import { Session } from "src/app/Models/Schedule/Session";
 import { AdminPreliminaryDatePickerComponent } from "../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 import DaysEnum from "src/app/Models/Calendar/DaysEnum";
+import PreliminarySession from "src/app/Models/Prelimimary/PreliminarySession";
 
 @Component({
   selector: "app-admin-preliminary-dashboard",
@@ -13,6 +14,7 @@ import DaysEnum from "src/app/Models/Calendar/DaysEnum";
 })
 export class AdminPreliminaryDashboardComponent implements OnInit {
   scheduleMap: Map<number, any>;
+  dateJSON: any;
   public show = true;
 
   // Todo : currentPreliminarySchedule : Array<PreliminarySession> = [];
@@ -33,23 +35,22 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      this.fillScheduleData(this.dateJSON);
     });
   }
 
-  //Todo: implmentar array de schedules con el get de preliminary schedule
   openDatePicker() {
     const dialogRef = this.dialog.open(AdminPreliminaryDatePickerComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log("FECHAAAA");
-      console.log(result);
       this.scheduleMap = new Map();
+      this.dateJSON = result;
+      console.log(this.dateJSON);
       this.fillScheduleData(result);
     });
   }
 
   fillScheduleData(date: any) {
-    //Todo: implement method
     this.adminScheduleService
       .getPreliminarySessionSchedule(date)
       .subscribe((sessions: any) => {
@@ -57,13 +58,7 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
         if (sessions != null) {
           sessions.preliminary_sessions.forEach(
             (session: Session, key: any) => {
-              //this.currentPreliminarySchedule.push(session)
-              console.log("holis mundo");
-              console.log(session);
-              //let scheduledSession = this.initSession(session);
-              console.log(session);
               this.fillScheduleHashmap(session);
-              console.log(this.scheduleMap.get(4));
             }
           );
           console.log(this.scheduleMap);
@@ -75,15 +70,6 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
   }
 
   fillScheduleHashmap(scheduledSession: any) {
-    console.log("puta vida");
-    console.log(scheduledSession.week_day);
-    // let date: Date;
-    // if (scheduledSession.date?.toString() != undefined) {
-    //   date = new Date(scheduledSession.date?.toString());
-    // } else {
-    //   date = new Date();
-    // }
-    // let keyDay: string = date.toString().split(" ")[0];
     let keyDay: number = scheduledSession.week_day;
     if (scheduledSession.week_day != undefined) {
       let dayOfWeek: any[] = this.scheduleMap.get(keyDay);
@@ -96,26 +82,17 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
     }
   }
 
-  initSession(sessionJson: any): Session {
-    let scheduledSession: Session = {
-      id: sessionJson.id,
-      name: sessionJson.name,
-      instructor: {
-        name: sessionJson.session_instructor.name,
-        identification: sessionJson.session_instructor.identification,
-      },
-      sessionService: {
-        name: sessionJson.session_service.name,
-        maxSpaces: sessionJson.session_service.max_spaces,
-      },
-      availableSpaces: sessionJson.available_spaces,
-      cost: sessionJson.cost,
-      date: sessionJson.date,
-      time: sessionJson.time,
-      duration: sessionJson.duration_min,
-    };
-
-    return scheduledSession;
+  confirmSchedule() {
+    this.adminScheduleService
+      .confirmPreliminarySchedule(this.dateJSON)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
   reload() {
