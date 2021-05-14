@@ -392,6 +392,7 @@ CREATE TABLE dbo.SesionPreliminar
 	DuracionMinutos int NOT NULL,
 	Cupo int NOT NULL,
 	Activa bit NOT NULL DEFAULT 1,
+	Confirmada bit NOT NULL DEFAULT 0,
 	EspecialidadId int NOT NULL,
 	InstructorId int NOT NULL,
 	SalaId int NOT NULL

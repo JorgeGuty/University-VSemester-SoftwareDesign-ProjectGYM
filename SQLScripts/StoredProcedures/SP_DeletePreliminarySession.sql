@@ -57,6 +57,7 @@ BEGIN
                 AND Mes         = @pMonth
                 AND DiaSemana   = @pWeekDay
                 AND Activa      = 1
+                AND Confirmada  = 0
                 AND SalaId      = @pRoomId
                 AND HoraInicio  = CONVERT(TIME,@pHour)  
             SET @AffectedRowsCount = @@ROWCOUNT         
