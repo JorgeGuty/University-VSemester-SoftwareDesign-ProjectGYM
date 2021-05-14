@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
+import { IdFormDialogComponent } from "../id-form-dialog/id-form-dialog.component";
 
 @Component({
   selector: "app-admin-card",
@@ -15,11 +17,23 @@ export class AdminCardComponent implements OnInit {
   sessionService!: any;
 
   //Todo: implement change instructor
-  constructor(private adminScheduleService: AdminScheduleService) {}
+  constructor(
+    public dialog: MatDialog,
+    private adminScheduleService: AdminScheduleService
+  ) {}
 
   ngOnInit(): void {}
 
   onInstructorChange() {
     console.log("Instructor changed!!!");
+  }
+
+  // Open dialog form
+  onRegister() {
+    const dialogRef = this.dialog.open(IdFormDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
