@@ -1,1 +1,24 @@
-<p>id-form-dialog works!</p>
+<h2 mat-dialog-title><mat-card-title>Insert Id</mat-card-title></h2>
+<mat-dialog-content>
+  <mat-card class="home-card example-card">
+    <mat-card-content class="home-card-content">
+      <mat-card-subtitle>Client Registration</mat-card-subtitle>
+      <mat-tab-group>
+        <mat-tab label="Session">
+          <mat-form-field class="example-full-width">
+            <mat-label>Client Id</mat-label>
+            <input matInput placeholder="ClientId" [(ngModel)]="clientId" />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="onConfirm()"
+          >
+            Confirm
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
