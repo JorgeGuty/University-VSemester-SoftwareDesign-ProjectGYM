@@ -33,10 +33,16 @@ export class ClientCardComponent implements OnInit {
   ngOnInit(): void {}
 
   onRegister() {
+    let reserveSession: any = this.initReserveSessionInformation();
+
     if (!this.isReserved) {
-      this.sessionScheduleService.bookSession(this.session.id);
-      console.log(
-        "Session with ID:" + this.session.id + " reservation completed"
+      this.sessionScheduleService.bookSession(reserveSession).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
       );
     } else {
       //Todo: Implement cancelBookedSession route in API
@@ -44,5 +50,21 @@ export class ClientCardComponent implements OnInit {
     }
 
     this.isReserved = !this.isReserved; // bool
+  }
+
+  initReserveSessionInformation(): any {
+    console.log("INIT SESSION!!!!");
+    console.log(this.session.date);
+    console.log(this.session.time);
+    let roomId = "1";
+    let clientIdentification = "1100";
+    let reserveSessionJson: any = {
+      date: this.session.date.toString(),
+      time: this.session.time.toString(),
+      clientIdentification: clientIdentification,
+      roomId: roomId,
+    };
+
+    return reserveSessionJson;
   }
 }
