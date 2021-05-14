@@ -11,12 +11,13 @@ import User from "src/app/Models/Users/User";
 @Injectable({
   providedIn: "root",
 })
-export class ClientScheduleService {
+export class SessionsService {
   constructor(private httpClient: HttpClient) {}
 
-  getCurrentSessionSchedule(): Observable<any> {
-    return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/general/activeSchedule",
+  bookSession(form: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/general/bookSession",
+      form,
       {
         headers: {
           "Content-Type": "application/json",
@@ -26,9 +27,10 @@ export class ClientScheduleService {
     );
   }
 
-  getReservedSessions(): Observable<any> {
-    return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/client/reservedSessions",
+  cancelBookedSession(form: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/general/cancelBookedSession",
+      form,
       {
         headers: {
           "Content-Type": "application/json",
