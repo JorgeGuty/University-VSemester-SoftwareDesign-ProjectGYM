@@ -29,7 +29,7 @@ export class SessionsService {
 
   cancelBookedSession(form: any): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/general/cancelBookedSession",
+      ConnectionsServices.currentConnection + "/general/cancelBooking",
       form,
       {
         headers: {
