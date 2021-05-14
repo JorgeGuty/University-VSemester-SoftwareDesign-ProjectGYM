@@ -134,9 +134,9 @@ BEGIN
                     SET @AvailableSpaces = @TotalSpaces - @BookedSpaces
                     IF @AvailableSpaces > 0
                         INSERT INTO 
-                            dbo.Reserva (FechaReserva, Activa, ClienteId, SesionId)
+                            dbo.Reserva (FechaReserva, ClienteId, SesionId)
                         VALUES
-                            (GETDATE(), 1, @ClientID, @SessionID)
+                            (GETDATE(), @ClientID, @SessionID)
                 COMMIT
                 IF @AvailableSpaces <= 0 RETURN @SessionOutOfSpacesErrorCode   
             END
