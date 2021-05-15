@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func GetUserByUsername(pUsername string) (Models.Login, bool) {
+func GetLogin(pUsername string) (Models.Login, bool) {
 
 	query := fmt.Sprintf(`EXEC SP_GetUserByUsername '%s';`, pUsername)
 
@@ -16,7 +16,7 @@ func GetUserByUsername(pUsername string) (Models.Login, bool) {
 		return Models.Login{}, false
 	}
 
-	user := ParseUserWithPassword(resultSet)
+	user := ParseLoginResponse(resultSet)
 	return user, true
 }
 

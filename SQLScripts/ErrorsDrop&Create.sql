@@ -30,7 +30,7 @@ VALUES
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
-    ('NotBookedErrorCode',-50004, 'The session is not booked by the user.')
+    ('NotBookedError',-50004, 'The session is not booked by the user.')
 
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
@@ -42,3 +42,8 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('PreliminaryNotFoundError',-50006, 'The preliminary session data does not correspond to an existing preliminary session.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('NoSessionsFoundError',-50007, 'No sessions were found with the given data.')

@@ -4,6 +4,7 @@ import { Session } from "src/app/Models/Schedule/Session";
 import { Instructor } from "src/app/Models/Schedule/Instructor";
 import { Service } from "src/app/Models/Schedule/Service";
 import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
+import { SessionsService } from "src/app/Services/SessionService/sessions.service";
 
 export interface Tile {
   color: string;
@@ -27,21 +28,51 @@ export class ClientCardComponent implements OnInit {
   @Input()
   isReserved!: boolean;
 
-  constructor(private clientScheduleService: ClientScheduleService) {}
+  constructor(private sessionScheduleService: SessionsService) {}
 
   ngOnInit(): void {}
 
   onRegister() {
+    let reserveSession: any = this.initReserveSessionInformation();
+
     if (!this.isReserved) {
-      this.clientScheduleService.bookSession(this.session.id);
-      console.log(
-        "Session with ID:" + this.session.id + " reservation completed"
+      console.log("Reservar");
+      this.sessionScheduleService.bookSession(reserveSession).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
       );
     } else {
-      //Todo: Implement cancelBookedSession route in API
-      this.clientScheduleService.cancelBookedSession(this.session.id);
+      console.log("Cancelar");
+      this.sessionScheduleService.cancelBookedSession(reserveSession).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
 
     this.isReserved = !this.isReserved; // bool
+  }
+
+  initReserveSessionInformation(): any {
+    console.log("INIT SESSION!!!!");
+    console.log(this.session.date);
+    console.log(this.session.time);
+    let roomId = "1";
+    let clientIdentification = "1100";
+    let reserveSessionJson: any = {
+      date: this.session.date.toString(),
+      startTime: this.session.time.toString(),
+      clientIdentification: clientIdentification,
+      roomId: roomId,
+    };
+
+    return reserveSessionJson;
   }
 }

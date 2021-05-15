@@ -6,12 +6,9 @@ import (
 	"fmt"
 )
 
-func CancelSession(pDate string, pRoomId int, pHour string) Models.VoidOperationResult {
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-
-	return dummyResult
+func CancelSession(pDate string, pRoomId  int, pStartTime string) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_CancelSession '%s', '%s', %d;`,pDate, pStartTime, pRoomId)
+	return VoidRequest(query)
 }
 
 func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
@@ -61,9 +58,7 @@ func InsertPreliminarySession(pName string,
 	return VoidRequest(query)
 }
 
-func ConfirmPreliminarySchedule() Models.VoidOperationResult {
-	// TODO: real db request
-
-	dummyResult := Models.VoidOperationResult{Success: true}
-	return dummyResult
+func ConfirmPreliminarySchedule(pMonth int, pYear int) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_ConfirmPreliminarySchedule %d, %d`, pMonth, pYear)
+	return VoidRequest(query)
 }

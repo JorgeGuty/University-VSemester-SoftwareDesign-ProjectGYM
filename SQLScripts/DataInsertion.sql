@@ -84,7 +84,6 @@ insert INTO
     dbo.Sala (nombre,AforoMaximo, CostoMatricula)
 VALUES
     ('PlusGym', 30, 36000.00)
-
 insert into 
     dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo,EspecialidadId,SalaId, InstructorId) 
 values 
@@ -94,6 +93,7 @@ values
     ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
     ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
     ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
+/*
 
 INSERT INTO 
     dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
@@ -117,3 +117,5 @@ INSERT INTO
 UPDATE dbo.Reserva 
     SET Activa = 0 
     WHERE Id = 2;
+
+*/

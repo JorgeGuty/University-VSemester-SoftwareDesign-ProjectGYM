@@ -38,6 +38,8 @@ DROP TABLE IF EXISTS dbo.TipoInstructor;
 COMMIT TRANSACTION
 GO
 
+SET DATEFIRST 1
+
 -- CREATE
 BEGIN TRANSACTION
 GO
@@ -429,6 +431,7 @@ CREATE TABLE dbo.SesionPreliminar
 	DuracionMinutos int NOT NULL,
 	Cupo int NOT NULL,
 	Activa bit NOT NULL DEFAULT 1,
+	Confirmada bit NOT NULL DEFAULT 0,
 	EspecialidadId int NOT NULL,
 	InstructorId int NOT NULL,
 	SalaId int NOT NULL

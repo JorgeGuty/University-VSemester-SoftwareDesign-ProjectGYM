@@ -132,7 +132,6 @@ BEGIN
                             HoraInicio, 
                             DuracionMinutos, 
                             Cupo, 
-                            Activa, 
                             EspecialidadId, 
                             InstructorId, 
                             SalaId
@@ -146,7 +145,6 @@ BEGIN
                             @StartTime, 
                             @pDuration, 
                             @Spaces, 
-                            1, 
                             @ServiceId, 
                             @InstructorId, 
                             @pRoomId
@@ -166,29 +164,4 @@ GO
 DECLARE @returnvalue int
 EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga avanzado', 5, 5, 2021, '15:00', 60, 'Funcional', '55555', 1
 SELECT @returnvalue AS returnValue
-SELECT * FROM SesionPreliminar
-
-
-DECLARE @Ii TIME
-DECLARE @Fi TIME
-
-SET @Ii = '15:40:00'
-SET @Fi = '16:30:00'
-
-SELECT  
-    *
-FROM
-    dbo.SesionPreliminar AS preliminary
-WHERE
-        preliminary.Año = 2021
-    AND preliminary.Mes = 5
-    AND preliminary.DiaSemana = 5
-    AND preliminary.SalaId = 1
-    AND preliminary.Activa = 1
-    AND
-        (
-                (@Fi >= preliminary.HoraInicio)
-            AND (DATEADD(MINUTE, preliminary.DuracionMinutos, preliminary.HoraInicio) >= @Ii)                             
-        )
-
 SELECT * FROM SesionPreliminar

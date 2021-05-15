@@ -12,10 +12,15 @@ export class AdminPreliminaryInformationCardsComponent
   implements OnInit, OnChanges {
   @Input()
   sessionSchedule!: any;
+  @Input()
+  dateJSON!: any;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("Fechisima");
+    console.log(this.dateJSON);
+  }
 
   getDayName(day: any) {
     return DaysEnum[day];
