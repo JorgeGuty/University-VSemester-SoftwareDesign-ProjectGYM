@@ -18,7 +18,7 @@ CREATE PROCEDURE dbo.SP_InsertPreliminarySession
     @pStartTimeStr      NVARCHAR(10),
     @pDuration          INT,
     @pService           NVARCHAR(50),
-    @pInstructorIdNum   NVARCHAR(50),
+    @pInstructorNumber   NVARCHAR(50),
     @pRoomId            INT
 
 -- add more stored procedure parameters here
@@ -80,15 +80,7 @@ BEGIN
             )
 
         -- Sets the instructor id based on the provided identification number
-        SET @InstructorId = 
-            (
-                SELECT 
-                    [instructor].[Id] 
-                FROM 
-                    dbo.Instructor AS [instructor]
-                WHERE 
-                    [instructor].Cedula = @pInstructorIdNum                 
-            )
+        SET @InstructorId = @pInstructorNumber
 
         -- Sets room capacity based on the provided room id.
         SET @RoomCapacity = 

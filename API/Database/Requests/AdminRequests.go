@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func CancelSession(pDate string, pRoomId  int, pHour string) Models.VoidOperationResult {
+func CancelSession(pDate string, pRoomId int, pHour string) Models.VoidOperationResult {
 	// TODO: real db request
 
 	dummyResult := Models.VoidOperationResult{Success: true}
@@ -21,7 +21,7 @@ func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil {
-		return Models.PreliminarySchedule {}
+		return Models.PreliminarySchedule{}
 	}
 
 	schedule := ParsePreliminarySchedule(resultSet)
@@ -35,18 +35,18 @@ func DeletePreliminarySession(pYear int, pMonth int, pWeekDay int, pRoomId int, 
 	return VoidRequest(query)
 }
 
-func InsertPreliminarySession(	pName string,
-								pWeekDay int,
-								pMonth int,
-								pYear int,
-								pStartTime string,
-								pDurationMins int,
-								pService string,
-								pInstructorIdentification string,
-								pRoomId int,
-							 ) 	Models.VoidOperationResult {
+func InsertPreliminarySession(pName string,
+	pWeekDay int,
+	pMonth int,
+	pYear int,
+	pStartTime string,
+	pDurationMins int,
+	pService string,
+	pInstructorNumber int,
+	pRoomId int,
+) Models.VoidOperationResult {
 
-	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession '%s', %d, %d, %d,'%s', %d, '%s', '%s',%d;`,
+	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession '%s', %d, %d, %d,'%s', %d, '%s', '%d',%d;`,
 		pName,
 		pWeekDay,
 		pMonth,
@@ -54,7 +54,7 @@ func InsertPreliminarySession(	pName string,
 		pStartTime,
 		pDurationMins,
 		pService,
-		pInstructorIdentification,
+		pInstructorNumber,
 		pRoomId,
 	)
 

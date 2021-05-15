@@ -3,6 +3,7 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Token"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -35,9 +36,9 @@ func GetReservedSessions(context *fiber.Ctx) error {
 		return err
 	}
 
-	clientIdentification := data["clientIdentification"]
+	clientnumber, _ := strconv.Atoi(data["clientIdentification"])
 
-	sessions := Requests.GetReservedSessions(clientIdentification)
+	sessions := Requests.GetReservedSessions(clientnumber)
 
 	return giveJSONResponse(context, sessions, fiber.StatusOK)
 }

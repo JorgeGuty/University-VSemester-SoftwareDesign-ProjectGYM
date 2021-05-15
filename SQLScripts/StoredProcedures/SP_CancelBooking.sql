@@ -11,7 +11,7 @@ DROP PROCEDURE dbo.SP_CancelBooking
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_CancelBooking
-    @pClientIdentification  NVARCHAR(50),
+    @pClientNumber  NVARCHAR(50),
     @pDate                  NVARCHAR(50),
     @pStartTime             NVARCHAR(50),
     @pRoomId                INT
@@ -59,15 +59,7 @@ BEGIN
             )
 
         -- Sets client id based on the client identification provided.
-        SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Identification = @pClientIdentification               
-            )
+        SET @ClientID = @pClientNumber;
 
         -- Checks if client has not booked that session
         IF @ClientID NOT IN 

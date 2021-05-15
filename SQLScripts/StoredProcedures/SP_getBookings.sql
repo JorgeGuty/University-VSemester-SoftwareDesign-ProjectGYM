@@ -4,16 +4,14 @@
 -- =============================================
 
 CREATE OR ALTER PROCEDURE dbo.SP_getBookings
-    @pClientIdentification  VARCHAR(50)
+    @pClientNumber  VARCHAR(50)
 AS
     BEGIN
         DECLARE @StartDate Date;
         DECLARE @ClientId int;
         SET @StartDate = GETDATE();
 
-        SELECT @ClientId = ClientId
-            FROM dbo.CompleteClients cc
-            WHERE cc.Identification = @pClientIdentification;
+        SELECT @ClientId = @pClientNumber
 
         SELECT 
             cs.SessionID,

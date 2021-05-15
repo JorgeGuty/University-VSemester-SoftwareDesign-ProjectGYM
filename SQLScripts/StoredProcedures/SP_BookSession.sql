@@ -11,7 +11,7 @@ DROP PROCEDURE dbo.SP_BookSession
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_BookSession
-    @pClientIdentification  NVARCHAR(50),
+    @pClientNumber          INT,
     @pDate                  NVARCHAR(50),
     @pStartTime             NVARCHAR(50),
     @pRoomId                INT
@@ -58,16 +58,6 @@ BEGIN
                     [error].[ErrorName] = 'SPError'
             )   
 
-                SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Identification = @pClientIdentification               
-            )
-
         -- Sets session id based on the session info provided.
         SET @SessionID = 
             (
@@ -82,15 +72,7 @@ BEGIN
             )
 
         -- Sets client id based on the client identification provided.
-        SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Identification = @pClientIdentification               
-            )
+        SET @ClientID = @pClientNumber;
 
         -- Gets the total available spaces for a certain session.
         SET @TotalSpaces = 

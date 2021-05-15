@@ -101,12 +101,12 @@ func BookSession(context *fiber.Ctx) error {
 		return err
 	}
 
-	clientIdentification := data["clientIdentification"]
+	clientnumber, _ := strconv.Atoi(data["clientIdentification"])
 	date := data["date"]
 	roomId, _ := strconv.Atoi(data["roomId"])
 	startTime := data["startTime"]
 
-	result := Requests.BookSession(clientIdentification, date, roomId, startTime)
+	result := Requests.BookSession(clientnumber, date, roomId, startTime)
 
 	return giveVoidOperationResponse(context, result)
 
@@ -124,12 +124,12 @@ func CancelBooking(context *fiber.Ctx) error {
 		return err
 	}
 
-	clientIdentification := data["clientIdentification"]
+	clientnumber, _ := strconv.Atoi(data["clientIdentification"])
 	date := data["date"]
 	roomId, _ := strconv.Atoi(data["roomId"])
 	startTime := data["startTime"]
 
-	result := Requests.CancelBooking(clientIdentification, date, roomId, startTime)
+	result := Requests.CancelBooking(clientnumber, date, roomId, startTime)
 
 	return giveVoidOperationResponse(context, result)
 
@@ -137,8 +137,7 @@ func CancelBooking(context *fiber.Ctx) error {
 
 func SqlTests(context *fiber.Ctx) error {
 
-	//good := Requests.TestRequest()
-	good := Requests.GetReservedSessions("1100")
+	good := Requests.TestRequest()
 
 	return giveJSONResponse(context, good, fiber.StatusOK)
 }
