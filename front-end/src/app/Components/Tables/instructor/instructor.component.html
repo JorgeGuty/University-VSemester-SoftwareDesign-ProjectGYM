@@ -1,1 +1,12 @@
-<p>instructor works!</p>
+<div *ngIf="this.instructor.length != 0">
+  <table mat-table [dataSource]="instructor" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Instructor</th>
+      <td mat-cell *matCellDef="let instructor">{{ instructor.name }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnContent"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnContent"></tr>
+  </table>
+</div>

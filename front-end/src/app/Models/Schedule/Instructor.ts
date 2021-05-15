@@ -3,7 +3,7 @@ export class Instructor {
   name?: string;
   identification?: string;
   email?: string;
-  type?: number;
+  type?: string;
 }
 
 export default Instructor;

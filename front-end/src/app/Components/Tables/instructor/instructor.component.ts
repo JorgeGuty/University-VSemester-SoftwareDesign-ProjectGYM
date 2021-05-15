@@ -8,7 +8,8 @@ import { InstructorsService } from "src/app/Services/UserInfo/instructors.servic
   styleUrls: ["./instructor.component.scss"],
 })
 export class InstructorComponent implements OnInit {
-  instructorArray: any = [];
+  instructor: Instructor[] = [];
+  columnContent: string[] = ["name"];
 
   constructor(public instructorService: InstructorsService) {}
 
@@ -21,10 +22,12 @@ export class InstructorComponent implements OnInit {
       .getRegisteredInstructors()
       .subscribe((instructorList: [Instructor]) => {
         instructorList.forEach((instructor: any, key: any) => {
-          this.instructorArray.push(instructor);
-          console.log("Object keys");
-          console.log(Object.keys(instructor));
+          // if (this.columnContent.length == 0)
+          //   this.columnContent = Object.keys(instructor);
+          this.instructor.push(instructor);
         });
+        console.log(this.columnContent);
+        console.log(this.instructor);
       });
   }
 }
