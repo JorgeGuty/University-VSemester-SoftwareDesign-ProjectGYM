@@ -22,8 +22,11 @@ VALUES ('Cliente1',1234,2);
 INSERT INTO Usuario (Username, [Password], TipoUsuario)
 VALUES ('Cliente2',1234,2);
 
+INSERT INTO Administrador(Nombre)
+VALUES ('Jorge El Curioso');
+
 INSERT INTO UsuarioAdmin (Id, Nombre)
-VALUES (1, 'Jorge El Curioso');
+VALUES (1, 1);
 
 INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
     VALUES 
