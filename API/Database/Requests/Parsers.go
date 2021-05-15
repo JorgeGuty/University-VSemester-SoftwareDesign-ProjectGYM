@@ -11,7 +11,7 @@ import (
 	"github.com/golang-sql/civil"
 )
 
-func ParseUserWithPassword(resultSet *sql.Rows) Models.Login {
+func ParseLoginResponse(resultSet *sql.Rows) Models.Login {
 
 	var id int
 	var username string
