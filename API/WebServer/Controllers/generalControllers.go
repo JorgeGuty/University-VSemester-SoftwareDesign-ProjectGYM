@@ -20,27 +20,28 @@ func Login(context *fiber.Ctx) error {
 	password := data["password"]
 
 	// db request
-	user, success := Requests.GetUserByUsername(username)
+	login, success := Requests.GetLogin(username)
 
-	// user existence validation
+	// login existence validation
 	if !success {
 		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusNotFound)
 	}
 
 	//  password validation
-	if user.Password != password {
+	if login.Password != password {
 		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
 	// token creation
-	signedToken, err := Token.GetUserSignedToken(user.Username, user.Type)
+	signedToken, err := Token.GetUserSignedToken(login.Username, login.Type)
 	if err != nil {
 		return giveJSONResponse(context, Models.Error{Message: Common.CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
-	// returns user info
-	user.Token = signedToken
-	return giveJSONResponse(context, user, fiber.StatusOK)
+	// returns login info
+	login.Token = signedToken
+	login.Identification = "1100"
+	return giveJSONResponse(context, login, fiber.StatusOK)
 }
 
 func GetActiveSchedule(context *fiber.Ctx) error {
