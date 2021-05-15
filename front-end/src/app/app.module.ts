@@ -46,6 +46,8 @@ import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboar
 import { IdFormDialogComponent } from "./Components/Dashboards/Admin/id-form-dialog/id-form-dialog.component";
 import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
 import { ServiceComponent } from "./Components/Tables/service/service.component";
+import { ServiceTableComponent } from './Components/Tables/service-table/service-table.component';
+import { InstructorTableComponent } from './Components/Tables/instructor-table/instructor-table.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { ServiceComponent } from "./Components/Tables/service/service.component"
     IdFormDialogComponent,
     InstructorComponent,
     ServiceComponent,
+    ServiceTableComponent,
+    InstructorTableComponent,
   ],
   imports: [
     AppRoutingModule,
