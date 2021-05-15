@@ -23,7 +23,7 @@ export class ClientDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMonthlySessions();
-    this.getMonthlyReservedSessions();
+    //this.getMonthlyReservedSessions();
   }
 
   getMonthlySessions() {
@@ -37,6 +37,7 @@ export class ClientDashboardComponent implements OnInit {
             let scheduledSession = this.initSession(session);
             this.fillScheduleHashmap(scheduledSession);
           });
+          this.getMonthlyReservedSessions();
         } else {
           //TODO: Mostrar Error de vacio
           console.log("Erroooooor!!! no hay clases");
@@ -44,8 +45,9 @@ export class ClientDashboardComponent implements OnInit {
       });
   }
   getMonthlyReservedSessions() {
+    let clientIdentification = { clientIdentification: "1100" };
     this.clientScheduleService
-      .getReservedSessions()
+      .getReservedSessions({ clientIdentification: "1100" })
       .subscribe((reservedSessions: any) => {
         reservedSessions.sessions.forEach((session: any, key: any) => {
           this.scheduleMapReservations.set(session.id, session);

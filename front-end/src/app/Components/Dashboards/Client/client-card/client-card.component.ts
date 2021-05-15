@@ -36,6 +36,7 @@ export class ClientCardComponent implements OnInit {
     let reserveSession: any = this.initReserveSessionInformation();
 
     if (!this.isReserved) {
+      console.log("Reservar");
       this.sessionScheduleService.bookSession(reserveSession).subscribe(
         (res) => {
           console.log(res);
@@ -45,8 +46,15 @@ export class ClientCardComponent implements OnInit {
         }
       );
     } else {
-      //Todo: Implement cancelBookedSession route in API
-      this.sessionScheduleService.cancelBookedSession(this.session.id);
+      console.log("Cancelar");
+      this.sessionScheduleService.cancelBookedSession(reserveSession).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
 
     this.isReserved = !this.isReserved; // bool
@@ -60,7 +68,7 @@ export class ClientCardComponent implements OnInit {
     let clientIdentification = "1100";
     let reserveSessionJson: any = {
       date: this.session.date.toString(),
-      time: this.session.time.toString(),
+      startTime: this.session.time.toString(),
       clientIdentification: clientIdentification,
       roomId: roomId,
     };
