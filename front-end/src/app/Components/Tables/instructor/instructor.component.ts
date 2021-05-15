@@ -27,12 +27,13 @@ export class InstructorComponent implements OnInit {
           this.instructor.push(instructor);
         });
         this.columnContent.push("Actions");
-        console.log(this.columnContent);
-        console.log(this.instructor);
+        //console.log(this.columnContent);
+        //console.log(this.instructor);
       });
   }
 
   onDelete(instructor: Instructor) {
+    // TODO: Implement delete Instructor service
     console.log(instructor);
   }
 }
