@@ -21,6 +21,7 @@ export class ServiceComponent implements OnInit {
     this.servicesService
       .getServicesTypes()
       .subscribe((serviceList: [Service]) => {
+        console.log(serviceList);
         serviceList.forEach((service: any, key: any) => {
           if (this.columnContent.length == 0)
             this.columnContent = Object.keys(service);
