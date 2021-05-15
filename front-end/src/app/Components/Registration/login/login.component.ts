@@ -31,10 +31,8 @@ export class LoginComponent implements OnInit {
     console.log(" mundo");
     this.authService.authenticateUser(user).subscribe(
       (data: User) => {
-        console.log("hola mundo");
-        console.log(data.username);
-        console.log(data.token);
-        console.log(data.type);
+        console.log("INFORMACION USUARIO");
+        console.log(data);
         if (data.token != undefined)
           this.authService.storeUserData(data.token, data);
 
