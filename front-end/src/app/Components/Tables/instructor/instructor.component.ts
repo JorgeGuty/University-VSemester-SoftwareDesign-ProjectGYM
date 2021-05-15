@@ -9,7 +9,7 @@ import { InstructorsService } from "src/app/Services/UserInfo/instructors.servic
 })
 export class InstructorComponent implements OnInit {
   instructor: Instructor[] = [];
-  columnContent: string[] = ["name"];
+  columnContent: string[] = [];
 
   constructor(public instructorService: InstructorsService) {}
 
@@ -22,8 +22,8 @@ export class InstructorComponent implements OnInit {
       .getRegisteredInstructors()
       .subscribe((instructorList: [Instructor]) => {
         instructorList.forEach((instructor: any, key: any) => {
-          // if (this.columnContent.length == 0)
-          //   this.columnContent = Object.keys(instructor);
+          if (this.columnContent.length == 0)
+            this.columnContent = Object.keys(instructor);
           this.instructor.push(instructor);
         });
         console.log(this.columnContent);
