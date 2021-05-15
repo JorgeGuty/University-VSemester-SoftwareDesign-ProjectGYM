@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { AuthService } from "src/app/Services/Auth/auth.service";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 import { SessionsService } from "src/app/Services/SessionService/sessions.service";
 import { IdFormDialogComponent } from "../id-form-dialog/id-form-dialog.component";
@@ -21,7 +22,8 @@ export class AdminCardComponent implements OnInit {
   constructor(
     private sessionScheduleService: SessionsService,
     public dialog: MatDialog,
-    private adminScheduleService: AdminScheduleService
+    private adminScheduleService: AdminScheduleService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {}
