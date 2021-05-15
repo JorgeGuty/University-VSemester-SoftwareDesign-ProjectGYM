@@ -26,8 +26,13 @@ export class InstructorComponent implements OnInit {
             this.columnContent = Object.keys(instructor);
           this.instructor.push(instructor);
         });
+        this.columnContent.push("Actions");
         console.log(this.columnContent);
         console.log(this.instructor);
       });
+  }
+
+  onDelete(instructor: Instructor) {
+    console.log(instructor);
   }
 }
