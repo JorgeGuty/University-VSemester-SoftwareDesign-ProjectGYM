@@ -25,7 +25,7 @@ VALUES ('Cliente2',1234,2);
 INSERT INTO Administrador(Nombre)
 VALUES ('Jorge El Curioso');
 
-INSERT INTO UsuarioAdmin (Id, Nombre)
+INSERT INTO UsuarioAdmin (Id, AdminId)
 VALUES (1, 1);
 
 INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
@@ -93,7 +93,6 @@ values
     ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
     ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
     ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
-/*
 
 INSERT INTO 
     dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
@@ -101,21 +100,19 @@ VALUES
     (CONVERT(DATE, '2021-05-16'), 1, 1),
     (CONVERT(DATE, '2021-05-17'), 2, 2),
     (CONVERT(DATE, '2021-05-18'), 1, 3),
-    (CONVERT(DATE, '2021-05-19'), 1, 4),
-    (CONVERT(DATE, '2021-05-20'), 2, 5),
-    (CONVERT(DATE, '2021-05-20'), 1, 6)
+    (CONVERT(DATE, '2021-05-19'), 1, 4)
+
+UPDATE SesionPreliminar
+SET Confirmada = 1
+WHERE Id <= 4
 
 INSERT INTO
     dbo.Reserva(FechaReserva,ClienteId,SesionId)
     values
         (GETDATE(),1,4),
-        (GETDATE(),1,5),
         (GETDATE(),1,1),
-        (GETDATE(),2,4),
-        (GETDATE(),2,5);
+        (GETDATE(),2,4)
 
 UPDATE dbo.Reserva 
     SET Activa = 0 
     WHERE Id = 2;
-
-*/
