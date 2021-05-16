@@ -136,7 +136,8 @@ CREATE TABLE dbo.Instructor
 	Nombre nvarchar(50) NOT NULL,
 	Cedula nvarchar(50) NOT NULL UNIQUE,
 	Correo nvarchar(50) NOT NULL,
-	Tipo int NOT NULL
+	Tipo int NOT NULL,
+	Activo BIT NOT NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Instructor ADD CONSTRAINT
@@ -235,7 +236,7 @@ ALTER TABLE [dbo].[UsuarioAdmin] CHECK CONSTRAINT [FK_UsuarioAdmin_Usuario]
 GO
 
 ALTER TABLE [dbo].[UsuarioAdmin]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioAdmin_Administrador] FOREIGN KEY([AdminId])
-REFERENCES [dbo].[Cliente] ([Id])
+REFERENCES [dbo].[Administrador] ([Id])
 GO
 ALTER TABLE [dbo].[UsuarioAdmin] CHECK CONSTRAINT [FK_UsuarioAdmin_Administrador]
 GO

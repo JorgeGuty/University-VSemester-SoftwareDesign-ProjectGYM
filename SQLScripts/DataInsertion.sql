@@ -31,19 +31,14 @@ VALUES (1, 1);
 INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
     VALUES 
     ('1100','Popeye','popeyeElMarino@gmail.com','60009999'),
-    ('1111','Cliente','cliente@gmail.com','99999999');
-
-insert into
-    dbo.Cliente (Cedula, Nombre, Correo, Celular)
-VALUES
-    ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910')
+    ('1111','Cliente','cliente@gmail.com','99999999'),
+    ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910');
 
 INSERT INTO UsuarioCliente (Id, ClienteId)
 VALUES (2, 1);
 
 INSERT INTO dbo.UsuarioCliente (Id, ClienteId)
 VALUES(3,2);
--- Id varia segun tabla Usuario
 
 INSERT INTO Movimientos (Monto, Fecha, ClienteId,TipoMovimiento,Asunto)
 VALUES (1000,GETDATE(),1,1, 'Mil colones de abono');
@@ -116,3 +111,4 @@ INSERT INTO
 UPDATE dbo.Reserva 
     SET Activa = 0 
     WHERE Id = 2;
+
