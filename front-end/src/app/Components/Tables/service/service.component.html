@@ -1,42 +1,6 @@
 <div *ngIf="this.services.length != 0">
-  <table mat-table [dataSource]="services" class="mat-elevation-z8">
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let service">{{ service.id }}</td>
-    </ng-container>
-    <!-- Position Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let service">{{ service.name }}</td>
-    </ng-container>
-    <!-- Position Column -->
-    <ng-container matColumnDef="max_spaces">
-      <th mat-header-cell *matHeaderCellDef>maxSpaces</th>
-      <td mat-cell *matCellDef="let service">{{ service.max_spaces }}</td>
-    </ng-container>
-    <!-- Position Column -->
-    <ng-container matColumnDef="cost">
-      <th mat-header-cell *matHeaderCellDef>Cost</th>
-      <td mat-cell *matCellDef="let service">{{ service.cost }}</td>
-    </ng-container>
-    <!-- Position Column -->
-    <ng-container matColumnDef="Actions" style="justify-content: end">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let instructor">
-        <button
-          mat-raised-button
-          mat-dialog-close
-          class="myButton"
-          style="background-color: #2a2b31; color: #f8f9fc"
-          (click)="onDelete(instructor)"
-        >
-          Delete
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnContent"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnContent"></tr>
-  </table>
+  <app-service-table
+    [services]="this.services"
+    [columnContent]="this.columnContent"
+  ></app-service-table>
 </div>
