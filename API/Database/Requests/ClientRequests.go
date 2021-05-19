@@ -6,20 +6,19 @@ import (
 	"fmt"
 )
 
-func GetClientProfileInfo(pUsername string) Models.ClientUser {
+func GetClientProfileInfo(pMembershipNumber int) []Models.Client {
 
-	// TODO: real db request
-	dummyUser := Models.ClientUser{
-		ID:             10,
-		Username:       pUsername,
-		Name:           "Elfu Lano",
-		Email:          "e@e.com",
-		Phone:          "70560910",
-		Balance:        "12345.0",
-		Identification: "123456",
+	query := fmt.Sprintf(`EXEC SP_GetClientProfileInfo %d;`, pMembershipNumber)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return []Models.Client{}
 	}
 
-	return dummyUser
+	client := ParseClients(resultSet)
+
+	return client
 
 }
 
