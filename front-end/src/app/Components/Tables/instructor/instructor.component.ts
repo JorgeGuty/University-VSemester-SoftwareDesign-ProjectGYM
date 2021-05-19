@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
+import { InstructorDialogueComponent } from "../instructor-dialogue/instructor-dialogue.component";
 
 @Component({
   selector: "app-instructor",
@@ -11,10 +13,22 @@ export class InstructorComponent implements OnInit {
   instructor: Instructor[] = [];
   columnContent: string[] = [];
 
-  constructor(public instructorService: InstructorsService) {}
+  constructor(
+    public dialog: MatDialog,
+    public instructorService: InstructorsService
+  ) {}
 
   ngOnInit(): void {
     this.loadInstructors();
+  }
+
+  openDialogue() {
+    const dialogRef = this.dialog.open(InstructorDialogueComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+      // this.fillScheduleData(this.dateJSON);
+    });
   }
 
   loadInstructors() {
@@ -35,9 +49,5 @@ export class InstructorComponent implements OnInit {
   onDelete(instructor: Instructor) {
     // TODO: Implement delete Instructor service
     console.log(instructor);
-  }
-
-  createInstructor() {
-    console.log("Displayed Dialogue");
   }
 }
