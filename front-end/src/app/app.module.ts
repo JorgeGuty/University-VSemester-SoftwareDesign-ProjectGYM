@@ -42,6 +42,7 @@ import { AdminPreliminaryCardComponent } from "./Components/Dashboards/Admin_Pre
 import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dialog/admin-preliminary-dialog.component";
 import { AdminPreliminaryDatePickerComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-information-cards/admin-preliminary-information-cards.component";
+import { IdFormDialogComponent } from './Components/Dashboards/Admin/id-form-dialog/id-form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboar
     AdminPreliminaryDialogComponent,
     AdminPreliminaryDatePickerComponent,
     AdminPreliminaryInformationCardsComponent,
+    IdFormDialogComponent,
   ],
   imports: [
     AppRoutingModule,

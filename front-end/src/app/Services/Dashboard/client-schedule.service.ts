@@ -26,9 +26,10 @@ export class ClientScheduleService {
     );
   }
 
-  getReservedSessions(): Observable<any> {
-    return this.httpClient.get(
+  getReservedSessions(form: any): Observable<any> {
+    return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/reservedSessions",
+      form,
       {
         headers: {
           "Content-Type": "application/json",
