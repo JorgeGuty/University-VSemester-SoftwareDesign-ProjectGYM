@@ -1,0 +1,6 @@
+<div *ngIf="this.instructor.length != 0">
+  <app-instructor-table
+    [instructor]="this.instructor"
+    [columnContent]="this.columnContent"
+  ></app-instructor-table>
+</div>

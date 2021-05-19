@@ -1,0 +1,6 @@
+<div *ngIf="this.services.length != 0">
+  <app-service-table
+    [services]="this.services"
+    [columnContent]="this.columnContent"
+  ></app-service-table>
+</div>

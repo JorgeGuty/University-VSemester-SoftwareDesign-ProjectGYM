@@ -14,6 +14,11 @@ export class AuthService {
   static getAuthToken() {
     return localStorage.getItem("id_token");
   }
+
+  static getUser() {
+    return localStorage.getItem("user");
+  }
+
   private isAuthenticated: boolean;
   private currentUser?: User;
   private authToken: any;
