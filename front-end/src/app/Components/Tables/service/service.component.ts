@@ -35,4 +35,8 @@ export class ServiceComponent implements OnInit {
     // TODO: Implement delete Instructor service
     console.log(services);
   }
+
+  createInstructor() {
+    console.log("Displayed Dialogue");
+  }
 }

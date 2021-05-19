@@ -36,4 +36,8 @@ export class InstructorComponent implements OnInit {
     // TODO: Implement delete Instructor service
     console.log(instructor);
   }
+
+  createInstructor() {
+    console.log("Displayed Dialogue");
+  }
 }
