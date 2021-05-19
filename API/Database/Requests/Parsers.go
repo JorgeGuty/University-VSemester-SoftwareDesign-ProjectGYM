@@ -232,3 +232,29 @@ func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 
 }
 
+func ParseClients(resultSet *sql.Rows) []Models.Client {
+	var clients []Models.Client
+
+	for resultSet.Next() {
+		newCLient := Models.Client{}
+
+		err := resultSet.Scan(
+			&newCLient.MembershipNumber,
+			&newCLient.Name,
+			&newCLient.Email,
+			&newCLient.Phone,
+			&newCLient.Identification,
+			&newCLient.Balance,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Client{}
+		}
+
+		clients = append(clients, newCLient)
+	}
+
+	return clients
+}
+

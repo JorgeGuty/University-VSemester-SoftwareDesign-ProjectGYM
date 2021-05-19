@@ -16,18 +16,16 @@ AS
 BEGIN
     -- body of the stored procedure
     SELECT 
-        client.Username         AS  [Username],
-        client.MembershipNumber AS  [MembershipNumber],
-        client.UserId           AS  [UserId],
-        client.Name             AS  [Name],
-        client.Email            AS  [Email],
-        client.PhoneNumber      AS  [PhoneNumber],
-        client.Identification   AS  [Identification],
-        client.Balance          AS  [Balance]
+        client.Id       AS  [MembershipNumber],
+        client.Nombre   AS  [Name],
+        client.Correo   AS  [Email],
+        client.Celular  AS  [PhoneNumber],
+        client.Cedula   AS  [Identification],
+        client.Saldo    AS  [Balance]
     FROM 
-        dbo.CompleteClients AS client
+        dbo.Cliente AS client
     WHERE
-        client.MembershipNumber = @pMembershipNumber
+        client.Id = @pMembershipNumber
 END
 GO
 -- example to execute the stored procedure we just created
