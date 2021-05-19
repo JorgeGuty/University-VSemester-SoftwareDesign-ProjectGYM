@@ -20,18 +20,16 @@ BEGIN
 
     -- Insert statements for procedure here
     SELECT 
-		[user].Id				AS	id,
-		[user].Username			AS	username,
-		[user].[Password]		AS	[password],		
-		[user].TipoUsuario		AS	userType
+		[user].[uniqueIdentifier]	AS	[uniqueIdentifier],
+		[user].Username				AS	username,
+		[user].[Password]			AS	[password],		
+		[user].[TypeID]				AS	userType
 	FROM
-		dbo.Usuario AS [user]
+		dbo.CompleteUsers AS [user]
 	WHERE 
-		[user].Username = @pUsername AND [user].Activo = 1
-	RETURN 3
+		[user].Username = @pUsername AND [user].Active = 1
 END
 GO
 
 DECLARE @resultStatus INT
 exec @resultStatus = SP_GetUserByUsername 'Cliente1'
-select @resultStatus

@@ -11,7 +11,7 @@ DROP PROCEDURE dbo.SP_CancelBooking
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_CancelBooking
-    @pClientIdentification  NVARCHAR(50),
+    @pMembershipNumber      INT,
     @pDate                  NVARCHAR(50),
     @pStartTime             NVARCHAR(50),
     @pRoomId                INT
@@ -20,7 +20,6 @@ AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @ClientID           INT 
         DECLARE @SessionID          INT              
         DECLARE @NotBookedErrorCode INT
         DECLARE @SPErrorCode        INT     
@@ -58,19 +57,8 @@ BEGIN
                     AND [session].StartTime     = CONVERT(TIME, @pStartTime)
             )
 
-        -- Sets client id based on the client identification provided.
-        SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Identification = @pClientIdentification               
-            )
-
         -- Checks if client has not booked that session
-        IF @ClientID NOT IN 
+        IF @pMembershipNumber NOT IN 
             ( 
                 SELECT 
                     booking.ClienteId 
@@ -91,7 +79,7 @@ BEGIN
                     SET
                         Activa = 0
                     WHERE 
-                            ClienteId   = @ClientID 
+                            ClienteId   = @pMembershipNumber 
                         AND Activa      = 1            
                 COMMIT
             END
@@ -106,5 +94,5 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_CancelBooking '1100', '2021-05-19', '10:00:00', 1
+EXEC @returnvalue = SP_CancelBooking 1, '2021-05-19', '10:00:00', 1
 SELECT @returnvalue AS returnValue

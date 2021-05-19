@@ -4,7 +4,7 @@ ALTER VIEW dbo.CompleteClients AS
     SELECT 
         [user].Username AS  [Username],
         [user].Id       AS  [UserId],
-        client.Id       AS  [ClientId],
+        client.Id       AS  [MembershipNumber],
         client.Nombre   AS  [Name],
         client.Correo   AS  [Email],
         client.Celular  AS  [PhoneNumber],

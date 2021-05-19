@@ -11,13 +11,13 @@ DROP PROCEDURE dbo.SP_GetClientProfileInfo
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_GetClientProfileInfo
-    @pUsername  NVARCHAR(50)
+    @pMembershipNumber  INT
 AS
 BEGIN
     -- body of the stored procedure
     SELECT 
         client.Username         AS  [Username],
-        client.ClientId         AS  [ClientId],
+        client.MembershipNumber AS  [MembershipNumber],
         client.UserId           AS  [UserId],
         client.Name             AS  [Name],
         client.Email            AS  [Email],
@@ -27,9 +27,9 @@ BEGIN
     FROM 
         dbo.CompleteClients AS client
     WHERE
-        client.Username = @pUsername
+        client.MembershipNumber = @pMembershipNumber
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_GetClientProfileInfo 'Cliente2'
+EXECUTE dbo.SP_GetClientProfileInfo 1
 GO
