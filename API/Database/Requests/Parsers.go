@@ -29,10 +29,10 @@ func ParseLoginResponse(resultSet *sql.Rows) Models.Login {
 	}
 
 	user := Models.Login{
-		ID:       id,
-		Username: username,
-		Type:     userType,
-		Password: password,
+		Identifier: id,
+		Username:   username,
+		Type:       userType,
+		Password:   password,
 	}
 
 	return user
