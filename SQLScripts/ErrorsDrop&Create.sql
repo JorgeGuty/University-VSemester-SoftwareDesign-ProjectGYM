@@ -53,3 +53,7 @@ INSERT INTO
 VALUES
     ('UsernameTakenError',-50009, 'The username entered already exist.')
 
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('UserNotFound',-50010, 'The username entered does not exist.')
