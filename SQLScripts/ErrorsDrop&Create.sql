@@ -47,3 +47,9 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('NoSessionsFoundError',-50007, 'No sessions were found with the given data.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('UsernameTakenError',-50009, 'The username entered already exist.')
+

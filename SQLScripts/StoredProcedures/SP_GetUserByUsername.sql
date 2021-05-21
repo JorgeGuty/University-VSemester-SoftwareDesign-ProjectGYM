@@ -27,7 +27,8 @@ BEGIN
 	FROM
 		dbo.CompleteUsers AS [user]
 	WHERE 
-		[user].Username = @pUsername AND [user].Active = 1
+			[user].Username = @pUsername 
+		AND [user].Active = 1
 END
 GO
 
