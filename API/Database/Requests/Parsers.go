@@ -29,10 +29,10 @@ func ParseLoginResponse(resultSet *sql.Rows) Models.Login {
 	}
 
 	user := Models.Login{
-		ID:       id,
-		Username: username,
-		Type:     userType,
-		Password: password,
+		Identifier: id,
+		Username:   username,
+		Type:       userType,
+		Password:   password,
 	}
 
 	return user
@@ -230,5 +230,31 @@ func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 
 	return errorResult
 
+}
+
+func ParseClients(resultSet *sql.Rows) []Models.Client {
+	var clients []Models.Client
+
+	for resultSet.Next() {
+		newCLient := Models.Client{}
+
+		err := resultSet.Scan(
+			&newCLient.MembershipNumber,
+			&newCLient.Name,
+			&newCLient.Email,
+			&newCLient.Phone,
+			&newCLient.Identification,
+			&newCLient.Balance,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Client{}
+		}
+
+		clients = append(clients, newCLient)
+	}
+
+	return clients
 }
 
