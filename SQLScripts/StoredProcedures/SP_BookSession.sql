@@ -11,7 +11,7 @@ DROP PROCEDURE dbo.SP_BookSession
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_BookSession
-    @pClientIdentification  NVARCHAR(50),
+    @pMembershipNumber  INT,
     @pDate                  NVARCHAR(50),
     @pStartTime             NVARCHAR(50),
     @pRoomId                INT
@@ -22,7 +22,6 @@ BEGIN
         DECLARE @BookedSpaces                   INT
         DECLARE @TotalSpaces                    INT
         DECLARE @AvailableSpaces                INT
-        DECLARE @ClientID                       INT
         DECLARE @SessionID                      INT
 
         DECLARE @AlreadyBookedErrorCode         INT
@@ -56,16 +55,6 @@ BEGIN
                     dbo.Errors AS [error]
                 WHERE
                     [error].[ErrorName] = 'SPError'
-            )   
-
-                SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Identification = @pClientIdentification               
             )
 
         -- Sets session id based on the session info provided.
@@ -81,17 +70,6 @@ BEGIN
                     AND [session].StartTime     = CONVERT(TIME, @pStartTime)
             )
 
-        -- Sets client id based on the client identification provided.
-        SET @ClientID = 
-            (
-                SELECT 
-                    client.ClientId
-                FROM
-                    dbo.CompleteClients AS client
-                WHERE
-                    client.Identification = @pClientIdentification               
-            )
-
         -- Gets the total available spaces for a certain session.
         SET @TotalSpaces = 
             (
@@ -104,7 +82,7 @@ BEGIN
             )
 
         -- Checks if client already booked that session.
-        IF @ClientID IN 
+        IF @pMembershipNumber IN 
             ( 
                 SELECT 
                     booking.ClienteId 
@@ -136,7 +114,7 @@ BEGIN
                         INSERT INTO 
                             dbo.Reserva (FechaReserva, ClienteId, SesionId)
                         VALUES
-                            (GETDATE(), @ClientID, @SessionID)
+                            (GETDATE(), @pMembershipNumber, @SessionID)
                 COMMIT
                 IF @AvailableSpaces <= 0 RETURN @SessionOutOfSpacesErrorCode   
             END
@@ -151,15 +129,5 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_BookSession '1100', '2021-05-19', '10:00:00', 1
+EXEC @returnvalue = SP_BookSession 1, '2021-05-19', '10:00:00', 1
 SELECT @returnvalue AS errorCode
-
-
-SELECT 
-    [session].SessionID
-FROM 
-    dbo.CompleteSessions AS [session]
-WHERE 
-        [session].SessionDate   = CONVERT(DATE, '2021-05-19')
-    AND [session].RoomId        = 1
-    AND [session].StartTime     = CONVERT(TIME, '10:00:00')

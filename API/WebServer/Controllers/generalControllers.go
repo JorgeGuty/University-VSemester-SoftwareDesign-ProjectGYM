@@ -40,7 +40,6 @@ func Login(context *fiber.Ctx) error {
 
 	// returns login info
 	login.Token = signedToken
-	login.Identification = "1100"
 	return giveJSONResponse(context, login, fiber.StatusOK)
 }
 

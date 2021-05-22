@@ -3,17 +3,12 @@
 -- Description:	Retrieves the booked sessions for a given client
 -- =============================================
 
-CREATE OR ALTER PROCEDURE dbo.SP_getBookings
-    @pClientIdentification  VARCHAR(50)
+ALTER PROCEDURE dbo.SP_getBookings
+    @pMembershipNumber  INT
 AS
     BEGIN
         DECLARE @StartDate Date;
-        DECLARE @ClientId int;
         SET @StartDate = GETDATE();
-
-        SELECT @ClientId = ClientId
-            FROM dbo.CompleteClients cc
-            WHERE cc.Identification = @pClientIdentification;
 
         SELECT 
             cs.SessionID,
@@ -37,7 +32,7 @@ AS
                 SELECT SesionId
                     FROM dbo.Reserva
                     WHERE 
-                        ClienteId = @ClientId
+                        ClienteId = @pMembershipNumber
                         AND 
                         Activa = 1
 
@@ -53,3 +48,6 @@ AS
         WHERE 
         cs.SessionDate >= @StartDate 
     END
+GO
+
+EXEC SP_getBookings 1

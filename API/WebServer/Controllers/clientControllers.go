@@ -2,12 +2,12 @@ package Controllers
 
 import (
 	"API/Database/Requests"
-	"API/WebServer/Token"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetUserInfo(context *fiber.Ctx) error {
+func GetClientInfo(context *fiber.Ctx) error {
 
 	token := analyzeToken(context)
 
@@ -15,9 +15,15 @@ func GetUserInfo(context *fiber.Ctx) error {
 		return nil
 	}
 
-	registeredUser := Token.GetUsernameFromToken(token)
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
 
-	user := Requests.GetClientProfileInfo(registeredUser)
+		return err
+	}
+
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+
+	user := Requests.GetClientProfileInfo(membershipNumber)
 
 	return giveJSONResponse(context, user, fiber.StatusOK)
 }
