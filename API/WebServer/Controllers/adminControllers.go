@@ -2,8 +2,9 @@ package Controllers
 
 import (
 	"API/Database/Requests"
-	"github.com/gofiber/fiber/v2"
 	"strconv"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func CancelSession(context *fiber.Ctx) error {
@@ -88,10 +89,10 @@ func InsertPreliminarySession(context *fiber.Ctx) error {
 	startTime := data["startTime"]
 	durationMins, _ := strconv.Atoi(data["durationMins"])
 	service := data["service"]
-	instructorIdentification := data["instructorIdentification"]
+	instructorNumber, _ := strconv.Atoi(data["instructorIdentification"])
 	roomId, _ := strconv.Atoi(data["roomId"])
 
-	result := Requests.InsertPreliminarySession(name, weekDay, month, year, startTime, durationMins, service, instructorIdentification, roomId)
+	result := Requests.InsertPreliminarySession(name, weekDay, month, year, startTime, durationMins, service, instructorNumber, roomId)
 
 	return giveVoidOperationResponse(context, result)
 
@@ -118,5 +119,3 @@ func ConfirmPreliminarySchedule(context *fiber.Ctx) error {
 	return giveVoidOperationResponse(context, result)
 
 }
-
-
