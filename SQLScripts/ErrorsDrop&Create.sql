@@ -37,7 +37,6 @@ INSERT INTO
 VALUES
     ('TimeUnavailableError',-50005, 'The time selected for the session is unavailable.')
 
-
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
@@ -47,3 +46,6 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('NoSessionsFoundError',-50007, 'No sessions were found with the given data.')
+
+INSERT INTO dbo.Errors (ErrorName, Code, Message)
+VALUES('InstructorNotFound',-50008,'Instructor information does not correspond to an existing instructor')
