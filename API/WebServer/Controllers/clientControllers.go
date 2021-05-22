@@ -2,7 +2,6 @@ package Controllers
 
 import (
 	"API/Database/Requests"
-	"API/WebServer/Token"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
