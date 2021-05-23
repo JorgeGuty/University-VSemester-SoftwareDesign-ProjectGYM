@@ -22,25 +22,23 @@ VALUES ('Cliente1',1234,2);
 INSERT INTO Usuario (Username, [Password], TipoUsuario)
 VALUES ('Cliente2',1234,2);
 
-INSERT INTO UsuarioAdmin (Id, Nombre)
-VALUES (1, 'Jorge El Curioso');
+INSERT INTO Administrador(Nombre)
+VALUES ('Jorge El Curioso');
+
+INSERT INTO UsuarioAdmin (Id, AdminId)
+VALUES (1, 1);
 
 INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
     VALUES 
     ('1100','Popeye','popeyeElMarino@gmail.com','60009999'),
-    ('1111','Cliente','cliente@gmail.com','99999999');
-
-insert into
-    dbo.Cliente (Cedula, Nombre, Correo, Celular)
-VALUES
-    ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910')
+    ('1111','Cliente','cliente@gmail.com','99999999'),
+    ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910');
 
 INSERT INTO UsuarioCliente (Id, ClienteId)
 VALUES (2, 1);
 
 INSERT INTO dbo.UsuarioCliente (Id, ClienteId)
 VALUES(3,2);
--- Id varia segun tabla Usuario
 
 INSERT INTO Movimientos (Monto, Fecha, ClienteId,TipoMovimiento,Asunto)
 VALUES (1000,GETDATE(),1,1, 'Mil colones de abono');
@@ -90,29 +88,27 @@ values
     ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
     ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
     ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
-/*
 
 INSERT INTO 
     dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
 VALUES
-    (CONVERT(DATE, '2021-05-16'), 1, 1),
-    (CONVERT(DATE, '2021-05-17'), 2, 2),
-    (CONVERT(DATE, '2021-05-18'), 1, 3),
-    (CONVERT(DATE, '2021-05-19'), 1, 4),
-    (CONVERT(DATE, '2021-05-20'), 2, 5),
-    (CONVERT(DATE, '2021-05-20'), 1, 6)
+    (CONVERT(DATE, '2021-05-31'), 1, 1),
+    (CONVERT(DATE, '2021-05-30'), 2, 2),
+    (CONVERT(DATE, '2021-05-27'), 1, 3),
+    (CONVERT(DATE, '2021-05-29'), 1, 4)
+
+UPDATE SesionPreliminar
+SET Confirmada = 1
+WHERE Id <= 4
 
 INSERT INTO
     dbo.Reserva(FechaReserva,ClienteId,SesionId)
     values
         (GETDATE(),1,4),
-        (GETDATE(),1,5),
         (GETDATE(),1,1),
-        (GETDATE(),2,4),
-        (GETDATE(),2,5);
+        (GETDATE(),2,4)
 
 UPDATE dbo.Reserva 
     SET Activa = 0 
     WHERE Id = 2;
 
-*/

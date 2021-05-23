@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS dbo.UsuarioCliente;
 DROP TABLE IF EXISTS dbo.UsuarioAdmin;
 DROP TABLE IF EXISTS dbo.Usuario;
 DROP TABLE IF EXISTS dbo.TipoUsuario;
+DROP TABLE IF EXISTS dbo.Administrador;
 
 DROP TABLE IF EXISTS dbo.Credito;
 DROP TABLE IF EXISTS dbo.Movimientos;
@@ -107,7 +108,9 @@ ALTER TABLE dbo.TipoInstructor ADD CONSTRAINT
 GO
 
 -- Entidades
-
+-----------------------------------------------------------------
+-- Cliente
+-----------------------------------------------------------------
 CREATE TABLE [dbo].[Cliente](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Cedula] [nvarchar](50) NOT NULL UNIQUE,
@@ -124,7 +127,54 @@ ALTER TABLE [dbo].[Cliente] ADD  CONSTRAINT [PK_Cliente] PRIMARY KEY CLUSTERED
 	[Id] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
+-----------------------------------------------------------------
+-- Instructor
+-----------------------------------------------------------------
+CREATE TABLE dbo.Instructor
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Nombre nvarchar(50) NOT NULL,
+	Cedula nvarchar(50) NOT NULL UNIQUE,
+	Correo nvarchar(50) NOT NULL,
+	Tipo int NOT NULL,
+	Activo BIT NOT NULL DEFAULT 1
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Instructor ADD CONSTRAINT
+	PK_Instructor PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE dbo.Instructor ADD CONSTRAINT
+	FK_Instructor_TipoInstructor FOREIGN KEY
+	(
+	Tipo
+	) REFERENCES dbo.TipoInstructor
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+GO
+-----------------------------------------------------------------
+-- Admin
+-----------------------------------------------------------------
+CREATE TABLE dbo.Administrador
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Nombre nvarchar(50) NOT NULL
+	)  ON [PRIMARY]
+GO
 
+ALTER TABLE dbo.Administrador ADD CONSTRAINT
+	PK_Administrador PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+-----------------------------------------------------------------
+-- Usuario
+-----------------------------------------------------------------
 CREATE TABLE [dbo].[Usuario](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Username] [nvarchar](50) NOT NULL UNIQUE,
@@ -143,7 +193,9 @@ REFERENCES [dbo].[TipoUsuario] ([Id])
 GO
 ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_TipoUsuario]
 GO
-
+-----------------------------------------------------------------
+-- Usuario Cliente
+-----------------------------------------------------------------
 CREATE TABLE [dbo].[UsuarioCliente](
 	[Id] [int]  NOT NULL,
 	[ClienteId] [int] NOT NULL
@@ -164,10 +216,12 @@ REFERENCES [dbo].[Usuario] ([Id])
 GO
 ALTER TABLE [dbo].[UsuarioCliente] CHECK CONSTRAINT [FK_UsuarioCliente_Usuario]
 GO
-
+-----------------------------------------------------------------
+-- Usuario Admin
+-----------------------------------------------------------------
 CREATE TABLE [dbo].[UsuarioAdmin](
 	[Id] [int] NOT NULL,
-	[Nombre] nvarchar(50) NOT NULL
+	[AdminId] INT NOT NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[UsuarioAdmin] ADD  CONSTRAINT [PK_UsuarioAdmin] PRIMARY KEY CLUSTERED 
@@ -181,6 +235,15 @@ GO
 ALTER TABLE [dbo].[UsuarioAdmin] CHECK CONSTRAINT [FK_UsuarioAdmin_Usuario]
 GO
 
+ALTER TABLE [dbo].[UsuarioAdmin]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioAdmin_Administrador] FOREIGN KEY([AdminId])
+REFERENCES [dbo].[Administrador] ([Id])
+GO
+ALTER TABLE [dbo].[UsuarioAdmin] CHECK CONSTRAINT [FK_UsuarioAdmin_Administrador]
+GO
+
+-----------------------------------------------------------------
+-- Movimientos
+-----------------------------------------------------------------
 CREATE TABLE [dbo].[Movimientos](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Monto] [decimal](19, 4) NOT NULL,
@@ -227,32 +290,7 @@ GO
 ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_Movimientos]
 GO
 
-CREATE TABLE dbo.Instructor
-	(
-	Id int NOT NULL IDENTITY (1, 1),
-	Nombre nvarchar(50) NOT NULL,
-	Cedula nvarchar(50) NOT NULL UNIQUE,
-	Correo nvarchar(50) NOT NULL,
-	Tipo int NOT NULL
-	)  ON [PRIMARY]
-GO
-ALTER TABLE dbo.Instructor ADD CONSTRAINT
-	PK_Instructor PRIMARY KEY CLUSTERED 
-	(
-	Id
-	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
-GO
-ALTER TABLE dbo.Instructor ADD CONSTRAINT
-	FK_Instructor_TipoInstructor FOREIGN KEY
-	(
-	Tipo
-	) REFERENCES dbo.TipoInstructor
-	(
-	Id
-	) ON UPDATE  NO ACTION 
-	 ON DELETE  NO ACTION 
-GO
 
 
 CREATE TABLE dbo.Especialidades
