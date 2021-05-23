@@ -16,7 +16,7 @@ export class ClientsService {
   getClientInfo(): Observable<any> {
     let user = this.authService.getCurrentUser();
     if (user != undefined && user.identifier != undefined) {
-      var userForm: any = { clientIdentification: user.identifier.toString() };
+      var userForm: any = { membershipNumber: user.identifier.toString() };
     }
     console.log(userForm);
     return this.httpClient.post(

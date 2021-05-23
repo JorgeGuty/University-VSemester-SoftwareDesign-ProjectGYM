@@ -25,12 +25,12 @@
         <mat-tab label="Profile">
           <!-- Username Field -->
           <mat-form-field class="example-full-width" style="margin-top: 3rem">
-            <mat-label>Username</mat-label>
+            <mat-label>Client Name</mat-label>
             <input
               matInput
               value="{{ this.client.username }}"
               #message
-              [(ngModel)]="prof_username"
+              [(ngModel)]="prof_clientName"
             />
           </mat-form-field>
 
@@ -64,6 +64,17 @@
               matInput
               value="{{ this.client.identification }}"
               [(ngModel)]="prof_identification"
+              #message
+            />
+          </mat-form-field>
+
+          <!-- Balance Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Membership</mat-label>
+            <input
+              disabled
+              matInput
+              value="# {{ this.client.membershipNumber }}"
               #message
             />
           </mat-form-field>
