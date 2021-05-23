@@ -10,9 +10,9 @@ type Error struct {
 }
 
 type VoidOperationResult struct {
-	Success bool `json:"success"`
+	Success      bool               `json:"success"`
 	ReturnStatus mssql.ReturnStatus `json:"return_code"`
-	Message string `json:"message"`
+	Message      string             `json:"message"`
 }
 
 type Gym struct {
@@ -33,8 +33,8 @@ type Instructor struct {
 type Service struct {
 	ID        int    `json:"id"`
 	Name      string `json:"name"`
-	MaxSpaces int 	 `json:"max_spaces"`
-	Cost	  string `json:"cost"`
+	MaxSpaces int    `json:"max_spaces"`
+	Cost      string `json:"cost"`
 }
 
 type Session struct {
@@ -53,7 +53,7 @@ type Session struct {
 type PreliminarySession struct {
 	ID                int        `json:"id"`
 	Name              string     `json:"name"`
-	WeekDay           int		 `json:"week_day"`
+	WeekDay           int        `json:"week_day"`
 	Time              civil.Time `json:"time"`
 	DurationMin       int        `json:"duration_min"`
 	AvailableSpaces   int        `json:"available_spaces"`
@@ -68,15 +68,6 @@ type Schedule struct {
 
 type PreliminarySchedule struct {
 	Sessions []PreliminarySession `json:"preliminary_sessions"`
-}
-
-type Login struct {
-	ID       		int    `json:"id"`
-	Username 		string `json:"username"`
-	Type     		int    `json:"type"`
-	Identification 	string `json:"identification"`
-	Password 		string `json:"-"`
-	Token    		string `json:"token"`
 }
 
 type ClientUser struct {
