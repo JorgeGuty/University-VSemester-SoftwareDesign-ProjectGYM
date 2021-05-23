@@ -73,7 +73,6 @@ BEGIN
 
         IF @AffectedRowsCount = 0 RETURN @NoSessionsFound
         ELSE RETURN 1
-        RETURN 1;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0
