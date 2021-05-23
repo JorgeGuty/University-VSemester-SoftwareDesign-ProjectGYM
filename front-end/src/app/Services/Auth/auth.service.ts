@@ -96,7 +96,6 @@ export class AuthService {
   // }
 
   getCurrentUser() {
-    if(this.currentUser)console.log(this.currentUser.identifier)
     return this.currentUser;
   }
 
