@@ -70,19 +70,20 @@ type PreliminarySchedule struct {
 	Sessions []PreliminarySession `json:"preliminary_sessions"`
 }
 
-type ClientUser struct {
-	ID             int    `json:"id"`
-	Username       string `json:"username"`
-	Type           int    `json:"type"`
-	Name           string `json:"name"`
-	Email          string `json:"email"`
-	Phone          string `json:"phone"`
-	Balance        string `json:"balance"`
-	Identification string `json:"identification"`
+type Login struct {
+	Identifier int    `json:"identifier"`
+	Username   string `json:"username"`
+	Type       int    `json:"type"`
+	Password   string `json:"-"`
+	Token      string `json:"token"`
 }
 
-type AdminUser struct {
-	ID       int    `json:"id"`
-	Username string `json:"username"`
-	Name     string `json:"name"`
+type Client struct {
+	MembershipNumber 	int 	`json:"membershipNumber"`
+	Name           		string 	`json:"name"`
+	Email          		string 	`json:"email"`
+	Phone          		string 	`json:"phone"`
+	Balance        		string 	`json:"balance"`
+	Identification 		string 	`json:"identification"`
 }
+

@@ -92,10 +92,10 @@ values
 INSERT INTO 
     dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
 VALUES
-    (CONVERT(DATE, '2021-05-16'), 1, 1),
-    (CONVERT(DATE, '2021-05-17'), 2, 2),
-    (CONVERT(DATE, '2021-05-18'), 1, 3),
-    (CONVERT(DATE, '2021-05-19'), 1, 4)
+    (CONVERT(DATE, '2021-05-31'), 1, 1),
+    (CONVERT(DATE, '2021-05-30'), 2, 2),
+    (CONVERT(DATE, '2021-05-27'), 1, 3),
+    (CONVERT(DATE, '2021-05-29'), 1, 4)
 
 UPDATE SesionPreliminar
 SET Confirmada = 1
