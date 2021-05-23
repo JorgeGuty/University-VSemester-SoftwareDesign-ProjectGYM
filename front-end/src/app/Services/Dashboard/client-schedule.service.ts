@@ -12,7 +12,10 @@ import User from "src/app/Models/Users/User";
   providedIn: "root",
 })
 export class ClientScheduleService {
-  constructor(private httpClient: HttpClient,  private authService: AuthService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   getCurrentSessionSchedule(): Observable<any> {
     return this.httpClient.get(
@@ -28,9 +31,10 @@ export class ClientScheduleService {
 
   getReservedSessions(): Observable<any> {
     let user = this.authService.getCurrentUser();
-    if(user != undefined && user.identifier != undefined) {  var userForm : any = { "clientIdentification": user.identifier.toString()}; }
-    console.log("Prueba")
-   // console.log(userForm)
+    if (user != undefined && user.identifier != undefined) {
+      var userForm: any = { clientIdentification: user.identifier.toString() };
+    }
+    // console.log(userForm)
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/reservedSessions",
       userForm,
