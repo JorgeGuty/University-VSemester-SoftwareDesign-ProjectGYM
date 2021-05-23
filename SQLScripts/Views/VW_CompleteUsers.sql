@@ -41,7 +41,7 @@ ALTER VIEW dbo.CompleteUsers AS
         ON [user].Id = adminUser.Id
     INNER JOIN 
         dbo.Administrador AS [admin]
-        ON adminUser.AdminId = [admin].Id
+        ON adminUser.Id = [admin].Id
 
 
 GO
