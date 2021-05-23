@@ -177,7 +177,7 @@ GO
 -----------------------------------------------------------------
 CREATE TABLE [dbo].[Usuario](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Username] [nvarchar](50) NOT NULL UNIQUE,
+	[Username] [nvarchar](50) NOT NULL,
 	[Password] [nvarchar](50) NOT NULL,
 	[TipoUsuario] [int] NOT NULL,
 	[Activo] [bit] NOT NULL DEFAULT 1
