@@ -54,20 +54,20 @@ export class AuthService {
     );
   }
 
-  // TODO: register in API
-  getProfile() {
-    let headers = new HttpHeaders();
-    this.loadToken();
-    return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/client/userInfo",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${this.authToken}`,
-        },
-      }
-    );
-  }
+  // // TODO: register in API
+  // getProfile() {
+  //   let headers = new HttpHeaders();
+  //   this.loadToken();
+  //   return this.httpClient.get(
+  //     ConnectionsServices.currentConnection + "/client/userInfo",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `${this.authToken}`,
+  //       },
+  //     }
+  //   );
+  // }
 
   storeUserData(token: string, user: User) {
     localStorage.setItem("id_token", token);
