@@ -77,6 +77,16 @@ func CancelBooking(pClientNumber int, pDate string, pRoomId int, pStartTime stri
 	return VoidRequest(query)
 }
 
+func DeactivateAccount(pUsername string, pUserTypeID int) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_DeactivateAccount '%s', %d;`, pUsername, pUserTypeID)
+	return VoidRequest(query)
+}
+
+func UpdateUserDetails(pOldUsername string, pNewUsername string, pUserTypeID int) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_UpdateUserDetails '%s', '%s', %d;`, pOldUsername, pNewUsername, pUserTypeID)
+	return VoidRequest(query)
+}
+
 func TestRequest() bool {
 	return true
 }

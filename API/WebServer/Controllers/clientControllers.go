@@ -41,9 +41,31 @@ func GetReservedSessions(context *fiber.Ctx) error {
 		return err
 	}
 
-	clientnumber, _ := strconv.Atoi(data["clientIdentification"])
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
 
-	sessions := Requests.GetReservedSessions(clientnumber)
+	sessions := Requests.GetReservedSessions(membershipNumber)
 
 	return giveJSONResponse(context, sessions, fiber.StatusOK)
+}
+
+func Register(context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	username, _ := data["username"]
+	password, _ := data["password"]
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+
+	result := Requests.RegisterClientUser(username, password, membershipNumber)
+
+	return giveJSONResponse(context, result, fiber.StatusOK)
 }

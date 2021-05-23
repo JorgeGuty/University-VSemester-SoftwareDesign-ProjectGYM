@@ -135,6 +135,49 @@ func CancelBooking(context *fiber.Ctx) error {
 
 }
 
+func DeactivateAccount(context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	username := data["username"]
+	userTypeId, _ := strconv.Atoi(data["userTypeId"])
+
+	result := Requests.DeactivateAccount(username, userTypeId)
+
+	return giveVoidOperationResponse(context, result)
+
+}
+
+func UpdateUserDetails(context *fiber.Ctx) error {
+
+	token := analyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	oldUsername := data["oldUsername"]
+	newUsername := data["newUsername"]
+	userTypeId, _ := strconv.Atoi(data["userTypeId"])
+
+	result := Requests.UpdateUserDetails(oldUsername, newUsername, userTypeId)
+
+	return giveVoidOperationResponse(context, result)
+
+}
+
 func SqlTests(context *fiber.Ctx) error {
 
 	good := Requests.TestRequest()

@@ -22,9 +22,9 @@ func GetClientProfileInfo(pMembershipNumber int) []Models.Client {
 
 }
 
-func GetReservedSessions(pClientnumber int) Models.Schedule {
+func GetReservedSessions(pMembershipNumber int) Models.Schedule {
 
-	query := fmt.Sprintf(`EXEC SP_getBookings '%d';`, pClientnumber)
+	query := fmt.Sprintf(`EXEC SP_getBookings %d;`, pMembershipNumber)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -35,4 +35,9 @@ func GetReservedSessions(pClientnumber int) Models.Schedule {
 	schedule := ParseSchedule(resultSet)
 
 	return schedule
+}
+
+func RegisterClientUser(pUsername string, pPassword string, pMembershipNumber int) Models.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_RegisterClientUser '%s', '%s', %d;`, pUsername, pPassword, pMembershipNumber)
+	return VoidRequest(query)
 }
