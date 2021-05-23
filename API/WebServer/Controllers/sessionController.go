@@ -32,9 +32,9 @@ func GetReservedSessions(context *fiber.Ctx) error {
 		return err
 	}
 
-	clientnumber, _ := strconv.Atoi(data["clientIdentification"])
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
 
-	sessions := Requests.GetReservedSessions(clientnumber)
+	sessions := Requests.GetReservedSessions(membershipNumber)
 
 	return giveJSONResponse(context, sessions, fiber.StatusOK)
 }
