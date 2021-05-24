@@ -16,8 +16,8 @@ func Login(context *fiber.Ctx) error {
 	if err := context.BodyParser(&data); err != nil {
 		return err
 	}
-	username := data[Models.UsernameJsonTag]
-	password := data[Models.PasswordJsonTag]
+	username := data[UsernameJsonTag]
+	password := data[PasswordJsonTag]
 
 	// db request
 	login, success := Requests.GetLogin(username)
@@ -47,7 +47,7 @@ func createToken(pUser Models.Login) (string, error) {
 	return Token.GetUserSignedToken(pUser.Username, pUser.Type)
 }
 
-func Register(context *fiber.Ctx) error {
+func RegisterClientUser(context *fiber.Ctx) error {
 
 	token := analyzeToken(context)
 
