@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
 
     let old_user = this.user.username;
     let new_user = this.user_username;
-    let user_type = UserTypes.Client;
+    let user_type = UserTypes.Client.toString();
 
     let userInfo: any = {
       oldUsername: old_user,
@@ -68,9 +68,12 @@ export class ProfileComponent implements OnInit {
       userTypeId: user_type,
     };
 
+    this.user.username = this.user_username;
+
     this.authService.updateUser(userInfo).subscribe(
       (res) => {
         console.log(res);
+        this.authService.updateCurrentUser(userInfo.newUsername);
       },
       (err) => {
         console.log(err);
