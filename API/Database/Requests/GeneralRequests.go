@@ -2,6 +2,7 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
 )
@@ -67,22 +68,22 @@ func GetServices() []Models.Service {
 
 }
 
-func BookSession(pClientNumber int, pDate string, pRoomId int, pStartTime string) Models.VoidOperationResult {
+func BookSession(pClientNumber int, pDate string, pRoomId int, pStartTime string) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_BookSession '%d', '%s', '%s', %d;`, pClientNumber, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }
 
-func CancelBooking(pClientNumber int, pDate string, pRoomId int, pStartTime string) Models.VoidOperationResult {
+func CancelBooking(pClientNumber int, pDate string, pRoomId int, pStartTime string) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_CancelBooking '%d', '%s', '%s', %d;`, pClientNumber, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }
 
-func DeactivateAccount(pUsername string, pUserTypeID int) Models.VoidOperationResult {
+func DeactivateAccount(pUsername string, pUserTypeID int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_DeactivateAccount '%s', %d;`, pUsername, pUserTypeID)
 	return VoidRequest(query)
 }
 
-func UpdateUserDetails(pOldUsername string, pNewUsername string, pUserTypeID int) Models.VoidOperationResult {
+func UpdateUserDetails(pOldUsername string, pNewUsername string, pUserTypeID int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_UpdateUserDetails '%s', '%s', %d;`, pOldUsername, pNewUsername, pUserTypeID)
 	return VoidRequest(query)
 }

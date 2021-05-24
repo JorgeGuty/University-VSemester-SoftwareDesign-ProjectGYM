@@ -2,13 +2,14 @@ package Controllers
 
 import (
 	"API/Database/Requests"
+	"API/WebServer/Common"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func GetInstructors(context *fiber.Ctx) error {
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -26,12 +27,12 @@ func GetInstructors(context *fiber.Ctx) error {
 
 	instructors := Requests.GetInstructors(filterByService, instructorService, filterByType, instructorType)
 
-	return giveJSONResponse(context, instructors, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
 }
 
 func DeleteInstructor(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -46,5 +47,5 @@ func DeleteInstructor(context *fiber.Ctx) error {
 
 	result := Requests.DeleteInstructor(instructorNumber)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 }

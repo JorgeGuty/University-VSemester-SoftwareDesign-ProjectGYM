@@ -1,9 +1,9 @@
 package Controllers
 
 import (
-	"API/Database/Common"
 	"API/Database/Requests"
 	"API/Models"
+	"API/WebServer/Common"
 	"API/WebServer/Token"
 	"strconv"
 
@@ -16,31 +16,31 @@ func Login(context *fiber.Ctx) error {
 	if err := context.BodyParser(&data); err != nil {
 		return err
 	}
-	username := data[UsernameJsonTag]
-	password := data[PasswordJsonTag]
+	username := data[Common.UsernameJsonTag]
+	password := data[Common.PasswordJsonTag]
 
 	// db request
 	login, success := Requests.GetLogin(username)
 
 	// login existence validation
 	if !success {
-		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusNotFound)
+		return Common.GiveJSONResponse(context, Common.Error{Message: Common.InvalidLoginError}, fiber.StatusNotFound)
 	}
 
 	//  password validation
 	if login.Password != password {
-		return giveJSONResponse(context, Models.Error{Message: Common.InvalidLoginError}, fiber.StatusUnauthorized)
+		return Common.GiveJSONResponse(context, Common.Error{Message: Common.InvalidLoginError}, fiber.StatusUnauthorized)
 	}
 
 	// token creation
 	signedToken, err := Token.GetUserSignedToken(login.Username, login.Type)
 	if err != nil {
-		return giveJSONResponse(context, Models.Error{Message: Common.CouldNotLoginError}, fiber.StatusInternalServerError)
+		return Common.GiveJSONResponse(context, Common.Error{Message: Common.CouldNotLoginError}, fiber.StatusInternalServerError)
 	}
 
 	// returns login info
 	login.Token = signedToken
-	return giveJSONResponse(context, login, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, login, fiber.StatusOK)
 }
 
 func createToken(pUser Models.Login) (string, error) {
@@ -49,7 +49,7 @@ func createToken(pUser Models.Login) (string, error) {
 
 func RegisterClientUser(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -66,12 +66,12 @@ func RegisterClientUser(context *fiber.Ctx) error {
 
 	result := Requests.RegisterClientUser(username, password, membershipNumber)
 
-	return giveJSONResponse(context, result, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, result, fiber.StatusOK)
 }
 
 func DeactivateAccount(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 	if token == nil {
 		return nil
 	}
@@ -86,13 +86,13 @@ func DeactivateAccount(context *fiber.Ctx) error {
 
 	result := Requests.DeactivateAccount(username, userTypeId)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 
 }
 
 func UpdateUserDetails(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 	if token == nil {
 		return nil
 	}
@@ -108,6 +108,6 @@ func UpdateUserDetails(context *fiber.Ctx) error {
 
 	result := Requests.UpdateUserDetails(oldUsername, newUsername, userTypeId)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 
 }

@@ -2,6 +2,7 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
 )
@@ -37,7 +38,7 @@ func GetReservedSessions(pMembershipNumber int) Models.Schedule {
 	return schedule
 }
 
-func RegisterClientUser(pUsername string, pPassword string, pMembershipNumber int) Models.VoidOperationResult {
+func RegisterClientUser(pUsername string, pPassword string, pMembershipNumber int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_RegisterClientUser '%s', '%s', %d;`, pUsername, pPassword, pMembershipNumber)
 	return VoidRequest(query)
 }

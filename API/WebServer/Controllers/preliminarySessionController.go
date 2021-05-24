@@ -2,13 +2,14 @@ package Controllers
 
 import (
 	"API/Database/Requests"
+	"API/WebServer/Common"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func GetPreliminarySchedule(context *fiber.Ctx) error {
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -24,12 +25,12 @@ func GetPreliminarySchedule(context *fiber.Ctx) error {
 
 	dummySchedule := Requests.GetPreliminarySchedule(month, year)
 
-	return giveJSONResponse(context, dummySchedule, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, dummySchedule, fiber.StatusOK)
 }
 
 func InsertPreliminarySession(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -52,13 +53,13 @@ func InsertPreliminarySession(context *fiber.Ctx) error {
 
 	result := Requests.InsertPreliminarySession(name, weekDay, month, year, startTime, durationMins, service, instructorNumber, roomId)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 
 }
 
 func ConfirmPreliminarySchedule(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -74,12 +75,12 @@ func ConfirmPreliminarySchedule(context *fiber.Ctx) error {
 
 	result := Requests.ConfirmPreliminarySchedule(month, year)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 
 }
 
 func DeletePreliminarySession(context *fiber.Ctx) error {
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -97,5 +98,5 @@ func DeletePreliminarySession(context *fiber.Ctx) error {
 
 	result := Requests.DeletePreliminarySession(year, month, weekDay, roomId, startTime)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 }

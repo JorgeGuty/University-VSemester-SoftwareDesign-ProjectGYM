@@ -2,6 +2,7 @@ package Controllers
 
 import (
 	"API/Database/Requests"
+	"API/WebServer/Common"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,7 +10,7 @@ import (
 
 func GetClientInfo(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -25,5 +26,5 @@ func GetClientInfo(context *fiber.Ctx) error {
 
 	user := Requests.GetClientProfileInfo(membershipNumber)
 
-	return giveJSONResponse(context, user, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, user, fiber.StatusOK)
 }

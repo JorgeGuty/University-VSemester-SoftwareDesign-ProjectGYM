@@ -2,12 +2,13 @@ package Controllers
 
 import (
 	"API/Database/Requests"
+	"API/WebServer/Common"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func GetServices(context *fiber.Ctx) error {
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -15,5 +16,5 @@ func GetServices(context *fiber.Ctx) error {
 
 	services := Requests.GetServices()
 
-	return giveJSONResponse(context, services, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, services, fiber.StatusOK)
 }

@@ -7,7 +7,6 @@ import (
 )
 
 func Setup(app *fiber.App) {
-	app.Get("/", Controllers.Start)
 
 	general := app.Group("/general")
 	client := app.Group("/client")
@@ -37,7 +36,6 @@ func Setup(app *fiber.App) {
 }
 
 func Setup2(app *fiber.App) {
-	app.Get("/", Controllers.Start)
 
 	client := app.Group("/client")
 	client.Post("/reservedSessions", Controllers.GetReservedSessions)

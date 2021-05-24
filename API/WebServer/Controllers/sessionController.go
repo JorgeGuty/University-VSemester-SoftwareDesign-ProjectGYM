@@ -2,6 +2,7 @@ package Controllers
 
 import (
 	"API/Database/Requests"
+	"API/WebServer/Common"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,19 +10,19 @@ import (
 
 func GetActiveSchedule(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
 	}
 	schedule := Requests.GetCurrentSessionSchedule()
 
-	return giveJSONResponse(context, schedule, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, schedule, fiber.StatusOK)
 }
 
 func GetReservedSessions(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -36,12 +37,12 @@ func GetReservedSessions(context *fiber.Ctx) error {
 
 	sessions := Requests.GetReservedSessions(membershipNumber)
 
-	return giveJSONResponse(context, sessions, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, sessions, fiber.StatusOK)
 }
 
 func BookSession(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 	if token == nil {
 		return nil
 	}
@@ -58,13 +59,13 @@ func BookSession(context *fiber.Ctx) error {
 
 	result := Requests.BookSession(clientnumber, date, roomId, startTime)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 
 }
 
 func CancelBooking(context *fiber.Ctx) error {
 
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 	if token == nil {
 		return nil
 	}
@@ -81,12 +82,12 @@ func CancelBooking(context *fiber.Ctx) error {
 
 	result := Requests.CancelBooking(clientnumber, date, roomId, startTime)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 
 }
 
 func CancelSession(context *fiber.Ctx) error {
-	token := analyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
 	if token == nil {
 		return nil
@@ -103,5 +104,5 @@ func CancelSession(context *fiber.Ctx) error {
 
 	result := Requests.CancelSession(date, roomId, startTime)
 
-	return giveVoidOperationResponse(context, result)
+	return Common.GiveVoidOperationResponse(context, result)
 }
