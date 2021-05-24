@@ -13,7 +13,6 @@ GO
 CREATE PROCEDURE dbo.SP_UpdateUserDetails
     @pCurrentUsername   NVARCHAR(50),
     @pUsername          NVARCHAR(50),
-    @pPassword          NVARCHAR(50),
     @pUserTypeID        INT
 AS
 BEGIN
@@ -42,9 +41,7 @@ BEGIN
                     -- Update rows in table '[Usuario]' in schema '[dbo]'
                     UPDATE [dbo].[Usuario]
                     SET
-                        [Username] = @pUsername,
-                        [Password] = @pPassword
-                        -- Add more columns and values here
+                        [Username] = @pUsername
                     WHERE /* add search conditions here */
                         [Username]  = @pCurrentUsername
                     AND [Activo]    = 1
@@ -66,7 +63,7 @@ GO
 -- example to execute the stored procedure we just created
 
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_UpdateUserDetails 'ÇlienteA','ÇlienteA','12345',1
+EXEC @returnvalue = dbo.SP_UpdateUserDetails 'ÇlienteA','ÇlienteA',1
 SELECT @returnvalue AS returnValue
 -- Select rows from a Table or View '[Usuario]' in schema '[dbo]'
 SELECT * FROM [dbo].[Usuario]

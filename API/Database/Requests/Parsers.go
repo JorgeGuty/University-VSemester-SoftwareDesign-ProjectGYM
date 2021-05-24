@@ -5,8 +5,9 @@ import (
 	"API/Models"
 	"database/sql"
 	"fmt"
-	mssql "github.com/denisenkom/go-mssqldb"
 	"time"
+
+	mssql "github.com/denisenkom/go-mssqldb"
 
 	"github.com/golang-sql/civil"
 )
@@ -70,7 +71,7 @@ func ParseSchedule(resultSet *sql.Rows) Models.Schedule {
 			&session.SessionService.Name,
 			&session.SessionService.Cost,
 			&session.SessionService.MaxSpaces,
-			)
+		)
 
 		if err != nil {
 			println(err.Error())
@@ -109,7 +110,7 @@ func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
 			&newInstructor.Email,
 			&newInstructor.Identification,
 			&newInstructor.Type,
-			)
+		)
 
 		if err != nil {
 			println(err.Error())
@@ -121,7 +122,6 @@ func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
 
 	return instructors
 }
-
 
 func ParseServices(resultSet *sql.Rows) []Models.Service {
 
@@ -192,24 +192,23 @@ func ParsePreliminarySchedule(resultSet *sql.Rows) Models.PreliminarySchedule {
 	return preliminarySchedule
 }
 
-func ParseSuccessfulResult(pReturnStatus mssql.ReturnStatus) Models.VoidOperationResult {
+func ParseSuccessfulResult(pReturnStatus mssql.ReturnStatus) Common.VoidOperationResult {
 
-	voidOperationResult := Models.VoidOperationResult{
-		Success: true,
+	voidOperationResult := Common.VoidOperationResult{
+		Success:      true,
 		ReturnStatus: pReturnStatus,
-		Message: "Operation performed with success.",
+		Message:      "Operation performed with success.",
 	}
 
 	return voidOperationResult
 
 }
 
-func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
+func ParseErrorResult(resultSet *sql.Rows) Common.VoidOperationResult {
 
 	var errorName string
 	var errorCode mssql.ReturnStatus
 	var errorMessage string
-
 
 	if !resultSet.Next() {
 		errorName = Common.UnknownErrorName
@@ -218,14 +217,14 @@ func ParseErrorResult(resultSet *sql.Rows) Models.VoidOperationResult {
 
 	} else if err := resultSet.Scan(&errorName, &errorCode, &errorMessage); err != nil {
 		fmt.Println(err.Error())
-		return Models.VoidOperationResult{}
+		return Common.VoidOperationResult{}
 
 	}
 
-	errorResult := Models.VoidOperationResult{
+	errorResult := Common.VoidOperationResult{
 		Success:      false,
 		ReturnStatus: errorCode,
-		Message:      errorName +": "+errorMessage,
+		Message:      errorName + ": " + errorMessage,
 	}
 
 	return errorResult
@@ -257,4 +256,3 @@ func ParseClients(resultSet *sql.Rows) []Models.Client {
 
 	return clients
 }
-
