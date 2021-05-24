@@ -48,7 +48,7 @@ func Setup2(app *fiber.App) {
 	user.Post("/updateUserDetails", Controllers.UpdateUserDetails)
 
 	services := app.Group("/services")
-	services.Get("/list", Controllers.GetServices)
+	services.Get("/services", Controllers.GetServices)
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)
@@ -57,7 +57,7 @@ func Setup2(app *fiber.App) {
 	sessions.Post("/cancelSession", Controllers.CancelSession)
 
 	instructor := app.Group("/instructor")
-	instructor.Post("/list", Controllers.GetInstructors)
+	instructor.Post("/instructors", Controllers.GetInstructors)
 	instructor.Post("/remove", Controllers.DeleteInstructor)
 
 	preliminarySchedule := app.Group("/preliminarySchedule")
