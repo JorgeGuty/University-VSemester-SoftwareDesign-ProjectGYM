@@ -33,7 +33,8 @@ BEGIN
                 FROM    
                     dbo.Cliente AS client
                 WHERE
-                    client.Correo = @pEmail
+                        client.Correo = @pEmail
+                    AND client.Active = 1
             )
             RETURN @EmailUnavailableErrorCode
         ELSE
@@ -66,5 +67,7 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_UpdateClientDetails 1, 'CambioDeUsername','bb@bb','70704284','123123'
+EXEC @returnvalue = dbo.SP_UpdateClientDetails 1, 'CambioDeUsername','aaa@a.gmail','70704284','123123'
 SELECT @returnvalue AS returnValue
+
+select * from Cliente
