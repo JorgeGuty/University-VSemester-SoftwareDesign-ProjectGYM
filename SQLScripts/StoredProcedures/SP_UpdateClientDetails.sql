@@ -11,15 +11,60 @@ DROP PROCEDURE dbo.SP_UpdateClientDetails
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_UpdateClientDetails
-    @param1 /*parameter name*/ int /*datatype_for_param1*/ = 0, /*default_value_for_param1*/
-    @param2 /*parameter name*/ int /*datatype_for_param1*/ = 0 /*default_value_for_param2*/
+    @pMembershipNumber  INT,
+    @pName              NVARCHAR(50),
+    @pEmail             NVARCHAR(50),
+    @pPhone             NVARCHAR(50),
+    @pIdentification    NVARCHAR(50)
 -- add more stored procedure parameters here
 AS
 BEGIN
-    -- body of the stored procedure
-    SELECT @param1, @param2
+    BEGIN TRY
+
+        DECLARE @ClientNotFoundErrorCode    INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'ClientNotFound')
+        DECLARE @EmailUnavailableErrorCode  INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'EmailUnavailable')
+        DECLARE @SPErrorCode                INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SPError')     
+        DECLARE @AffectedRowsCount          INT
+
+        IF EXISTS 
+            (
+                SELECT  
+                    *
+                FROM    
+                    dbo.Cliente AS client
+                WHERE
+                    client.Correo = @pEmail
+            )
+            RETURN @EmailUnavailableErrorCode
+        ELSE
+            BEGIN 
+                SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+                BEGIN TRANSACTION
+                    -- Update rows in table '[Usuario]' in schema '[dbo]'
+                    UPDATE [dbo].[Cliente]
+                    SET
+                        [Nombre]    = @pName,
+                        [Correo]    = @pEmail,
+                        [Celular]   = @pPhone,
+                        [Cedula]    = @pIdentification
+                    WHERE /* add search conditions here */
+                        [Id]        = @pMembershipNumber
+                    AND [Active]    = 1
+                            
+                SET @AffectedRowsCount = @@ROWCOUNT 
+                COMMIT
+            END
+        IF @AffectedRowsCount = 0 RETURN @ClientNotFoundErrorCode
+        ELSE RETURN 1
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK
+        RETURN @SPErrorCode
+    END CATCH
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_UpdateClientDetails 1 /*value_for_param1*/, 2 /*value_for_param2*/
-GO
+DECLARE @returnvalue int
+EXEC @returnvalue = dbo.SP_UpdateClientDetails 1, 'CambioDeUsername','bb@bb','70704284','123123'
+SELECT @returnvalue AS returnValue
