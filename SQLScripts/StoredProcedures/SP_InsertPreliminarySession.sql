@@ -18,7 +18,7 @@ CREATE PROCEDURE dbo.SP_InsertPreliminarySession
     @pStartTimeStr      NVARCHAR(10),
     @pDuration          INT,
     @pService           NVARCHAR(50),
-    @pInstructorNumber   NVARCHAR(50),
+    @pInstructorNumber  NVARCHAR(50),
     @pRoomId            INT
 
 -- add more stored procedure parameters here
