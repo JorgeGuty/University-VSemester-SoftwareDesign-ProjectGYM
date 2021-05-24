@@ -7,11 +7,6 @@ import (
 	"fmt"
 )
 
-func CancelSession(pDate string, pRoomId int, pStartTime string) Common.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_CancelSession '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
-	return VoidRequest(query)
-}
-
 func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 
 	query := fmt.Sprintf(`EXEC SP_GetPreliminarySchedule %d, %d;`, pMonth, pYear)
@@ -61,10 +56,5 @@ func InsertPreliminarySession(pName string,
 
 func ConfirmPreliminarySchedule(pMonth int, pYear int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_ConfirmPreliminarySchedule %d, %d`, pMonth, pYear)
-	return VoidRequest(query)
-}
-
-func DeleteInstructor(pInstructorNumber int) Common.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_DeleteInstructor '%d' ;`, pInstructorNumber)
 	return VoidRequest(query)
 }
