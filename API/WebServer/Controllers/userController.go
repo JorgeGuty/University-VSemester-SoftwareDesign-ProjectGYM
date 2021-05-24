@@ -104,7 +104,7 @@ func UpdateUserDetails(context *fiber.Ctx) error {
 
 	oldUsername := data["oldUsername"]
 	newUsername := data["newUsername"]
-	userTypeId, _ := strconv.Atoi(data["userTypeId"])
+		userTypeId, _ := strconv.Atoi(data["userTypeId"])
 
 	result := Requests.UpdateUserDetails(oldUsername, newUsername, userTypeId)
 

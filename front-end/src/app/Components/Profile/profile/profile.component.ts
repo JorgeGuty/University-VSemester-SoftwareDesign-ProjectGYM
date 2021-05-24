@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import Client from "src/app/Models/Clients/Client";
 import { ClientsService } from "src/app/Services/UserInfo/clients.service";
 import User from "src/app/Models/Users/User";
+import UserTypes from "src/app/Models/Users/UserTypes";
 
 @Component({
   selector: "app-profile",
@@ -52,7 +53,28 @@ export class ProfileComponent implements OnInit {
     console.log("Phone Updated: " + this.prof_phone);
     console.log("Identification Updated: " + this.prof_identification);
   }
+
   onSaveUser() {
     console.log("Username Updated: " + this.user_username);
+    console.log("Old Username: " + this.user.username);
+
+    let old_user = this.user.username;
+    let new_user = this.user_username;
+    let user_type = UserTypes.Client;
+
+    let userInfo: any = {
+      oldUsername: old_user,
+      newUsername: new_user,
+      userTypeId: user_type,
+    };
+
+    this.authService.updateUser(userInfo).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
