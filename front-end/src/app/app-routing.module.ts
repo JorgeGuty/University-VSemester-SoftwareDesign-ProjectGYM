@@ -8,6 +8,8 @@ import { ClientDashboardComponent } from "./Components/Dashboards/Client/client-
 import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
 import { LoginComponent } from "./Components/Registration/login/login.component";
+import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
+import { ServiceComponent } from "./Components/Tables/service/service.component";
 
 /* Services */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
@@ -34,6 +36,16 @@ const routes: Routes = [
   {
     path: "admin/adminPreliminaryDashboard",
     component: AdminPreliminaryDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: "admin/instructorTable",
+    component: InstructorComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: "admin/serviceTable",
+    component: ServiceComponent,
     canActivate: [AuthAdminGuard],
   },
 ];

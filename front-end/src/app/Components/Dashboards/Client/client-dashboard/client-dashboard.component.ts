@@ -45,15 +45,15 @@ export class ClientDashboardComponent implements OnInit {
       });
   }
   getMonthlyReservedSessions() {
-    let clientIdentification = { clientIdentification: "1100" };
     this.clientScheduleService
-      .getReservedSessions({ clientIdentification: "1100" })
+      .getReservedSessions()
       .subscribe((reservedSessions: any) => {
         reservedSessions.sessions.forEach((session: any, key: any) => {
           this.scheduleMapReservations.set(session.id, session);
         });
       });
-  }
+    }
+
 
   //Auxiliary function for getMonthlySessions
   fillScheduleHashmap(scheduledSession: Session) {

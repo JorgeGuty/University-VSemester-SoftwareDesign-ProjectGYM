@@ -13,4 +13,3 @@ func StartServer() {
 	Setup(app)
 	app.Listen(":3000")
 }
-

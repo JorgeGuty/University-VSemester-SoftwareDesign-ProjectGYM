@@ -123,7 +123,7 @@
                 <mat-select formControlName="instructorIdNum" required>
                   <mat-option>--</mat-option>
                   <div *ngFor="let instructor of this.instructorArray">
-                    <mat-option [value]="instructor.identification">
+                    <mat-option [value]="instructor.id">
                       {{ instructor.name }}
                     </mat-option>
                   </div>

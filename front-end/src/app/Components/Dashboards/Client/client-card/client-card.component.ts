@@ -5,6 +5,7 @@ import { Instructor } from "src/app/Models/Schedule/Instructor";
 import { Service } from "src/app/Models/Schedule/Service";
 import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
 import { SessionsService } from "src/app/Services/SessionService/sessions.service";
+import { AuthService } from "src/app/Services/Auth/auth.service";
 
 export interface Tile {
   color: string;
@@ -28,7 +29,10 @@ export class ClientCardComponent implements OnInit {
   @Input()
   isReserved!: boolean;
 
-  constructor(private sessionScheduleService: SessionsService) {}
+  constructor(
+    private sessionScheduleService: SessionsService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -61,15 +65,14 @@ export class ClientCardComponent implements OnInit {
   }
 
   initReserveSessionInformation(): any {
-    console.log("INIT SESSION!!!!");
-    console.log(this.session.date);
-    console.log(this.session.time);
+    let userInfo: any = this.authService.getCurrentUser();
     let roomId = "1";
-    let clientIdentification = "1100";
+    console.log(userInfo);
+    console.log("Informacion de id: " + userInfo.identifier)
     let reserveSessionJson: any = {
       date: this.session.date.toString(),
       startTime: this.session.time.toString(),
-      clientIdentification: clientIdentification,
+      clientIdentification: userInfo.identifier.toString(),
       roomId: roomId,
     };
 

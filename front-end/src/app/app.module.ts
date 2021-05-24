@@ -22,6 +22,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatListModule } from "@angular/material/list";
 import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
@@ -42,7 +43,13 @@ import { AdminPreliminaryCardComponent } from "./Components/Dashboards/Admin_Pre
 import { AdminPreliminaryDialogComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-dialog/admin-preliminary-dialog.component";
 import { AdminPreliminaryDatePickerComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboards/Admin_Preliminary/admin-preliminary-information-cards/admin-preliminary-information-cards.component";
-import { IdFormDialogComponent } from './Components/Dashboards/Admin/id-form-dialog/id-form-dialog.component';
+import { IdFormDialogComponent } from "./Components/Dashboards/Admin/id-form-dialog/id-form-dialog.component";
+import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
+import { ServiceComponent } from "./Components/Tables/service/service.component";
+import { ServiceTableComponent } from './Components/Tables/service-table/service-table.component';
+import { InstructorTableComponent } from './Components/Tables/instructor-table/instructor-table.component';
+import { InstructorDialogueComponent } from './Components/Tables/instructor-dialogue/instructor-dialogue.component';
+import { ServiceDialogueComponent } from './Components/Tables/service-dialogue/service-dialogue.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +68,12 @@ import { IdFormDialogComponent } from './Components/Dashboards/Admin/id-form-dia
     AdminPreliminaryDatePickerComponent,
     AdminPreliminaryInformationCardsComponent,
     IdFormDialogComponent,
+    InstructorComponent,
+    ServiceComponent,
+    ServiceTableComponent,
+    InstructorTableComponent,
+    InstructorDialogueComponent,
+    ServiceDialogueComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -75,6 +88,7 @@ import { IdFormDialogComponent } from './Components/Dashboards/Admin/id-form-dia
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatDividerModule,

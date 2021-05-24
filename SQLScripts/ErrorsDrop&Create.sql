@@ -37,7 +37,6 @@ INSERT INTO
 VALUES
     ('TimeUnavailableError',-50005, 'The time selected for the session is unavailable.')
 
-
 INSERT INTO 
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
@@ -47,3 +46,26 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('NoSessionsFoundError',-50007, 'No sessions were found with the given data.')
+
+INSERT INTO dbo.Errors (ErrorName, Code, Message)
+VALUES('InstructorNotFound',-50008,'Instructor information does not correspond to an existing instructor')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('UsernameTakenError',-50009, 'The username entered already exist.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('UserNotFound',-50010, 'The username entered does not exist.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('UserAlreadyCreated',-50011, 'The user is already created for the client specified.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('ClientNotFound',-50012, 'The membership number specified does not exist.')
