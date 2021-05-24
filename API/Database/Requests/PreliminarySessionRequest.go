@@ -2,14 +2,10 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
 )
-
-func CancelSession(pDate string, pRoomId int, pStartTime string) Models.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_CancelSession '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
-	return VoidRequest(query)
-}
 
 func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 
@@ -27,7 +23,7 @@ func GetPreliminarySchedule(pMonth int, pYear int) Models.PreliminarySchedule {
 
 }
 
-func DeletePreliminarySession(pYear int, pMonth int, pWeekDay int, pRoomId int, pStartTime string) Models.VoidOperationResult {
+func DeletePreliminarySession(pYear int, pMonth int, pWeekDay int, pRoomId int, pStartTime string) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_DeletePreliminarySession %d, %d, %d, %d, '%s'`, pYear, pMonth, pWeekDay, pRoomId, pStartTime)
 	return VoidRequest(query)
 }
@@ -41,7 +37,7 @@ func InsertPreliminarySession(pName string,
 	pService string,
 	pInstructorNumber int,
 	pRoomId int,
-) Models.VoidOperationResult {
+) Common.VoidOperationResult {
 
 	query := fmt.Sprintf(`EXEC SP_InsertPreliminarySession '%s', %d, %d, %d,'%s', %d, '%s', '%d',%d;`,
 		pName,
@@ -58,12 +54,7 @@ func InsertPreliminarySession(pName string,
 	return VoidRequest(query)
 }
 
-func ConfirmPreliminarySchedule(pMonth int, pYear int) Models.VoidOperationResult {
+func ConfirmPreliminarySchedule(pMonth int, pYear int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_ConfirmPreliminarySchedule %d, %d`, pMonth, pYear)
-	return VoidRequest(query)
-}
-
-func DeleteInstructor(pInstructorNumber int) Models.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_DeleteInstructor '%d' ;`, pInstructorNumber)
 	return VoidRequest(query)
 }
