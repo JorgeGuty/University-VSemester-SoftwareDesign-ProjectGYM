@@ -2,6 +2,7 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
 )
@@ -19,20 +20,19 @@ func GetClientProfileInfo(pMembershipNumber int) []Models.Client {
 	client := ParseClients(resultSet)
 
 	return client
-
 }
 
-func GetReservedSessions(pIdentification string) Models.Schedule {
+func CreateClient(pIdentification string, pName string, pEmail string, pPhone string) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_CreateClient '%s','%s','%s','%s';`, pIdentification, pName, pEmail, pPhone)
+	return VoidRequest(query)
+}
 
-	query := fmt.Sprintf(`EXEC SP_getBookings '%s';`, pIdentification)
+func DeleteClient(pMembershipNumber int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_DeleteClient %d;`, pMembershipNumber)
+	return VoidRequest(query)
+}
 
-	resultSet, err := Database.ReadTransaction(query)
-
-	if err != nil {
-		return Models.Schedule{}
-	}
-
-	schedule := ParseSchedule(resultSet)
-
-	return schedule
+func UpdateClientDetail(pMembershipNumber int, pIdentification string, pName string, pEmail string, pPhone string) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_UpdateClientDetails %d, '%s','%s','%s','%s';`,pMembershipNumber, pIdentification, pName, pEmail, pPhone)
+	return VoidRequest(query)
 }
