@@ -60,7 +60,10 @@ export class AuthService {
       ConnectionsServices.currentConnection + "/general/updateUserDetails",
       userInfo,
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
       }
     );
   }
@@ -86,6 +89,19 @@ export class AuthService {
   getCurrentUser(): User {
     if (this.currentUser != undefined) return this.currentUser;
     return {};
+  }
+
+  updateCurrentUser(username: string) {
+    if (
+      this.currentUser != undefined &&
+      this.currentUser.username != undefined
+    ) {
+      console.log("Actualizando user");
+      this.currentUser.username = username;
+      localStorage.clear;
+      localStorage.setItem("id_token", this.authToken);
+      localStorage.setItem("user", JSON.stringify(this.currentUser));
+    }
   }
 
   loggedIn() {
