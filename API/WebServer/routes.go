@@ -40,6 +40,9 @@ func Setup2(app *fiber.App) {
 	client := app.Group("/client")
 	client.Post("/reservedSessions", Controllers.GetReservedSessions)
 	client.Get("/clientInfo", Controllers.GetClientInfo)
+	client.Post("/createClient", Controllers.CreateClient)
+	client.Post("/updateClientDetails", Controllers.UpdateClientDetail)
+	client.Post("/deleteClient", Controllers.DeleteClient)
 
 	user := app.Group("/user")
 	user.Post("/login", Controllers.Login)

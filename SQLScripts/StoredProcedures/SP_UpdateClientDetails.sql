@@ -12,10 +12,10 @@ GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_UpdateClientDetails
     @pMembershipNumber  INT,
+    @pIdentification    NVARCHAR(50),
     @pName              NVARCHAR(50),
     @pEmail             NVARCHAR(50),
-    @pPhone             NVARCHAR(50),
-    @pIdentification    NVARCHAR(50)
+    @pPhone             NVARCHAR(50)
 -- add more stored procedure parameters here
 AS
 BEGIN
@@ -67,7 +67,7 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_UpdateClientDetails 1, 'CambioDeUsername','aaa@a.gmail','70704284','123123'
+EXEC @returnvalue = dbo.SP_UpdateClientDetails 1,'123123', 'CambioDeUsername','aaa@a.gmail','70704284'
 SELECT @returnvalue AS returnValue
 
 select * from Cliente
