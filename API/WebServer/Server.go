@@ -10,6 +10,6 @@ func StartServer() {
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
 	}))
-	Setup2(app)
+	Setup(app)
 	app.Listen(":3000")
 }
