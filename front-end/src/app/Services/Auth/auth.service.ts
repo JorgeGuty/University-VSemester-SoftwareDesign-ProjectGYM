@@ -95,8 +95,9 @@ export class AuthService {
   //   return "";
   // }
 
-  getCurrentUser() {
-    return this.currentUser;
+  getCurrentUser(): User {
+    if (this.currentUser != undefined) return this.currentUser;
+    return {};
   }
 
   loggedIn() {
