@@ -44,7 +44,7 @@ export class AuthService {
   // }
 
   authenticateUser(userInfo: User) {
-    console.log(userInfo);
+    //console.log(userInfo);
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/general/login",
       userInfo,
@@ -54,20 +54,16 @@ export class AuthService {
     );
   }
 
-  // // TODO: register in API
-  // getProfile() {
-  //   let headers = new HttpHeaders();
-  //   this.loadToken();
-  //   return this.httpClient.get(
-  //     ConnectionsServices.currentConnection + "/client/userInfo",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `${this.authToken}`,
-  //       },
-  //     }
-  //   );
-  // }
+  updateUser(userInfo: any) {
+    console.log(userInfo);
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/general/updateUserDetails",
+      userInfo,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 
   storeUserData(token: string, user: User) {
     localStorage.setItem("id_token", token);
@@ -86,14 +82,6 @@ export class AuthService {
     console.log("Token Loaded: " + this.authToken);
     console.log("User Loaded: " + this.currentUser);
   }
-
-  // loadUserData() {
-  //   const userData = localStorage.getItem("user");
-  //   if (userData != null) {
-  //     return userData;
-  //   }
-  //   return "";
-  // }
 
   getCurrentUser(): User {
     if (this.currentUser != undefined) return this.currentUser;
