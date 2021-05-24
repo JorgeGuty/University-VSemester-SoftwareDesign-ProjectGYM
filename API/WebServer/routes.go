@@ -24,7 +24,7 @@ func Setup(app *fiber.App) {
 
 	client.Post("/clientInfo", Controllers.GetClientInfo)
 	client.Post("/reservedSessions", Controllers.GetReservedSessions)
-	client.Post("/register", Controllers.Register)
+	client.Post("/registerClientUser", Controllers.RegisterClientUser)
 
 	admin.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)
 	admin.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)
@@ -41,12 +41,13 @@ func Setup2(app *fiber.App) {
 
 	client := app.Group("/client")
 	client.Post("/reservedSessions", Controllers.GetReservedSessions)
-
-	// ! Esta ruta retorna usuario cliente
-	client.Get("/userInfo", Controllers.GetClientInfo)
+	client.Get("/clientInfo", Controllers.GetClientInfo)
 
 	user := app.Group("/user")
 	user.Post("/login", Controllers.Login)
+	user.Post("/deactivateAccount", Controllers.DeactivateAccount)
+	user.Post("/registerClientUser", Controllers.RegisterClientUser)
+	user.Post("/updateUserDetails", Controllers.UpdateUserDetails)
 
 	services := app.Group("/services")
 	services.Get("/list", Controllers.GetServices)
