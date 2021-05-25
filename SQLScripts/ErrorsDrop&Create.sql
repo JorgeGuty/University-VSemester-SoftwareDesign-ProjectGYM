@@ -69,3 +69,8 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('ClientNotFound',-50012, 'The membership number specified does not exist.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('EmailUnavailable',-50013, 'The email entered is already taken.')
