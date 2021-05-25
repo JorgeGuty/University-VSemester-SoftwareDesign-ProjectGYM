@@ -12,7 +12,7 @@ export class ServicesService {
 
   getServicesTypes(): Observable<any> {
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/general/services",
+      ConnectionsServices.currentConnection + "/services/services",
       {
         headers: {
           "Content-Type": "application/json",
