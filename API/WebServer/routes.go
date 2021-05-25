@@ -9,7 +9,7 @@ import (
 func Setup(app *fiber.App) {
 
 	client := app.Group("/client")
-	client.Post("/reservedSessions", Controllers.GetReservedSessions)   // Ready
+
 	client.Post("/clientInfo", Controllers.GetClientInfo)               // Ready
 	client.Post("/createClient", Controllers.CreateClient)              // Not in services
 	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Not in services
@@ -25,10 +25,11 @@ func Setup(app *fiber.App) {
 	services.Get("/services", Controllers.GetServices) // Updated!!!
 
 	sessions := app.Group("/sessions")
-	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule) // Updated!!!
-	sessions.Post("/bookSession", Controllers.BookSession)         // Updated!!!
-	sessions.Post("/cancelBooking", Controllers.CancelBooking)     // Updated!!!
-	sessions.Post("/cancelSession", Controllers.CancelSession)     // Not in services
+	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)      // Updated!!!
+	sessions.Post("/bookSession", Controllers.BookSession)              // Updated!!!
+	sessions.Post("/cancelBooking", Controllers.CancelBooking)          // Updated!!!
+	sessions.Post("/cancelSession", Controllers.CancelSession)          // Not in services
+	sessions.Post("/reservedSessions", Controllers.GetReservedSessions) // Ready
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
