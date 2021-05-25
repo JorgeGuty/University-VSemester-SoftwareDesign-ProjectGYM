@@ -113,7 +113,7 @@ GO
 -----------------------------------------------------------------
 CREATE TABLE [dbo].[Cliente](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Cedula] [nvarchar](50) NOT NULL UNIQUE,
+	[Cedula] [nvarchar](50) NOT NULL,
 	[Nombre] [nvarchar](50) NOT NULL,
 	[Correo] [nvarchar](50) NOT NULL,
 	[Celular] [nvarchar](50) NOT NULL,

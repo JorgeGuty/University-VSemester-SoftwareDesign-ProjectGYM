@@ -38,14 +38,17 @@ func Setup(app *fiber.App) {
 func Setup2(app *fiber.App) {
 
 	client := app.Group("/client")
-	client.Post("/reservedSessions", Controllers.GetReservedSessions)
-	client.Get("/clientInfo", Controllers.GetClientInfo)
+	client.Post("/reservedSessions", Controllers.GetReservedSessions) // Ready
+	client.Get("/clientInfo", Controllers.GetClientInfo) // Ready
+	client.Post("/createClient", Controllers.CreateClient) // Not in services
+	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Not in services
+	client.Post("/deleteClient", Controllers.DeleteClient) // Not in services
 
 	user := app.Group("/user")
-	user.Post("/login", Controllers.Login)
-	user.Post("/deactivateAccount", Controllers.DeactivateAccount)
-	user.Post("/registerClientUser", Controllers.RegisterClientUser)
-	user.Post("/updateUserDetails", Controllers.UpdateUserDetails)
+	user.Post("/login", Controllers.Login) // Updated!!!
+	user.Post("/deactivateAccount", Controllers.DeactivateAccount) // Not in services
+	user.Post("/registerClientUser", Controllers.RegisterClientUser) // Not in services
+	user.Post("/updateUserDetails", Controllers.UpdateUserDetails) // Updated!!!
 
 	services := app.Group("/services")
 	services.Get("/services", Controllers.GetServices)
