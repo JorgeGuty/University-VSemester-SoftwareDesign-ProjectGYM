@@ -14,7 +14,7 @@ export class AdminScheduleService {
   //Todo: apply interface
   getCurrentSessionSchedule(): Observable<any> {
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/general/activeSchedule",
+      ConnectionsServices.currentConnection + "/sessions/activeSchedule",
       {
         headers: {
           "Content-Type": "application/json",
