@@ -12,7 +12,7 @@ export class InstructorsService {
 
   getRegisteredInstructors(): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/general/instructors",
+      ConnectionsServices.currentConnection + "/instructor/instructors",
       { filterByService: "0", service: "", filterByType: "0", type: "" },
       {
         headers: {
@@ -25,7 +25,7 @@ export class InstructorsService {
 
   getInstructorsFromService(serviceName: string): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/general/instructors",
+      ConnectionsServices.currentConnection + "/instructor/instructors",
       {
         filterByService: "1",
         service: serviceName,

@@ -51,22 +51,22 @@ func Setup2(app *fiber.App) {
 	user.Post("/updateUserDetails", Controllers.UpdateUserDetails) // Updated!!!
 
 	services := app.Group("/services")
-	services.Get("/services", Controllers.GetServices)
+	services.Get("/services", Controllers.GetServices) // Updated!!!
 
 	sessions := app.Group("/sessions")
-	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)
-	sessions.Post("/bookSession", Controllers.BookSession)
-	sessions.Post("/cancelBooking", Controllers.CancelBooking)
-	sessions.Post("/cancelSession", Controllers.CancelSession)
+	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule) // Updated!!!
+	sessions.Post("/bookSession", Controllers.BookSession) // Updated!!!
+	sessions.Post("/cancelBooking", Controllers.CancelBooking) // Updated!!!
+	sessions.Post("/cancelSession", Controllers.CancelSession) // Not in services
 
 	instructor := app.Group("/instructor")
-	instructor.Post("/instructors", Controllers.GetInstructors)
-	instructor.Post("/remove", Controllers.DeleteInstructor)
+	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
+	instructor.Post("/remove", Controllers.DeleteInstructor) // Not in services
 
 	preliminarySchedule := app.Group("/preliminarySchedule")
-	preliminarySchedule.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)
-	preliminarySchedule.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)
-	preliminarySchedule.Post("/deletePreliminarySession", Controllers.DeletePreliminarySession)
-	preliminarySchedule.Post("/confirmPreliminarySchedule", Controllers.ConfirmPreliminarySchedule)
+	preliminarySchedule.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule) // Updated!!!
+	preliminarySchedule.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession) // Updated!!!
+	preliminarySchedule.Post("/deletePreliminarySession", Controllers.DeletePreliminarySession) // Updated!!!
+	preliminarySchedule.Post("/confirmPreliminarySchedule", Controllers.ConfirmPreliminarySchedule) // Updated!!!
 
 }

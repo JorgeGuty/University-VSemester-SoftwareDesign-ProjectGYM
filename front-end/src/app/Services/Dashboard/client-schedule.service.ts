@@ -19,7 +19,7 @@ export class ClientScheduleService {
 
   getCurrentSessionSchedule(): Observable<any> {
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/general/activeSchedule",
+      ConnectionsServices.currentConnection + "/sessions/activeSchedule",
       {
         headers: {
           "Content-Type": "application/json",
@@ -33,6 +33,7 @@ export class ClientScheduleService {
     let user = this.authService.getCurrentUser();
     if (user != undefined && user.identifier != undefined) {
       var userForm: any = { clientIdentification: user.identifier.toString() };
+      console.log(user.identifier.toString());
     }
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/reservedSessions",
