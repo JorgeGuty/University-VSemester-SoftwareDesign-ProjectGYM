@@ -14,7 +14,7 @@ export class AdminScheduleService {
   //Todo: apply interface
   getCurrentSessionSchedule(): Observable<any> {
     return this.httpClient.get(
-      ConnectionsServices.currentConnection + "/general/activeSchedule",
+      ConnectionsServices.currentConnection + "/sessions/activeSchedule",
       {
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,8 @@ export class AdminScheduleService {
   // Todo: Avisarle a Jorge acerca del json que se envia
   getPreliminarySessionSchedule(dateJSON: any): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/admin/preliminarySchedule",
+      ConnectionsServices.currentConnection +
+        "/preliminarySchedule/preliminarySchedule",
       dateJSON,
       {
         headers: {
@@ -55,7 +56,8 @@ export class AdminScheduleService {
 
   insertPreliminarySessionSchedule(form: any): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/admin/insertPreliminarySession",
+      ConnectionsServices.currentConnection +
+        "/preliminarySchedule/insertPreliminarySession",
       form,
       {
         headers: {
@@ -69,7 +71,8 @@ export class AdminScheduleService {
 
   deletePreliminarySessionSchedule(form: any): Observable<any> {
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/admin/deletePreliminarySession",
+      ConnectionsServices.currentConnection +
+        "/preliminarySchedule/deletePreliminarySession",
       form,
       {
         headers: {
@@ -85,7 +88,7 @@ export class AdminScheduleService {
   confirmPreliminarySchedule(form: any): Observable<any> {
     return this.httpClient.post(
       ConnectionsServices.currentConnection +
-        "/admin/confirmPreliminarySchedule",
+        "/preliminarySchedule/confirmPreliminarySchedule",
       form,
       {
         headers: {

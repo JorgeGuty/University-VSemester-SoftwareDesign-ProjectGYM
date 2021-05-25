@@ -46,7 +46,7 @@ export class AuthService {
   authenticateUser(userInfo: User) {
     //console.log(userInfo);
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/general/login",
+      ConnectionsServices.currentConnection + "/user/login",
       userInfo,
       {
         headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ export class AuthService {
   updateUser(userInfo: any) {
     console.log(userInfo);
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/general/updateUserDetails",
+      ConnectionsServices.currentConnection + "/user/updateUserDetails",
       userInfo,
       {
         headers: {
