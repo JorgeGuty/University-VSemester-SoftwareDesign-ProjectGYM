@@ -49,3 +49,26 @@ func DeleteInstructor(context *fiber.Ctx) error {
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
+
+func InsertInstructor(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	name := data["name"]
+	identification := data["identification"]
+	email := data["email"]
+	instructorType := data["type"]
+
+	result := Requests.InsertInstructor(name, identification, email, instructorType)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}
