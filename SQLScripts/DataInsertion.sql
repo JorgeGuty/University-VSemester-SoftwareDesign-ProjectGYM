@@ -10,8 +10,8 @@ VALUES (2, 'Cliente');
 
 INSERT INTO dbo.TipoInstructor VALUES ('planta'),('temporal');
 
-INSERT INTO TipoMovimiento (Id, Nombre)
-VALUES (1, 'Credito');
+INSERT INTO TipoMovimiento (Id, Nombre, EsCredito)
+VALUES (1, 'Credito',1);
 
 INSERT INTO Usuario (Username, [Password], TipoUsuario)
 VALUES ('Admin1',1234,1);
@@ -90,12 +90,12 @@ values
     ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
 
 INSERT INTO 
-    dbo.Sesion(Fecha,InstructorId,SessionPreliminarId)
+    dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
 VALUES
-    (CONVERT(DATE, '2021-05-31'), 1, 1),
-    (CONVERT(DATE, '2021-05-30'), 2, 2),
-    (CONVERT(DATE, '2021-05-27'), 1, 3),
-    (CONVERT(DATE, '2021-05-29'), 1, 4)
+    (CONVERT(DATE, '2021-05-31'),10, 1, 1),
+    (CONVERT(DATE, '2021-05-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-05-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-05-29'),10, 1, 4)
 
 UPDATE SesionPreliminar
 SET Confirmada = 1
