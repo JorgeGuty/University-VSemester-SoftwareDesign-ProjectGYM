@@ -46,8 +46,26 @@ export class InstructorComponent implements OnInit {
       });
   }
 
-  onDelete(instructor: any) {
-    // TODO: Implement delete Instructor service
+  onDelete(instructorJSON: any) {
+    let instructor = this.initInstructor(instructorJSON);
     console.log(instructor);
+    this.instructorService.deleteInstructor(instructor).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  initInstructor(instructorJSON: any): Instructor {
+    let instructor: Instructor = new Instructor();
+    instructor.email = instructorJSON.email;
+    instructor.id = instructorJSON.id.toString();
+    instructor.identification = instructorJSON.identification;
+    instructor.name = instructorJSON.name;
+    instructor.type = instructorJSON.type;
+    return instructor;
   }
 }

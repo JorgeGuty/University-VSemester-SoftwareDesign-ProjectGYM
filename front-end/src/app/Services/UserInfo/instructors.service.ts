@@ -54,4 +54,18 @@ export class InstructorsService {
       }
     );
   }
+
+  deleteInstructor(instructor: Instructor): Observable<any> {
+    let instructorDeleteJson = { instructorNumber: instructor.id?.toString() };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/instructor/remove",
+      instructorDeleteJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }
