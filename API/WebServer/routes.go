@@ -17,7 +17,7 @@ func Setup(app *fiber.App) {
 
 	user := app.Group("/user")
 	user.Post("/login", Controllers.Login)                           // Updated!!!
-	user.Post("/deactivateAccount", Controllers.DeactivateAccount)   // Not in service
+	user.Post("/deactivateAccount", Controllers.DeactivateAccount)   // Updated!!!
 	user.Post("/registerClientUser", Controllers.RegisterClientUser) // No necesita autorizacion
 	user.Post("/updateUserDetails", Controllers.UpdateUserDetails)   // Updated!!!
 
