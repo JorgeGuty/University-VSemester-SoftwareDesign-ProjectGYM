@@ -24,8 +24,7 @@ export class AdminPreliminaryInformationCardsComponent
   }
 
   getDayName(day: any) {
-    let this_day = day + 1;
-    return DaysEnum[this_day];
+    return DaysEnum[day];
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -133,13 +133,20 @@
 
             <button
               mat-raised-button
-              mat-dialog-close
               style="width: 100%; margin-top: 0.5rem"
               color="primary"
               (click)="onSave()"
               [disabled]="this.preliminaryForm.invalid"
             >
               Save
+            </button>
+            <button
+              mat-raised-button
+              mat-dialog-close
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+            >
+              Close
             </button>
           </form>
         </mat-tab>
