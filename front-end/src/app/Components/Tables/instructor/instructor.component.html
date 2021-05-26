@@ -2,6 +2,7 @@
   <app-instructor-table
     [instructor]="this.instructor"
     [columnContent]="this.columnContent"
+    (instructorDeleted)="onDelete($event)"
   ></app-instructor-table>
 </div>
 

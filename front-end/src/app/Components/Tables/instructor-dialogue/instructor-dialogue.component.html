@@ -30,8 +30,8 @@
                 <mat-select formControlName="type" required>
                   <mat-option>--</mat-option>
                   <div *ngFor="let service of this.serviceArray">
-                    <mat-option [value]="service.name">
-                      {{ service.name }}
+                    <mat-option [value]="service">
+                      {{ service }}
                     </mat-option>
                   </div>
                 </mat-select>
@@ -40,13 +40,20 @@
 
             <button
               mat-raised-button
-              mat-dialog-close
               style="width: 100%; margin-top: 0.5rem"
               color="primary"
               (click)="onSave()"
               [disabled]="this.instructorForm.invalid"
             >
               Save
+            </button>
+            <button
+              mat-stroked-button
+              mat-dialog-close
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+            >
+              Close
             </button>
           </form>
         </mat-tab>
