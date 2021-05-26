@@ -64,6 +64,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
 
   onSave() {
     console.log("On Save");
+    console.log("ESTOY SALVANDO LA VARA GENTE");
     let preliminarySession: PreliminarySession = this.initPreliminarySession(
       this.preliminaryForm
     );
