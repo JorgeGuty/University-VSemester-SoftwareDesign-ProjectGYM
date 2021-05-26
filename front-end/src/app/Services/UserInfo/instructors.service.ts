@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import Instructor from "src/app/Models/Schedule/Instructor";
 import { AuthService } from "../Auth/auth.service";
 import ConnectionsServices from "../Connections/connectionsConstants";
 
@@ -32,6 +33,19 @@ export class InstructorsService {
         filterByType: "0",
         type: "",
       },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  insertInstructor(instructor: Instructor): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/instructor/insert",
+      instructor,
       {
         headers: {
           "Content-Type": "application/json",

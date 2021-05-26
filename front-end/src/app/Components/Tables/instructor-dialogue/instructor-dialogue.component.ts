@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import Service from "src/app/Models/Schedule/Service";
+import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
 
 @Component({
   selector: "app-instructor-dialogue",
@@ -10,12 +11,18 @@ import Service from "src/app/Models/Schedule/Service";
   styleUrls: ["./instructor-dialogue.component.scss"],
 })
 export class InstructorDialogueComponent implements OnInit {
-  serviceArray: any = [];
+  serviceArray: Array<string> = [];
 
-  constructor(private servicesService: ServicesService) {}
+  constructor(
+    private servicesService: ServicesService,
+    private instructorService: InstructorsService
+  ) {}
 
   ngOnInit(): void {
-    this.loadServicesTypes();
+    //this.loadServicesTypes();
+    this.serviceArray.push("planta");
+    this.serviceArray.push("temporal");
+    console.log(this.serviceArray);
   }
 
   instructorForm = new FormGroup({
@@ -42,13 +49,20 @@ export class InstructorDialogueComponent implements OnInit {
         serviceTypesList.forEach((serviceType: any, key: any) => {
           this.serviceArray.push(serviceType);
         });
-        // console.log(serviceTypesList);
-        // console.log(this.serviceArray);
       });
   }
 
   onSave() {
-    // TODO: implement save register instructor
-    console.log("Saved Instructor");
+    let instructor: Instructor = this.initInstructor(this.instructorForm);
+    console.log("Datos de instructor insertados");
+    console.log(instructor);
+    this.instructorService.insertInstructor(instructor).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
