@@ -27,6 +27,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log("HOLA MUNDO SOY UN NUEVO FORM AMIGOS");
     this.loadServicesTypes();
     //this.loadInstructors();
   }

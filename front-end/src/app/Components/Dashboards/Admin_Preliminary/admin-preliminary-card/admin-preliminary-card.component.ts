@@ -55,6 +55,7 @@ export class AdminPreliminaryCardComponent implements OnInit {
   }
 
   getDayName(day: any) {
-    return DaysEnum[day];
+    let this_day = day + 1;
+    return DaysEnum[this_day];
   }
 }
