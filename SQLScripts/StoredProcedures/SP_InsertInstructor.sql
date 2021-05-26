@@ -31,6 +31,8 @@ AS
                         dbo.Instructor
                     WHERE
                         @pIdentification = Cedula
+                        AND
+                        Activo = 1
                 )
             IF @InstructorId IS NOT NULL
                 RETURN @InstructorAlreadyExist;
@@ -44,7 +46,7 @@ AS
                     WHERE
                         @pType = Nombre
                 )
-            IF @InstructorTypeId IS NOT NULL
+            IF @InstructorTypeId IS NULL
                 RETURN @InstructorTypeNotDefined;
 
             INSERT INTO Instructor (Nombre,Cedula,Correo,Tipo)
@@ -60,6 +62,7 @@ AS
 
     END
 GO
-
--- SP_InsertService 'KickBoxing', 30, '1000'
--- SELECT * FROM Especialidades
+-- DECLARE @Res int;
+-- EXECUTE @Res = SP_InsertInstructor 'Bob','30303','Bobby@gmail.com', 'planta'
+-- PRINT @Res
+-- SELECT * FROM Instructor
