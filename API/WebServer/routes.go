@@ -9,7 +9,7 @@ import (
 func Setup(app *fiber.App) {
 
 	client := app.Group("/client")
-
+	client.Post("/clients", Controllers.GetClients)                     //NEW
 	client.Post("/clientInfo", Controllers.GetClientInfo)               // Ready
 	client.Post("/createClient", Controllers.CreateClient)              // Not in services
 	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Not in services
