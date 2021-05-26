@@ -43,10 +43,10 @@ func CreateClient(context *fiber.Ctx) error {
 		return err
 	}
 
-	identification:= data["identification"]
-	name:= data["name"]
-	email :=data["email"]
-	phone:= data["phone"]
+	identification := data["identification"]
+	name := data["name"]
+	email := data["email"]
+	phone := data["phone"]
 
 	result := Requests.CreateClient(identification, name, email, phone)
 
@@ -68,10 +68,10 @@ func UpdateClientDetail(context *fiber.Ctx) error {
 	}
 
 	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
-	identification:= data["identification"]
-	name:= data["name"]
-	email :=data["email"]
-	phone:= data["phone"]
+	identification := data["identification"]
+	name := data["name"]
+	email := data["email"]
+	phone := data["phone"]
 
 	result := Requests.UpdateClientDetail(membershipNumber, identification, name, email, phone)
 
@@ -99,3 +99,21 @@ func DeleteClient(context *fiber.Ctx) error {
 	return Common.GiveJSONResponse(context, result, fiber.StatusOK)
 }
 
+func GetClients(context *fiber.Ctx) error {
+	// token := Common.AnalyzeToken(context)
+
+	// if token == nil {
+	// 	return nil
+	// }
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+	filterDebtors, _ := strconv.Atoi(data["filterDebtors"])
+
+	instructors := Requests.GetClients(filterDebtors)
+
+	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
+}
