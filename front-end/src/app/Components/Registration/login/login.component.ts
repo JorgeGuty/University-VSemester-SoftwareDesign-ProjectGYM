@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { User } from "../../../Models/Users/User";
 import { UserTypes } from "../../../Models/Users/UserTypes";
+import Registration from "src/app/Models/Registration/Registration";
 
 @Component({
   selector: "app-login",
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   log_password: string = "";
   reg_username: string = "";
   reg_password: string = "";
-  reg_passwordConfirmation: string = "";
+  reg_membership: string = "";
 
   // TODO: implement flash message
   constructor(private authService: AuthService, private router: Router) {}
@@ -50,9 +51,23 @@ export class LoginComponent implements OnInit {
   }
 
   onRegister() {
-    console.log("Se Registra");
-    console.log("Username: " + this.reg_username);
-    console.log("Password: " + this.reg_password);
-    console.log("Password Confirmation" + this.reg_passwordConfirmation);
+    let registration: Registration = this.initRegistrationForm();
+    this.authService.registerClientUser(registration).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  initRegistrationForm(): Registration {
+    let registrationForm: Registration = new Registration();
+    registrationForm.membershipNumber = this.reg_membership;
+    registrationForm.password = this.reg_password;
+    registrationForm.username = this.reg_username;
+
+    return registrationForm;
   }
 }
