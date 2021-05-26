@@ -28,6 +28,8 @@ BEGIN
     FROM
         dbo.CompleteInstructors AS instructor
     WHERE 
+        instructor.Active = 1
+    AND
         (
             @pFilterByType = 0 OR 
             (
