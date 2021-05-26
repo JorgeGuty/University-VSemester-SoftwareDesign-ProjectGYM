@@ -84,3 +84,8 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('InstructorAlreadyExists',-50015, 'The Instructor Identification entered already exists')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('InstructorTypeNotDefined',-50016, 'The Instructor type entered is not defined')

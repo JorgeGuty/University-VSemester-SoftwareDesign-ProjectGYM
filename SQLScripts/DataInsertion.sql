@@ -82,7 +82,7 @@ VALUES
 insert into 
     dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo,EspecialidadId,SalaId, InstructorId) 
 values 
-    ('Sesion de Yoga',         0, 5, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
+    ('Sesion de Yoga',         1, 5, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
     ('Sesion de Funcional',    1, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 2),
     ('Sesion de Yoga',         2, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 1),
     ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
