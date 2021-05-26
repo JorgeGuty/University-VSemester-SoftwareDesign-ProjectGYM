@@ -28,3 +28,8 @@ func DeleteInstructor(pInstructorNumber int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_DeleteInstructor '%d' ;`, pInstructorNumber)
 	return VoidRequest(query)
 }
+
+func InsertInstructor(pName string, pIdentification string, pEmail string, pType string) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_InsertInstructor '%s','%s','%s','%s' ;`, pName, pIdentification, pEmail, pType)
+	return VoidRequest(query)
+}
