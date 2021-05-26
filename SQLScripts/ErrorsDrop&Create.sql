@@ -74,3 +74,13 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('EmailUnavailable',-50013, 'The email entered is already taken.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('ServiceAlreadyExists',-50014, 'The Service name entered already exists')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('InstructorAlreadyExists',-50015, 'The Instructor Identification entered already exists')
