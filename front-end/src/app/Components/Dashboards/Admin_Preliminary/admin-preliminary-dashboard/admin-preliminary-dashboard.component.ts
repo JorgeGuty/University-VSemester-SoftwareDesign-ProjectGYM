@@ -83,6 +83,8 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
   }
 
   confirmSchedule() {
+    console.log("SHCEDULE BEIGN CONFIRMED");
+    console.log(this.scheduleMap);
     this.adminScheduleService
       .confirmPreliminarySchedule(this.dateJSON)
       .subscribe(
