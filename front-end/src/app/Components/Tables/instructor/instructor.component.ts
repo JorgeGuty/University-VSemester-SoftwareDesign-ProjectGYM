@@ -12,6 +12,7 @@ import { InstructorDialogueComponent } from "../instructor-dialogue/instructor-d
 export class InstructorComponent implements OnInit {
   instructor: Instructor[] = [];
   columnContent: string[] = [];
+  isButtonsLoaded: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -28,6 +29,7 @@ export class InstructorComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
       // this.fillScheduleData(this.dateJSON);
+      this.loadInstructors();
     });
   }
 
@@ -35,12 +37,16 @@ export class InstructorComponent implements OnInit {
     this.instructorService
       .getRegisteredInstructors()
       .subscribe((instructorList: [Instructor]) => {
+        this.instructor = [];
         instructorList.forEach((instructor: any, key: any) => {
           if (this.columnContent.length == 0)
             this.columnContent = Object.keys(instructor);
           this.instructor.push(instructor);
         });
-        this.columnContent.push("Actions");
+        if (!this.isButtonsLoaded) {
+          this.isButtonsLoaded = true;
+          this.columnContent.push("Actions");
+        }
         //console.log(this.columnContent);
         //console.log(this.instructor);
       });
@@ -51,6 +57,7 @@ export class InstructorComponent implements OnInit {
     console.log(instructor);
     this.instructorService.deleteInstructor(instructor).subscribe(
       (res) => {
+        this.loadInstructors();
         console.log(res);
       },
       (err) => {

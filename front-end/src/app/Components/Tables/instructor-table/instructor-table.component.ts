@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
 import { Output, EventEmitter } from "@angular/core";
@@ -22,5 +22,9 @@ export class InstructorTableComponent implements OnInit {
 
   onDelete(instructor: Instructor) {
     this.instructorDeleted.emit(instructor);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 }
