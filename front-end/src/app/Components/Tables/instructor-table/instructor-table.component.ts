@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
+import { Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-instructor-table",
@@ -12,13 +13,14 @@ export class InstructorTableComponent implements OnInit {
   instructor!: any;
   @Input()
   columnContent!: any;
+  @Output()
+  instructorDeleted = new EventEmitter<any>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   onDelete(instructor: Instructor) {
-    // TODO: Implement delete Instructor service
-    console.log(instructor);
+    this.instructorDeleted.emit(instructor);
   }
 }

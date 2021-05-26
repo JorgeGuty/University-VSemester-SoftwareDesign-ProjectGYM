@@ -46,7 +46,7 @@ export class InstructorComponent implements OnInit {
       });
   }
 
-  onDelete(instructor: Instructor) {
+  onDelete(instructor: any) {
     // TODO: Implement delete Instructor service
     console.log(instructor);
   }
