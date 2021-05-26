@@ -18,7 +18,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
   serviceArray: any = [];
 
   DaysEnum = DaysEnum;
-  daysNumber = [0, 1, 2, 3, 4, 5, 6];
+  daysNumber = [1, 2, 3, 4, 5, 6, 7];
 
   constructor(
     private adminScheduleService: AdminScheduleService,
