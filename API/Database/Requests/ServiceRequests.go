@@ -2,6 +2,7 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
 )
@@ -20,4 +21,9 @@ func GetServices() []Models.Service {
 
 	return services
 
+}
+
+func InsertService(pName string, pMaxSpaces int, pCost string) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_InsertService '%s', '%d', %s;`, pName, pMaxSpaces, pCost)
+	return VoidRequest(query)
 }
