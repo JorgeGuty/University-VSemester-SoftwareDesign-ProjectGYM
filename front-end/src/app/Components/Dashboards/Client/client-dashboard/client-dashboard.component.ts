@@ -48,12 +48,13 @@ export class ClientDashboardComponent implements OnInit {
     this.clientScheduleService
       .getReservedSessions()
       .subscribe((reservedSessions: any) => {
+        console.log("Sesiones RESERVADAS");
+        console.log(reservedSessions);
         reservedSessions.sessions.forEach((session: any, key: any) => {
           this.scheduleMapReservations.set(session.id, session);
         });
       });
-    }
-
+  }
 
   //Auxiliary function for getMonthlySessions
   fillScheduleHashmap(scheduledSession: Session) {
