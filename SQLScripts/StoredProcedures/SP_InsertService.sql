@@ -6,11 +6,12 @@
 ALTER PROCEDURE dbo.SP_InsertService
     @pServiceName        NVARCHAR(30),
     @pMaxSpaces          INT,
-    @pCost               MONEY
+    @pCost               VARCHAR(30)
 AS
     BEGIN
         DECLARE @ServiceId    INT;
         DECLARE @InstructorId INT;
+        DECLARE @Cost         MONEY;
 
         DECLARE @SPErrorCode                 INT;
         DECLARE @ServiceAlreadyExist         INT;
@@ -32,6 +33,10 @@ AS
             IF @ServiceId IS NOT NULL
                 RETURN @ServiceAlreadyExist;
 
+            SET @Cost = TRY_CONVERT(MONEY,@pCost);
+            IF @Cost IS NULL
+                RETURN @SPErrorCode;
+
             INSERT INTO Especialidades (Nombre,Aforo,Costo)
             VALUES(@pServiceName,@pMaxSpaces,@pCost);
                  
@@ -44,5 +49,5 @@ AS
     END
 GO
 
--- SP_InsertService 'Boxing', 30, 1000
+-- SP_InsertService 'KickBoxing', 30, '1000'
 -- SELECT * FROM Especialidades
