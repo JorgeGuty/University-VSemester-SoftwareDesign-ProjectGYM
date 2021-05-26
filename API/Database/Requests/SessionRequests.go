@@ -8,7 +8,7 @@ import (
 )
 
 func GetCurrentSessionSchedule() Models.Schedule {
-	query := fmt.Sprintf(`EXEC SP_getCurrentCalendar;`)
+	query := fmt.Sprintf(`EXEC SP_GetCurrentCalendar;`)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -23,7 +23,7 @@ func GetCurrentSessionSchedule() Models.Schedule {
 
 func GetReservedSessions(pMembershipNumber int) Models.Schedule {
 
-	query := fmt.Sprintf(`EXEC SP_getBookings %d;`, pMembershipNumber)
+	query := fmt.Sprintf(`EXEC SP_GetBookings %d;`, pMembershipNumber)
 
 	resultSet, err := Database.ReadTransaction(query)
 
