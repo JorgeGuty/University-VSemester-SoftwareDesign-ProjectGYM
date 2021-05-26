@@ -6,6 +6,7 @@ ALTER VIEW dbo.CompleteInstructors AS
         [instructor].Nombre AS InstructorName,
         [instructor].Correo AS InstructorEmail,
         [instructor].Cedula AS InstructorIdentification,
+        [instructor].Activo AS Active,
 
         [type].Id AS TypeID,
         [type].Nombre AS Type
