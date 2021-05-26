@@ -9,7 +9,8 @@ import DaysEnum from "src/app/Models/Calendar/DaysEnum";
   styleUrls: ["./admin-preliminary-information-cards.component.scss"],
 })
 export class AdminPreliminaryInformationCardsComponent
-  implements OnInit, OnChanges {
+  implements OnInit, OnChanges
+{
   @Input()
   sessionSchedule!: any;
   @Input()
@@ -23,10 +24,12 @@ export class AdminPreliminaryInformationCardsComponent
   }
 
   getDayName(day: any) {
-    return DaysEnum[day];
+    let this_day = day + 1;
+    return DaysEnum[this_day];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("ME SOLICITARON CAMBIAR");
     console.log(changes);
   }
 }
