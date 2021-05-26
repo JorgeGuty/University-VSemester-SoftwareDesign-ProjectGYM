@@ -73,9 +73,13 @@ export class AdminPreliminaryDialogComponent implements OnInit {
       .insertPreliminarySessionSchedule(preliminarySession)
       .subscribe(
         (res) => {
+          console.log("ESTO FUE LO QUE ME ENTROOO");
+          console.log(preliminarySession);
           console.log(res);
         },
         (err) => {
+          console.log("ESTO FUE LO QUE ME ENTROOO");
+          console.log(preliminarySession);
           console.log(err);
         }
       );
