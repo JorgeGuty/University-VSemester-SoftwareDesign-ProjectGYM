@@ -28,7 +28,6 @@ export class AdminPreliminaryInformationCardsComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("ME SOLICITARON CAMBIAR");
     console.log(changes);
   }
 }
