@@ -106,3 +106,20 @@ func CancelSession(context *fiber.Ctx) error {
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
+
+func ChangeSessionInstructor(context *fiber.Ctx) error {
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	newInstructorNumber, _ := strconv.Atoi(data["instructorNumber"])
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	result := Requests.ChangeSessionInstructor(date, roomId, startTime, newInstructorNumber)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}

@@ -565,17 +565,6 @@ REFERENCES [dbo].[Movimientos] ([Id])
 GO
 ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_Movimientos]
 GO
-ALTER TABLE dbo.Credito ADD CONSTRAINT
-	FK_Credito_FormasDePago FOREIGN KEY
-	(
-	FormaDePagoId
-	) REFERENCES dbo.FormasDePago
-	(
-	Id
-	) ON UPDATE  NO ACTION 
-	 ON DELETE  NO ACTION 
-	
-GO
 
 CREATE TABLE dbo.CobroFijo
 	(

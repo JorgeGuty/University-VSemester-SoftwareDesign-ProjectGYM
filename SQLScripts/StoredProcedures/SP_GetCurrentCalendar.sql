@@ -1,10 +1,9 @@
 -- =============================================
 -- Author:		Eduardo Madrigal Marin
--- Description:	Retrieves the booked sessions for a given client
+-- Description:	Retrieves the sesions of the current month
 -- =============================================
 
-ALTER PROCEDURE dbo.SP_getBookings
-    @pMembershipNumber  INT
+ALTER PROCEDURE dbo.SP_GetCurrentCalendar
 AS
     BEGIN
         DECLARE @StartDate Date;
@@ -12,43 +11,28 @@ AS
 
         SELECT 
             cs.SessionID,
-            cs.Name                                    AS SessionName,
+            cs.Name                                     AS SessionName,
             cs.SessionDate,
             cs.StartTime,
             cs.Duration,
             ISNULL((cs.Spaces - r.Bookings), cs.Spaces) AS AvailableSpaces,
-            cs.Cost,
+            cs.Cost                                     AS SessionCost,
             cs.IsCancelled,
             cs.InstructorName,
             cs.InstructorIdentification,
             cs.InstructorEmail,
             cs.InstructorType,
             cs.ServiceName,
-            cs.Cost                                      AS ServiceTypeCost,
-            cs.ServiceMaxSpaces
+            cs.Cost                                     AS ServiceTypeCost,
+            cs.ServiceMaxSpaces                         AS ServiceMaxSpaces
         FROM dbo.CompleteSessions cs
-        INNER JOIN
-            (
-                SELECT SesionId
-                    FROM dbo.Reserva
-                    WHERE 
-                        ClienteId = @pMembershipNumber
-                        AND 
-                        Activa = 1
-
-            ) AS clientSessions
-        ON clientSessions.SesionId = cs.SessionID
-        INNER JOIN
+        LEFT JOIN
             (
                 SELECT SesionId, COUNT(SesionId) AS Bookings 
                     FROM dbo.Reserva
-                    WHERE Activa = 1
                     GROUP BY SesionId
             ) AS r
             ON r.SesionId = cs.SessionID
-        WHERE 
-        cs.SessionDate >= @StartDate 
+        WHERE cs.SessionDate >= @StartDate
     END
-GO
 
-EXEC SP_getBookings 1
