@@ -62,7 +62,8 @@ GO
 
 CREATE TABLE [dbo].[TipoMovimiento](
 	[Id] [int] NOT NULL,
-	[Nombre] [nvarchar](50) NOT NULL
+	[Nombre] [nvarchar](50) NOT NULL,
+	EsCredito BIT NOT NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[TipoMovimiento] ADD  CONSTRAINT [PK_TipoMovimiento] PRIMARY KEY CLUSTERED 
@@ -453,6 +454,7 @@ CREATE TABLE dbo.Sesion
 	Id int NOT NULL IDENTITY (1, 1),
 	Fecha date NOT NULL,
 	Cancelada bit NOT NULL DEFAULT 0,
+	Costo MONEY NOT NULL,
 	InstructorId int NOT NULL,
 	SessionPreliminarId int NOT NULL
 	)  ON [PRIMARY]
@@ -527,6 +529,7 @@ CREATE TABLE [dbo].[Movimientos](
 	[ClienteId] [int] NOT NULL,
 	[TipoMovimiento] [int] NOT NULL,
 	[Asunto] [nvarchar](100) NOT NULL
+
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[Movimientos] ADD  CONSTRAINT [PK_Movimientos] PRIMARY KEY CLUSTERED 
