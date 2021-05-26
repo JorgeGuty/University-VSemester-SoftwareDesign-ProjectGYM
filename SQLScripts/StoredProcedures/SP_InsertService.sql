@@ -39,11 +39,13 @@ AS
 
             INSERT INTO Especialidades (Nombre,Aforo,Costo)
             VALUES(@pServiceName,@pMaxSpaces,@pCost);
+
+            RETURN 1;
                  
         END TRY
 
         BEGIN CATCH
-            RETURN @@Error;
+            RETURN -@@Error;
         END CATCH
 
     END
