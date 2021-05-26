@@ -50,3 +50,8 @@ func CancelSession(pDate string, pRoomId int, pStartTime string) Common.VoidOper
 	query := fmt.Sprintf(`EXEC SP_CancelSession '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }
+
+func ChangeSessionInstructor(pDate string, pRoomId int, pStartTime string, pInstructorNumber int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_ChangeSessionInstructor '%d', '%s', '%s', %d;`, pInstructorNumber, pDate, pStartTime, pRoomId)
+	return VoidRequest(query)
+}

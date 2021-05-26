@@ -25,11 +25,12 @@ func Setup(app *fiber.App) {
 	services.Get("/services", Controllers.GetServices) // Updated!!!
 
 	sessions := app.Group("/sessions")
-	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)      // Updated!!!
-	sessions.Post("/bookSession", Controllers.BookSession)              // Updated!!!
-	sessions.Post("/cancelBooking", Controllers.CancelBooking)          // Updated!!!
-	sessions.Post("/cancelSession", Controllers.CancelSession)          // Not in services
-	sessions.Post("/reservedSessions", Controllers.GetReservedSessions) // Ready
+	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!
+	sessions.Post("/bookSession", Controllers.BookSession)                         // Updated!!!
+	sessions.Post("/cancelBooking", Controllers.CancelBooking)                     // Updated!!!
+	sessions.Post("/cancelSession", Controllers.CancelSession)                     // Not in services
+	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)            // Ready
+	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // New
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
