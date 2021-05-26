@@ -35,6 +35,10 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      // this.scheduleMap.clear();
+      // console.log("Borrando datos");
+      // console.log(this.scheduleMap);
+      // console.log("Borrando datos");
       this.fillScheduleData(this.dateJSON);
     });
   }
@@ -56,6 +60,7 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
       .subscribe((sessions: any) => {
         console.log(sessions);
         if (sessions != null) {
+          this.scheduleMap.clear();
           sessions.preliminary_sessions.forEach(
             (session: Session, key: any) => {
               this.fillScheduleHashmap(session);
