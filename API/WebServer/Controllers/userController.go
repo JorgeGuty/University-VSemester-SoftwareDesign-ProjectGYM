@@ -49,12 +49,6 @@ func createToken(pUser Models.Login) (string, error) {
 
 func RegisterClientUser(context *fiber.Ctx) error {
 
-	token := Common.AnalyzeToken(context)
-
-	if token == nil {
-		return nil
-	}
-
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
 		return err
@@ -104,7 +98,7 @@ func UpdateUserDetails(context *fiber.Ctx) error {
 
 	oldUsername := data["oldUsername"]
 	newUsername := data["newUsername"]
-		userTypeId, _ := strconv.Atoi(data["userTypeId"])
+	userTypeId, _ := strconv.Atoi(data["userTypeId"])
 
 	result := Requests.UpdateUserDetails(oldUsername, newUsername, userTypeId)
 
