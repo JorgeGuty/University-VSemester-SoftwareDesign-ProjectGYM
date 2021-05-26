@@ -28,13 +28,14 @@ BEGIN
             (
                 ID              INT, 
                 [WeekDay]       INT, 
+                Cost            DECIMAL(19,4),
                 InstructorId    INT
             )
         DECLARE @ConfirmedSessions TABLE
             (
                  
                 [Date]                  DATE, 
-                Cancelled               BIT,
+                Cost                    DECIMAL(19,4),
                 InstructorId            INT,
                 PreliminarySessionId    INT
             )
@@ -69,13 +70,17 @@ BEGIN
         -- SELECTION OF THE PRELIMINARY SESSIONS THAT MATCH THE MONTH AND YEAR GIVEN
 
         INSERT INTO
-            @MonthsPreliminarySessions  ([ID], [WeekDay], InstructorId)
+            @MonthsPreliminarySessions  ([ID], [WeekDay], InstructorId, Cost)
         SELECT
             preliminarySession.Id,
             preliminarySession.DiaSemana,
-            preliminarySession.InstructorId
+            preliminarySession.InstructorId,
+            [service].Costo
         FROM 
             dbo.SesionPreliminar AS preliminarySession
+        INNER JOIN
+            dbo.Especialidades AS [service]
+            ON [service].[Id] = preliminarySession.EspecialidadId
         WHERE 
                 preliminarySession.Mes = @pMonthToConfirm
             AND preliminarySession.Año = @pYearOfMonthToConfirm
@@ -93,10 +98,10 @@ BEGIN
         WHILE DATEPART(MONTH, @MonthsDate) = @pMonthToConfirm
         BEGIN
             INSERT INTO
-                @ConfirmedSessions ([Date], Cancelled, InstructorId, PreliminarySessionId)
+                @ConfirmedSessions ([Date], Cost, InstructorId, PreliminarySessionId)
             SELECT                
                 @MonthsDate                     AS SessionDate,
-                0                               AS Cancelled,
+                preliminarySession.Cost         AS Cost,
                 preliminarySession.InstructorId AS InstructorId,
                 preliminarySession.ID           AS PreliminarySessionId                
             FROM 
@@ -123,10 +128,10 @@ BEGIN
                         )
 
             INSERT INTO
-                dbo.Sesion (Fecha, Cancelada, InstructorId, SessionPreliminarId)
+                dbo.Sesion (Fecha, Costo, InstructorId, SessionPreliminarId)
             SELECT
                 [session].[Date],
-                [session].[Cancelled],
+                [session].[Cost],
                 [session].[InstructorId],
                 [session].[PreliminarySessionId]             
             FROM
@@ -145,7 +150,9 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_ConfirmPreliminarySchedule  5, 2021;
+EXEC @returnvalue = SP_ConfirmPreliminarySchedule  7, 2021;
 SELECT @returnvalue AS errorCode
 GO
+
+SELECT * from Sesion
 

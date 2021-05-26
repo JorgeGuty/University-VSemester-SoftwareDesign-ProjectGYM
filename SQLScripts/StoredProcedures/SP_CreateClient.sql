@@ -37,24 +37,23 @@ BEGIN
             RETURN @EmailUnavailableErrorCode
         ELSE
             BEGIN 
-                SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
-                BEGIN TRANSACTION
-                    INSERT INTO 
-                        dbo.Cliente 
-                        (
-                            Nombre,
-                            Cedula,
-                            Celular,
-                            Correo
-                        )
-                    VALUES
-                        (
-                            @pName,
-                            @pIdentification,
-                            @pPhone,
-                            @pEmail
-                        )
-                COMMIT
+                INSERT INTO 
+                    dbo.Cliente 
+                    (
+                        Nombre,
+                        Cedula,
+                        Celular,
+                        Correo
+                    )
+                VALUES
+                    (
+                        @pName,
+                        @pIdentification,
+                        @pPhone,
+                        @pEmail
+                    )
+                DECLARE @NewClientMembershipNumber INT = SCOPE_IDENTITY()
+                EXEC SP_ChargeRegistration @NewClientMembershipNumber
             END
         RETURN 1
     END TRY
@@ -66,5 +65,7 @@ BEGIN
 END
 GO
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_CreateClient '118090772','Jorge Gutiérrez Cordero','jguty2001@gmail.com','70560910'
+EXEC @returnvalue = dbo.SP_CreateClient '118090772','Jorge Gutiérrez Cordero','jguty20100@gmail.com','70560910'
 SELECT @returnvalue AS returnValue
+
+SELECT * FROM Cliente
