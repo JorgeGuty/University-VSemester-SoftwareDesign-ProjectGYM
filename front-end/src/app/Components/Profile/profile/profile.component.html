@@ -130,6 +130,15 @@
           >
             Save
           </button>
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="warn"
+            (click)="deactivateAccount()"
+            [routerLink]="['/']"
+          >
+            Deactivate Account
+          </button>
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>
