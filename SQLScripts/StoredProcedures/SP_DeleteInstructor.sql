@@ -3,7 +3,7 @@
 -- Description:	Delete instructor
 -- =============================================
 
-CREATE OR ALTER PROCEDURE CREATE OR ALTER PROCEDURE dbo.SP_DeleteInstructor
+CREATE OR ALTER PROCEDURE dbo.SP_DeleteInstructor
     @pInstructorNumber  INT
 AS
     BEGIN
@@ -25,6 +25,6 @@ AS
         END TRY
 
         BEGIN CATCH
-            RETURN @@Error;
+            RETURN -@@Error;
         END CATCH
     END

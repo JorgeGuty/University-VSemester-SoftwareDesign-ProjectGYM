@@ -3,7 +3,7 @@
 -- Description:	Retrieves the sesions of the current month
 -- =============================================
 
-ALTER PROCEDURE dbo.SP_getCurrentCalendar
+ALTER PROCEDURE dbo.SP_GetCurrentCalendar
 AS
     BEGIN
         DECLARE @StartDate Date;

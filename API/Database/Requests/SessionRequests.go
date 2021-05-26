@@ -8,7 +8,7 @@ import (
 )
 
 func GetCurrentSessionSchedule() Models.Schedule {
-	query := fmt.Sprintf(`EXEC SP_getCurrentCalendar;`)
+	query := fmt.Sprintf(`EXEC SP_GetCurrentCalendar;`)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -23,7 +23,7 @@ func GetCurrentSessionSchedule() Models.Schedule {
 
 func GetReservedSessions(pMembershipNumber int) Models.Schedule {
 
-	query := fmt.Sprintf(`EXEC SP_getBookings %d;`, pMembershipNumber)
+	query := fmt.Sprintf(`EXEC SP_GetBookings %d;`, pMembershipNumber)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -48,5 +48,10 @@ func CancelBooking(pClientNumber int, pDate string, pRoomId int, pStartTime stri
 
 func CancelSession(pDate string, pRoomId int, pStartTime string) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_CancelSession '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
+	return VoidRequest(query)
+}
+
+func ChangeSessionInstructor(pDate string, pRoomId int, pStartTime string, pInstructorNumber int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_ChangeSessionInstructor '%d', '%s', '%s', %d;`, pInstructorNumber, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }

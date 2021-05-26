@@ -72,15 +72,16 @@ func VoidTransaction(pQuery string) (mssql.ReturnStatus, error) {
 
 	if err != nil {
 		returnStatus = -1
+		println(err.Error())
 		return returnStatus, err
 	}
-
 
 	// Execute query
 	_, err = db.ExecContext(ctx, pQuery, &returnStatus)
 
 	if err != nil {
 		returnStatus = -1
+		println(err.Error())
 		return returnStatus, err
 	}
 

@@ -3,7 +3,7 @@
 -- Description:	Retrieves the booked sessions for a given client
 -- =============================================
 
-ALTER PROCEDURE dbo.SP_getBookings
+ALTER PROCEDURE dbo.SP_GetBookings
     @pMembershipNumber  INT
 AS
     BEGIN
@@ -42,6 +42,7 @@ AS
             (
                 SELECT SesionId, COUNT(SesionId) AS Bookings 
                     FROM dbo.Reserva
+                    WHERE Activa = 1
                     GROUP BY SesionId
             ) AS r
             ON r.SesionId = cs.SessionID
@@ -50,4 +51,4 @@ AS
     END
 GO
 
-EXEC SP_getBookings 1
+EXEC SP_GetBookings 1
