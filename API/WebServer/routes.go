@@ -22,7 +22,8 @@ func Setup(app *fiber.App) {
 	user.Post("/updateUserDetails", Controllers.UpdateUserDetails)   // Updated!!!
 
 	services := app.Group("/services")
-	services.Get("/services", Controllers.GetServices) // Updated!!!
+	services.Get("/services", Controllers.GetServices)         // Updated!!!
+	services.Post("/insertService", Controllers.InsertService) // New!
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!
