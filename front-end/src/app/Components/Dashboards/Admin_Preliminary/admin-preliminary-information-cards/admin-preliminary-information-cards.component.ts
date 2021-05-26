@@ -9,7 +9,8 @@ import DaysEnum from "src/app/Models/Calendar/DaysEnum";
   styleUrls: ["./admin-preliminary-information-cards.component.scss"],
 })
 export class AdminPreliminaryInformationCardsComponent
-  implements OnInit, OnChanges {
+  implements OnInit, OnChanges
+{
   @Input()
   sessionSchedule!: any;
   @Input()
@@ -27,6 +28,7 @@ export class AdminPreliminaryInformationCardsComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("ME SOLICITARON CAMBIAR");
     console.log(changes);
   }
 }

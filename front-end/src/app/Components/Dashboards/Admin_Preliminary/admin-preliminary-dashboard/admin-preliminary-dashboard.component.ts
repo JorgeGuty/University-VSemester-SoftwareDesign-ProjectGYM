@@ -56,6 +56,7 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
       .subscribe((sessions: any) => {
         console.log(sessions);
         if (sessions != null) {
+          this.scheduleMap.clear();
           sessions.preliminary_sessions.forEach(
             (session: Session, key: any) => {
               this.fillScheduleHashmap(session);
@@ -83,6 +84,8 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
   }
 
   confirmSchedule() {
+    console.log("SHCEDULE BEIGN CONFIRMED");
+    console.log(this.scheduleMap);
     this.adminScheduleService
       .confirmPreliminarySchedule(this.dateJSON)
       .subscribe(

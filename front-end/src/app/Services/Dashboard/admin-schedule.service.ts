@@ -55,6 +55,8 @@ export class AdminScheduleService {
   }
 
   insertPreliminarySessionSchedule(form: any): Observable<any> {
+    console.log("ESTO ES LO QUE ME ENTRA");
+    console.log(form);
     return this.httpClient.post(
       ConnectionsServices.currentConnection +
         "/preliminarySchedule/insertPreliminarySession",

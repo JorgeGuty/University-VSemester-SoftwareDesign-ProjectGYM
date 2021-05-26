@@ -18,7 +18,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
   serviceArray: any = [];
 
   DaysEnum = DaysEnum;
-  daysNumber = [0, 1, 2, 3, 4, 5, 6];
+  daysNumber = [1, 2, 3, 4, 5, 6, 7];
 
   constructor(
     private adminScheduleService: AdminScheduleService,
@@ -27,6 +27,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log("HOLA MUNDO SOY UN NUEVO FORM AMIGOS");
     this.loadServicesTypes();
     //this.loadInstructors();
   }
@@ -63,6 +64,7 @@ export class AdminPreliminaryDialogComponent implements OnInit {
 
   onSave() {
     console.log("On Save");
+    console.log("ESTOY SALVANDO LA VARA GENTE");
     let preliminarySession: PreliminarySession = this.initPreliminarySession(
       this.preliminaryForm
     );
@@ -71,9 +73,13 @@ export class AdminPreliminaryDialogComponent implements OnInit {
       .insertPreliminarySessionSchedule(preliminarySession)
       .subscribe(
         (res) => {
+          console.log("ESTO FUE LO QUE ME ENTROOO");
+          console.log(preliminarySession);
           console.log(res);
         },
         (err) => {
+          console.log("ESTO FUE LO QUE ME ENTROOO");
+          console.log(preliminarySession);
           console.log(err);
         }
       );
