@@ -80,4 +80,16 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  deactivateAccount() {
+    this.authService.deactivateAccount().subscribe(
+      (res) => {
+        console.log(res);
+        this.authService.logout();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }

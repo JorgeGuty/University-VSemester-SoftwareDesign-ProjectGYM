@@ -31,17 +31,36 @@ export class AuthService {
   }
 
   // TODO: register in API
-  // registerUser(userInfo: User) {
-  //   let headers = new HttpHeaders();
-  //   headers.append("Content-Type", "application/json");
-  //   return this.httpClient.post(
-  //     "http://localhost:3000/user/register",
-  //     userInfo,
-  //     {
-  //       headers: headers,
-  //     }
-  //   );
-  // }
+  registerClientUser(clientUserInfo: User) {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/user/registerClientUser",
+      clientUserInfo,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          //Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  deactivateAccount() {
+    let clientUserInfo = {
+      username: this.currentUser?.username,
+      userTypeId: this.currentUser?.identifier?.toString(),
+    };
+
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/user/deactivateAccount",
+      clientUserInfo,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 
   authenticateUser(userInfo: User) {
     //console.log(userInfo);
