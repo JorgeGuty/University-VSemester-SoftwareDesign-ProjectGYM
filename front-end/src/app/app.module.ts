@@ -52,6 +52,7 @@ import { InstructorDialogueComponent } from './Components/Tables/instructor-dial
 import { ServiceDialogueComponent } from './Components/Tables/service-dialogue/service-dialogue.component';
 import { ClientTableComponent } from './Components/Tables/client-table/client-table.component';
 import { ClientComponent } from './Components/Tables/client/client.component';
+import { ClientDialogueComponent } from './Components/Tables/client-dialogue/client-dialogue.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ClientComponent } from './Components/Tables/client/client.component';
     ServiceDialogueComponent,
     ClientTableComponent,
     ClientComponent,
+    ClientDialogueComponent,
   ],
   imports: [
     AppRoutingModule,
