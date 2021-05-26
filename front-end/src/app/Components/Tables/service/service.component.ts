@@ -12,6 +12,7 @@ import { ServiceDialogueComponent } from "../service-dialogue/service-dialogue.c
 export class ServiceComponent implements OnInit {
   services: Service[] = [];
   columnContent: string[] = [];
+  isButtonsLoaded: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -28,6 +29,7 @@ export class ServiceComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
       // this.fillScheduleData(this.dateJSON);
+      this.loadServices();
     });
   }
 
@@ -36,12 +38,16 @@ export class ServiceComponent implements OnInit {
       .getServicesTypes()
       .subscribe((serviceList: [Service]) => {
         console.log(serviceList);
+        this.services = [];
         serviceList.forEach((service: any, key: any) => {
           if (this.columnContent.length == 0)
             this.columnContent = Object.keys(service);
           this.services.push(service);
         });
-        this.columnContent.push("Actions");
+        if (!this.isButtonsLoaded) {
+          this.isButtonsLoaded = true;
+          this.columnContent.push("Actions");
+        }
       });
   }
 
