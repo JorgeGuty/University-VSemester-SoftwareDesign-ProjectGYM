@@ -44,9 +44,9 @@ export class AuthService {
   // }
 
   authenticateUser(userInfo: User) {
-    console.log(userInfo);
+    //console.log(userInfo);
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/general/login",
+      ConnectionsServices.currentConnection + "/user/login",
       userInfo,
       {
         headers: { "Content-Type": "application/json" },
@@ -54,20 +54,19 @@ export class AuthService {
     );
   }
 
-  // // TODO: register in API
-  // getProfile() {
-  //   let headers = new HttpHeaders();
-  //   this.loadToken();
-  //   return this.httpClient.get(
-  //     ConnectionsServices.currentConnection + "/client/userInfo",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `${this.authToken}`,
-  //       },
-  //     }
-  //   );
-  // }
+  updateUser(userInfo: any) {
+    console.log(userInfo);
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/user/updateUserDetails",
+      userInfo,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 
   storeUserData(token: string, user: User) {
     localStorage.setItem("id_token", token);
@@ -87,16 +86,22 @@ export class AuthService {
     console.log("User Loaded: " + this.currentUser);
   }
 
-  // loadUserData() {
-  //   const userData = localStorage.getItem("user");
-  //   if (userData != null) {
-  //     return userData;
-  //   }
-  //   return "";
-  // }
+  getCurrentUser(): User {
+    if (this.currentUser != undefined) return this.currentUser;
+    return {};
+  }
 
-  getCurrentUser() {
-    return this.currentUser;
+  updateCurrentUser(username: string) {
+    if (
+      this.currentUser != undefined &&
+      this.currentUser.username != undefined
+    ) {
+      console.log("Actualizando user");
+      this.currentUser.username = username;
+      localStorage.clear;
+      localStorage.setItem("id_token", this.authToken);
+      localStorage.setItem("user", JSON.stringify(this.currentUser));
+    }
   }
 
   loggedIn() {

@@ -15,9 +15,12 @@ DROP TABLE IF EXISTS dbo.TipoUsuario;
 DROP TABLE IF EXISTS dbo.Administrador;
 
 DROP TABLE IF EXISTS dbo.Credito;
+DROP TABLE IF EXISTS dbo.CobroFijo;
+DROP TABLE IF EXISTS dbo.CobroPorReserva;
 DROP TABLE IF EXISTS dbo.Movimientos;
 DROP TABLE IF EXISTS dbo.TipoMovimiento;
 DROP TABLE IF EXISTS dbo.FormaDePago;
+DROP TABLE IF EXISTS dbo.ConceptosDeCobroFijos;
 
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
@@ -106,6 +109,22 @@ ALTER TABLE dbo.TipoInstructor ADD CONSTRAINT
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
 GO
+
+CREATE TABLE dbo.ConceptosDeCobroFijos
+	(
+	Id int NOT NULL,
+	Nombre nvarchar(50) NOT NULL,
+	Monto decimal(19, 4) NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.ConceptosDeCobroFijos ADD CONSTRAINT
+	PK_ConceptosDeCobroFijos PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+
 
 -- Entidades
 -----------------------------------------------------------------
@@ -241,54 +260,6 @@ GO
 ALTER TABLE [dbo].[UsuarioAdmin] CHECK CONSTRAINT [FK_UsuarioAdmin_Administrador]
 GO
 
------------------------------------------------------------------
--- Movimientos
------------------------------------------------------------------
-CREATE TABLE [dbo].[Movimientos](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Monto] [decimal](19, 4) NOT NULL,
-	[Fecha] [datetime] NOT NULL,
-	[ClienteId] [int] NOT NULL,
-	[TipoMovimiento] [int] NOT NULL,
-	[Asunto] [nvarchar](100) NOT NULL
-) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[Movimientos] ADD  CONSTRAINT [PK_Movimientos] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[Movimientos]  WITH CHECK ADD  CONSTRAINT [FK_Movimientos_Cliente] FOREIGN KEY([ClienteId])
-REFERENCES [dbo].[Cliente] ([Id])
-GO
-ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_Cliente]
-GO
-ALTER TABLE [dbo].[Movimientos]  WITH CHECK ADD  CONSTRAINT [FK_Movimientos_TipoMovimiento] FOREIGN KEY([TipoMovimiento])
-REFERENCES [dbo].[TipoMovimiento] ([Id])
-GO
-ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_TipoMovimiento]
-GO
-
-CREATE TABLE [dbo].[Credito](
-	[Id] [int] NOT NULL,
-	[FormaDePagoId] [int] NOT NULL
-) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[Credito] ADD  CONSTRAINT [PK_Credito] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_FormaDePago] FOREIGN KEY([FormaDePagoId])
-REFERENCES [dbo].[FormaDePago] ([Id])
-GO
-ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_FormaDePago]
-GO
-ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_Movimientos] FOREIGN KEY([Id])
-REFERENCES [dbo].[Movimientos] ([Id])
-GO
-ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_Movimientos]
-GO
 
 
 
@@ -546,5 +517,139 @@ ALTER TABLE dbo.Reserva ADD CONSTRAINT
 	
 GO
 
+-----------------------------------------------------------------
+-- Movimientos
+-----------------------------------------------------------------
+CREATE TABLE [dbo].[Movimientos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Monto] [decimal](19, 4) NOT NULL,
+	[Fecha] [datetime] NOT NULL,
+	[ClienteId] [int] NOT NULL,
+	[TipoMovimiento] [int] NOT NULL,
+	[Asunto] [nvarchar](100) NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Movimientos] ADD  CONSTRAINT [PK_Movimientos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Movimientos]  WITH CHECK ADD  CONSTRAINT [FK_Movimientos_Cliente] FOREIGN KEY([ClienteId])
+REFERENCES [dbo].[Cliente] ([Id])
+GO
+ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_Cliente]
+GO
+ALTER TABLE [dbo].[Movimientos]  WITH CHECK ADD  CONSTRAINT [FK_Movimientos_TipoMovimiento] FOREIGN KEY([TipoMovimiento])
+REFERENCES [dbo].[TipoMovimiento] ([Id])
+GO
+ALTER TABLE [dbo].[Movimientos] CHECK CONSTRAINT [FK_Movimientos_TipoMovimiento]
+GO
+
+CREATE TABLE [dbo].[Credito](
+	[Id] [int] NOT NULL,
+	[FormaDePagoId] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Credito] ADD  CONSTRAINT [PK_Credito] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_FormaDePago] FOREIGN KEY([FormaDePagoId])
+REFERENCES [dbo].[FormaDePago] ([Id])
+GO
+ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_FormaDePago]
+GO
+ALTER TABLE [dbo].[Credito]  WITH CHECK ADD  CONSTRAINT [FK_Credito_Movimientos] FOREIGN KEY([Id])
+REFERENCES [dbo].[Movimientos] ([Id])
+GO
+ALTER TABLE [dbo].[Credito] CHECK CONSTRAINT [FK_Credito_Movimientos]
+GO
+ALTER TABLE dbo.Credito ADD CONSTRAINT
+	FK_Credito_FormasDePago FOREIGN KEY
+	(
+	FormaDePagoId
+	) REFERENCES dbo.FormasDePago
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+
+CREATE TABLE dbo.CobroFijo
+	(
+	Id int NOT NULL,
+	IdConceptoDeCobro int NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.CobroFijo ADD CONSTRAINT
+	PK_CobroFijo PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.CobroFijo ADD CONSTRAINT
+	FK_CobroFijo_ConceptosDeCobroFijos FOREIGN KEY
+	(
+	IdConceptoDeCobro
+	) REFERENCES dbo.ConceptosDeCobroFijos
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.CobroFijo ADD CONSTRAINT
+	FK_CobroFijo_Movimientos FOREIGN KEY
+	(
+	Id
+	) REFERENCES dbo.Movimientos
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+
+CREATE TABLE dbo.CobroPorReserva
+	(
+	Id int NOT NULL,
+	IdReserva int NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.CobroPorReserva ADD CONSTRAINT
+	PK_CobroPorReserva PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.CobroPorReserva ADD CONSTRAINT
+	FK_CobroPorReserva_Movimientos FOREIGN KEY
+	(
+	Id
+	) REFERENCES dbo.Movimientos
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.CobroPorReserva ADD CONSTRAINT
+	FK_CobroPorReserva_Reserva FOREIGN KEY
+	(
+	IdReserva
+	) REFERENCES dbo.Reserva
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+
 COMMIT TRANSACTION
 GO
+
+----------------------

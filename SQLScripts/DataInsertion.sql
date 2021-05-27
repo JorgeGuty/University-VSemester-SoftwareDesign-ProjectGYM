@@ -8,10 +8,16 @@ VALUES (1, 'Administrador');
 INSERT INTO TipoUsuario (Id, Nombre)
 VALUES (2, 'Cliente');
 
+INSERT INTO dbo.ConceptosDeCobroFijos (Id, Nombre, Monto) 
+VALUES (1, 'Matrícula', 30000.0)
+
 INSERT INTO dbo.TipoInstructor VALUES ('planta'),('temporal');
 
-INSERT INTO TipoMovimiento (Id, Nombre)
-VALUES (1, 'Credito');
+INSERT INTO TipoMovimiento (Id, Nombre, EsCredito)
+VALUES 
+    (1, 'Credito', 1),
+    (2, 'CobroFijo', 0),
+    (3, 'CobroPorReserva', 0);
 
 INSERT INTO Usuario (Username, [Password], TipoUsuario)
 VALUES ('Admin1',1234,1);
