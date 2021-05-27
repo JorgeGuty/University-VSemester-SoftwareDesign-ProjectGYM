@@ -19,6 +19,17 @@ CREATE PROCEDURE dbo.SP_InsertMovement
 AS
 BEGIN
     BEGIN TRY
+        DECLARE @SPErrorCode                INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SPError')  
+        DECLARE @ClientNotFoundErrorCode        INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'ClientNotFound')
+
+        IF @pMembershipNumber NOT IN 
+            ( 
+                SELECT 
+                    client.Id 
+                FROM 
+                    dbo.Cliente AS client
+            )
+            RETURN @ClientNotFoundErrorCode
 
         DECLARE @IsCredit       BIT             =   (
                                                     SELECT
@@ -81,7 +92,7 @@ BEGIN
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK
-        RETURN -1
+        RETURN @SPErrorCode
     END CATCH
 END
 GO

@@ -111,7 +111,7 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_BookSession 7, '2021-07-01', '15:00:00', 1
+EXEC @returnvalue = SP_BookSession 8, '2021-07-01', '15:00:00', 1
 SELECT @returnvalue AS errorCode
 
 SELECT * FROM CompleteSessions

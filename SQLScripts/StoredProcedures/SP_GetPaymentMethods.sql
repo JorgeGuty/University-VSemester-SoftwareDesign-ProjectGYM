@@ -20,6 +20,5 @@ BEGIN
         [dbo].[FormaDePago] AS paymentMethod
 END
 GO
--- example to execute the stored procedure we just created
-EXECUTE dbo.SP_GetPaymentMethods 1 /*value_for_param1*/, 2 /*value_for_param2*/
+EXECUTE dbo.SP_GetPaymentMethods 
 GO
