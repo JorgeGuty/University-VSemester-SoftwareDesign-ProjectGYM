@@ -58,11 +58,11 @@ export class ClientsService {
     );
   }
 
-  deleteClient(membershipForm: any): Observable<any> {
+  deleteClient(clientForm: any): Observable<any> {
     // "membershipNumber"
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/deleteClient",
-      membershipForm,
+      clientForm,
       {
         headers: {
           "Content-Type": "application/json",

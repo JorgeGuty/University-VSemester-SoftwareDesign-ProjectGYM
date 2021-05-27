@@ -26,6 +26,9 @@ export class ClientTableComponent implements OnInit {
   ngOnInit(): void {}
 
   onDelete(client: Client) {
+    console.log("Emitiendo client");
+    console.log(client);
+    console.log("Emitiendo client");
     this.clientDeleted.emit(client);
   }
 
