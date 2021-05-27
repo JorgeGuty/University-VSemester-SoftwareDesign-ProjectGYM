@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { AuthService } from "../Auth/auth.service";
 import ConnectionsServices from "../Connections/connectionsConstants";
+import Client from "src/app/Models/Clients/Client";
 
 @Injectable({
   providedIn: "root",
@@ -22,6 +23,46 @@ export class ClientsService {
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/clientInfo",
       userForm,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  getClients(): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/clients",
+      { filterDebtors: "0" },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  insertClient(clientForm: Client): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/createClient",
+      clientForm,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  deleteClient(membershipForm: any): Observable<any> {
+    // "membershipNumber"
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/deleteClient",
+      membershipForm,
       {
         headers: {
           "Content-Type": "application/json",
