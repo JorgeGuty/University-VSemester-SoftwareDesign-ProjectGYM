@@ -99,3 +99,39 @@ func DeleteClient(context *fiber.Ctx) error {
 	return Common.GiveJSONResponse(context, result, fiber.StatusOK)
 }
 
+func InsertCreditMovement(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+
+	membershipNumber, _ := 	strconv.Atoi(data["membershipNumber"])
+	paymentMethodId, _ 	:= 	strconv.Atoi(data["paymentMethodId"])
+	amount				:= 	data["amount"]
+	subject				:=	data["subject"]
+
+	result := Requests.InsertCreditMovement(membershipNumber, amount, subject, paymentMethodId)
+
+	return Common.GiveJSONResponse(context, result, fiber.StatusOK)
+}
+
+func GetPaymentMethods(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	paymentMethods := Requests.GetPaymentMethods()
+
+	return Common.GiveJSONResponse(context, paymentMethods, fiber.StatusOK)
+}

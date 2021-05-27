@@ -256,3 +256,25 @@ func ParseClients(resultSet *sql.Rows) []Models.Client {
 
 	return clients
 }
+
+func ParsePaymentMethods(resultSet *sql.Rows) []Models.PaymentMethod {
+	var paymentMethods []Models.PaymentMethod
+
+	for resultSet.Next() {
+		newPaymentMethod := Models.PaymentMethod{}
+
+		err := resultSet.Scan(
+			&newPaymentMethod.ID,
+			&newPaymentMethod.Name,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.PaymentMethod{}
+		}
+
+		paymentMethods = append(paymentMethods, newPaymentMethod)
+	}
+
+	return paymentMethods
+}

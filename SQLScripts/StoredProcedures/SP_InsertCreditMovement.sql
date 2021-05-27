@@ -20,14 +20,14 @@ AS
 BEGIN
     BEGIN TRY
         
-        DECLARE @MovementTypeID     INT             =   (
-                                                        SELECT
-                                                            movementType.Id
-                                                        FROM
-                                                            dbo.TipoMovimiento AS movementType
-                                                        WHERE
-                                                            movementType.Nombre = 'Credito'
-                                                        )                                                                                    
+        DECLARE @MovementTypeID     INT     =   (
+                                                SELECT
+                                                    movementType.Id
+                                                FROM
+                                                    dbo.TipoMovimiento AS movementType
+                                                WHERE
+                                                    movementType.Nombre = 'Credito'
+                                                )                                                                                    
         
         DECLARE @MovementID INT
         EXEC @MovementID = dbo.SP_InsertMovement @pMembershipNumber, @pAmount, @MovementTypeID, @pSubject

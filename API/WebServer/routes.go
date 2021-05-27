@@ -14,6 +14,11 @@ func Setup(app *fiber.App) {
 	client.Post("/createClient", Controllers.CreateClient)              // Not in services
 	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Not in services
 	client.Post("/deleteClient", Controllers.DeleteClient)              // Not in services
+	client.Post("/insertCredit", Controllers.InsertCreditMovement)      // Not in services
+
+	//TODO: discuss in which group this request has to be categorized
+	client.Get("/paymentMethods", Controllers.GetPaymentMethods)      // Not in services
+
 
 	user := app.Group("/user")
 	user.Post("/login", Controllers.Login)                           // Updated!!!
