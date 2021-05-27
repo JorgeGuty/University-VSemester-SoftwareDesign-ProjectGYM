@@ -24,39 +24,12 @@ BEGIN
         DECLARE @AvailableSpaces                INT
         DECLARE @SessionID                      INT
 
-        DECLARE @AlreadyBookedErrorCode         INT
-        DECLARE @SessionOutOfSpacesErrorCode    INT
-        DECLARE @SPErrorCode                    INT     
+        DECLARE @ClientNotFoundErrorCode        INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'ClientNotFound')
+        DECLARE @AlreadyBookedErrorCode         INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'AlreadyBookedError')
+        DECLARE @SessionOutOfSpacesErrorCode    INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SessionOutOfSpacesError')
+        DECLARE @SPErrorCode                    INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SPError')
 
-        -- SETS ERROR CODES SET TO BE RETURNED IN CASE OF ERROR
-        SET @AlreadyBookedErrorCode = 
-            (
-                SELECT
-                    [error].Code
-                FROM
-                    dbo.Errors AS [error]
-                WHERE
-                    [error].[ErrorName] = 'AlreadyBookedError'
-            )   
-        SET @SessionOutOfSpacesErrorCode = 
-            (
-                SELECT
-                    [error].Code
-                FROM
-                    dbo.Errors AS [error]
-                WHERE
-                    [error].[ErrorName] = 'SessionOutOfSpacesError'
-            )   
-        SET @SPErrorCode = 
-            (
-                SELECT
-                    [error].Code
-                FROM
-                    dbo.Errors AS [error]
-                WHERE
-                    [error].[ErrorName] = 'SPError'
-            )
-
+    
         -- Sets session id based on the session info provided.
         SET @SessionID = 
             (
@@ -80,7 +53,16 @@ BEGIN
                 WHERE 
                     [session].SessionId = @SessionID                
             )
-
+            
+        -- Checks if client membership number exists
+        IF @pMembershipNumber NOT IN 
+            ( 
+                SELECT 
+                    client.Id 
+                FROM 
+                    dbo.Cliente AS client
+            )
+            RETURN @ClientNotFoundErrorCode
         -- Checks if client already booked that session.
         IF @pMembershipNumber IN 
             ( 
@@ -129,5 +111,7 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_BookSession 1, '2021-05-19', '10:00:00', 1
+EXEC @returnvalue = SP_BookSession 8, '2021-07-01', '15:00:00', 1
 SELECT @returnvalue AS errorCode
+
+SELECT * FROM CompleteSessions
