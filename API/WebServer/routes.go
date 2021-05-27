@@ -35,7 +35,7 @@ func Setup(app *fiber.App) {
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
-	instructor.Post("/remove", Controllers.DeleteInstructor)    // Not in services
+	instructor.Post("/remove", Controllers.DeleteInstructor)    // Updated!!!
 	instructor.Post("/insert", Controllers.InsertInstructor)    // Updated!!!
 
 	preliminarySchedule := app.Group("/preliminarySchedule")

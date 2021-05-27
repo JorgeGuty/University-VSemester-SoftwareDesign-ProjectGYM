@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import Service from "src/app/Models/Schedule/Service";
+import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
 
 @Component({
   selector: "app-service-dialogue",
@@ -8,7 +9,7 @@ import Service from "src/app/Models/Schedule/Service";
   styleUrls: ["./service-dialogue.component.scss"],
 })
 export class ServiceDialogueComponent implements OnInit {
-  constructor() {}
+  constructor(private servicesService: ServicesService) {}
 
   ngOnInit(): void {}
 
@@ -28,7 +29,16 @@ export class ServiceDialogueComponent implements OnInit {
   }
 
   onSave() {
-    // TODO: implement save register instructor
-    console.log("Saved Service");
+    let service: Service = this.initService(this.serviceForm);
+    console.log("Datos de instructor insertados");
+    console.log(service);
+    this.servicesService.insertService(service).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

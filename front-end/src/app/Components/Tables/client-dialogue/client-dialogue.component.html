@@ -1,27 +1,30 @@
-<h2 mat-dialog-title><mat-card-title>Register Service</mat-card-title></h2>
+<h2 mat-dialog-title><mat-card-title>Register Client</mat-card-title></h2>
 <mat-dialog-content>
   <mat-card class="home-card example-card">
     <mat-card-content class="home-card-content">
-      <mat-card-subtitle>Service Form</mat-card-subtitle>
+      <mat-card-subtitle>Client Form</mat-card-subtitle>
       <mat-tab-group>
-        <mat-tab label="Service">
-          <form [formGroup]="serviceForm">
+        <mat-tab label="Client">
+          <form [formGroup]="clientForm">
             <!-- Instructor Name Field -->
             <mat-form-field class="example-full-width">
-              <mat-label>Service Name</mat-label>
+              <mat-label>Client Name</mat-label>
               <input matInput #message formControlName="name" />
             </mat-form-field>
-            <br />
             <!-- Identification Field -->
             <mat-form-field class="example-full-width">
-              <mat-label>Max Spaces</mat-label>
-              <input matInput #message formControlName="maxSpaces" />
+              <mat-label>Identification</mat-label>
+              <input matInput #message formControlName="identification" />
             </mat-form-field>
-            <br />
             <!-- Email Field -->
             <mat-form-field class="example-full-width">
-              <mat-label>Cost</mat-label>
-              <input matInput #message formControlName="cost" />
+              <mat-label>Email</mat-label>
+              <input matInput #message formControlName="email" />
+            </mat-form-field>
+            <!-- Email Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Phone</mat-label>
+              <input matInput #message formControlName="phone" />
             </mat-form-field>
 
             <button
@@ -29,7 +32,7 @@
               style="width: 100%; margin-top: 0.5rem"
               color="primary"
               (click)="onSave()"
-              [disabled]="this.serviceForm.invalid"
+              [disabled]="this.clientForm.invalid"
             >
               Save
             </button>

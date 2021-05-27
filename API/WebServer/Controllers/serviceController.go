@@ -27,7 +27,7 @@ func InsertService(context *fiber.Ctx) error {
 		return err
 	}
 
-	name := data["serviceName"]
+	name := data["name"]
 	maxSpaces, _ := strconv.Atoi(data["maxSpaces"])
 	cost, _ := data["cost"]
 

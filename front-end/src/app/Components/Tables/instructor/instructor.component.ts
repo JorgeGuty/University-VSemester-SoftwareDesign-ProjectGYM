@@ -28,7 +28,6 @@ export class InstructorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      // this.fillScheduleData(this.dateJSON);
       this.loadInstructors();
     });
   }
