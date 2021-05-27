@@ -162,6 +162,6 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga avanzado', 7, 7, 2021, '15:00', 60, 'Funcional', 1, 1
+EXEC @returnvalue = dbo.SP_InsertPreliminarySession 'Yoga avanzado', 3, 5, 2021, '15:00', 60, 'Funcional', 1, 1
 SELECT @returnvalue AS returnValue
 SELECT * FROM CompleteSessions

@@ -150,7 +150,7 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_ConfirmPreliminarySchedule  7, 2021;
+EXEC @returnvalue = SP_ConfirmPreliminarySchedule  5, 2021;
 SELECT @returnvalue AS errorCode
 GO
 
