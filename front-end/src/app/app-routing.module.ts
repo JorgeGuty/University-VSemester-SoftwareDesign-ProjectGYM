@@ -8,6 +8,7 @@ import { ClientDashboardComponent } from "./Components/Dashboards/Client/client-
 import { HomeComponent } from "./Components/Home/home/home.component";
 import { ProfileComponent } from "./Components/Profile/profile/profile.component";
 import { LoginComponent } from "./Components/Registration/login/login.component";
+import { ClientComponent } from "./Components/Tables/client/client.component";
 import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
 import { ServiceComponent } from "./Components/Tables/service/service.component";
 
@@ -46,6 +47,11 @@ const routes: Routes = [
   {
     path: "admin/serviceTable",
     component: ServiceComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: "admin/clientTable",
+    component: ClientComponent,
     canActivate: [AuthAdminGuard],
   },
 ];
