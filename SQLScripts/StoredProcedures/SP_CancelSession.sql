@@ -18,24 +18,12 @@ AS
 BEGIN
     BEGIN TRY
 
-        DECLARE @SessionID          INT              
-        DECLARE @SPErrorCode        INT     
-        DECLARE @NoSessionsFound    INT
-        DECLARE @AffectedRowsCount  INT     
- 
+          
+        DECLARE @SPErrorCode            INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SPError')     
+        DECLARE @NoSessionsFound        INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'NoSessionsFoundError')  
+        DECLARE @CannotCancelErrorCode  INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'CannotCancelSession')  
+        DECLARE @SessionID              INT    
 
-
-        -- SETS ERROR CODES SET TO BE RETURNED IN CASE OF ERROR
-        SET @SPErrorCode = 
-            (
-                SELECT
-                    [error].Code
-                FROM
-                    dbo.Errors AS [error]
-                WHERE
-                    [error].[ErrorName] = 'SPError'
-            )
-           
         -- Sets session id based on the session info provided.
         SET @SessionID = 
             (
@@ -48,31 +36,23 @@ BEGIN
                     AND [session].RoomId        = @pRoomId
                     AND [session].StartTime     = CONVERT(TIME, @pStartTime)
             )
+        
+        DECLARE @SessionDateTime DATETIME = CAST(@pDate as DATETIME) + CAST(@pStartTime as DATETIME)
 
-        SET @NoSessionsFound = 
-            (
-                SELECT
-                    [error].Code
-                FROM
-                    dbo.Errors AS [error]
-                WHERE
-                    [error].[ErrorName] = 'NoSessionsFoundError'
-            )
-
-        SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
-        BEGIN TRANSACTION
-            UPDATE 
-                dbo.Sesion
-            SET
-                Cancelada = 1
-            WHERE 
-                    Id          = @SessionID 
-                AND Cancelada   = 0            
-            SET @AffectedRowsCount = @@ROWCOUNT         
-        COMMIT
-
-        IF @AffectedRowsCount = 0 RETURN @NoSessionsFound
-        ELSE RETURN 1
+        IF DATEDIFF(HOUR, GETDATE(), @SessionDateTime) < 12
+            RETURN @CannotCancelErrorCode
+        ELSE
+            BEGIN
+                UPDATE 
+                    dbo.Sesion
+                SET
+                    Cancelada = 1
+                WHERE 
+                        Id          = @SessionID 
+                    AND Cancelada   = 0                  
+                IF @@ROWCOUNT = 0 RETURN @NoSessionsFound
+            END
+        RETURN 1
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0
@@ -86,3 +66,4 @@ GO
 DECLARE @returnvalue int
 EXEC @returnvalue = dbo.SP_CancelSession '2021-05-16', '20:30', 1
 SELECT @returnvalue AS returnValue
+
