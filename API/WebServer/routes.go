@@ -9,11 +9,16 @@ import (
 func Setup(app *fiber.App) {
 
 	client := app.Group("/client")
-	client.Post("/clients", Controllers.GetClients)                     //NEW
-	client.Post("/clientInfo", Controllers.GetClientInfo)               // Ready
-	client.Post("/createClient", Controllers.CreateClient)              // Not in services
+	client.Post("/clients", Controllers.GetClients)                     // Updated!!!
+	client.Post("/clientInfo", Controllers.GetClientInfo)               /// Updated!!!
+	client.Post("/createClient", Controllers.CreateClient)              // Updated!!!
 	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Not in services
-	client.Post("/deleteClient", Controllers.DeleteClient)              // Not in services
+	client.Post("/deleteClient", Controllers.DeleteClient)              // Not in services (ERROR)
+	client.Post("/insertCredit", Controllers.InsertCreditMovement)      // Not in services
+
+	//TODO: discuss in which group this request has to be categorized
+	client.Get("/paymentMethods", Controllers.GetPaymentMethods)      // Not in services
+
 
 	user := app.Group("/user")
 	user.Post("/login", Controllers.Login)                           // Updated!!!
@@ -23,15 +28,15 @@ func Setup(app *fiber.App) {
 
 	services := app.Group("/services")
 	services.Get("/services", Controllers.GetServices)         // Updated!!!
-	services.Post("/insertService", Controllers.InsertService) // New!
+	services.Post("/insertService", Controllers.InsertService) // Updated!!! (Falta el delete)
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!
 	sessions.Post("/bookSession", Controllers.BookSession)                         // Updated!!!
 	sessions.Post("/cancelBooking", Controllers.CancelBooking)                     // Updated!!!
-	sessions.Post("/cancelSession", Controllers.CancelSession)                     // Not in services
-	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)            // Ready
-	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // New
+	sessions.Post("/cancelSession", Controllers.CancelSession)                     // No implemntar
+	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)            // Not in services (ERROR)
+	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // Not in services
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
