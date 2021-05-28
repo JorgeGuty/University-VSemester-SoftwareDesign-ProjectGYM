@@ -99,3 +99,8 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('NoBookingsFound',-50018, 'No bookings found with the specified data.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('ServiceNotFound',-50019, 'No service found with the specified data.')

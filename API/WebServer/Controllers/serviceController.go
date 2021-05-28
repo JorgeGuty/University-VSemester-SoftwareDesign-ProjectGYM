@@ -49,9 +49,9 @@ func DeleteService(context *fiber.Ctx) error {
 		return err
 	}
 
-	name := data["name"]
+	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
 
-	result := Requests.DeleteService(name)
+	result := Requests.DeleteService(serviceNumber)
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
