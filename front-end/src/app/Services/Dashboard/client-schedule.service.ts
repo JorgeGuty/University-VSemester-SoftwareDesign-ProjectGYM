@@ -32,11 +32,12 @@ export class ClientScheduleService {
   getReservedSessions(): Observable<any> {
     let user = this.authService.getCurrentUser();
     if (user != undefined && user.identifier != undefined) {
-      var userForm: any = { clientIdentification: user.identifier.toString() };
-      console.log(user.identifier.toString());
+      var userForm: any = { membershipNumber: user.identifier.toString() };
+      console.log("PRUEBAAAA");
+      console.log(userForm);
     }
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/client/reservedSessions",
+      ConnectionsServices.currentConnection + "/sessions/reservedSessions",
       userForm,
       {
         headers: {

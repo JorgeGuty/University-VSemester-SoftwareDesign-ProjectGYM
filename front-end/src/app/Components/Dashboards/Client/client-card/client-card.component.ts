@@ -68,7 +68,7 @@ export class ClientCardComponent implements OnInit {
     let userInfo: any = this.authService.getCurrentUser();
     let roomId = "1";
     console.log(userInfo);
-    console.log("Informacion de id: " + userInfo.identifier)
+    console.log("Informacion de id: " + userInfo.identifier);
     let reserveSessionJson: any = {
       date: this.session.date.toString(),
       startTime: this.session.time.toString(),
