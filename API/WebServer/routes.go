@@ -12,7 +12,7 @@ func Setup(app *fiber.App) {
 	client.Post("/clients", Controllers.GetClients)                     // Updated!!!
 	client.Post("/clientInfo", Controllers.GetClientInfo)               /// Updated!!!
 	client.Post("/createClient", Controllers.CreateClient)              // Updated!!!
-	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Not in services
+	client.Post("/updateClientDetails", Controllers.UpdateClientDetail) // Updated!!!
 	client.Post("/deleteClient", Controllers.DeleteClient)              // Not in services (ERROR)
 	client.Post("/insertCredit", Controllers.InsertCreditMovement)      // Not in services
 
