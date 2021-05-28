@@ -100,10 +100,10 @@ func DeleteClient(context *fiber.Ctx) error {
 }
 
 func GetClients(context *fiber.Ctx) error {
-	// token := Common.AnalyzeToken(context)
-    // if token == nil {
-	// 	return nil
-	// }
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
 
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
@@ -130,10 +130,10 @@ func InsertCreditMovement(context *fiber.Ctx) error {
 		return err
 	}
 
-	membershipNumber, _ := 	strconv.Atoi(data["membershipNumber"])
-	paymentMethodId, _ 	:= 	strconv.Atoi(data["paymentMethodId"])
-	amount				:= 	data["amount"]
-	subject				:=	data["subject"]
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+	paymentMethodId, _ := strconv.Atoi(data["paymentMethodId"])
+	amount := data["amount"]
+	subject := data["subject"]
 
 	result := Requests.InsertCreditMovement(membershipNumber, amount, subject, paymentMethodId)
 

@@ -28,7 +28,8 @@ func Setup(app *fiber.App) {
 
 	services := app.Group("/services")
 	services.Get("/services", Controllers.GetServices)         // Updated!!!
-	services.Post("/insertService", Controllers.InsertService) // Updated!!! (Falta el delete)
+	services.Post("/insertService", Controllers.InsertService) // New!
+	services.Post("/delete", Controllers.DeleteService)        //New
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!

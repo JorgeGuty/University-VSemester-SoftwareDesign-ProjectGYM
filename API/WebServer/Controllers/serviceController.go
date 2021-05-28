@@ -22,6 +22,12 @@ func GetServices(context *fiber.Ctx) error {
 
 func InsertService(context *fiber.Ctx) error {
 
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
 		return err
@@ -32,6 +38,20 @@ func InsertService(context *fiber.Ctx) error {
 	cost, _ := data["cost"]
 
 	result := Requests.InsertService(name, maxSpaces, cost)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}
+
+func DeleteService(context *fiber.Ctx) error {
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
+
+	result := Requests.DeleteService(serviceNumber)
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
