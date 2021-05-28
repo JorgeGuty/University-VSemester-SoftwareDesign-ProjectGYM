@@ -33,6 +33,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updateClientInformation();
+  }
+
+  updateClientInformation() {
     this.clientsService.getClientInfo().subscribe((profiles) => {
       console.log(profiles);
       profiles.forEach((profile: any, key: any) => {
@@ -128,5 +132,6 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         }
       );
+    this.updateClientInformation();
   }
 }
