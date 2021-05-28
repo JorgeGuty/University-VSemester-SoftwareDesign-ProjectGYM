@@ -25,18 +25,30 @@ BEGIN
         DECLARE @EmailUnavailableErrorCode  INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'EmailUnavailable')
         DECLARE @SPErrorCode                INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SPError')     
         DECLARE @AffectedRowsCount          INT
+        DECLARE @CurrentEmail               VARCHAR(50)
 
-        IF EXISTS 
-            (
-                SELECT  
-                    *
-                FROM    
-                    dbo.Cliente AS client
-                WHERE
+        SELECT @CurrentEmail = Correo
+        FROM dbo.Cliente
+        WHERE 
+            Id = @pMembershipNumber
+            AND
+            Active = 1;
+                
+        IF 
+            @CurrentEmail != @pEmail
+            AND
+            EXISTS 
+                (
+                    SELECT  
+                        Id
+                    FROM    
+                        dbo.Cliente AS client
+                    WHERE
+                        client.Active = 1
+                        AND
                         client.Correo = @pEmail
-                    AND client.Active = 1
-            )
-            RETURN @EmailUnavailableErrorCode
+                )
+                RETURN @EmailUnavailableErrorCode
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
@@ -67,7 +79,7 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = dbo.SP_UpdateClientDetails 1,'123123', 'CambioDeUsername','aaa@a.gmail','70704284'
+EXEC @returnvalue = dbo.SP_UpdateClientDetails 1,'123123', 'PopeyeMaximo','popeyeElMarino@gmail.com','70704284'
 SELECT @returnvalue AS returnValue
 
 select * from Cliente

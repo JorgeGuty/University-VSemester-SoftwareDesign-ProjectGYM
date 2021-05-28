@@ -44,6 +44,12 @@ func InsertService(context *fiber.Ctx) error {
 
 func DeleteService(context *fiber.Ctx) error {
 
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
 		return err
@@ -52,6 +58,27 @@ func DeleteService(context *fiber.Ctx) error {
 	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
 
 	result := Requests.DeleteService(serviceNumber)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}
+
+func SetServiceMaxSpace(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
+	maxSpaces, _ := strconv.Atoi(data["maxSpaces"])
+
+	result := Requests.SetServiceMaxSpace(serviceNumber, maxSpaces)
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
