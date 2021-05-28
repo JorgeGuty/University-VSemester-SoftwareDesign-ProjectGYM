@@ -53,3 +53,23 @@ func UpdateClientDetail(pMembershipNumber int, pIdentification string, pName str
 	query := fmt.Sprintf(`EXEC SP_UpdateClientDetails %d, '%s','%s','%s','%s';`, pMembershipNumber, pIdentification, pName, pEmail, pPhone)
 	return VoidRequest(query)
 }
+
+func InsertCreditMovement(pMembershipNumber int, pAmount string, pSubject string, pPaymentMethodId int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_InsertCreditMovement %d, %s, '%s', %d;`,pMembershipNumber, pAmount, pSubject, pPaymentMethodId)
+	return VoidRequest(query)
+}
+
+func GetPaymentMethods() []Models.PaymentMethod {
+
+	query := fmt.Sprintf(`EXEC SP_GetPaymentMethods;`)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return []Models.PaymentMethod{}
+	}
+
+	paymentMethods := ParsePaymentMethods(resultSet)
+
+	return paymentMethods
+}
