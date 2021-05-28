@@ -33,3 +33,9 @@ func DeleteService(pServiceNumber int) Common.VoidOperationResult {
 	println(query)
 	return VoidRequest(query)
 }
+
+func SetServiceMaxSpace(pServiceNumber int, pMaxSpaces int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_SetServiceMaxSpace %d, %d;`, pServiceNumber, pMaxSpaces)
+	println(query)
+	return VoidRequest(query)
+}

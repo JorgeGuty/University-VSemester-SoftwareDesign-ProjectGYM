@@ -1,19 +1,24 @@
 -- =============================================
 -- Author:		Eduardo Madrigal Marin
--- Description:	Deletes a Service
+-- Description:	Changes max space for services
 -- =============================================
 
-ALTER PROCEDURE dbo.SP_DeleteService
-    @pServiceNumber INT
+ALTER PROCEDURE dbo.SP_SetServiceMaxSpace
+    @pServiceNumber INT,
+    @pServiceMaxSpaces INT
 AS
 BEGIN
     DECLARE @ServiceNotFound    INT = -50001
     DECLARE @SPErrorCode        INT = -50019
 
     BEGIN TRY
+
         UPDATE Especialidades
-        SET Activa = 0
-        WHERE @pServiceNumber = Id
+        SET Aforo = @pServiceMaxSpaces
+        WHERE 
+            @pServiceNumber = Id
+            AND 
+            Activa = 1
 
         IF @@ROWCOUNT = 0
             RETURN @ServiceNotFound
@@ -27,11 +32,7 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_DeleteService 1
+EXECUTE dbo.SP_SetServiceMaxSpace 1, 60
 GO
 
 -- SELECT * FROM Especialidades
-
---         UPDATE Especialidades
---         SET Activa = 1
---         WHERE 1 = Id
