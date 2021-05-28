@@ -140,6 +140,27 @@
             Deactivate Account
           </button>
         </mat-tab>
+
+        <mat-tab label="Finance">
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width" style="margin-top: 3rem">
+            <mat-label>Payment Amount</mat-label>
+            <input matInput [(ngModel)]="prof_payment" value="0" #message />
+          </mat-form-field>
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Subject</mat-label>
+            <input matInput [(ngModel)]="prof_subject" value="0" #message />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="commitTransaction()"
+          >
+            Commit Transaction
+          </button>
+        </mat-tab>
       </mat-tab-group>
     </mat-card-content>
   </mat-card>

@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   prof_identification: string = "";
   prof_membershipNumber: number = 999;
   user_username?: string = "";
+  prof_payment: string = "";
+  prof_subject: string = "";
 
   constructor(
     private clientsService: ClientsService,
@@ -112,5 +114,19 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  commitTransaction() {
+    console.log("Transaction commited");
+    this.clientsService
+      .paymentClient(this.prof_payment, this.prof_subject)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 }
