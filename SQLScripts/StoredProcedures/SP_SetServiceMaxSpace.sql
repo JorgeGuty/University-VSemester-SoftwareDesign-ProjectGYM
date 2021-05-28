@@ -8,8 +8,8 @@ ALTER PROCEDURE dbo.SP_SetServiceMaxSpace
     @pServiceMaxSpaces INT
 AS
 BEGIN
-    DECLARE @ServiceNotFound    INT = -50001
-    DECLARE @SPErrorCode        INT = -50019
+    DECLARE @ServiceNotFound    INT = -50019
+    DECLARE @SPErrorCode        INT = -50001
 
     BEGIN TRY
 
@@ -32,7 +32,7 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_SetServiceMaxSpace 1, 60
-GO
+-- EXECUTE dbo.SP_SetServiceMaxSpace 1, 60
+-- GO
 
 -- SELECT * FROM Especialidades

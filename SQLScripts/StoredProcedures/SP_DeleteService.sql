@@ -7,8 +7,8 @@ ALTER PROCEDURE dbo.SP_DeleteService
     @pServiceNumber INT
 AS
 BEGIN
-    DECLARE @ServiceNotFound    INT = -50001
-    DECLARE @SPErrorCode        INT = -50019
+    DECLARE @ServiceNotFound    INT = -50019
+    DECLARE @SPErrorCode        INT = -50001
 
     BEGIN TRY
         UPDATE Especialidades
@@ -27,11 +27,11 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_DeleteService 1
-GO
+-- EXECUTE dbo.SP_DeleteService 1
+-- GO
 
 -- SELECT * FROM Especialidades
 
---         UPDATE Especialidades
---         SET Activa = 1
---         WHERE 1 = Id
+        -- UPDATE Especialidades
+        -- SET Activa = 1
+        -- WHERE 1 = Id
