@@ -51,6 +51,7 @@ export class ClientCardComponent implements OnInit {
       );
     } else {
       console.log("Cancelar");
+      console.log(reserveSession);
       this.sessionScheduleService.cancelBookedSession(reserveSession).subscribe(
         (res) => {
           console.log(res);

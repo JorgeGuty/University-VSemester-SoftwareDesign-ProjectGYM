@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
 
   onRegister() {
     let registration: Registration = this.initRegistrationForm();
+    console.log("Registration FORM!!!!");
+    console.log(registration);
     this.authService.registerClientUser(registration).subscribe(
       (res) => {
         console.log(res);
