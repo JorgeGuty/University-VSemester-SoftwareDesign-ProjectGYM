@@ -261,16 +261,13 @@ GO
 ALTER TABLE [dbo].[UsuarioAdmin] CHECK CONSTRAINT [FK_UsuarioAdmin_Administrador]
 GO
 
-
-
-
-
 CREATE TABLE dbo.Especialidades
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Nombre nvarchar(50) NOT NULL,
 	Costo decimal(19, 4) NOT NULL,
-	Aforo int NOT NULL
+	Aforo int NOT NULL,
+	Activa BIT NOT NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Especialidades ADD CONSTRAINT
