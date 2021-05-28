@@ -54,6 +54,7 @@ import { ClientTableComponent } from './Components/Tables/client-table/client-ta
 import { ClientComponent } from './Components/Tables/client/client.component';
 import { ClientDialogueComponent } from './Components/Tables/client-dialogue/client-dialogue.component';
 import { ClientPaymentDialogueComponent } from './Components/Tables/client-payment-dialogue/client-payment-dialogue.component';
+import { AdminDialogueChangeComponent } from './Components/Dashboards/Admin/admin-dialogue-change/admin-dialogue-change.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { ClientPaymentDialogueComponent } from './Components/Tables/client-payme
     ClientComponent,
     ClientDialogueComponent,
     ClientPaymentDialogueComponent,
+    AdminDialogueChangeComponent,
   ],
   imports: [
     AppRoutingModule,

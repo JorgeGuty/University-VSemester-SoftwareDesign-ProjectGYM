@@ -23,6 +23,17 @@
             #message
           /> </mat-form-field
       ></mat-list-item>
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Desired Instructor</mat-label>
+        <mat-select [(value)]="this.instructor.id">
+          <mat-option
+            *ngFor="let instructor of instructorArray"
+            [value]="instructor.id"
+          >
+            {{ instructor.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
       <!-- Starting Time -->
       <mat-list-item class="list-layout"
         ><mat-form-field class="example-full-width">
@@ -73,9 +84,9 @@
             mat-raised-button
             class="myButton"
             style="background-color: #2a2b31; color: #f8f9fc"
-            (click)="onInstructorChange()"
+            (click)="openDialogue()"
           >
-            Change Instructor
+            Update Instructor
           </button>
           <button
             mat-raised-button
