@@ -109,6 +109,12 @@ func CancelSession(context *fiber.Ctx) error {
 
 func ChangeSessionInstructor(context *fiber.Ctx) error {
 
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
 		return err
