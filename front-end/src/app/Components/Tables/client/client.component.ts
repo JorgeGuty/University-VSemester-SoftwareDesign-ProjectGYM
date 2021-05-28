@@ -4,6 +4,7 @@ import Client from "src/app/Models/Clients/Client";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import { ClientsService } from "src/app/Services/UserInfo/clients.service";
 import { ClientDialogueComponent } from "../client-dialogue/client-dialogue.component";
+import { ClientPaymentDialogueComponent } from "../client-payment-dialogue/client-payment-dialogue.component";
 
 @Component({
   selector: "app-client",
@@ -23,6 +24,15 @@ export class ClientComponent implements OnInit {
 
   openDialogue() {
     const dialogRef = this.dialog.open(ClientDialogueComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+      this.loadClients();
+    });
+  }
+
+  openPaymentDialogue() {
+    const dialogRef = this.dialog.open(ClientPaymentDialogueComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);

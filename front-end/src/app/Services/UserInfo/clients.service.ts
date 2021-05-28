@@ -85,13 +85,13 @@ export class ClientsService {
     );
   }
 
-  paymentClient(amountPayment: any, subject: any): Observable<any> {
-    let user = this.authService.getCurrentUser();
-    if (user != undefined && user.identifier != undefined) {
-      var userIdentifier: any = user.identifier.toString();
-    }
+  paymentClient(
+    amountPayment: any,
+    subject: any,
+    membershipId: any
+  ): Observable<any> {
     let paymentForm = {
-      membershipNumber: userIdentifier,
+      membershipNumber: membershipId,
       paymentMethodId: "1",
       amount: amountPayment,
       subject: subject,

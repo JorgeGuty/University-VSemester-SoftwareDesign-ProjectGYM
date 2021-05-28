@@ -53,6 +53,7 @@ import { ServiceDialogueComponent } from './Components/Tables/service-dialogue/s
 import { ClientTableComponent } from './Components/Tables/client-table/client-table.component';
 import { ClientComponent } from './Components/Tables/client/client.component';
 import { ClientDialogueComponent } from './Components/Tables/client-dialogue/client-dialogue.component';
+import { ClientPaymentDialogueComponent } from './Components/Tables/client-payment-dialogue/client-payment-dialogue.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ClientDialogueComponent } from './Components/Tables/client-dialogue/cli
     ClientTableComponent,
     ClientComponent,
     ClientDialogueComponent,
+    ClientPaymentDialogueComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -119,19 +119,4 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
-  commitTransaction() {
-    console.log("Transaction commited");
-    this.clientsService
-      .paymentClient(this.prof_payment, this.prof_subject)
-      .subscribe(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    this.updateClientInformation();
-  }
 }
