@@ -71,4 +71,17 @@ export class ClientsService {
       }
     );
   }
+
+  updateClient(clientForm: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/updateClientDetails",
+      clientForm,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }
