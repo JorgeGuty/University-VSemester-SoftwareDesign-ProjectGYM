@@ -15,11 +15,11 @@ import UserTypes from "src/app/Models/Users/UserTypes";
 export class ProfileComponent implements OnInit {
   public client: Client;
   public user: User;
-  prof_clientName?: string = "";
-  prof_email?: string = "";
-  prof_phone?: string = "";
-  prof_identification?: string = "";
-  prof_membershipNumber?: number = 999;
+  prof_clientName: string = "";
+  prof_email: string = "";
+  prof_phone: string = "";
+  prof_identification: string = "";
+  prof_membershipNumber: number = 999;
   user_username?: string = "";
 
   constructor(
@@ -35,15 +35,18 @@ export class ProfileComponent implements OnInit {
       console.log(profiles);
       profiles.forEach((profile: any, key: any) => {
         this.client = profile;
-        this.prof_clientName = this.client.name;
-        this.prof_email = this.client.email;
-        this.prof_phone = this.client.phone;
-        this.prof_identification = this.client.identification;
-        this.prof_membershipNumber = this.client.membershipNumber;
+        this.prof_clientName = profile.name;
+        this.prof_email = profile.email;
+        this.prof_phone = profile.phone;
+        this.prof_identification = profile.identification;
+        this.prof_membershipNumber = profile.membershipNumber;
       });
     });
     this.user = this.authService.getCurrentUser();
     this.user_username = this.user.username;
+
+    console.log("Cliente cargado");
+    console.log(this.client);
   }
 
   //Todo : Implement Service
@@ -52,6 +55,24 @@ export class ProfileComponent implements OnInit {
     console.log("Email Updated: " + this.prof_email);
     console.log("Phone Updated: " + this.prof_phone);
     console.log("Identification Updated: " + this.prof_identification);
+
+    let clientJSON: any = {
+      membershipNumber: this.prof_membershipNumber?.toString(),
+      identification: this.prof_identification.toString(),
+      name: this.prof_clientName.toString(),
+      email: this.prof_email.toString(),
+      phone: this.prof_phone.toString(),
+    };
+
+    this.clientsService.updateClient(clientJSON).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        //TODO: implement error message
+        console.log(err);
+      }
+    );
   }
 
   onSaveUser() {
