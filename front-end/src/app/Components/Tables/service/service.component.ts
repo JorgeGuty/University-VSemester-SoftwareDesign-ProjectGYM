@@ -47,6 +47,7 @@ export class ServiceComponent implements OnInit {
         if (!this.isButtonsLoaded) {
           this.isButtonsLoaded = true;
           this.columnContent.push("Actions");
+          //sthis.columnContent.push("Updates");
         }
       });
   }
