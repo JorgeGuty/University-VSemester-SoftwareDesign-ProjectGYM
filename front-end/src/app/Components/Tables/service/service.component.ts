@@ -63,4 +63,8 @@ export class ServiceComponent implements OnInit {
       }
     );
   }
+
+  onUpdate() {
+    this.loadServices();
+  }
 }

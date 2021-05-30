@@ -51,4 +51,17 @@ export class ServicesService {
       }
     );
   }
+
+  updateMaxSpaces(serviceMaxSpaces: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/services/setMaxSpaces",
+      serviceMaxSpaces,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }
