@@ -42,11 +42,17 @@ export class AdminCardComponent implements OnInit {
       data: {
         sessionServiceName: this.sessionService.name,
         instructor: this.instructor,
+        session: this.session,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      console.log(result);
+      if (result != undefined) {
+        console.log("Cambieee");
+        this.instructor = result;
+      }
     });
   }
 
@@ -93,18 +99,4 @@ export class AdminCardComponent implements OnInit {
     console.log(this.instructor.name);
     //this.adminScheduleService.changeCurrentSessionInstructor(this.session, )
   }
-
-  // loadInstrucors() {
-  //   this.instructorService
-  //     .getInstructorsFromService(this.sessionService.name)
-  //     .subscribe((instructorList: [Instructor]) => {
-  //       this.instructorArray = [];
-  //       instructorList.forEach((instructor: any, key: any) => {
-  //         this.instructorArray.push(instructor);
-  //       });
-  //       console.log("cargueeee");
-  //       console.log(this.sessionService.name);
-  //       console.log(this.instructorArray);
-  //     });
-  // }
 }

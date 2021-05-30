@@ -1,7 +1,15 @@
-import { Component, Inject, Input, OnInit } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import Instructor from "src/app/Models/Schedule/Instructor";
+import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
 
 @Component({
@@ -10,10 +18,15 @@ import { InstructorsService } from "src/app/Services/UserInfo/instructors.servic
   styleUrls: ["./admin-dialogue-change.component.scss"],
 })
 export class AdminDialogueChangeComponent implements OnInit {
+  @Output()
+  instructorChanged = new EventEmitter<string>();
+
+  session!: any;
   sessionServiceName!: any;
   instructor!: any;
   instructorArray: any = [];
-  instructor_changed = "";
+  instructor_changed: any;
+  instructor_number: any;
 
   instructorForm = new FormGroup({
     instructorNumber: new FormControl("", Validators.required),
@@ -21,20 +34,22 @@ export class AdminDialogueChangeComponent implements OnInit {
 
   constructor(
     private instructorService: InstructorsService,
+    private adminService: AdminScheduleService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  ngOnInit(): void {
-    console.log(this.data);
-    console.log("Nombre SESSION");
-    console.log(this.data.sessionServiceName);
+  ) {
     this.sessionServiceName = this.data.sessionServiceName;
     this.instructor = this.data.instructor;
+    this.session = this.data.session;
     this.loadInstrucors();
+    console.log("Nuestro isntructor");
+    console.log(this.instructor);
+    console.log(this.instructor_number);
+    console.log("Nuestro isntructor");
   }
 
+  ngOnInit(): void {}
+
   loadInstrucors() {
-    console.log("HOLAAA");
     this.instructorService
       .getInstructorsFromService(this.sessionServiceName)
       .subscribe((instructorList: [Instructor]) => {
@@ -42,15 +57,58 @@ export class AdminDialogueChangeComponent implements OnInit {
         instructorList.forEach((instructor: any, key: any) => {
           this.instructorArray.push(instructor);
         });
-        console.log("cargueeee");
-        console.log(this.sessionServiceName);
-        console.log(this.instructorArray);
+        console.log("hola");
+        this.instructor_number = this.getInstructorNumber(this.instructor.name);
       });
-    console.log("HOLAAA");
   }
 
   onSave() {
-    console.log("Saved Change Instructor by");
-    console.log(this.instructorForm.value.instructorNumber);
+    this.adminService
+      .changeCurrentSessionInstructor(
+        this.session,
+        this.instructorForm.value.instructorNumber
+      )
+      .subscribe(
+        (res) => {
+          this.instructor_changed = this.getInstructor(
+            this.instructorForm.value.instructorNumber
+          );
+          console.log(res);
+        },
+        (err) => {
+          console.log("HOLA HOLA");
+          console.log(err);
+        }
+      );
+  }
+
+  getInstructor(instructorNumber: any) {
+    console.log("entre");
+    let result: any;
+    this.instructorArray.map((instructor: any) => {
+      console.log(instructor);
+      console.log(instructorNumber);
+      if (instructor.id == instructorNumber) {
+        console.log("Entreee");
+        result = instructor;
+      }
+    });
+    return result;
+  }
+
+  getInstructorNumber(instructorName: any) {
+    console.log("entre");
+    console.log(instructorName);
+    let result: any;
+    this.instructorArray.map((instructor: any) => {
+      console.log("holist");
+      console.log(instructor.name);
+      if (instructor.name == instructorName) {
+        console.log("Entreee");
+        console.log(instructor.id);
+        result = instructor.id;
+      }
+    });
+    return result;
   }
 }

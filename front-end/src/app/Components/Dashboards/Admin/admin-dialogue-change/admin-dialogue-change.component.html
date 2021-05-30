@@ -1,33 +1,40 @@
-<mat-card>
-  <mat-card-header>Change Instructor</mat-card-header>
-  <form [formGroup]="instructorForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Desired Instructor</mat-label>
-      <mat-select formControlName="instructorNumber" required>
-        <mat-option
-          *ngFor="let instructor of instructorArray"
-          [value]="instructor.id"
-          [(ngModel)]="instructor_changed"
-        >
-          {{ instructor.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-  <button
-    mat-raised-button
-    style="width: 100%; margin-top: 0.5rem"
-    color="primary"
-    (click)="onSave()"
-  >
-    Save
-  </button>
-  <button
-    mat-raised-button
-    mat-dialog-close
-    style="width: 100%; margin-top: 0.5rem"
-    color="primary"
-  >
-    Close
-  </button>
-</mat-card>
+<div *ngIf="this.instructor_number != undefined">
+  <mat-card>
+    <mat-card-header>Change Instructor</mat-card-header>
+    <form [formGroup]="instructorForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Desired Instructor</mat-label>
+        <mat-select formControlName="instructorNumber" required>
+          <mat-option
+            *ngFor="let instructor of instructorArray"
+            [value]="instructor.id"
+            [(ngModel)]="instructor_changed"
+          >
+            {{ instructor.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <button
+      [disabled]="this.instructorForm.invalid"
+      mat-raised-button
+      style="width: 100%; margin-top: 0.5rem"
+      color="primary"
+      (click)="onSave()"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      mat-dialog-close
+      [mat-dialog-close]="this.instructor_changed"
+      style="width: 100%; margin-top: 0.5rem"
+      color="primary"
+    >
+      Close
+    </button>
+  </mat-card>
+</div>
+<div *ngIf="this.instructor_number == undefined">
+  <mat-spinner></mat-spinner>
+</div>

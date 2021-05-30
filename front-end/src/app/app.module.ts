@@ -23,6 +23,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatListModule } from "@angular/material/list";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 /* Angular Forms */
 import { FormsModule } from "@angular/forms";
@@ -46,15 +47,15 @@ import { AdminPreliminaryInformationCardsComponent } from "./Components/Dashboar
 import { IdFormDialogComponent } from "./Components/Dashboards/Admin/id-form-dialog/id-form-dialog.component";
 import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
 import { ServiceComponent } from "./Components/Tables/service/service.component";
-import { ServiceTableComponent } from './Components/Tables/service-table/service-table.component';
-import { InstructorTableComponent } from './Components/Tables/instructor-table/instructor-table.component';
-import { InstructorDialogueComponent } from './Components/Tables/instructor-dialogue/instructor-dialogue.component';
-import { ServiceDialogueComponent } from './Components/Tables/service-dialogue/service-dialogue.component';
-import { ClientTableComponent } from './Components/Tables/client-table/client-table.component';
-import { ClientComponent } from './Components/Tables/client/client.component';
-import { ClientDialogueComponent } from './Components/Tables/client-dialogue/client-dialogue.component';
-import { ClientPaymentDialogueComponent } from './Components/Tables/client-payment-dialogue/client-payment-dialogue.component';
-import { AdminDialogueChangeComponent } from './Components/Dashboards/Admin/admin-dialogue-change/admin-dialogue-change.component';
+import { ServiceTableComponent } from "./Components/Tables/service-table/service-table.component";
+import { InstructorTableComponent } from "./Components/Tables/instructor-table/instructor-table.component";
+import { InstructorDialogueComponent } from "./Components/Tables/instructor-dialogue/instructor-dialogue.component";
+import { ServiceDialogueComponent } from "./Components/Tables/service-dialogue/service-dialogue.component";
+import { ClientTableComponent } from "./Components/Tables/client-table/client-table.component";
+import { ClientComponent } from "./Components/Tables/client/client.component";
+import { ClientDialogueComponent } from "./Components/Tables/client-dialogue/client-dialogue.component";
+import { ClientPaymentDialogueComponent } from "./Components/Tables/client-payment-dialogue/client-payment-dialogue.component";
+import { AdminDialogueChangeComponent } from "./Components/Dashboards/Admin/admin-dialogue-change/admin-dialogue-change.component";
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { AdminDialogueChangeComponent } from './Components/Dashboards/Admin/admi
     MatListModule,
     MatExpansionModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
   providers: [AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
