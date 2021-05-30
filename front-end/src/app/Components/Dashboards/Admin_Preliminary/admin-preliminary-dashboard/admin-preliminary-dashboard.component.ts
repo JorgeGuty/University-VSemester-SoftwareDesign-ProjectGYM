@@ -6,6 +6,7 @@ import { Session } from "src/app/Models/Schedule/Session";
 import { AdminPreliminaryDatePickerComponent } from "../admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 import DaysEnum from "src/app/Models/Calendar/DaysEnum";
 import PreliminarySession from "src/app/Models/Prelimimary/PreliminarySession";
+import { AdminRoomDialogueComponent } from "../admin-room-dialogue/admin-room-dialogue.component";
 
 @Component({
   selector: "app-admin-preliminary-dashboard",
@@ -105,5 +106,14 @@ export class AdminPreliminaryDashboardComponent implements OnInit {
 
   getDayName(day: any) {
     return DaysEnum[day];
+  }
+
+  openRoomForm() {
+    //AdminRoomDialogueComponent
+    const dialogRef = this.dialog.open(AdminRoomDialogueComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

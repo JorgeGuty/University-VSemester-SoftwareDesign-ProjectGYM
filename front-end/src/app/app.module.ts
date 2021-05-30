@@ -57,6 +57,7 @@ import { ClientDialogueComponent } from "./Components/Tables/client-dialogue/cli
 import { ClientPaymentDialogueComponent } from "./Components/Tables/client-payment-dialogue/client-payment-dialogue.component";
 import { AdminDialogueChangeComponent } from "./Components/Dashboards/Admin/admin-dialogue-change/admin-dialogue-change.component";
 import { ServiceMaxSpacesUpdateDialogueComponent } from './Components/Tables/service-max-spaces-update-dialogue/service-max-spaces-update-dialogue.component';
+import { AdminRoomDialogueComponent } from './Components/Dashboards/Admin_Preliminary/admin-room-dialogue/admin-room-dialogue.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { ServiceMaxSpacesUpdateDialogueComponent } from './Components/Tables/ser
     ClientPaymentDialogueComponent,
     AdminDialogueChangeComponent,
     ServiceMaxSpacesUpdateDialogueComponent,
+    AdminRoomDialogueComponent,
   ],
   imports: [
     AppRoutingModule,
