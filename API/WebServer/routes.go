@@ -17,19 +17,19 @@ func Setup(app *fiber.App) {
 	client.Post("/insertCredit", Controllers.InsertCreditMovement)      // Updated!!!
 
 	//TODO: discuss in which group this request has to be categorized
-	client.Get("/paymentMethods", Controllers.GetPaymentMethods)      // Not in services (Implementar dropdown)
-
+	client.Get("/paymentMethods", Controllers.GetPaymentMethods) // Not in services
 
 	user := app.Group("/user")
-	user.Post("/login", Controllers.Login)                           // Updated!!!
-	user.Post("/deactivateAccount", Controllers.DeactivateAccount)   // Updated!!!
-	user.Post("/registerClientUser", Controllers.RegisterClientUser) // Updated!!!
-	user.Post("/updateUserDetails", Controllers.UpdateUserDetails)   // Updated!!!
+	user.Post("/login", Controllers.Login)                         // Updated!!!
+	user.Post("/deactivateAccount", Controllers.DeactivateAccount) // Updated!!!
+	user.Post("/registerClientUser", Controllers.RegisterClientUser)
+	user.Post("/updateUserDetails", Controllers.UpdateUserDetails) // Updated!!!
 
 	services := app.Group("/services")
-	services.Get("/services", Controllers.GetServices)         // Updated!!!
-	services.Post("/insertService", Controllers.InsertService) // Updated!!!
-	services.Post("/delete", Controllers.DeleteService)        //New
+	services.Get("/services", Controllers.GetServices) // Updated!!!
+	services.Post("/insertService", Controllers.InsertService)
+	services.Post("/delete", Controllers.DeleteService)            //New
+	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) //New
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!
@@ -49,5 +49,8 @@ func Setup(app *fiber.App) {
 	preliminarySchedule.Post("/insertPreliminarySession", Controllers.InsertPreliminarySession)     // Updated!!!
 	preliminarySchedule.Post("/deletePreliminarySession", Controllers.DeletePreliminarySession)     // Updated!!!
 	preliminarySchedule.Post("/confirmPreliminarySchedule", Controllers.ConfirmPreliminarySchedule) // Updated!!!
+
+	room := app.Group("/rooms")
+	room.Post("/setMaxSpaces", Controllers.SetRoomMaxSpace) // NEW
 
 }

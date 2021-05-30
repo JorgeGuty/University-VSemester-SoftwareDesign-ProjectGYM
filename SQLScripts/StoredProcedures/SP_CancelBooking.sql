@@ -64,7 +64,6 @@ BEGIN
                 WHERE 
                     [session].SessionID = @SessionID               
             )
-
         SET @BookingId = 
             (
                 SELECT 
@@ -74,6 +73,7 @@ BEGIN
                 WHERE 
                         [booking].ClienteId = @pMembershipNumber
                     AND [booking].SesionId  = @SessionID
+                    AND [booking].Activa    = 1
             )            
         IF @BookingId IS NULL RETURN @NoBookingsFoundErrorCode
 
@@ -117,7 +117,7 @@ END
 GO
 -- example to execute the stored procedure we just created
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_CancelBooking 1, '2021-05-26', '09:30:00', 1
+EXEC @returnvalue = SP_CancelBooking 1, '2021-05-31', '08:00:00', 1
 SELECT @returnvalue AS returnValue
 SELECT * from Reserva
 SELECT * from Cliente
