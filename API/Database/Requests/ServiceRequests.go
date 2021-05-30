@@ -30,6 +30,10 @@ func InsertService(pName string, pMaxSpaces int, pCost string) Common.VoidOperat
 
 func DeleteService(pServiceNumber int) Common.VoidOperationResult {
 	query := fmt.Sprintf(`EXEC SP_DeleteService %d;`, pServiceNumber)
-	println(query)
+	return VoidRequest(query)
+}
+
+func SetServiceMaxSpace(pServiceNumber int, pMaxSpaces int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_SetServiceMaxSpace %d, %d;`, pServiceNumber, pMaxSpaces)
 	return VoidRequest(query)
 }
