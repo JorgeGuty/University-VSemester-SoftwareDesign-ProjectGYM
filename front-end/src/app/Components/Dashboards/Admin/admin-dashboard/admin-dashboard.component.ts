@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import Instructor from "src/app/Models/Schedule/Instructor";
 import { AuthService } from "src/app/Services/Auth/auth.service";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
+import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
 import { Session } from "../../../../Models/Schedule/Session";
 
 @Component({
@@ -13,7 +15,8 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private adminScheduleService: AdminScheduleService
+    private adminScheduleService: AdminScheduleService,
+    private instructorService: InstructorsService
   ) {
     this.scheduleMap = new Map();
   }

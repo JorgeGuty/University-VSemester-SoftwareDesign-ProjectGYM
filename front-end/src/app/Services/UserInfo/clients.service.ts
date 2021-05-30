@@ -84,4 +84,29 @@ export class ClientsService {
       }
     );
   }
+
+  paymentClient(
+    amountPayment: any,
+    subject: any,
+    membershipId: any
+  ): Observable<any> {
+    let paymentForm = {
+      membershipNumber: membershipId,
+      paymentMethodId: "1",
+      amount: amountPayment,
+      subject: subject,
+    };
+    console.log("Payment Form");
+    console.log(paymentForm);
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/insertCredit",
+      paymentForm,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }

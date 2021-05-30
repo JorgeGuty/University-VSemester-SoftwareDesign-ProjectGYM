@@ -15,6 +15,8 @@ export class SessionsService {
   constructor(private httpClient: HttpClient) {}
 
   bookSession(form: any): Observable<any> {
+    console.log("Booking Sessions");
+    console.log(form);
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/sessions/bookSession",
       form,

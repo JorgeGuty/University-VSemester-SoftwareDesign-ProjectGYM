@@ -14,6 +14,19 @@
         color="primary"
         aria-label="Example icon button with a delete icon"
         class="button-create"
+        (click)="openPaymentDialogue()"
+      >
+        <mat-icon>attach_money</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="flex-container">
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
         (click)="openDialogue()"
       >
         <mat-icon>create</mat-icon>

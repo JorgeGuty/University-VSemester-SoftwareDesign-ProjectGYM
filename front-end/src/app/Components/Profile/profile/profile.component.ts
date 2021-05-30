@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   prof_identification: string = "";
   prof_membershipNumber: number = 999;
   user_username?: string = "";
+  prof_payment: string = "";
+  prof_subject: string = "";
 
   constructor(
     private clientsService: ClientsService,
@@ -31,6 +33,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updateClientInformation();
+  }
+
+  updateClientInformation() {
     this.clientsService.getClientInfo().subscribe((profiles) => {
       console.log(profiles);
       profiles.forEach((profile: any, key: any) => {
