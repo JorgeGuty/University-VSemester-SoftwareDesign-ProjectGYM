@@ -28,7 +28,7 @@ func Setup(app *fiber.App) {
 	services := app.Group("/services")
 	services.Get("/services", Controllers.GetServices) // Updated!!!
 	services.Post("/insertService", Controllers.InsertService) // Updated!!!
-	services.Post("/delete", Controllers.DeleteService)            //New
+	services.Post("/delete", Controllers.DeleteService)            // Updated!!!
 	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) //New
 
 	sessions := app.Group("/sessions")
