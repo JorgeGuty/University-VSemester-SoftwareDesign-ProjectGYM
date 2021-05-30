@@ -21,6 +21,7 @@ BEGIN
         [service].Costo AS Cost
     FROM
         dbo.Especialidades AS [service]
+    WHERE Activa = 1;
 END
 GO
 -- example to execute the stored procedure we just created
