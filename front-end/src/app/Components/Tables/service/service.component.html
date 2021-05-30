@@ -2,6 +2,7 @@
   <app-service-table
     [services]="this.services"
     [columnContent]="this.columnContent"
+    (serviceDeleted)="onDelete($event)"
   ></app-service-table>
 </div>
 

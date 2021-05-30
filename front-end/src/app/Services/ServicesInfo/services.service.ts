@@ -35,4 +35,20 @@ export class ServicesService {
       }
     );
   }
+
+  deleteService(service: Service): Observable<any> {
+    console.log("Hola Hola");
+    console.log(service);
+    let serviceJson = { serviceNumber: service.id?.toString() };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/services/delete",
+      serviceJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }

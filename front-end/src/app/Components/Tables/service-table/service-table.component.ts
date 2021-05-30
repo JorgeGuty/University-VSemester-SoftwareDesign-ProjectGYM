@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import Service from "src/app/Models/Schedule/Service";
 
 @Component({
@@ -11,13 +11,14 @@ export class ServiceTableComponent implements OnInit {
   services!: any;
   @Input()
   columnContent!: any;
+  @Output()
+  serviceDeleted = new EventEmitter<any>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   onDelete(service: Service) {
-    // TODO: Implement delete Instructor service
-    console.log(service);
+    this.serviceDeleted.emit(service);
   }
 }

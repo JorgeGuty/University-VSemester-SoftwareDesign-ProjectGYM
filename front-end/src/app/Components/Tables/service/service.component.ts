@@ -51,8 +51,15 @@ export class ServiceComponent implements OnInit {
       });
   }
 
-  onDelete(services: Service) {
-    // TODO: Implement delete Instructor service
-    console.log(services);
+  onDelete(serviceJSON: Service) {
+    this.servicesService.deleteService(serviceJSON).subscribe(
+      (res) => {
+        this.loadServices();
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
