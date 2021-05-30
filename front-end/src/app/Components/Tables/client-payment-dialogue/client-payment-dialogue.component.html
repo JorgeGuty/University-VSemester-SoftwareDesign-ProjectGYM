@@ -1,0 +1,42 @@
+<h2 mat-dialog-title><mat-card-title>Register Client</mat-card-title></h2>
+<mat-dialog-content>
+  <mat-card class="home-card example-card">
+    <mat-card-content class="home-card-content">
+      <mat-card-subtitle>Client Form</mat-card-subtitle>
+      <mat-tab-group>
+        <mat-tab label="Finance">
+          <mat-form-field class="example-full-width" style="margin-top: 3rem">
+            <mat-label>Membership Id</mat-label>
+            <input matInput [(ngModel)]="prof_membership" value="0" #message />
+          </mat-form-field>
+          <br />
+          <mat-form-field class="example-full-width">
+            <mat-label>Payment Amount</mat-label>
+            <input matInput [(ngModel)]="prof_payment" value="0" #message />
+          </mat-form-field>
+          <br />
+          <mat-form-field class="example-full-width">
+            <mat-label>Subject</mat-label>
+            <input matInput [(ngModel)]="prof_subject" value="0" #message />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="commitTransaction()"
+          >
+            Commit Transaction
+          </button>
+          <button
+            mat-stroked-button
+            mat-dialog-close
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+          >
+            Close
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

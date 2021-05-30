@@ -25,18 +25,28 @@ export class AdminScheduleService {
   }
 
   // Todo: do change class instructor
-  // changeCurrentSessionInstructor(data:any): Observable<any> {
-  //   return this.httpClient.post(
-  //     ConnectionsServices.currentConnection + "/admin/changeInstructor",
-  //     data,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `${AuthService.getAuthToken()}`,
-  //       },
-  //     }
-  //   );
-  // }
+  changeCurrentSessionInstructor(
+    sessionForm: any,
+    instructorId: any
+  ): Observable<any> {
+    let form: any = {
+      instructorNumber: instructorId.toString(),
+      date: sessionForm.date.toString(),
+      roomId: "1",
+      startTime: sessionForm.time.toString(),
+    };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection +
+        "/sessions/changeSessionInstructor",
+      form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 
   // Receives a date json {"year" : "yyyy", "month" : "monthName"}
   // Todo: Avisarle a Jorge acerca del json que se envia

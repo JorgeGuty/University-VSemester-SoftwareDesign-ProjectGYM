@@ -51,6 +51,7 @@ export class ClientCardComponent implements OnInit {
       );
     } else {
       console.log("Cancelar");
+      console.log(reserveSession);
       this.sessionScheduleService.cancelBookedSession(reserveSession).subscribe(
         (res) => {
           console.log(res);
@@ -68,7 +69,7 @@ export class ClientCardComponent implements OnInit {
     let userInfo: any = this.authService.getCurrentUser();
     let roomId = "1";
     console.log(userInfo);
-    console.log("Informacion de id: " + userInfo.identifier)
+    console.log("Informacion de id: " + userInfo.identifier);
     let reserveSessionJson: any = {
       date: this.session.date.toString(),
       startTime: this.session.time.toString(),
