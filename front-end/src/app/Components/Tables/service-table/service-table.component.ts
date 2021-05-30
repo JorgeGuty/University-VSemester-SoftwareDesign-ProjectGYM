@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import Service from "src/app/Models/Schedule/Service";
+import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
+import { ServiceMaxSpacesUpdateDialogueComponent } from "../service-max-spaces-update-dialogue/service-max-spaces-update-dialogue.component";
 
 @Component({
   selector: "app-service-table",
@@ -11,13 +14,32 @@ export class ServiceTableComponent implements OnInit {
   services!: any;
   @Input()
   columnContent!: any;
+  @Output()
+  serviceDeleted = new EventEmitter<any>();
+  @Output()
+  serviceUpdated = new EventEmitter<any>();
 
-  constructor() {}
+  openUpdateDialogue(service: any) {
+    const dialogRef = this.dialog.open(
+      ServiceMaxSpacesUpdateDialogueComponent,
+      {
+        data: {
+          serviceNumber: service.id,
+        },
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+      this.serviceUpdated.emit();
+    });
+  }
+
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   onDelete(service: Service) {
-    // TODO: Implement delete Instructor service
-    console.log(service);
+    this.serviceDeleted.emit(service);
   }
 }
