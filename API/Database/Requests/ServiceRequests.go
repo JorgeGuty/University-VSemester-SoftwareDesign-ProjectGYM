@@ -37,3 +37,17 @@ func SetServiceMaxSpace(pServiceNumber int, pMaxSpaces int) Common.VoidOperation
 	query := fmt.Sprintf(`EXEC SP_SetServiceMaxSpace %d, %d;`, pServiceNumber, pMaxSpaces)
 	return VoidRequest(query)
 }
+
+func GetInstructorServices(pInstructorNumber int) []Models.Service {
+
+	query := fmt.Sprintf(`EXEC SP_GetInstructorServices %d;`, pInstructorNumber)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return []Models.Service{}
+	}
+	services := ParseServices(resultSet)
+
+	return services
+}

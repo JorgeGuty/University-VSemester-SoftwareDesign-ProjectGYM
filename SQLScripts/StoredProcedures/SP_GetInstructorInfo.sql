@@ -17,7 +17,10 @@ AS
             
             SELECT @InstructorID = Id 
             FROM Instructor
-            WHERE Id = @pInstructorNumber;
+            WHERE 
+                Id = @pInstructorNumber
+                AND
+                Activo = 1;
             
             IF @InstructorID IS NULL
                 RETURN @InstructorNotFoundErrorCode;
@@ -29,8 +32,6 @@ AS
                     [Type]
             FROM CompleteInstructors
             WHERE
-                Active = 1
-                AND
                 InstructorID = @pInstructorNumber;
 
             RETURN 1
