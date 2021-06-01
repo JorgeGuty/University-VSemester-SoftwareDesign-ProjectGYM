@@ -123,28 +123,6 @@ func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
 	return instructors
 }
 
-func ParseInstructorDetail(resultSet *sql.Rows) Models.Instructor {
-
-	instructor := Models.Instructor{}
-
-	if !resultSet.Next() {
-		return instructor
-	}
-	err := resultSet.Scan(
-		&instructor.ID,
-		&instructor.Name,
-		&instructor.Email,
-		&instructor.Identification,
-		&instructor.Type,
-	)
-	if err != nil {
-		println(err.Error())
-		return Models.Instructor{}
-	}
-
-	return instructor
-}
-
 func ParseServices(resultSet *sql.Rows) []Models.Service {
 	var services []Models.Service
 
