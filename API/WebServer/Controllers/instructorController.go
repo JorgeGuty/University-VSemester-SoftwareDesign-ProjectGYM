@@ -72,3 +72,23 @@ func InsertInstructor(context *fiber.Ctx) error {
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
+
+func GetInstructorInfo(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	instructorNumber, _ := strconv.Atoi(data["instructorNumber"])
+
+	instructor := Requests.GetInstructorInfo(instructorNumber)
+
+	return Common.GiveJSONResponse(context, instructor, fiber.StatusOK)
+}
