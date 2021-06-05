@@ -124,7 +124,6 @@ func ParseInstructors(resultSet *sql.Rows) []Models.Instructor {
 }
 
 func ParseServices(resultSet *sql.Rows) []Models.Service {
-
 	var services []Models.Service
 
 	for resultSet.Next() {
