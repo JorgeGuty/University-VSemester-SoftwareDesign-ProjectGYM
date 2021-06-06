@@ -34,17 +34,17 @@ func InsertInstructor(pName string, pIdentification string, pEmail string, pType
 	return VoidRequest(query)
 }
 
-func GetInstructorInfo(pInstructorNumber int) []Models.Instructor {
+func GetInstructorInfo(pInstructorNumber int) Models.Instructor {
 
 	query := fmt.Sprintf(`EXEC SP_GetInstructorInfo %d;`, pInstructorNumber)
 
 	resultSet, err := Database.ReadTransaction(query)
 
 	if err != nil {
-		return []Models.Instructor{}
+		return Models.Instructor{}
 	}
 
-	instructor := ParseInstructors(resultSet)
+	instructor := ParseInstructor(resultSet)
 
 	return instructor
 }

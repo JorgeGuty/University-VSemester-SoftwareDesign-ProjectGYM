@@ -90,7 +90,7 @@ func GetInstructorInfo(context *fiber.Ctx) error {
 
 	instructor := Requests.GetInstructorInfo(instructorNumber)
 	services := Requests.GetInstructorServices(instructorNumber)
-	instructor[0].Services = services
+	instructor.Services = services
 
 	return Common.GiveJSONResponse(context, instructor, fiber.StatusOK)
 }
