@@ -114,3 +114,8 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('ServiceAlreadyOfferedByInstructor',-50021, 'The given service is already offered by the given instructor')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('DebtorClient',-50022, 'The client is in debtor condition.')

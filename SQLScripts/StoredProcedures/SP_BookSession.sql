@@ -11,7 +11,7 @@ DROP PROCEDURE dbo.SP_BookSession
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_BookSession
-    @pMembershipNumber  INT,
+    @pMembershipNumber      INT,
     @pDate                  NVARCHAR(50),
     @pStartTime             NVARCHAR(50),
     @pRoomId                INT
@@ -28,6 +28,8 @@ BEGIN
         DECLARE @AlreadyBookedErrorCode         INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'AlreadyBookedError')
         DECLARE @SessionOutOfSpacesErrorCode    INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SessionOutOfSpacesError')
         DECLARE @SPErrorCode                    INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'SPError')
+        DECLARE @DebtorClientErrorCode          INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'DebtorClient')
+        DECLARE @SessionNotFoundErrorCode       INT = (SELECT error.Code FROM dbo.Errors AS error WHERE error.ErrorName = 'NoSessionsFoundError')
 
     
         -- Sets session id based on the session info provided.
@@ -42,6 +44,8 @@ BEGIN
                     AND [session].RoomId        = @pRoomId
                     AND [session].StartTime     = CONVERT(TIME, @pStartTime)
             )
+
+        IF @SessionID IS NULL RETURN @SessionNotFoundErrorCode
 
         -- Gets the total available spaces for a certain session.
         SET @TotalSpaces = 
@@ -61,20 +65,33 @@ BEGIN
                     client.Id 
                 FROM 
                     dbo.Cliente AS client
+                WHERE                     
+                    client.Active = 1                     
             )
             RETURN @ClientNotFoundErrorCode
-        -- Checks if client already booked that session.
+        -- Checks if clients balance is above 0.
+        IF  ( 
+                SELECT 
+                    client.Saldo
+                FROM 
+                    dbo.Cliente AS client
+                WHERE 
+                        client.Id = @pMembershipNumber 
+                    AND client.Active = 1 
+            ) < 0
+            RETURN @DebtorClientErrorCode     
+        -- Checks if client hasn't booked that session already.
         IF @pMembershipNumber IN 
             ( 
                 SELECT 
                     booking.ClienteId 
                 FROM 
-                    dbo.Reserva AS booking 
-                WHERE 
-                        booking.SesionId = @SessionID 
-                    AND booking.Activa = 1 
+                    dbo.Reserva AS booking
+                WHERE                     
+                        booking.SesionId = @SessionID                     
+                    AND booking.Activa = 1                     
             )
-            RETURN @AlreadyBookedErrorCode           
+            RETURN @AlreadyBookedErrorCode                  
         ELSE
             BEGIN 
                 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
@@ -99,8 +116,8 @@ BEGIN
                             (GETDATE(), @pMembershipNumber, @SessionID)
                 COMMIT
                 IF @AvailableSpaces <= 0 RETURN @SessionOutOfSpacesErrorCode   
-            END
-        RETURN 1;
+                RETURN 1;
+            END        
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0
@@ -111,7 +128,7 @@ END
 GO
 
 DECLARE @returnvalue int
-EXEC @returnvalue = SP_BookSession 8, '2021-07-01', '15:00:00', 1
+EXEC @returnvalue = SP_BookSession 1, '2021-05-31', '08:00:00', 1
 SELECT @returnvalue AS errorCode
 
 SELECT * FROM CompleteSessions
