@@ -40,10 +40,11 @@ func Setup(app *fiber.App) {
 	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // Not in services
 
 	instructor := app.Group("/instructor")
-	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
-	instructor.Post("/remove", Controllers.DeleteInstructor)    // Updated!!!
-	instructor.Post("/insert", Controllers.InsertInstructor)    // Updated!!!
-	instructor.Post("/instructorInfo", Controllers.GetInstructorInfo) // NEW!!!
+	instructor.Post("/instructors", Controllers.GetInstructors)        // Updated!!!
+	instructor.Post("/remove", Controllers.DeleteInstructor)           // Updated!!!
+	instructor.Post("/insert", Controllers.InsertInstructor)           // Updated!!!
+	instructor.Post("/instructorInfo", Controllers.GetInstructorInfo)  // NEW!!!
+	instructor.Post("/addService", Controllers.AddServiceToInstructor) // NEW!!!
 
 	preliminarySchedule := app.Group("/preliminarySchedule")
 	preliminarySchedule.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)            // Updated!!!

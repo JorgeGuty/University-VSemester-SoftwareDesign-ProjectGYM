@@ -48,3 +48,8 @@ func GetInstructorInfo(pInstructorNumber int) Models.Instructor {
 
 	return instructor
 }
+
+func AddServiceToInstructor(pInstructorNumber int, pServiceNumber int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_AddServiceToInstructor %d,%d ;`, pInstructorNumber, pServiceNumber)
+	return VoidRequest(query)
+}
