@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import Instructor from "src/app/Models/Schedule/Instructor";
 import Service from "src/app/Models/Schedule/Service";
 import { InstructorsService } from "src/app/Services/UserInfo/instructors.service";
@@ -87,11 +88,16 @@ export class InstructorComponent implements OnInit {
 
   // TODO: implement dialogue
   onDetails(instructorJSON: any) {
+    console.log("PURBITATA");
+    console.log(instructorJSON);
+    console.log(instructorJSON);
     let instructor = this.initInstructor(instructorJSON);
     this.instructorService.getInstructorDetails(instructor).subscribe(
       (res) => {
+        console.log("h");
         console.log(res);
-        let instructor = this.initInstructor(res);
+        console.log("h");
+        let instructor = this.initInstructor(res[0]);
         this.openInstructorDetails(instructor);
       },
       (err) => {
@@ -101,6 +107,10 @@ export class InstructorComponent implements OnInit {
   }
 
   initInstructor(instructorJSON: any): Instructor {
+    console.log("g");
+    console.log(instructorJSON);
+    console.log(instructorJSON.id.toString());
+    console.log("g");
     let instructor: Instructor = new Instructor();
     instructor.email = instructorJSON.email;
     instructor.id = instructorJSON.id.toString();
@@ -108,7 +118,7 @@ export class InstructorComponent implements OnInit {
     instructor.name = instructorJSON.name;
     instructor.type = instructorJSON.type;
 
-    if (instructorJSON.services != null) {
+    if (instructorJSON.services != undefined) {
       let serviceList = this.loadInstructorServices(instructorJSON);
       instructor.services = serviceList;
       console.log("Lista Instructor");

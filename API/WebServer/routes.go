@@ -29,7 +29,7 @@ func Setup(app *fiber.App) {
 	services.Get("/services", Controllers.GetServices) // Updated!!!
 	services.Post("/insertService", Controllers.InsertService) // Updated!!!
 	services.Post("/delete", Controllers.DeleteService)            // Updated!!!
-	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) //New
+	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) // Updated!!!
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!
@@ -43,7 +43,7 @@ func Setup(app *fiber.App) {
 	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
 	instructor.Post("/remove", Controllers.DeleteInstructor)    // Updated!!!
 	instructor.Post("/insert", Controllers.InsertInstructor)    // Updated!!!
-	instructor.Post("/instructorInfo", Controllers.GetInstructorInfo) // NEW!!!
+	instructor.Post("/instructorInfo", Controllers.GetInstructorInfo) // Updated!!!
 
 	preliminarySchedule := app.Group("/preliminarySchedule")
 	preliminarySchedule.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)            // Updated!!!
