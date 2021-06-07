@@ -400,6 +400,11 @@ ALTER TABLE dbo.SesionPreliminar ADD CONSTRAINT
 	 ON DELETE  NO ACTION 
 GO
 
+
+-----------------------------------------------------------------
+-- Sesion
+-----------------------------------------------------------------
+
 CREATE TABLE dbo.Sesion
 	(
 	Id int NOT NULL IDENTITY (1, 1),
@@ -430,6 +435,16 @@ GO
 
 CREATE INDEX SesionDateIndex
 ON dbo.Sesion (Fecha);
+
+ALTER TABLE dbo.Sesion 
+	ADD CONSTRAINT FK_Sesion_SesionPreliminar 
+	FOREIGN KEY (SessionPreliminarId) 
+	REFERENCES dbo.SesionPreliminar (Id)
+GO
+
+-----------------------------------------------------------------
+-- Reserva
+-----------------------------------------------------------------
 
 CREATE TABLE dbo.Reserva
 	(
