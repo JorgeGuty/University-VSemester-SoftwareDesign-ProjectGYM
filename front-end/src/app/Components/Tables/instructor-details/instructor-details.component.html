@@ -1,0 +1,84 @@
+<div *ngIf="this.serviceArray == []">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="this.serviceArray != []">
+  <div class="container">
+    <mat-card class="home-card example-card">
+      <mat-card-title>{{ this.instructor.name }}</mat-card-title>
+      <mat-card-subtitle>Profile Information</mat-card-subtitle>
+      <mat-tab-group>
+        <!-- Login Tab -->
+        <mat-tab label="Profile">
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width" style="margin-top: 3rem">
+            <mat-label>Instructor Name</mat-label>
+            <input matInput value="{{ this.instructor.name }}" #message />
+          </mat-form-field>
+
+          <!-- Email Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Instructor Email</mat-label>
+            <input matInput value="{{ this.instructor.email }}" #message />
+          </mat-form-field>
+
+          <!-- Identification Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Instructor Identification</mat-label>
+            <input
+              matInput
+              value="{{ this.instructor.identification }}"
+              #message
+            />
+          </mat-form-field>
+
+          <!-- Balance Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Instructor Type</mat-label>
+            <input
+              disabled
+              matInput
+              value="{{ this.instructor.type }}"
+              #message
+            />
+          </mat-form-field>
+
+          <!-- Balance Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Instructor Services</mat-label>
+            <input
+              disabled
+              matInput
+              value="{{ this.serviceListString }}"
+              #message
+            />
+          </mat-form-field>
+        </mat-tab>
+        <!-- Login Tab -->
+        <mat-tab label="Profile">
+          <div class="button-container">
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Service Type</mat-label>
+              <mat-select [(ngModel)]="this.serviceId">
+                <mat-option>--</mat-option>
+                <div *ngFor="let service of this.serviceArray">
+                  <mat-option [value]="service.id">
+                    {{ service.name }}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="addService()"
+          >
+            add
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>

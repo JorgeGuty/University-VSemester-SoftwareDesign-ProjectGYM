@@ -23,19 +23,27 @@
     <!-- Position Column -->
     <ng-container matColumnDef="Actions" style="justify-content: end">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let instructor">
+      <td mat-cell *matCellDef="let service">
         <button
           mat-raised-button
           mat-dialog-close
           class="myButton"
           style="background-color: #2a2b31; color: #f8f9fc"
-          (click)="onDelete(instructor)"
+          (click)="onDelete(service)"
         >
           Delete
         </button>
+        <button
+          mat-raised-button
+          mat-dialog-close
+          class="myButton"
+          style="background-color: #73d689; color: #2a2b31; margin-left: 1rem"
+          (click)="openUpdateDialogue(service)"
+        >
+          Update
+        </button>
       </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="columnContent"></tr>
     <tr mat-row *matRowDef="let row; columns: columnContent"></tr>
   </table>

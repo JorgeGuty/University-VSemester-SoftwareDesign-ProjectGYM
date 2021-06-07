@@ -12,6 +12,17 @@
         color="primary"
         aria-label="Example icon button with a delete icon"
         class="button-create"
+        (click)="openRoomForm()"
+      >
+        <mat-icon>group_add</mat-icon>
+      </button>
+    </div>
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
         style="background-color: #1cc88a; color: #1b1c1f"
         (click)="confirmSchedule()"
       >

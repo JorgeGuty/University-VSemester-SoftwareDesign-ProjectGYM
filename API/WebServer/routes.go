@@ -22,14 +22,14 @@ func Setup(app *fiber.App) {
 	user := app.Group("/user")
 	user.Post("/login", Controllers.Login)                         // Updated!!!
 	user.Post("/deactivateAccount", Controllers.DeactivateAccount) // Updated!!!
-	user.Post("/registerClientUser", Controllers.RegisterClientUser)
+	user.Post("/registerClientUser", Controllers.RegisterClientUser) // Updated!!!
 	user.Post("/updateUserDetails", Controllers.UpdateUserDetails) // Updated!!!
 
 	services := app.Group("/services")
 	services.Get("/services", Controllers.GetServices) // Updated!!!
-	services.Post("/insertService", Controllers.InsertService)
-	services.Post("/delete", Controllers.DeleteService)            //New
-	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) //New
+	services.Post("/insertService", Controllers.InsertService) // Updated!!!
+	services.Post("/delete", Controllers.DeleteService)            // Updated!!!
+	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) // Updated!!!
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 // Updated!!!
@@ -37,14 +37,13 @@ func Setup(app *fiber.App) {
 	sessions.Post("/cancelBooking", Controllers.CancelBooking)                     // Updated!!!
 	sessions.Post("/cancelSession", Controllers.CancelSession)                     // No implemntar
 	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)            // Updated!!!
-	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // Not in services
+	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // Updated!!!
 
 	instructor := app.Group("/instructor")
-	instructor.Post("/instructors", Controllers.GetInstructors)        // Updated!!!
-	instructor.Post("/remove", Controllers.DeleteInstructor)           // Updated!!!
-	instructor.Post("/insert", Controllers.InsertInstructor)           // Updated!!!
-	instructor.Post("/instructorInfo", Controllers.GetInstructorInfo)  // NEW!!!
-	instructor.Post("/addService", Controllers.AddServiceToInstructor) // NEW!!!
+	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
+	instructor.Post("/remove", Controllers.DeleteInstructor)    // Updated!!!
+	instructor.Post("/insert", Controllers.InsertInstructor)    // Updated!!!
+	instructor.Post("/instructorInfo", Controllers.GetInstructorInfo) // Updated!!!
 
 	preliminarySchedule := app.Group("/preliminarySchedule")
 	preliminarySchedule.Post("/preliminarySchedule", Controllers.GetPreliminarySchedule)            // Updated!!!
