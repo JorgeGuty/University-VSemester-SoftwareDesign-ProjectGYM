@@ -53,6 +53,7 @@ func Setup(app *fiber.App) {
 	preliminarySchedule.Post("/confirmPreliminarySchedule", Controllers.ConfirmPreliminarySchedule) // Updated!!!
 
 	room := app.Group("/rooms")
-	room.Post("/setMaxSpaces", Controllers.SetRoomMaxSpace) // NEW
+	room.Post("/setMaxSpaces", Controllers.SetRoomMaxSpace)        // NEW
+	room.Post("/setWorkingHours", Controllers.SetRoomWorkingHours) // NEW
 
 }
