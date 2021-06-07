@@ -59,5 +59,18 @@ export class InstructorDetailsComponent implements OnInit {
     console.log("Service added");
     console.log(this.instructor.id);
     console.log(this.serviceId);
+    this.instructorService
+      .addServiceInstructor(this.instructor.id, this.serviceId)
+      .subscribe(
+        (service: any) => {
+          console.log("lo Logre");
+          console.log(service);
+          this.serviceListString +=
+            service[service.length - 1].name?.toString() + ",";
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 }

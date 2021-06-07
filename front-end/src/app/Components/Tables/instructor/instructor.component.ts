@@ -97,7 +97,7 @@ export class InstructorComponent implements OnInit {
         console.log("h");
         console.log(res);
         console.log("h");
-        let instructor = this.initInstructor(res[0]);
+        let instructor = this.initInstructor(res);
         this.openInstructorDetails(instructor);
       },
       (err) => {

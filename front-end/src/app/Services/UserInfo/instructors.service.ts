@@ -85,8 +85,8 @@ export class InstructorsService {
 
   addServiceInstructor(instructorNumber: any, serviceNumber: any) {
     let addServiceJson = {
-      instructorNumber: instructorNumber,
-      serviceNumber: serviceNumber,
+      instructorNumber: instructorNumber.toString(),
+      serviceNumber: serviceNumber.toString(),
     };
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/instructor/addService",
