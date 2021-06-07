@@ -82,4 +82,21 @@ export class InstructorsService {
       }
     );
   }
+
+  addServiceInstructor(instructorNumber: any, serviceNumber: any) {
+    let addServiceJson = {
+      instructorNumber: instructorNumber,
+      serviceNumber: serviceNumber,
+    };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/instructor/addService",
+      addServiceJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }
