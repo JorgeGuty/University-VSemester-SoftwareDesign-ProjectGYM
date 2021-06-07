@@ -29,9 +29,7 @@ DROP TABLE IF EXISTS dbo.SesionPreliminar
 
 
 DROP TABLE IF EXISTS dbo.DiaDeAtencion;
-DROP TABLE IF EXISTS dbo.HorarioDeSala;
 DROP TABLE IF EXISTS dbo.Sala;
-DROP TABLE IF EXISTS dbo.DiaSemana;
 
 DROP TABLE IF EXISTS dbo.EspecialidadesDeInstructores;
 DROP TABLE IF EXISTS dbo.Especialidades;
@@ -81,20 +79,6 @@ ALTER TABLE [dbo].[FormaDePago] ADD  CONSTRAINT [PK_FormaDePago] PRIMARY KEY CLU
 (
 	[Id] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-
-CREATE TABLE dbo.DiaSemana
-	(
-	Id int NOT NULL IDENTITY (1, 1),
-	Nombre nvarchar(50) NOT NULL
-	)  ON [PRIMARY]
-GO
-ALTER TABLE dbo.DiaSemana ADD CONSTRAINT
-	PK_DiaSemana PRIMARY KEY CLUSTERED 
-	(
-	Id
-	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
 GO
 
 CREATE TABLE dbo.TipoInstructor
@@ -312,7 +296,9 @@ ALTER TABLE dbo.EspecialidadesDeInstructores ADD CONSTRAINT
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
 GO
-
+-----------------------------------------------------------------
+-- Sala
+-----------------------------------------------------------------
 CREATE TABLE dbo.Sala
 	(
 	Id int NOT NULL IDENTITY (1, 1),
@@ -328,36 +314,17 @@ ALTER TABLE dbo.Sala ADD CONSTRAINT
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
-CREATE TABLE dbo.HorarioDeSala
-	(
-	Id int NOT NULL IDENTITY (1, 1),
-	SalaId int NOT NULL
-	)  ON [PRIMARY]
-GO
-ALTER TABLE dbo.HorarioDeSala ADD CONSTRAINT
-	PK_HorarioDeSala PRIMARY KEY CLUSTERED 
-	(
-	Id
-	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
-GO
-ALTER TABLE dbo.HorarioDeSala ADD CONSTRAINT
-	FK_HorarioDeSala_Sala FOREIGN KEY
-	(
-	SalaId
-	) REFERENCES dbo.Sala
-	(
-	Id
-	) ON UPDATE  NO ACTION 
-	 ON DELETE  NO ACTION 
-
+-----------------------------------------------------------------
+-- Dia de Atencion
+-----------------------------------------------------------------
 CREATE TABLE dbo.DiaDeAtencion
 	(
-	Id int NOT NULL IDENTITY (1, 1),
-	DiaSemanaId int NOT NULL,
-	HoraApertura int NOT NULL,
-	HoraCierre int NOT NULL,
-	HorarioId int NOT NULL
+	Id INT NOT NULL IDENTITY (1, 1),
+	SalaId INT NOT NULL,
+	HoraApertura TIME NOT NULL,
+	HoraCierre TIME NOT NULL,
+	DiaSemana TINYINT NOT NULL CHECK(DiaSemana >= 1 AND DiaSemana <= 7),
+	Active BIT DEFAULT 1
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.DiaDeAtencion ADD CONSTRAINT
@@ -367,29 +334,16 @@ ALTER TABLE dbo.DiaDeAtencion ADD CONSTRAINT
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
 GO
-ALTER TABLE dbo.DiaDeAtencion ADD CONSTRAINT
-	FK_DiaDeAtencion_HorarioDeSala FOREIGN KEY
-	(
-	HorarioId
-	) REFERENCES dbo.HorarioDeSala
-	(
-	Id
-	) ON UPDATE  NO ACTION 
-	 ON DELETE  NO ACTION 
-	
-GO
-ALTER TABLE dbo.DiaDeAtencion ADD CONSTRAINT
-	FK_DiaDeAtencion_DiaSemana FOREIGN KEY
-	(
-	DiaSemanaId
-	) REFERENCES dbo.DiaSemana
-	(
-	Id
-	) ON UPDATE  NO ACTION 
-	 ON DELETE  NO ACTION 
-	
+ALTER TABLE dbo.DiaDeAtencion 
+	ADD CONSTRAINT FK_DiaDeAtencion_Sala 
+	FOREIGN KEY (SalaId) 
+	REFERENCES dbo.Sala (Id)
 GO
 
+
+-----------------------------------------------------------------
+-- Sesion Preliminar
+-----------------------------------------------------------------
 CREATE TABLE dbo.SesionPreliminar
 	(
 	Id int NOT NULL IDENTITY (1, 1),
