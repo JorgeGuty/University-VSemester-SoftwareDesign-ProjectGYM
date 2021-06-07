@@ -1,5 +1,16 @@
 <div *ngIf="this.instructor.length != 0">
-  <table mat-table [dataSource]="instructor" class="mat-elevation-z8">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input
+      autocomplete="off"
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
+    />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -39,6 +50,15 @@
           (click)="onDelete(instructor)"
         >
           Delete
+        </button>
+        <button
+          mat-raised-button
+          mat-dialog-close
+          class="myButton"
+          style="background-color: #73d689; color: #2a2b31; margin-left: 1rem"
+          (click)="onDetails(instructor)"
+        >
+          Details
         </button>
       </td>
     </ng-container>
