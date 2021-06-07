@@ -31,11 +31,11 @@ func SetRoomMaxSpace(context *fiber.Ctx) error {
 
 func SetRoomWorkingHours(context *fiber.Ctx) error {
 
-	// token := Common.AnalyzeToken(context)
+	token := Common.AnalyzeToken(context)
 
-	// if token == nil {
-	// 	return nil
-	// }
+	if token == nil {
+		return nil
+	}
 
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
