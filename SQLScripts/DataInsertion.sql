@@ -19,6 +19,21 @@ VALUES
     (2, 'CobroFijo', 0),
     (3, 'CobroPorReserva', 0);
 
+INSERT INTO
+    dbo.Sala (nombre,AforoMaximo, CostoMatricula)
+VALUES
+    ('PlusGym2', 30, 36000.00)
+
+INSERT INTO dbo.DiaDeAtencion(SalaId,HoraApertura,HoraCierre,DiaSemana)
+VALUES
+    (1,'5:30', '9:30', 1),
+    (1,'5:30', '9:30', 2),
+    (1,'5:30', '9:30', 3),
+    (1,'5:30', '9:30', 4),
+    (1,'5:30', '9:30', 5),
+    (1,'6:30', '9:30', 6),
+    (1,'6:30', '8:30', 7);
+
 INSERT INTO Usuario (Username, [Password], TipoUsuario)
 VALUES ('Admin1',1234,1);
 
@@ -81,10 +96,7 @@ VALUES(2,2);
 INSERT INTO EspecialidadesDeInstructores (InstructorId,EspecialidadId)
 VALUES(3,2);
 
-insert INTO
-    dbo.Sala (nombre,AforoMaximo, CostoMatricula)
-VALUES
-    ('PlusGym', 30, 36000.00)
+
 insert into 
     dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo,EspecialidadId,SalaId, InstructorId) 
 values 

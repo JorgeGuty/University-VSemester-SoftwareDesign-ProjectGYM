@@ -90,7 +90,32 @@ func GetInstructorInfo(context *fiber.Ctx) error {
 
 	instructor := Requests.GetInstructorInfo(instructorNumber)
 	services := Requests.GetInstructorServices(instructorNumber)
-	instructor[0].Services = services
+	instructor.Services = services
 
 	return Common.GiveJSONResponse(context, instructor, fiber.StatusOK)
+}
+
+// ? En Services o en Instructor
+func AddServiceToInstructor(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	instructorNumber, _ := strconv.Atoi(data["instructorNumber"])
+	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
+
+	addServiceRes := Requests.AddServiceToInstructor(instructorNumber, serviceNumber)
+	if addServiceRes.Success {
+		services := Requests.GetInstructorServices(instructorNumber)
+		return Common.GiveJSONResponse(context, services, fiber.StatusOK)
+	}
+	return Common.GiveVoidOperationResponse(context, addServiceRes)
 }

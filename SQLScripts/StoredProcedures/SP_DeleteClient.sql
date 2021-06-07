@@ -31,7 +31,16 @@ BEGIN
                 [Id]        = @pMembershipNumber
             AND [Active]    = 1
                     
-        SET @AffectedRowsCount = @@ROWCOUNT 
+            SET @AffectedRowsCount = @@ROWCOUNT 
+
+            -- Update rows in table '[Reserva]' in schema '[dbo]'
+            UPDATE [dbo].[Reserva]
+            SET
+                [Activa] = 0
+            WHERE /* add search conditions here */
+                [Id]        = @pMembershipNumber
+            AND [Activa]    = 1
+
         COMMIT
         IF @AffectedRowsCount = 0 RETURN @ClientNotFoundErrorCode
         ELSE RETURN 1

@@ -109,3 +109,13 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('RoomNotFound',-50020, 'No room found with the specified data.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('ServiceAlreadyOfferedByInstructor',-50021, 'The given service is already offered by the given instructor')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('DebtorClient',-50022, 'The client is in debtor condition.')
