@@ -1,0 +1,17 @@
+<div *ngFor="let sessionArray of this.sessionSchedule.keys()">
+  <mat-expansion-panel [expanded]="true" hideToggle class="myExpansion-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ getDayName(sessionArray) }} </mat-panel-title>
+      <mat-panel-description>
+        This are the classes for the day!!!
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="this.dateJSON != undefined">
+      <app-admin-preliminary-card
+        *ngFor="let session of this.sessionSchedule.get(sessionArray)"
+        [session]="this.session"
+        [dateJSON]="this.dateJSON"
+      ></app-admin-preliminary-card>
+    </div>
+  </mat-expansion-panel>
+</div>

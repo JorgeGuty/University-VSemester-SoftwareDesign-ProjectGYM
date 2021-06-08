@@ -1,0 +1,63 @@
+<h2 mat-dialog-title><mat-card-title>Register Instructor</mat-card-title></h2>
+<mat-dialog-content>
+  <mat-card class="home-card example-card">
+    <mat-card-content class="home-card-content">
+      <mat-card-subtitle>Instructor Form</mat-card-subtitle>
+      <mat-tab-group>
+        <mat-tab label="Instructor">
+          <form [formGroup]="instructorForm">
+            <!-- Instructor Name Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Instructor Name</mat-label>
+              <input matInput #message formControlName="name" />
+            </mat-form-field>
+            <!-- Identification Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Identification</mat-label>
+              <input matInput #message formControlName="identification" />
+            </mat-form-field>
+            <!-- Email Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput #message formControlName="email" />
+            </mat-form-field>
+
+            <!-- Session Service Id Field -->
+
+            <div class="button-container">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Service Type</mat-label>
+                <mat-select formControlName="type" required>
+                  <mat-option>--</mat-option>
+                  <div *ngFor="let service of this.serviceArray">
+                    <mat-option [value]="service">
+                      {{ service }}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <button
+              mat-raised-button
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+              (click)="onSave()"
+              [disabled]="this.instructorForm.invalid"
+            >
+              Save
+            </button>
+            <button
+              mat-stroked-button
+              mat-dialog-close
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+            >
+              Close
+            </button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

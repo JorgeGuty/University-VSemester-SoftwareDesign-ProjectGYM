@@ -1,0 +1,156 @@
+<h2 mat-dialog-title><mat-card-title>Create Session</mat-card-title></h2>
+<mat-dialog-content>
+  <mat-card class="home-card example-card">
+    <mat-card-content class="home-card-content">
+      <mat-card-subtitle>Session Form</mat-card-subtitle>
+      <mat-tab-group>
+        <!-- Login Tab -->
+        <mat-tab label="Session">
+          <form [formGroup]="preliminaryForm">
+            <!-- Class Name Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Class Name</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="className"
+              />
+            </mat-form-field>
+
+            <!-- Day Field -->
+            <div class="button-container">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Day of the Week</mat-label>
+                <mat-select formControlName="day" required>
+                  <mat-option>--</mat-option>
+                  <div *ngFor="let dayNumber of daysNumber">
+                    <mat-option [value]="dayNumber">
+                      {{ this.DaysEnum[dayNumber] }}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Time Field -->
+            <mat-form-field class="example-half-width">
+              <mat-label>Starting Hour</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="hour"
+              />
+            </mat-form-field>
+
+            <!-- Time Field -->
+            <mat-form-field class="example-half-width">
+              <mat-label>Starting Minutes</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="min"
+              />
+            </mat-form-field>
+
+            <!-- Duration Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Duration</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="duration"
+              />
+            </mat-form-field>
+
+            <!-- Year Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Year</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="year"
+              />
+            </mat-form-field>
+
+            <!-- Month Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Month</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="month"
+              />
+            </mat-form-field>
+
+            <!-- Month Field -->
+            <mat-form-field class="example-full-width">
+              <mat-label>Room</mat-label>
+              <input
+                matInput
+                value="Valor de prueba"
+                #message
+                formControlName="roomId"
+              />
+            </mat-form-field>
+
+            <!-- Session Service Id Field -->
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Designated Service</mat-label>
+              <mat-select
+                formControlName="sessionServiceName"
+                (ngModelChange)="onCategoryChange()"
+                required
+              >
+                <mat-option>--</mat-option>
+                <mat-option
+                  *ngFor="let service of this.serviceArray"
+                  [value]="service.name"
+                >
+                  {{ service.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="button-container">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Designated Instructor</mat-label>
+                <mat-select formControlName="instructorIdNum" required>
+                  <mat-option>--</mat-option>
+                  <div *ngFor="let instructor of this.instructorArray">
+                    <mat-option [value]="instructor.id">
+                      {{ instructor.name }}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <button
+              mat-raised-button
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+              (click)="onSave()"
+              [disabled]="this.preliminaryForm.invalid"
+            >
+              Save
+            </button>
+            <button
+              mat-raised-button
+              mat-dialog-close
+              style="width: 100%; margin-top: 0.5rem"
+              color="primary"
+            >
+              Close
+            </button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
