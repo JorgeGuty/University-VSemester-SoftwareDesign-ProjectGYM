@@ -1,0 +1,85 @@
+<div *ngIf="!hidden">
+  <mat-toolbar class="matToolBar-enactive">
+    <span>{{ getDayName(this.session.week_day) }} </span>
+  </mat-toolbar>
+  <mat-card class="card-layout notReservedColor">
+    <mat-card-header style="margin-bottom: 10px" class="myHeader">
+      <mat-card-title>{{ this.session.name }}</mat-card-title>
+      <mat-card-subtitle style="text-align: left">{{
+        this.session.session_service.name
+      }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item class="list-layout"
+          ><mat-form-field class="example-full-width">
+            <mat-label class="cardColor">Instructor</mat-label>
+            <input
+              class="cardColor"
+              disabled
+              matInput
+              *ngIf="this.session.session_instructor.name != undefined"
+              value="{{ this.session.session_instructor.name }}"
+              #message
+            /> </mat-form-field
+        ></mat-list-item>
+
+        <mat-list-item class="list-layout"
+          ><mat-form-field class="example-full-width">
+            <mat-label class="cardColor">Starting</mat-label>
+            <input
+              class="cardColor"
+              disabled
+              matInput
+              value="{{ this.session.time }}"
+              #message
+            /> </mat-form-field
+        ></mat-list-item>
+
+        <mat-list-item class="list-layout"
+          ><mat-form-field class="example-full-width">
+            <mat-label class="cardColor">Duration</mat-label>
+            <input
+              class="cardColor"
+              disabled
+              matInput
+              value="{{ this.session.duration_min }} minutes"
+              #message
+            /> </mat-form-field
+        ></mat-list-item>
+
+        <mat-list-item class="list-layout"
+          ><mat-form-field class="example-full-width">
+            <mat-label class="cardColor">Cost</mat-label>
+            <input
+              class="cardColor"
+              disabled
+              matInput
+              value="$ {{ this.session.session_service.cost }}"
+              #message
+            /> </mat-form-field
+        ></mat-list-item>
+
+        <div class="myFooter">
+          <mat-list-item class="list-layout" style="text-align: left"
+            ><mat-icon mat-list-icon>person</mat-icon>
+            <div mat-line class="cardColor">Max Spaces</div>
+            <div mat-line class="cardColor">
+              {{ this.session.session_service.max_spaces }} open spaces
+            </div>
+          </mat-list-item>
+          <div>
+            <button
+              mat-raised-button
+              class="myButton"
+              style="background-color: #2a2b31; color: #f8f9fc"
+              (click)="onEliminateCard()"
+            >
+              Eliminate
+            </button>
+          </div>
+        </div>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

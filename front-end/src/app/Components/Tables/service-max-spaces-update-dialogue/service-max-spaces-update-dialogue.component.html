@@ -1,0 +1,33 @@
+<h2 mat-dialog-title><mat-card-title>Update Service</mat-card-title></h2>
+<mat-dialog-content>
+  <mat-card class="home-card example-card">
+    <mat-card-content class="home-card-content">
+      <mat-card-subtitle>Service Max Spaces</mat-card-subtitle>
+      <form [formGroup]="serviceForm">
+        <!-- Instructor Name Field -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Service Amount</mat-label>
+          <input matInput #message formControlName="serviceMax" />
+        </mat-form-field>
+        <br />
+        <button
+          mat-raised-button
+          style="width: 100%; margin-top: 0.5rem"
+          color="primary"
+          (click)="onSave()"
+          [disabled]="this.serviceForm.invalid"
+        >
+          Save
+        </button>
+        <button
+          mat-stroked-button
+          mat-dialog-close
+          style="width: 100%; margin-top: 0.5rem"
+          color="primary"
+        >
+          Close
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

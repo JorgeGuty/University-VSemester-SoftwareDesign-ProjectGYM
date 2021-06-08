@@ -1,0 +1,146 @@
+<div class="container">
+  <mat-card class="home-card example-card">
+    <mat-card-header>
+      <mat-card-title>User Profile</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="home-card-content">
+      <!-- <img
+        mat-card-image
+        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        alt="Photo of a Shiba Inu"
+      /> -->
+      <button
+        mat-fab
+        color="accent"
+        aria-label="Example icon button with a bookmark icon"
+        style="margin: 20px; width: 80px; height: 80px"
+      >
+        <mat-icon style="color: #2a2b31">face</mat-icon>
+      </button>
+      <mat-card-title>{{ this.client.name }}</mat-card-title>
+      <mat-card-subtitle>Profile Information</mat-card-subtitle>
+      <mat-tab-group>
+        <!-- Login Tab -->
+        <mat-tab label="Profile">
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width" style="margin-top: 3rem">
+            <mat-label>Client Name</mat-label>
+            <input
+              matInput
+              value="{{ this.client.name }}"
+              #message
+              [(ngModel)]="prof_clientName"
+            />
+          </mat-form-field>
+
+          <!-- Email Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              value="{{ this.client.email }}"
+              #message
+              [(ngModel)]="prof_email"
+            />
+          </mat-form-field>
+
+          <!-- Phone Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Phone</mat-label>
+            <input
+              matInput
+              value="{{ this.client.phone }}"
+              #message
+              placeholder="Phone"
+              [(ngModel)]="prof_phone"
+            />
+          </mat-form-field>
+
+          <!-- Identification Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Identification</mat-label>
+            <input
+              matInput
+              value="{{ this.client.identification }}"
+              [(ngModel)]="prof_identification"
+              #message
+            />
+          </mat-form-field>
+
+          <!-- Balance Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Membership</mat-label>
+            <input
+              disabled
+              matInput
+              value="# {{ this.client.membershipNumber }}"
+              #message
+            />
+          </mat-form-field>
+
+          <!-- Balance Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Balance</mat-label>
+            <input
+              disabled
+              matInput
+              value="$ {{ this.client.balance }}"
+              #message
+            />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="onSaveClient()"
+          >
+            Save
+          </button>
+        </mat-tab>
+
+        <mat-tab label="User">
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width" style="margin-top: 3rem">
+            <mat-label>User Identifier</mat-label>
+            <input
+              disabled
+              matInput
+              value="{{ this.user.identifier }}"
+              #message
+            />
+          </mat-form-field>
+          <!-- Username Field -->
+          <!-- Username Field -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              value="{{ this.user.username }}"
+              #message
+              [(ngModel)]="user_username"
+            />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="primary"
+            (click)="onSaveUser()"
+          >
+            Save
+          </button>
+          <button
+            mat-raised-button
+            style="width: 100%; margin-top: 0.5rem"
+            color="warn"
+            (click)="deactivateAccount()"
+            [routerLink]="['/']"
+          >
+            Deactivate Account
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
