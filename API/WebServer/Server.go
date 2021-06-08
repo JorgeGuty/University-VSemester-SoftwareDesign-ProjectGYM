@@ -11,5 +11,5 @@ func StartServer() {
 		AllowCredentials: true,
 	}))
 	Setup(app)
-	app.Listen(":3000")
+	app.Listen(":5000")
 }

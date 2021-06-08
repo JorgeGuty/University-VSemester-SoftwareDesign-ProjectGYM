@@ -10,10 +10,10 @@ BEGIN
     SELECT
 
         Id          AS MembershipNumber,
-        Cedula, 
         Nombre, 
-        Correo, 
-        Celular, 
+        Correo,
+        Celular,
+        Cedula,
         Saldo
 
     FROM Cliente
