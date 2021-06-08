@@ -59,6 +59,7 @@ import { AdminDialogueChangeComponent } from "./Components/Dashboards/Admin/admi
 import { ServiceMaxSpacesUpdateDialogueComponent } from './Components/Tables/service-max-spaces-update-dialogue/service-max-spaces-update-dialogue.component';
 import { AdminRoomDialogueComponent } from './Components/Dashboards/Admin_Preliminary/admin-room-dialogue/admin-room-dialogue.component';
 import { InstructorDetailsComponent } from './Components/Tables/instructor-details/instructor-details.component';
+import { AdminScheduleDialogComponent } from './Components/Dashboards/Admin/admin-schedule-dialog/admin-schedule-dialog.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { InstructorDetailsComponent } from './Components/Tables/instructor-detai
     ServiceMaxSpacesUpdateDialogueComponent,
     AdminRoomDialogueComponent,
     InstructorDetailsComponent,
+    AdminScheduleDialogComponent,
   ],
   imports: [
     AppRoutingModule,

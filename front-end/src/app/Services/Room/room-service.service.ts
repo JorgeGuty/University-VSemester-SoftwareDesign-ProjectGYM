@@ -12,7 +12,7 @@ export class RoomServiceService {
   updateRoomMaxSpaces(roomMaxSpaces: any): Observable<any> {
     console.log(roomMaxSpaces);
     return this.httpClient.post(
-      ConnectionsServices.currentConnection + "/services/setMaxSpaces",
+      ConnectionsServices.currentConnection + "/rooms/setMaxSpaces",
       roomMaxSpaces,
       {
         headers: {

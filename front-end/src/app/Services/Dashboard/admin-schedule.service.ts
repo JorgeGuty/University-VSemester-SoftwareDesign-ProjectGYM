@@ -111,4 +111,18 @@ export class AdminScheduleService {
       }
     );
   }
+
+  setRoomWorkingHours(form: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/rooms/setWorkingHours",
+      form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
 }

@@ -37,6 +37,7 @@ export class InstructorTableComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+    this.dataSource = new MatTableDataSource(this.instructor);
   }
 
   applyFilter(event: Event) {
