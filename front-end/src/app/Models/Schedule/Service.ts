@@ -1,4 +1,4 @@
-export interface Service {
+export class Service {
   id?: number;
   name?: string;
   maxSpaces?: number;

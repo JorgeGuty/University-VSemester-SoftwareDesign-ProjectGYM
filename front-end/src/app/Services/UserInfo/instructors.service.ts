@@ -68,4 +68,35 @@ export class InstructorsService {
       }
     );
   }
+
+  getInstructorDetails(instructor: Instructor): Observable<any> {
+    let instructorDetailsJson = { instructorNumber: instructor.id?.toString() };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/instructor/instructorInfo",
+      instructorDetailsJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  addServiceInstructor(instructorNumber: any, serviceNumber: any) {
+    let addServiceJson = {
+      instructorNumber: instructorNumber.toString(),
+      serviceNumber: serviceNumber.toString(),
+    };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/instructor/addService",
+      addServiceJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }

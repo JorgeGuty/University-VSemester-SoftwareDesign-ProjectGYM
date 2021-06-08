@@ -47,12 +47,24 @@ export class ServiceComponent implements OnInit {
         if (!this.isButtonsLoaded) {
           this.isButtonsLoaded = true;
           this.columnContent.push("Actions");
+          //sthis.columnContent.push("Updates");
         }
       });
   }
 
-  onDelete(services: Service) {
-    // TODO: Implement delete Instructor service
-    console.log(services);
+  onDelete(serviceJSON: Service) {
+    this.servicesService.deleteService(serviceJSON).subscribe(
+      (res) => {
+        this.loadServices();
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  onUpdate() {
+    this.loadServices();
   }
 }

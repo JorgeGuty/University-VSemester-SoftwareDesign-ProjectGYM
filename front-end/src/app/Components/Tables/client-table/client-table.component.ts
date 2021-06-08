@@ -6,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
 import Client from "src/app/Models/Clients/Client";
 
 @Component({
@@ -21,9 +22,13 @@ export class ClientTableComponent implements OnInit {
   @Output()
   clientDeleted = new EventEmitter<any>();
 
+  dataSource: any;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.client);
+  }
 
   onDelete(client: Client) {
     console.log("Emitiendo client");
@@ -34,5 +39,11 @@ export class ClientTableComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+    this.dataSource = new MatTableDataSource(this.client);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
