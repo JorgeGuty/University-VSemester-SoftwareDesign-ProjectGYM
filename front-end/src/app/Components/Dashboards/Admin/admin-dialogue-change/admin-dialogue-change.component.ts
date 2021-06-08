@@ -59,6 +59,9 @@ export class AdminDialogueChangeComponent implements OnInit {
         });
         console.log("hola");
         this.instructor_number = this.getInstructorNumber(this.instructor.name);
+        if (this.instructor_number == undefined) {
+          this.instructor_number = 0;
+        }
       });
   }
 
