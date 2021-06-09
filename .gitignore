@@ -24,3 +24,7 @@ sqltools_20210422205540_15848.log
 .vscode/
 
 .idea
+
+# Zip Files
+*.zip
+bin/
