@@ -1,0 +1,79 @@
+<p>
+  <mat-toolbar class="navbar-color">
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon class="button-color">menu</mat-icon>
+    </button>
+    <span class="button-color">+ GYM</span>
+    <span class="example-spacer"></span>
+    <a [routerLink]="['/']" mat-button class="button-color">Home</a>
+    <a
+      *ngIf="authService.loggedIn() && !this.isAdmin()"
+      [routerLink]="['/client/clientDashboard']"
+      mat-button
+      class="button-color"
+      >My Dashboard</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/instructorTable']"
+      mat-button
+      class="button-color"
+      >Instructor Table</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/clientTable']"
+      mat-button
+      class="button-color"
+      >Clients Table</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/serviceTable']"
+      mat-button
+      class="button-color"
+      >Service Table</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/adminDashboard']"
+      mat-button
+      class="button-color"
+      >Admin Dashboard</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/adminPreliminaryDashboard']"
+      mat-button
+      class="button-color"
+    >
+      Preliminary Schedule
+    </a>
+    <a
+      *ngIf="authService.loggedIn() && !this.isAdmin()"
+      [routerLink]="['/profile']"
+      mat-button
+      class="button-color"
+      >Profile</a
+    >
+    <a
+      *ngIf="!authService.loggedIn()"
+      [routerLink]="['/login']"
+      mat-button
+      class="button-color"
+      >Login</a
+    >
+    <a
+      *ngIf="authService.loggedIn()"
+      (click)="onLogout()"
+      href="#"
+      mat-button
+      class="button-color"
+      >Logout</a
+    >
+  </mat-toolbar>
+</p>
