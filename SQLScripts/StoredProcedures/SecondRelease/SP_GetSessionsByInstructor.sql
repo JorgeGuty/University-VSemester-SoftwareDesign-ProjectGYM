@@ -18,8 +18,6 @@ BEGIN
 
     DECLARE @nameToFind NVARCHAR(100) = CONCAT(@prefixMark, @pInstructorName)
 
-    SELECT @nameToFind
-
     -- body of the stored procedure
     SELECT
         [session].SessionID,

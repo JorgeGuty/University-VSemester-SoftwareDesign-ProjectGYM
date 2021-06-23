@@ -11,15 +11,32 @@ DROP PROCEDURE dbo.SP_GetSessionsByTime
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_GetSessionsByTime
-    @param1 /*parameter name*/ int /*datatype_for_param1*/ = 0, /*default_value_for_param1*/
-    @param2 /*parameter name*/ int /*datatype_for_param1*/ = 0 /*default_value_for_param2*/
--- add more stored procedure parameters here
+    @pStartTimeStr  NVARCHAR(10)
 AS
 BEGIN
     -- body of the stored procedure
-    SELECT @param1, @param2
+    SELECT
+        [session].SessionID,
+        [session].Name                          AS SessionName,
+        [session].SessionDate,
+        [session].StartTime,
+        [session].Duration,
+        [session].AvailableSpaces,
+        [session].Cost                          AS SessionCost,
+        [session].IsCancelled,
+        [session].InstructorName,
+        [session].InstructorIdentification,
+        [session].InstructorEmail,
+        [session].InstructorType,
+        [session].ServiceName,
+        [session].Cost                          AS ServiceTypeCost,
+        [session].ServiceMaxSpaces              AS ServiceMaxSpaces
+    FROM 
+        dbo.CompleteSessions  AS [session]
+    WHERE   
+        [session].StartTime = CAST(@pStartTimeStr AS Time)
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_GetSessionsByTime 1 /*value_for_param1*/, 2 /*value_for_param2*/
+EXECUTE dbo.SP_GetSessionsByTime '8:00'
 GO          
