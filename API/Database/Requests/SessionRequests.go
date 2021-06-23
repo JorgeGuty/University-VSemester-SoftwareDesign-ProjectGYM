@@ -22,7 +22,7 @@ func GetCurrentSessionSchedule() Models.Schedule {
 }
 
 func GetSessionsByInstructor(pInstructorName string) Models.Schedule {
-	query := fmt.Sprintf(`EXEC SP_GetSessionsByInstructor %d;`, pInstructorName)
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByInstructor '%s';`, pInstructorName)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -36,7 +36,7 @@ func GetSessionsByInstructor(pInstructorName string) Models.Schedule {
 }
 
 func GetSessionsByServiceType(pServiceType string) Models.Schedule {
-	query := fmt.Sprintf(`EXEC SP_GetSessionsByServiceType %d;`, pServiceType)
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByServiceType '%s';`, pServiceType)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -50,7 +50,7 @@ func GetSessionsByServiceType(pServiceType string) Models.Schedule {
 }
 
 func GetSessionsByDate(pDate string) Models.Schedule {
-	query := fmt.Sprintf(`EXEC SP_GetSessionsByDate %d;`, pDate)
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByDate '%s';`, pDate)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -64,7 +64,7 @@ func GetSessionsByDate(pDate string) Models.Schedule {
 }
 
 func GetSessionsByTime(pTime string) Models.Schedule {
-	query := fmt.Sprintf(`EXEC SP_GetSessionsByTime %d;`, pTime)
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByTime '%s';`, pTime)
 
 	resultSet, err := Database.ReadTransaction(query)
 
