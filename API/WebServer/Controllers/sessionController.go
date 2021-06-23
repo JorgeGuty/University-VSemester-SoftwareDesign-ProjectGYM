@@ -20,6 +20,18 @@ func GetActiveSchedule(context *fiber.Ctx) error {
 	return Common.GiveJSONResponse(context, schedule, fiber.StatusOK)
 }
 
+func GetFilteredSchedule(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+	schedule := Requests.GetCurrentSessionSchedule()
+
+	return Common.GiveJSONResponse(context, schedule, fiber.StatusOK)
+}
+
 func GetReservedSessions(context *fiber.Ctx) error {
 
 	token := Common.AnalyzeToken(context)
