@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS dbo.TipoMovimiento;
 DROP TABLE IF EXISTS dbo.FormaDePago;
 DROP TABLE IF EXISTS dbo.ConceptosDeCobroFijos;
 
+DROP TABLE IF EXISTS dbo.ServiciosFavoritos;
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
 DROP TABLE IF EXISTS dbo.Sesion;
@@ -609,5 +610,30 @@ GO
 
 COMMIT TRANSACTION
 GO
+
+----------------------
+-- Servicios Favoritos
+----------------------
+CREATE TABLE dbo.ServiciosFavoritos (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,
+	EspecialidadId 
+		INT
+		NOT NULL
+		FOREIGN KEY REFERENCES Especialidades(Id)
+	,
+	Active 
+		BIT 
+		DEFAULT 1
+)
 
 ----------------------

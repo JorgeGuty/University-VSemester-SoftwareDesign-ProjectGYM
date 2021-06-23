@@ -82,6 +82,9 @@ values
     ('Yoga', 15, 2000), 
     ('Funcional', 20, 2000)
 
+INSERT INTO ServiciosFavoritos (ClienteId, EspecialidadId)
+VALUES (1,1);
+
 insert into 
     dbo.Instructor (Nombre, Cedula, Correo, Tipo) 
 values 
