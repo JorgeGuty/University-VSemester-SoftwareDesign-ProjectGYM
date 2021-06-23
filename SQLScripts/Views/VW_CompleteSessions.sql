@@ -26,7 +26,9 @@ ALTER VIEW dbo.CompleteSessions AS
         [instructorType].Nombre                 AS InstructorType,
 
         [room].Id                               AS RoomId,
-        [room].Nombre                           AS RoomName
+        [room].Nombre                           AS RoomName,
+
+        ISNULL(([preliminarySession].Cupo - r.Bookings), [preliminarySession].Cupo) AS AvailableSpaces
     FROM 
         dbo.Sesion AS [session]
     INNER JOIN 
@@ -44,6 +46,13 @@ ALTER VIEW dbo.CompleteSessions AS
     INNER JOIN 
         dbo.Sala AS room 
         ON room.Id = preliminarySession.SalaId
+    LEFT JOIN
+        (
+            SELECT SesionId, COUNT(SesionId) AS Bookings 
+                FROM dbo.Reserva
+                GROUP BY SesionId
+        ) AS r
+        ON r.SesionId = [session].ID
     ;
 GO
 -- Query to test
