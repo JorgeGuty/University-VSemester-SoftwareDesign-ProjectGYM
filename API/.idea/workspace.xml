@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8084f3e7-f655-482c-9046-e49f3f326853" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Models/PaymentMethod.go" beforeDir="false" afterPath="$PROJECT_DIR$/Models/PaymentMethod.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/FilterByDate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/FilterByInstructor.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/FilterByServiceType.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/FilterByTime.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/FilterStrategy.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/ScheduleFilter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/SessionRequests.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/SessionRequests.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebServer/Controllers/sessionController.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/Controllers/sessionController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebServer/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
