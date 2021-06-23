@@ -3,10 +3,13 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Common"
+	"API/WebServer/Controllers/FilteredScheduleStrategy"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
+
+var sessionFilter = &FilteredScheduleStrategy.ScheduleFilter{}
 
 func GetActiveSchedule(context *fiber.Ctx) error {
 
@@ -27,7 +30,25 @@ func GetFilteredSchedule(context *fiber.Ctx) error {
 	if token == nil {
 		return nil
 	}
-	schedule := Requests.GetCurrentSessionSchedule()
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	filterType, _ := strconv.Atoi(data["filterType"])
+	filterTerm := data["filterTerm"]
+
+	strategies := []FilteredScheduleStrategy.FilterStrategy{
+		&FilteredScheduleStrategy.FilterByInstructor{},
+		&FilteredScheduleStrategy.FilterByServiceType{},
+		&FilteredScheduleStrategy.FilterByDate{},
+		&FilteredScheduleStrategy.FilterByTime{},
+	}
+
+	sessionFilter.SetFilterStrategy(strategies[filterType])
+
+	schedule := sessionFilter.Filter(filterTerm)
 
 	return Common.GiveJSONResponse(context, schedule, fiber.StatusOK)
 }
