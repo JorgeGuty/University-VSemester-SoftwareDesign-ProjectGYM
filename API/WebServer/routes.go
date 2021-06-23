@@ -38,6 +38,7 @@ func Setup(app *fiber.App) {
 	sessions.Post("/cancelSession", Controllers.CancelSession)                     // No implemntar
 	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)            // Updated!!!
 	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor) // Updated!!!
+	sessions.Post("/getFilteredSchedule", Controllers.GetFilteredSchedule)
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors) // Updated!!!
