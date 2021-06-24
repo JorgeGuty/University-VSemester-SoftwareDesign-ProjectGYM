@@ -31,7 +31,11 @@ func Setup(app *fiber.App) {
 	services.Post("/delete", Controllers.DeleteService)            
 	services.Post("/setMaxSpaces", Controllers.SetServiceMaxSpace) 
 
+	// ? Esto va aqui? O mejor en Client?
+	// ? Mejor un /services/favorites/add
 	services.Post("/favoriteServices", Controllers.GetFavoriteServices) // NEW!
+	services.Post("/addFavoriteService", Controllers.AddFavoriteService) // New!
+	services.Post("/removeFavoriteServices", Controllers.RemoveFavoriteService) // New!
 
 	sessions := app.Group("/sessions")
 	sessions.Get("/activeSchedule", Controllers.GetActiveSchedule)                 
