@@ -82,3 +82,62 @@ func SetServiceMaxSpace(context *fiber.Ctx) error {
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
+
+func GetFavoriteServices(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+
+	services := Requests.GetFavoriteServices(membershipNumber)
+
+	return Common.GiveJSONResponse(context, services, fiber.StatusOK)
+}
+
+func AddFavoriteService(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
+
+	result := Requests.AddFavoriteService(membershipNumber, serviceNumber)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}
+
+func RemoveFavoriteService(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
+
+	result := Requests.RemoveFavoriteService(membershipNumber, serviceNumber)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}

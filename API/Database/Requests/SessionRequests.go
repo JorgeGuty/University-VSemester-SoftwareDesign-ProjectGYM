@@ -21,6 +21,62 @@ func GetCurrentSessionSchedule() Models.Schedule {
 	return schedule
 }
 
+func GetSessionsByInstructor(pInstructorName string) Models.Schedule {
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByInstructor '%s';`, pInstructorName)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return Models.Schedule{}
+	}
+
+	schedule := ParseSchedule(resultSet)
+
+	return schedule
+}
+
+func GetSessionsByServiceType(pServiceType string) Models.Schedule {
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByServiceType '%s';`, pServiceType)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return Models.Schedule{}
+	}
+
+	schedule := ParseSchedule(resultSet)
+
+	return schedule
+}
+
+func GetSessionsByDate(pDate string) Models.Schedule {
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByDate '%s';`, pDate)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return Models.Schedule{}
+	}
+
+	schedule := ParseSchedule(resultSet)
+
+	return schedule
+}
+
+func GetSessionsByTime(pTime string) Models.Schedule {
+	query := fmt.Sprintf(`EXEC SP_GetSessionsByTime '%s';`, pTime)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return Models.Schedule{}
+	}
+
+	schedule := ParseSchedule(resultSet)
+
+	return schedule
+}
+
 func GetReservedSessions(pMembershipNumber int) Models.Schedule {
 
 	query := fmt.Sprintf(`EXEC SP_GetBookings %d;`, pMembershipNumber)

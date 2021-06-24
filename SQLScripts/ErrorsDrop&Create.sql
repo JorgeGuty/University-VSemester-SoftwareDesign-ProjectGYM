@@ -119,3 +119,13 @@ INSERT INTO
     dbo.Errors (ErrorName, Code, [Message]) 
 VALUES
     ('DebtorClient',-50022, 'The client is in debtor condition.')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('ServiceAlreadyFavorite',-50023, 'The selected service is already marked as favorite')
+
+INSERT INTO 
+    dbo.Errors (ErrorName, Code, [Message]) 
+VALUES
+    ('ServiceNotFavorite',-50024, 'The selected service is not marked as favorite')
