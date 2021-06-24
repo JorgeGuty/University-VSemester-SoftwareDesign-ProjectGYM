@@ -9,7 +9,7 @@ AS
     BEGIN
         DECLARE @ClientId                       INT;
 
-        DECLARE @ClientNotFoundErrorCode                 INT;
+        DECLARE @ClientNotFoundErrorCode        INT;
         SET @ClientNotFoundErrorCode            = -50012;
            
         SET @ClientId = 
