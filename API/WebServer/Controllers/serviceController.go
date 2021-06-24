@@ -117,7 +117,7 @@ func AddFavoriteService(context *fiber.Ctx) error {
 	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
 	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
 
-	result := Requests.AddFavoriteService(membershipNumber,serviceNumber)
+	result := Requests.AddFavoriteService(membershipNumber, serviceNumber)
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
@@ -137,7 +137,7 @@ func RemoveFavoriteService(context *fiber.Ctx) error {
 	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
 	serviceNumber, _ := strconv.Atoi(data["serviceNumber"])
 
-	result := Requests.RemoveFavoriteService(membershipNumber,serviceNumber)
+	result := Requests.RemoveFavoriteService(membershipNumber, serviceNumber)
 
 	return Common.GiveVoidOperationResponse(context, result)
 }
