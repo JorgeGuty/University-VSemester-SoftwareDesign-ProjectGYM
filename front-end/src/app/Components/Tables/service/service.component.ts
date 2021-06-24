@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import Service from "src/app/Models/Schedule/Service";
+import { AuthService } from "src/app/Services/Auth/auth.service";
 import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
 import { ServiceDialogueComponent } from "../service-dialogue/service-dialogue.component";
 
@@ -11,16 +12,24 @@ import { ServiceDialogueComponent } from "../service-dialogue/service-dialogue.c
 })
 export class ServiceComponent implements OnInit {
   services: Service[] = [];
+  favoriteSessionsMap: Map<any, Service>;
   columnContent: string[] = [];
   isButtonsLoaded: boolean = false;
 
   constructor(
     public dialog: MatDialog,
-    public servicesService: ServicesService
-  ) {}
+    public servicesService: ServicesService,
+    public authService: AuthService
+  ) {
+    this.favoriteSessionsMap = new Map();
+  }
 
   ngOnInit(): void {
     this.loadServices();
+
+    if (!this.authService.isAdmin()) {
+      this.loadFavoriteServices();
+    }
   }
 
   openDialogue() {
@@ -52,6 +61,10 @@ export class ServiceComponent implements OnInit {
       });
   }
 
+  loadFavoriteServices() {
+    console.log("Cargue mis servicios favoritos");
+  }
+
   onDelete(serviceJSON: Service) {
     this.servicesService.deleteService(serviceJSON).subscribe(
       (res) => {
@@ -62,6 +75,11 @@ export class ServiceComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  onMarked(serviceJSON: any) {
+    console.log("Yo marque como favorito el servicio");
+    console.log(serviceJSON);
   }
 
   onUpdate() {

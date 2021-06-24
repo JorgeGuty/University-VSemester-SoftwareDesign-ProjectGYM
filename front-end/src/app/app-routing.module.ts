@@ -14,6 +14,7 @@ import { ServiceComponent } from "./Components/Tables/service/service.component"
 
 /* Services */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
+import { ClientUserGuard } from "./Guards/authClient.guard";
 import { AuthUserGuard } from "./Guards/authUser.guard";
 
 const routes: Routes = [
@@ -47,7 +48,7 @@ const routes: Routes = [
   {
     path: "admin/serviceTable",
     component: ServiceComponent,
-    canActivate: [AuthAdminGuard],
+    canActivate: [ClientUserGuard],
   },
   {
     path: "admin/clientTable",

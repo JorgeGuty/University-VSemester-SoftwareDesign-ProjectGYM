@@ -6,6 +6,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from "../../Models/Users/User";
 import { mixinColor } from "@angular/material/core";
 import { ConnectionsServices } from "../Connections/connectionsConstants";
+import UserTypes from "src/app/Models/Users/UserTypes";
 
 @Injectable({
   providedIn: "root",
@@ -134,5 +135,11 @@ export class AuthService {
     this.authToken = null;
     this.currentUser = undefined;
     localStorage.clear();
+  }
+
+  isAdmin() {
+    let type = this.getCurrentUser()?.type;
+    if (type != undefined) return type == UserTypes.Admin;
+    return 0;
   }
 }
