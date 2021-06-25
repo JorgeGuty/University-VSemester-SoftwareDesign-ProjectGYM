@@ -40,6 +40,8 @@ AS
         WHERE
             services.Activa = 1
             AND 
+            favs.ClienteId  = @ClientId
+            AND
             favs.Active     = 1;
 
         RETURN 1;
