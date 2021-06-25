@@ -24,6 +24,8 @@ export class ServiceTableComponent implements OnInit {
   serviceUpdated = new EventEmitter<any>();
   @Output()
   serviceMarkedFavorite = new EventEmitter<any>();
+  @Output()
+  serviceDeleteFavorite = new EventEmitter<any>();
 
   openUpdateDialogue(service: any) {
     const dialogRef = this.dialog.open(
@@ -51,5 +53,9 @@ export class ServiceTableComponent implements OnInit {
 
   markFavorite(service: Service) {
     this.serviceMarkedFavorite.emit(service);
+  }
+
+  cancelFavorite(service: Service) {
+    this.serviceDeleteFavorite.emit(service);
   }
 }

@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import Service from "src/app/Models/Schedule/Service";
 import { AuthService } from "src/app/Services/Auth/auth.service";
 import { ServicesService } from "src/app/Services/ServicesInfo/services.service";
+import { ClientsService } from "src/app/Services/UserInfo/clients.service";
 import { ServiceDialogueComponent } from "../service-dialogue/service-dialogue.component";
 
 @Component({
@@ -12,13 +13,15 @@ import { ServiceDialogueComponent } from "../service-dialogue/service-dialogue.c
 })
 export class ServiceComponent implements OnInit {
   services: Service[] = [];
-  favoriteSessionsMap: Map<any, Service>;
+  favoriteSessionsMap: Map<number, Service>;
   columnContent: string[] = [];
   isButtonsLoaded: boolean = false;
+  membershipNumber: any;
 
   constructor(
     public dialog: MatDialog,
     public servicesService: ServicesService,
+    private clientsService: ClientsService,
     public authService: AuthService
   ) {
     this.favoriteSessionsMap = new Map();
@@ -62,7 +65,65 @@ export class ServiceComponent implements OnInit {
   }
 
   loadFavoriteServices() {
-    console.log("Cargue mis servicios favoritos");
+    this.clientsService.getClientInfo().subscribe((profiles: any[]) => {
+      profiles.forEach((profile: any) => {
+        this.membershipNumber = {
+          membershipNumber: profile.membershipNumber.toString(),
+        };
+      });
+      this.servicesService.getFavoriteServices(this.membershipNumber).subscribe(
+        (res) => {
+          console.log("Lo logre 🎉");
+          this.loadFavoriteServices_aux(res);
+          console.log("Lo logre 🎉");
+        },
+        (err) => {
+          console.log("no logre 🎉");
+          console.log(err);
+        }
+      );
+    });
+  }
+
+  loadFavoriteServices_aux(services: Service[]) {
+    services.forEach((service) => {
+      if (service.id != undefined)
+        this.favoriteSessionsMap.set(service.id, service);
+    });
+  }
+
+  deleteFavoriteService(service: Service) {
+    this.servicesService
+      .removeFavoriteService(this.membershipNumber, service)
+      .subscribe(
+        (res) => {
+          console.log("Lo logre 🎉");
+          if (service.id != undefined)
+            this.favoriteSessionsMap.delete(service.id);
+          console.log("Lo logre 🎉");
+        },
+        (err) => {
+          console.log("no logre 🎉");
+          console.log(err);
+        }
+      );
+  }
+
+  addFavoriteService(service: Service) {
+    this.servicesService
+      .addFavoriteService(this.membershipNumber, service)
+      .subscribe(
+        (res) => {
+          console.log("Lo logre 🎉");
+          if (service.id != undefined)
+            this.favoriteSessionsMap.set(service.id, service);
+          console.log("Lo logre 🎉");
+        },
+        (err) => {
+          console.log("no logre 🎉");
+          console.log(err);
+        }
+      );
   }
 
   onDelete(serviceJSON: Service) {
@@ -78,8 +139,11 @@ export class ServiceComponent implements OnInit {
   }
 
   onMarked(serviceJSON: any) {
-    console.log("Yo marque como favorito el servicio");
-    console.log(serviceJSON);
+    this.addFavoriteService(serviceJSON);
+  }
+
+  onCancel(serviceJSON: Service) {
+    this.deleteFavoriteService(serviceJSON);
   }
 
   onUpdate() {

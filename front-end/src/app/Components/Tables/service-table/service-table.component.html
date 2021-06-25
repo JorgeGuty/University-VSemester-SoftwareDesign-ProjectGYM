@@ -51,15 +51,28 @@
       <ng-container matColumnDef="Actions" style="justify-content: end">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let service">
-          <button
-            mat-raised-button
-            mat-dialog-close
-            class="myButton"
-            style="background-color: #73d689; color: #2a2b31"
-            (click)="markFavorite(service)"
-          >
-            Mark Favorite
-          </button>
+          <div *ngIf="!this.favoriteServices.has(service.id)">
+            <button
+              mat-raised-button
+              mat-dialog-close
+              class="myButton"
+              style="background-color: #73d689; color: #2a2b31"
+              (click)="markFavorite(service)"
+            >
+              Mark As Favorite
+            </button>
+          </div>
+          <div *ngIf="this.favoriteServices.has(service.id)">
+            <button
+              mat-raised-button
+              mat-dialog-close
+              class="myButton"
+              style="background-color: #ffffff; color: #2a2b31"
+              (click)="cancelFavorite(service)"
+            >
+              Cancel Favorite
+            </button>
+          </div>
         </td>
       </ng-container>
     </div>
