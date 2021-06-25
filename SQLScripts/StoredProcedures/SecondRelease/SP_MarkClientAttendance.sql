@@ -40,20 +40,16 @@ BEGIN
             SesionId = @SessionID
         AND ClienteId = @pMembershipNumber
 
-    IF @ServiceID IN (
-        SELECT 
-            clientFavs.EspecialidadId
-        FROM
-            dbo.ServiciosFavoritos AS clientFavs
-        WHERE 
-            clientFavs.ClienteId = @pMembershipNumber
-    ) RETURN 1 -- EXEC SP_SetStars @pMembershipNumber
-    RETURN 1
+    
+    EXEC dbo.SP_CheckStars @pDate, @pMembershipNumber, @ServiceID
+
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_MarkClientAttendance '2021-05-29', '10:00:00', 1, 2
+EXECUTE dbo.SP_MarkClientAttendance '2021-05-29', '10:00:00', 1, 1
 GO  
 
 EXECUTE dbo.SP_GetSessionParticipants '2021-05-29', '10:00:00', 1
 GO
+
+select * from dbo.EstrellasMensuales 
