@@ -1,9 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import Client from "src/app/Models/Clients/Client";
 import Service from "src/app/Models/Schedule/Service";
 import { AuthService } from "../Auth/auth.service";
 import ConnectionsServices from "../Connections/connectionsConstants";
+import { ClientsService } from "../UserInfo/clients.service";
 
 @Injectable({
   providedIn: "root",
@@ -56,6 +58,50 @@ export class ServicesService {
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/services/setMaxSpaces",
       serviceMaxSpaces,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  getFavoriteServices(membershipNumber: any): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/services/favoriteServices",
+      membershipNumber,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  removeFavoriteService(
+    membershipNumber: any,
+    service: Service
+  ): Observable<any> {
+    membershipNumber.serviceNumber = service.id?.toString();
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/services/removeFavoriteService",
+      membershipNumber,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  addFavoriteService(membershipNumber: any, service: Service): Observable<any> {
+    membershipNumber.serviceNumber = service.id?.toString();
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/services/addFavoriteService",
+      membershipNumber,
       {
         headers: {
           "Content-Type": "application/json",

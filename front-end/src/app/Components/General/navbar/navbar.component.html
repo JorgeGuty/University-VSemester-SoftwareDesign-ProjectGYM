@@ -32,7 +32,7 @@
       >Clients Table</a
     >
     <a
-      *ngIf="authService.loggedIn() && this.isAdmin()"
+      *ngIf="authService.loggedIn()"
       [routerLink]="['/admin/serviceTable']"
       mat-button
       class="button-color"

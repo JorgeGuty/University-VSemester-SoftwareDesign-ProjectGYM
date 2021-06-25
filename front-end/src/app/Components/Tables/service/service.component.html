@@ -1,9 +1,13 @@
 <div *ngIf="this.services.length != 0">
   <app-service-table
     [services]="this.services"
+    [favoriteServices]="this.favoriteSessionsMap"
     [columnContent]="this.columnContent"
+    [isAdmin]="this.authService.isAdmin()"
     (serviceDeleted)="onDelete($event)"
     (serviceUpdated)="onUpdate()"
+    (serviceMarkedFavorite)="onMarked($event)"
+    (serviceDeleteFavorite)="onCancel($event)"
   ></app-service-table>
 </div>
 
