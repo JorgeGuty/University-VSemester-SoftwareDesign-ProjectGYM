@@ -112,9 +112,9 @@ func GetClients(context *fiber.Ctx) error {
 	}
 	filterDebtors, _ := strconv.Atoi(data["filterDebtors"])
 
-	instructors := Requests.GetClients(filterDebtors)
+	clients := Requests.GetClients(filterDebtors)
 
-	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, clients, fiber.StatusOK)
 }
 
 func InsertCreditMovement(context *fiber.Ctx) error {
@@ -151,4 +151,26 @@ func GetPaymentMethods(context *fiber.Ctx) error {
 	paymentMethods := Requests.GetPaymentMethods()
 
 	return Common.GiveJSONResponse(context, paymentMethods, fiber.StatusOK)
+}
+
+func GetSessionParticipants(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	clients := Requests.GetSessionParticipants(date, roomId, startTime)
+
+	return Common.GiveJSONResponse(context, clients, fiber.StatusOK)
 }

@@ -8,3 +8,4 @@ type Client struct {
 	Balance          string `json:"balance"`
 	Identification   string `json:"identification"`
 }
+

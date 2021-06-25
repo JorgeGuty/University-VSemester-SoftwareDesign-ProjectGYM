@@ -3,8 +3,10 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Common"
+	"API/WebServer/Controllers/AssistanceVisitor"
 	"API/WebServer/Controllers/FilteredScheduleStrategy"
 	"strconv"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -161,4 +163,54 @@ func ChangeSessionInstructor(context *fiber.Ctx) error {
 	result := Requests.ChangeSessionInstructor(date, roomId, startTime, newInstructorNumber)
 
 	return Common.GiveVoidOperationResponse(context, result)
+}
+
+func SetSessionAttendance(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["startTime"]
+
+	attendants := data["attendants"]
+
+	asistanceVisitor := &AssistanceVisitor.AssistanceVisitor{
+		StartTime: startTime,
+		Date:      date,
+		RoomId:    roomId,
+	}
+
+	attendantsSlice := strings.Split(attendants, ",")
+
+	for _, attendantNumber := range attendantsSlice {
+		intAttendantNumber, _ := strconv.Atoi(attendantNumber)
+		bookingAttendance := &AssistanceVisitor.BookingAttendant{ClientMembershipNumber: intAttendantNumber}
+		asistanceVisitor.VisitAttendant(bookingAttendance)
+	}
+
+	result := Requests.MarkSessionAttendanceTaken(date, roomId, startTime)
+
+	return Common.GiveVoidOperationResponse(context, result)
+}
+
+func GetAttendancePendingSession(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+
+	if token == nil {
+		return nil
+	}
+	schedule := Requests.GetAttendancePendingSessions()
+
+	return Common.GiveJSONResponse(context, schedule, fiber.StatusOK)
 }

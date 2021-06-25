@@ -11,9 +11,9 @@ DROP PROCEDURE dbo.SP_CancelSession
 GO
 -- Create the stored procedure in the specified schema
 CREATE PROCEDURE dbo.SP_CancelSession
-    @pDate                  NVARCHAR(50),
-    @pStartTime             NVARCHAR(50),
-    @pRoomId                INT
+    @pDate      NVARCHAR(50),
+    @pStartTime NVARCHAR(50),
+    @pRoomId    INT
 AS
 BEGIN
     BEGIN TRY

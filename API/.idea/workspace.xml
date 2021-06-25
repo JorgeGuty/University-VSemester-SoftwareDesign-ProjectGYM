@@ -5,9 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8084f3e7-f655-482c-9046-e49f3f326853" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/AssistanceVisitor/AssistanceVisitor.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/AssistanceVisitor/BookingAttendant.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/AssistanceVisitor/VisitableElement.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebServer/Controllers/AssistanceVisitor/Visitor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/ScheduleFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/Controllers/FilteredScheduleStrategy/ScheduleFilter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/ClientRequests.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/ClientRequests.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/CommonMethods.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/CommonMethods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/InstructorRequests.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/InstructorRequests.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/PreliminarySessionRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/PreliminarySessionRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/ServiceRequests.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/ServiceRequests.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/SessionRequests.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/SessionRequests.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database/Requests/UserRequests.go" beforeDir="false" afterPath="$PROJECT_DIR$/Database/Requests/UserRequests.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Client.go" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebServer/Controllers/clientController.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/Controllers/clientController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebServer/Controllers/sessionController.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/Controllers/sessionController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebServer/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQLScripts/Drop&amp;Create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQLScripts/Drop&amp;Create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQLScripts/StoredProcedures/FirstRelease/SP_CancelSession.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQLScripts/StoredProcedures/FirstRelease/SP_CancelSession.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQLScripts/Views/VW_CompleteSessions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQLScripts/Views/VW_CompleteSessions.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,11 +72,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\WebServer\Controllers\AssistanceVisitor" />
+      <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\Models" />
       <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\Database\Requests" />
       <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\Database" />
-      <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\WebServer\Token" />
-      <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\Database\Common" />
-      <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\WebServer\Controllers" />
+      <recent name="C:\Applications\GitHub\University-VSemester-SoftwareDesign-ProjectGYM\API\Models\AssistanceVisitor" />
     </key>
   </component>
   <component name="RunManager">

@@ -413,7 +413,8 @@ CREATE TABLE dbo.Sesion
 	Cancelada bit NOT NULL DEFAULT 0,
 	Costo MONEY NOT NULL,
 	InstructorId int NOT NULL,
-	SessionPreliminarId int NOT NULL
+	SessionPreliminarId int NOT NULL,
+	AsistenciaTomada bit NOT NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Sesion ADD CONSTRAINT
@@ -453,7 +454,8 @@ CREATE TABLE dbo.Reserva
 	FechaReserva datetime NOT NULL,
 	Activa bit NOT NULL DEFAULT 1,
 	ClienteId int NOT NULL,
-	SesionId int NOT NULL
+	SesionId int NOT NULL,
+	Asistencia bit NOT NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Reserva ADD CONSTRAINT
