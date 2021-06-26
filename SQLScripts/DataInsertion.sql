@@ -55,6 +55,11 @@ INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
     ('1111','Cliente','cliente@gmail.com','99999999'),
     ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910');
 
+INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
+VALUES ('Prueba',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
+INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
+VALUES ('Prueba',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
+
 INSERT INTO UsuarioCliente (Id, ClienteId)
 VALUES (2, 1);
 

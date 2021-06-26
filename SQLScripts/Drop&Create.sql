@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS dbo.ConceptosDeCobroFijos;
 DROP TABLE IF EXISTS dbo.ServiciosFavoritos;
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
+DROP TABLE IF EXISTS dbo.Notificaciones;
 DROP TABLE IF EXISTS dbo.Sesion;
 DROP TABLE IF EXISTS dbo.SesionPreliminar
 
