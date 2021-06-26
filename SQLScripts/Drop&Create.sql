@@ -640,6 +640,7 @@ CREATE TABLE dbo.ServiciosFavoritos (
 ----------------------
 -- Notificaciones
 ----------------------
+-- Se me fue y las hice en ingles pero bueno
 CREATE TABLE dbo.Notificaciones (
 	Id 
 		INT 
