@@ -16,6 +16,9 @@ func Setup(app *fiber.App) {
 	client.Post("/deleteClient", Controllers.DeleteClient)
 	client.Post("/insertCredit", Controllers.InsertCreditMovement)
 
+	// ? Aqui esta bien o mejor hacer otra seccion?
+	client.Post("/getNotifications", Controllers.GetNotifications)
+
 	//TODO: discuss in which group this request has to be categorized
 	client.Get("/paymentMethods", Controllers.GetPaymentMethods) // ? Not in services
 

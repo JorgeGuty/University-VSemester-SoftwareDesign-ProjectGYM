@@ -279,6 +279,30 @@ func ParseClients(resultSet *sql.Rows) []Models.Client {
 	return clients
 }
 
+func ParseNotifications(resultSet *sql.Rows) []Models.Notification {
+	var notifications []Models.Notification
+
+	for resultSet.Next() {
+		notification := Models.Notification{}
+
+		err := resultSet.Scan(
+			&notification.ID,
+			&notification.Message,
+			&notification.Date,
+			&notification.Time,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Notification{}
+		}
+
+		notifications = append(notifications, notification)
+	}
+
+	return notifications
+}
+
 func ParsePaymentMethods(resultSet *sql.Rows) []Models.PaymentMethod {
 	var paymentMethods []Models.PaymentMethod
 
