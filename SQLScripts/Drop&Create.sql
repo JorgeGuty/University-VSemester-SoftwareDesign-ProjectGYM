@@ -637,3 +637,34 @@ CREATE TABLE dbo.ServiciosFavoritos (
 )
 
 ----------------------
+-- Notificaciones
+----------------------
+CREATE TABLE dbo.Notificaciones (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	[Message] 
+		VARCHAR(100) 
+		NOT NULL 
+	,
+	[Date] 
+		DATE
+		NOT NULL
+	,
+	[TIME] 
+		TIME
+		NOT NULL
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,
+	Active 
+		BIT 
+		DEFAULT 1
+)
+----------------------
