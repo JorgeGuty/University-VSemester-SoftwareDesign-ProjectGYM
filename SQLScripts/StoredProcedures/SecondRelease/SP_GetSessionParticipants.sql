@@ -22,10 +22,7 @@ BEGIN
         client.Correo,
         client.Celular,
         client.Cedula,
-        client.Saldo,
-
-        booking.Asistencia AS Attendance,
-        booking.Id AS BookingId
+        client.Saldo
 
     FROM 
         dbo.CompleteSessions AS [session]
@@ -42,7 +39,7 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_GetSessionParticipants '2021-05-31', '8:00:00', 1
+EXECUTE dbo.SP_GetSessionParticipants '2021-05-31', '8:00', 1
 GO
 
 select * from CompleteSessions
