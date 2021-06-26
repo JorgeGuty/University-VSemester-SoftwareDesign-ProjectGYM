@@ -25,7 +25,10 @@ AS
             cs.ServiceName,
             cs.Cost                                     AS ServiceTypeCost,
             cs.ServiceMaxSpaces                         AS ServiceMaxSpaces
-        FROM dbo.CompleteSessions cs
+        FROM 
+            dbo.CompleteSessions cs
+        WHERE 
+            cs.SessionDate >= @StartDate
     END
 
 exec SP_GetCurrentCalendar

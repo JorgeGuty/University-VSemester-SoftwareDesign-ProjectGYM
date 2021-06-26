@@ -46,7 +46,7 @@ BEGIN
 END
 GO
 -- example to execute the stored procedure we just created
-EXECUTE dbo.SP_MarkClientAttendance '2021-05-29', '10:00:00', 1, 1
+EXECUTE dbo.SP_MarkClientAttendance '2021-12-01', '20:30', 1, 1
 GO  
 
 EXECUTE dbo.SP_GetSessionParticipants '2021-05-29', '10:00:00', 1

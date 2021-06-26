@@ -12,7 +12,7 @@ import (
 )
 
 var sessionFilter = &FilteredScheduleStrategy.ScheduleFilter{}
-
+var assistanceVisitor = &AssistanceVisitor.AssistanceVisitor{}
 func GetActiveSchedule(context *fiber.Ctx) error {
 
 	token := Common.AnalyzeToken(context)
@@ -184,18 +184,16 @@ func SetSessionAttendance(context *fiber.Ctx) error {
 
 	attendants := data["attendants"]
 
-	asistanceVisitor := &AssistanceVisitor.AssistanceVisitor{
-		StartTime: startTime,
-		Date:      date,
-		RoomId:    roomId,
-	}
+	assistanceVisitor.Date = date
+	assistanceVisitor.RoomId = roomId
+	assistanceVisitor.StartTime = startTime
 
 	attendantsSlice := strings.Split(attendants, ",")
 
 	for _, attendantNumber := range attendantsSlice {
 		intAttendantNumber, _ := strconv.Atoi(attendantNumber)
 		bookingAttendance := &AssistanceVisitor.BookingAttendant{ClientMembershipNumber: intAttendantNumber}
-		asistanceVisitor.VisitAttendant(bookingAttendance)
+		assistanceVisitor.VisitAttendant(bookingAttendance)
 	}
 
 	result := Requests.MarkSessionAttendanceTaken(date, roomId, startTime)

@@ -16,7 +16,7 @@ AS
             cs.SessionDate,
             cs.StartTime,
             cs.Duration,
-            ISNULL((cs.Spaces - r.Bookings), cs.Spaces) AS AvailableSpaces,
+            CS.AvailableSpaces,
             cs.Cost,
             cs.IsCancelled,
             cs.InstructorName,
@@ -28,27 +28,14 @@ AS
             cs.ServiceMaxSpaces
         FROM dbo.CompleteSessions cs
         INNER JOIN
-            (
-                SELECT SesionId
-                    FROM dbo.Reserva
-                    WHERE 
-                        ClienteId = @pMembershipNumber
-                        AND 
-                        Activa = 1
-
-            ) AS clientSessions
-        ON clientSessions.SesionId = cs.SessionID
-        INNER JOIN
-            (
-                SELECT SesionId, COUNT(SesionId) AS Bookings 
-                    FROM dbo.Reserva
-                    WHERE Activa = 1
-                    GROUP BY SesionId
-            ) AS r
-            ON r.SesionId = cs.SessionID
+            dbo.Reserva AS bookings
+            ON  bookings.SesionId = cs.SessionID
         WHERE 
-        cs.SessionDate >= @StartDate 
+                cs.SessionDate >= @StartDate
+            AND bookings.Activa = 1 
+            AND bookings.ClienteId = @pMembershipNumber	
     END
 GO
-
+ SELECT * FROM Reserva
+ SELECT * FROM CompleteSessions
 EXEC SP_GetBookings 1

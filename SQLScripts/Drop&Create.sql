@@ -664,10 +664,9 @@ CREATE TABLE dbo.EstrellasMensuales (
 		INT
 		NOT NULL
 	,
-	SemanaUltimaActualizacion
+	SemanaDelMes
 		INT
-		NOT NULL
-		DEFAULT 1
+		NOT NULL	
 	,
 	Cantidad
 		INT

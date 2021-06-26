@@ -119,6 +119,7 @@ func MarkSessionAttendanceTaken(pDate string, pRoomId int, pStartTime string) Co
 }
 
 func MarkClientAttendance(pDate string, pRoomId int, pStartTime string, pMembershipId int) Common.VoidOperationResult {
+	fmt.Println("Marca asistencia")
 	query := fmt.Sprintf(`EXEC SP_MarkClientAttendance '%s', '%s', %d, %d;`, pDate, pStartTime, pRoomId, pMembershipId)
 	return VoidRequest(query)
 }

@@ -5,7 +5,6 @@ type BookingAttendant struct {
 }
 func (bookingAttendant *BookingAttendant) initClient(pMembershipNumber int){
 	bookingAttendant.ClientMembershipNumber = pMembershipNumber
-
 }
 
 func (bookingAttendant *BookingAttendant) accept(visitor Visitor){

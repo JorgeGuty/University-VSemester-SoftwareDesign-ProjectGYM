@@ -6,7 +6,7 @@ ALTER VIEW dbo.SessionAttendances AS
         DATEPART(YEAR, [session].SessionDate) AS [Year],
         DATEPART(MONTH, [session].SessionDate) AS [Month],
         CASE
-                WHEN DATEPART(DAY, [session].SessionDate) <= 7 AND DATEPART(DAY, [session].SessionDate) > 1 THEN 1
+                WHEN DATEPART(DAY, [session].SessionDate) <= 7 AND DATEPART(DAY, [session].SessionDate) >= 1 THEN 1
                 WHEN DATEPART(DAY, [session].SessionDate) <= 14 AND DATEPART(DAY, [session].SessionDate) > 7 THEN 2
                 WHEN DATEPART(DAY, [session].SessionDate) <= 21 AND DATEPART(DAY, [session].SessionDate) > 14 THEN 3
                 ELSE 4
@@ -27,3 +27,4 @@ GO
 -- Query to test
 SELECT *  
 FROM dbo.SessionAttendances 
+
