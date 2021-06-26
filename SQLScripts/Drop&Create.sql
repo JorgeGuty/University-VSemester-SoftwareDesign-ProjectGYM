@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS dbo.EstrellasMensuales;
 DROP TABLE IF EXISTS dbo.ServiciosFavoritos;
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
+DROP TABLE IF EXISTS dbo.Notificaciones;
 DROP TABLE IF EXISTS dbo.Sesion;
 DROP TABLE IF EXISTS dbo.SesionPreliminar
 
@@ -639,6 +640,38 @@ CREATE TABLE dbo.ServiciosFavoritos (
 		DEFAULT 1
 )
 
+----------------------
+-- Notificaciones
+----------------------
+-- Se me fue y las hice en ingles pero bueno
+CREATE TABLE dbo.Notificaciones (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	[Message] 
+		VARCHAR(100) 
+		NOT NULL 
+	,
+	[Date] 
+		DATE
+		NOT NULL
+	,
+	[TIME] 
+		TIME
+		NOT NULL
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,
+	Active 
+		BIT 
+		DEFAULT 1
+)
 ----------------------
 
 ----------------------

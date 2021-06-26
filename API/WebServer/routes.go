@@ -18,6 +18,9 @@ func Setup(app *fiber.App) {
 	client.Post("/sessionParticipants", Controllers.GetSessionParticipants)  // New!
 	//client.Post("/monthlyStars", Controllers.GetClientMonthlyStars)
 
+	// ? Aqui esta bien o mejor hacer otra seccion?
+	client.Post("/getNotifications", Controllers.GetNotifications)
+
 	//TODO: discuss in which group this request has to be categorized
 	client.Get("/paymentMethods", Controllers.GetPaymentMethods) // ? Not in services
 
