@@ -47,4 +47,19 @@ export class ClientScheduleService {
       }
     );
   }
+
+  getFilteredSessions(filterType: string, filterTerm: string): Observable<any> {
+    let userForm: any = { filterType: filterType, filterTerm: filterTerm };
+
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/sessions/getFilteredSchedule",
+      userForm,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }

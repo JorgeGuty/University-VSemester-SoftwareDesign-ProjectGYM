@@ -61,6 +61,7 @@ import { AdminRoomDialogueComponent } from "./Components/Dashboards/Admin_Prelim
 import { InstructorDetailsComponent } from "./Components/Tables/instructor-details/instructor-details.component";
 import { AdminScheduleDialogComponent } from "./Components/Dashboards/Admin/admin-schedule-dialog/admin-schedule-dialog.component";
 import { ClientUserGuard } from "./Guards/authClient.guard";
+import { ClientServicesComponent } from './Components/Dashboards/Client/client-services/client-services.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { ClientUserGuard } from "./Guards/authClient.guard";
     AdminRoomDialogueComponent,
     InstructorDetailsComponent,
     AdminScheduleDialogComponent,
+    ClientServicesComponent,
   ],
   imports: [
     AppRoutingModule,
