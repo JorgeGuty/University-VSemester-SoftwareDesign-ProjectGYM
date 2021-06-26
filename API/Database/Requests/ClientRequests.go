@@ -73,3 +73,20 @@ func GetPaymentMethods() []Models.PaymentMethod {
 
 	return paymentMethods
 }
+
+func GetSessionParticipants(pDate string, pRoomId int, pStartTime string) []Models.Client {
+
+	query := fmt.Sprintf(`EXEC SP_GetSessionParticipants '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return []Models.Client{}
+	}
+
+	clients := ParseClients(resultSet)
+
+	return clients
+
+}

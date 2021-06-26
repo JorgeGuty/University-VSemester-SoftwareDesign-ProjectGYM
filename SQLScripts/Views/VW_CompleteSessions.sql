@@ -5,6 +5,7 @@ ALTER VIEW dbo.CompleteSessions AS
         [session].Id                            AS SessionID,
         [session].Fecha                         AS SessionDate,
         [session].Cancelada                     AS IsCancelled,
+        [session].AsistenciaTomada              AS AttendanceTaken,
         
         [preliminarySession].Nombre             AS [Name],
         
