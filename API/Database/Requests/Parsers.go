@@ -281,6 +281,8 @@ func ParseClients(resultSet *sql.Rows) []Models.Client {
 
 func ParseNotifications(resultSet *sql.Rows) []Models.Notification {
 	var notifications []Models.Notification
+	var date time.Time
+	var time time.Time
 
 	for resultSet.Next() {
 		notification := Models.Notification{}
@@ -288,13 +290,24 @@ func ParseNotifications(resultSet *sql.Rows) []Models.Notification {
 		err := resultSet.Scan(
 			&notification.ID,
 			&notification.Message,
-			&notification.Date,
-			&notification.Time,
+			&date,
+			&time,
 		)
 
 		if err != nil {
 			println(err.Error())
 			return []Models.Notification{}
+		}
+		notification.Date = civil.Date{
+			Year:  date.Year(),
+			Month: date.Month(),
+			Day:   date.Day(),
+		}
+		notification.Time = civil.Time{
+			Hour:       time.Hour(),
+			Minute:     time.Minute(),
+			Second:     time.Second(),
+			Nanosecond: time.Nanosecond(),
 		}
 
 		notifications = append(notifications, notification)
