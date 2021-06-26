@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from "@angular/forms";
 
 /* Angular Material */
+import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -61,7 +62,9 @@ import { AdminRoomDialogueComponent } from "./Components/Dashboards/Admin_Prelim
 import { InstructorDetailsComponent } from "./Components/Tables/instructor-details/instructor-details.component";
 import { AdminScheduleDialogComponent } from "./Components/Dashboards/Admin/admin-schedule-dialog/admin-schedule-dialog.component";
 import { ClientUserGuard } from "./Guards/authClient.guard";
-import { ClientServicesComponent } from './Components/Dashboards/Client/client-services/client-services.component';
+import { ClientServicesComponent } from "./Components/Dashboards/Client/client-services/client-services.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NotificationsComponent } from "./Components/General/notifications/notifications.component";
 
 @NgModule({
   declarations: [
@@ -96,6 +99,7 @@ import { ClientServicesComponent } from './Components/Dashboards/Client/client-s
     InstructorDetailsComponent,
     AdminScheduleDialogComponent,
     ClientServicesComponent,
+    NotificationsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -104,6 +108,7 @@ import { ClientServicesComponent } from './Components/Dashboards/Client/client-s
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
@@ -119,6 +124,7 @@ import { ClientServicesComponent } from './Components/Dashboards/Client/client-s
     MatExpansionModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    NgbModule,
   ],
   providers: [AuthUserGuard, AuthAdminGuard, ClientUserGuard],
   bootstrap: [AppComponent],
