@@ -1,4 +1,4 @@
-package Observer
+package FreeSpaceObserver
 
 type observer interface {
 	update(int)

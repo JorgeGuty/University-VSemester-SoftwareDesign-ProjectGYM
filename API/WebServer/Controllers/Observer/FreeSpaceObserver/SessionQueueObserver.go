@@ -1,4 +1,4 @@
-package Observer
+package FreeSpaceObserver
 
 import (
 	//"API/Database"

@@ -5,6 +5,7 @@ import (
 	"API/WebServer/Common"
 	"API/WebServer/Controllers/AssistanceVisitor"
 	"API/WebServer/Controllers/FilteredScheduleStrategy"
+	"API/WebServer/Controllers/Observer/FreeSpaceObserver"
 	"strconv"
 	"strings"
 
@@ -13,6 +14,8 @@ import (
 
 var sessionFilter = &FilteredScheduleStrategy.ScheduleFilter{}
 var assistanceVisitor = &AssistanceVisitor.AssistanceVisitor{}
+var freeSpaceNotifier = FreeSpaceObserver.FreeSpaceNotifier{}
+
 func GetActiveSchedule(context *fiber.Ctx) error {
 
 	token := Common.AnalyzeToken(context)
@@ -94,6 +97,12 @@ func BookSession(context *fiber.Ctx) error {
 
 	result := Requests.BookSession(clientnumber, date, roomId, startTime)
 
+	// ? Se le puede poner a result el codigo de error?
+	// Para saber si es por no haber espacio?
+	if !result.Success {
+		// Se puede revisar en un hash? Si existe la lista ya?
+	}
+
 	return Common.GiveVoidOperationResponse(context, result)
 
 }
@@ -116,6 +125,10 @@ func CancelBooking(context *fiber.Ctx) error {
 	startTime := data["startTime"]
 
 	result := Requests.CancelBooking(clientnumber, date, roomId, startTime)
+
+	if result.Success {
+		freeSpaceNotifier.NotifyAll()
+	}
 
 	return Common.GiveVoidOperationResponse(context, result)
 

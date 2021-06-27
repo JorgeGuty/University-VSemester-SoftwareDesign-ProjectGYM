@@ -1,6 +1,6 @@
-package Observer
+package FreeSpaceObserver
 
 type Observable interface {
-	notifyAll()
-	register(Observer observer)
+	NotifyAll()
+	Register(Observer observer)
 }
