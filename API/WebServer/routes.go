@@ -15,6 +15,11 @@ func Setup(app *fiber.App) {
 	client.Post("/updateClientDetails", Controllers.UpdateClientDetail)
 	client.Post("/deleteClient", Controllers.DeleteClient)
 	client.Post("/insertCredit", Controllers.InsertCreditMovement)
+	client.Post("/sessionParticipants", Controllers.GetSessionParticipants)  // New!
+	//client.Post("/monthlyStars", Controllers.GetClientMonthlyStars)
+
+	// ? Aqui esta bien o mejor hacer otra seccion?
+	client.Post("/getNotifications", Controllers.GetNotifications)
 
 	//TODO: discuss in which group this request has to be categorized
 	client.Get("/paymentMethods", Controllers.GetPaymentMethods) // ? Not in services
@@ -43,7 +48,9 @@ func Setup(app *fiber.App) {
 	sessions.Post("/cancelSession", Controllers.CancelSession) // No implementar
 	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)
 	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor)
-	sessions.Post("/ ", Controllers.GetFilteredSchedule)
+	sessions.Post("/getFilteredSchedule", Controllers.GetFilteredSchedule)
+	sessions.Post("/setAttendance", Controllers.SetSessionAttendance) // New!
+	sessions.Post("/attendancePending", Controllers.GetAttendancePendingSession) // New!
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors)

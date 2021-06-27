@@ -55,7 +55,7 @@ func UpdateClientDetail(pMembershipNumber int, pIdentification string, pName str
 }
 
 func InsertCreditMovement(pMembershipNumber int, pAmount string, pSubject string, pPaymentMethodId int) Common.VoidOperationResult {
-	query := fmt.Sprintf(`EXEC SP_InsertCreditMovement %d, %s, '%s', %d;`,pMembershipNumber, pAmount, pSubject, pPaymentMethodId)
+	query := fmt.Sprintf(`EXEC SP_InsertCreditMovement %d, %s, '%s', %d;`, pMembershipNumber, pAmount, pSubject, pPaymentMethodId)
 	return VoidRequest(query)
 }
 
@@ -72,4 +72,38 @@ func GetPaymentMethods() []Models.PaymentMethod {
 	paymentMethods := ParsePaymentMethods(resultSet)
 
 	return paymentMethods
+}
+
+func GetSessionParticipants(pDate string, pRoomId int, pStartTime string) []Models.Client {
+
+	query := fmt.Sprintf(`EXEC SP_GetSessionParticipants '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return []Models.Client{}
+	}
+
+	clients := ParseClients(resultSet)
+
+	return clients
+
+}
+
+func GetNotifications(pMembershipNumber int) []Models.Notification {
+
+	query := fmt.Sprintf(`EXEC SP_GetNotifications %d;`, pMembershipNumber)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return []Models.Notification{}
+	}
+
+	notifications := ParseNotifications(resultSet)
+
+	return notifications
+
 }

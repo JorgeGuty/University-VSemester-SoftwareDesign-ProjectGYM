@@ -111,3 +111,29 @@ func ChangeSessionInstructor(pDate string, pRoomId int, pStartTime string, pInst
 	query := fmt.Sprintf(`EXEC SP_ChangeSessionInstructor '%d', '%s', '%s', %d;`, pInstructorNumber, pDate, pStartTime, pRoomId)
 	return VoidRequest(query)
 }
+
+
+func MarkSessionAttendanceTaken(pDate string, pRoomId int, pStartTime string) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_MarkSessionAttendanceTaken '%s', '%s', %d;`, pDate, pStartTime, pRoomId)
+	return VoidRequest(query)
+}
+
+func MarkClientAttendance(pDate string, pRoomId int, pStartTime string, pMembershipId int) Common.VoidOperationResult {
+	fmt.Println("Marca asistencia")
+	query := fmt.Sprintf(`EXEC SP_MarkClientAttendance '%s', '%s', %d, %d;`, pDate, pStartTime, pRoomId, pMembershipId)
+	return VoidRequest(query)
+}
+
+func GetAttendancePendingSessions() Models.Schedule {
+	query := fmt.Sprintf(`EXEC SP_GetAttendancePendingSessions;`)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return Models.Schedule{}
+	}
+
+	schedule := ParseSchedule(resultSet)
+
+	return schedule
+}
