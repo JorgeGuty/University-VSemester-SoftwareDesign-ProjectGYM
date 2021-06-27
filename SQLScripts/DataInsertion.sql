@@ -108,20 +108,20 @@ VALUES(3,2);
 insert into 
     dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo,EspecialidadId,SalaId, InstructorId) 
 values 
-    ('Sesion de Yoga',         1, 5, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
-    ('Sesion de Funcional',    1, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 2),
-    ('Sesion de Yoga',         2, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 1),
-    ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
-    ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
-    ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
+    ('Sesion de Yoga',         1, 8, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
+    ('Sesion de Funcional',    1, 8, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 2),
+    ('Sesion de Yoga',         2, 8, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 1),
+    ('Sesion de YogaMax',      3, 7, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
+    ('Sesion de FuncionalMax', 4, 7, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
+    ('Sesion de YogaPro',      4, 7, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
 
 INSERT INTO 
     dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
 VALUES
-    (CONVERT(DATE, '2021-05-31'),10, 1, 1),
-    (CONVERT(DATE, '2021-05-30'),10, 2, 2),
-    (CONVERT(DATE, '2021-05-27'),10, 1, 3),
-    (CONVERT(DATE, '2021-05-29'),10, 1, 4)
+    (CONVERT(DATE, '2021-08-31'),10, 1, 1),
+    (CONVERT(DATE, '2021-08-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-07-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-07-29'),10, 1, 4)
 
 UPDATE SesionPreliminar
 SET Confirmada = 1
