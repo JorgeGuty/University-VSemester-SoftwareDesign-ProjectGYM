@@ -198,7 +198,10 @@ func GetNotifications(context *fiber.Ctx) error {
 }
 
 func GetMonthlyPrizes(context *fiber.Ctx) error {
-
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
 
@@ -210,9 +213,10 @@ func GetMonthlyPrizes(context *fiber.Ctx) error {
 
 	prizes := Requests.GetMonthlyPrizes(month, year)
 
+	prizesNotifier.Reset()
 	for _, prize := range prizes {
 		newObserver := &PrizesObserver.ClientPrizeObserver{
-			PrizeName:    prize.ClientName,
+			PrizeName:    prize.PrizeName,
 			MembershipId: prize.MembershipId,
 		}
 		prizesNotifier.Register(newObserver)
@@ -222,13 +226,12 @@ func GetMonthlyPrizes(context *fiber.Ctx) error {
 }
 
 func NotifyPrizes(context *fiber.Ctx) error {
-
-	var data map[string]string
-	if err := context.BodyParser(&data); err != nil {
-		return err
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
 	}
 
-	prizesNotifier.NotifyAll()
+	go prizesNotifier.NotifyAll()
 
 	return Common.GiveJSONResponse(context, context.JSON(""), fiber.StatusOK)
 }

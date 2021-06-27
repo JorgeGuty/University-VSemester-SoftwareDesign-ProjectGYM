@@ -8,5 +8,5 @@ type ClientPrizeObserver struct {
 }
 
 func (clientPrize *ClientPrizeObserver) update(){
-	Requests.InsertNotification(clientPrize.MembershipId, "Usted se ha ganado un premio: "+clientPrize.PrizeName)
+	Requests.InsertNotification(clientPrize.MembershipId, "Congratulations! You won a : "+clientPrize.PrizeName)
 }

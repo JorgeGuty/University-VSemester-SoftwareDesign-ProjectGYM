@@ -36,6 +36,9 @@ BEGIN
 
 END
 GO
+
+insert into dbo.Premios (Nombre, EstrellasNecesarias) values ('un abrazo', 1), ('un paño de billete de 1000', 2), ('un vale por un gatorade light', 3)
+insert into dbo.PremiosPorCliente (ClienteId, PremioId, Mes, Año) values (1, 1, 6, 2021), (1, 2, 6, 2021),(1, 3, 6, 2021), (1, 2, 6, 2021), (2, 2, 6, 2021), (3, 2, 6, 2021) 
 -- example to execute the stored procedure we just created
 EXECUTE dbo.SP_GetClientPrizes 5,  2021
 GO
