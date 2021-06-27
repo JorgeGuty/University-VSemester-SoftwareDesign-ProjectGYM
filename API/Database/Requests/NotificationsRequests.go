@@ -7,7 +7,6 @@ import (
 	"fmt"
 )
 
-
 func GetNotifications(pMembershipNumber int) []Models.Notification {
 
 	query := fmt.Sprintf(`EXEC SP_GetNotifications %d;`, pMembershipNumber)
@@ -27,7 +26,7 @@ func GetNotifications(pMembershipNumber int) []Models.Notification {
 
 func InsertNotification(pMembershipNumber int, pMessage string) Common.VoidOperationResult {
 
-	query := fmt.Sprintf(`EXEC SP_GetNotifications %d, %s;`, pMembershipNumber, pMessage)
+	query := fmt.Sprintf(`EXEC SP_SP_InsertNotification %d, '%s';`, pMembershipNumber, pMessage)
 
 	return VoidRequest(query)
 
