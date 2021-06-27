@@ -8,13 +8,16 @@ import (
 	"API/WebServer/Controllers/Observer/FreeSpaceObserver"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 var sessionFilter = &FilteredScheduleStrategy.ScheduleFilter{}
 var assistanceVisitor = &AssistanceVisitor.AssistanceVisitor{}
-var freeSpaceNotifier = FreeSpaceObserver.FreeSpaceNotifier{}
+
+var freeSpaceNotifier = &FreeSpaceObserver.FreeSpaceNotifier{}
+var sessionsQueues = make(map[int]FreeSpaceObserver.SessionQueue)
 
 func GetActiveSchedule(context *fiber.Ctx) error {
 
@@ -80,10 +83,10 @@ func GetReservedSessions(context *fiber.Ctx) error {
 
 func BookSession(context *fiber.Ctx) error {
 
-	token := Common.AnalyzeToken(context)
-	if token == nil {
-		return nil
-	}
+	// token := Common.AnalyzeToken(context)
+	// if token == nil {
+	// 	return nil
+	// }
 
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
@@ -100,7 +103,12 @@ func BookSession(context *fiber.Ctx) error {
 	// ? Se le puede poner a result el codigo de error?
 	// Para saber si es por no haber espacio?
 	if !result.Success {
+		//queue, exist := sessionsQueues[]
 		// Se puede revisar en un hash? Si existe la lista ya?
+		timeDate := date + "T" + startTime + ":00"
+		println(timeDate)
+		t, _ := time.Parse("2006-01-02T15:04:05", timeDate)
+		println(t.String())
 	}
 
 	return Common.GiveVoidOperationResponse(context, result)
