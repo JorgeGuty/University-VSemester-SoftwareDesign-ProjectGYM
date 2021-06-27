@@ -9,10 +9,10 @@ import { AuthService } from "./Services/Auth/auth.service";
 export class AppComponent implements OnInit {
   title = "front-end";
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
+  constructor(private authService: AuthService) {
     this.authService.loadToken();
     console.log("CARGANDO DATOS...");
   }
+
+  ngOnInit(): void {}
 }

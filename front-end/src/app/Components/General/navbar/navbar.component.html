@@ -1,12 +1,9 @@
 <p>
   <mat-toolbar class="navbar-color">
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon class="button-color">menu</mat-icon>
-    </button>
+    <app-notifications
+      *ngIf="authService.loggedIn() && !this.isAdmin()"
+      [notificationArray]="this.notificationArray"
+    ></app-notifications>
     <span class="button-color">+ GYM</span>
     <span class="example-spacer"></span>
     <a [routerLink]="['/']" mat-button class="button-color">Home</a>

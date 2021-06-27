@@ -9,8 +9,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from "@angular/forms";
 
 /* Angular Material */
+import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
@@ -61,7 +63,12 @@ import { AdminRoomDialogueComponent } from "./Components/Dashboards/Admin_Prelim
 import { InstructorDetailsComponent } from "./Components/Tables/instructor-details/instructor-details.component";
 import { AdminScheduleDialogComponent } from "./Components/Dashboards/Admin/admin-schedule-dialog/admin-schedule-dialog.component";
 import { ClientUserGuard } from "./Guards/authClient.guard";
-import { ClientServicesComponent } from './Components/Dashboards/Client/client-services/client-services.component';
+import { ClientServicesComponent } from "./Components/Dashboards/Client/client-services/client-services.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NotificationsComponent } from "./Components/General/notifications/notifications.component";
+import { AdminCardContainerComponent } from "./Components/Dashboards/Admin/admin-card-container/admin-card-container.component";
+import { AdminCardUncheckedComponent } from "./Components/Dashboards/Admin/admin-card-unchecked/admin-card-unchecked.component";
+import { AdminDialogueUncheckedComponent } from "./Components/Dashboards/Admin/admin-dialogue-unchecked/admin-dialogue-unchecked.component";
 
 @NgModule({
   declarations: [
@@ -96,6 +103,10 @@ import { ClientServicesComponent } from './Components/Dashboards/Client/client-s
     InstructorDetailsComponent,
     AdminScheduleDialogComponent,
     ClientServicesComponent,
+    NotificationsComponent,
+    AdminCardContainerComponent,
+    AdminCardUncheckedComponent,
+    AdminDialogueUncheckedComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -104,8 +115,10 @@ import { ClientServicesComponent } from './Components/Dashboards/Client/client-s
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
@@ -119,6 +132,7 @@ import { ClientServicesComponent } from './Components/Dashboards/Client/client-s
     MatExpansionModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    NgbModule,
   ],
   providers: [AuthUserGuard, AuthAdminGuard, ClientUserGuard],
   bootstrap: [AppComponent],

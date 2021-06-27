@@ -1,0 +1,67 @@
+<mat-card>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Check</th>
+        <!-- <th scope="col">Population</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let participant of participantDisplayed">
+        <th scope="row">{{ participant.membershipNumber }}</th>
+        <td scope="row">{{ participant.name }}</td>
+
+        <td>
+          <mat-checkbox
+            class="example-margin"
+            (change)="setCheck(this.participant.membershipNumber)"
+            >Assisted!</mat-checkbox
+          >
+        </td>
+
+        <!-- <td>{{ country.area | number }}</td>
+        <td>{{ country.population | number }}</td> -->
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="collectionSize"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      (pageChange)="refreshParticipants()"
+    >
+    </ngb-pagination>
+
+    <select
+      class="custom-select"
+      style="width: auto"
+      [(ngModel)]="pageSize"
+      (ngModelChange)="refreshParticipants()"
+    >
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div>
+  <button
+    mat-raised-button
+    style="width: 100%; margin-top: 0.5rem"
+    color="primary"
+    (click)="onConfirm()"
+  >
+    Save
+  </button>
+  <button
+    mat-raised-button
+    mat-dialog-close
+    [mat-dialog-close]="this.participantsChecked"
+    style="width: 100%; margin-top: 0.5rem"
+    color="primary"
+  >
+    Close
+  </button>
+</mat-card>
