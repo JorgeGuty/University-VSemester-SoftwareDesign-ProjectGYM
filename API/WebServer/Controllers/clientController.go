@@ -193,3 +193,16 @@ func GetNotifications(context *fiber.Ctx) error {
 
 	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
 }
+func NotifyPrizes(context *fiber.Ctx) error {
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+
+	instructors := Requests.GetNotifications(membershipNumber)
+
+	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
+}

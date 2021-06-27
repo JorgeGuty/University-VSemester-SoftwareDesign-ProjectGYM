@@ -1,4 +1,4 @@
-// package Observer
+package Observer
 
 // type FreeSpaceNotifier struct {
 // 	ObserverList []observer `json:"Observers"`
