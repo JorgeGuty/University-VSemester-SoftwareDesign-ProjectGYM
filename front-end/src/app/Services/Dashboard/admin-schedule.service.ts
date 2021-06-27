@@ -157,9 +157,11 @@ export class AdminScheduleService {
     let attendantsJson = {
       date: session.date,
       roomId: "1",
-      time: session.time,
+      startTime: session.time,
       attendants: attendants,
     };
+    console.log("ERROR RARO");
+    console.log(attendantsJson);
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/sessions/setAttendance",
       attendantsJson,

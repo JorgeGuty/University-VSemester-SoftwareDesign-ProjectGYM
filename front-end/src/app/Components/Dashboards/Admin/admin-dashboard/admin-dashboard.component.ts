@@ -43,7 +43,7 @@ export class AdminDashboardComponent implements OnInit {
           //TODO: Mostrar Error de vacio
           console.log("Erroooooor!!! no hay clases");
         }
-
+        this.scheduleMapUnchecked = new Map();
         this.getUncheckedMonthlySessions();
       });
   }
@@ -122,5 +122,10 @@ export class AdminDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onUpdate() {
+    console.log("Mensaje Recibido 🎆");
+    this.getMonthlySessions();
   }
 }

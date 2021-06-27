@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import Client from "src/app/Models/Clients/Client";
 import { AdminScheduleService } from "src/app/Services/Dashboard/admin-schedule.service";
@@ -20,6 +20,8 @@ export class AdminCardUncheckedComponent implements OnInit {
   sessionService!: any;
   @Input()
   instructorArray: any;
+  @Output()
+  update = new EventEmitter<any>();
 
   constructor(
     private sessionScheduleService: SessionsService,
@@ -47,6 +49,9 @@ export class AdminCardUncheckedComponent implements OnInit {
             console.log("No single Participants 👨‍🦰");
           }
         }
+        if (res.body == null) {
+          console.log("Error: No Participants in session 💀💀💀");
+        }
       },
       (err) => {
         console.log("Error: No Participants 💀💀💀");
@@ -65,6 +70,11 @@ export class AdminCardUncheckedComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
       console.log(result);
+      this.onUpdate();
     });
+  }
+
+  onUpdate() {
+    this.update.emit();
   }
 }

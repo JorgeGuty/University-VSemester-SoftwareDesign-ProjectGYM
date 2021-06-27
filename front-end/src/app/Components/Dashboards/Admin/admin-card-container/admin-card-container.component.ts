@@ -10,6 +10,8 @@ export class AdminCardContainerComponent implements OnInit {
   scheduleMap: any;
   @Input()
   scheduleMapUnchecked: any;
+  @Output()
+  update = new EventEmitter<any>();
 
   constructor() {}
 
@@ -20,5 +22,9 @@ export class AdminCardContainerComponent implements OnInit {
     console.log("🧔");
     console.log(this.scheduleMapUnchecked);
     console.log("🧔");
+  }
+
+  onUpdate() {
+    this.update.emit();
   }
 }
