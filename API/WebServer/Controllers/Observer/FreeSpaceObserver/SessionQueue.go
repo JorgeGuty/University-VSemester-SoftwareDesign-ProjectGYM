@@ -1,6 +1,9 @@
 package FreeSpaceObserver
 
-import "API/Database/Requests"
+import (
+	"API/Database/Requests"
+	"strconv"
+)
 
 type SessionQueue struct {
 	SessionTime string `json:"SessionTime"`
@@ -29,8 +32,9 @@ func (sessionQueue *SessionQueue) Update(pDate string, pTime string, pRoom int) 
 			membershipNumber := sessionQueue.Queue[0]
 			result := Requests.BookSession(membershipNumber, pDate, pRoom, pTime)
 			if result.Success {
-				// TODO: Poner los tres datos y agregar nombre de la session
-				Requests.InsertNotification(membershipNumber, "You were automatically booked to session you were queue. Session starts"+pTime)
+				// TODO: Poner nombre de la sesión
+				message := "You were automatically booked to session you were queue. Session is placed in room:" + strconv.Itoa(pRoom) + "  the next: " + pDate + " at: " + pTime
+				Requests.InsertNotification(membershipNumber, message)
 			}
 		}
 	}

@@ -101,10 +101,7 @@ func BookSession(context *fiber.Ctx) error {
 
 	result := Requests.BookSession(clientnumber, date, roomId, startTime)
 
-	// ? Se le puede poner a result el codigo de error?
-	// Para saber si es por no haber espacio?
-
-	if result.ReturnStatus ==  {
+	if result.ReturnStatus == -50002 {
 		dateTimeString := date + "T" + startTime
 		dateTime, _ := time.Parse("2006-01-02T15:04", dateTimeString)
 		dateTimeUnix := dateTime.Unix()
@@ -114,6 +111,7 @@ func BookSession(context *fiber.Ctx) error {
 			queue = FreeSpaceObserver.NewSessionQueue(date, startTime, roomId)
 			freeSpaceNotifier.Register(queue)
 			sessionsQueues[dateTimeUnix] = queue
+			// ? Se puede cambiar el mensaje aqui para solo desplegarlo
 		}
 		queue.Add(clientnumber)
 

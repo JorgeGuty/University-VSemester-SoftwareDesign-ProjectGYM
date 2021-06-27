@@ -138,3 +138,19 @@ UPDATE dbo.Reserva
     SET Activa = 0 
     WHERE Id = 2;
 
+-- Reservas para probar el observer
+INSERT INTO
+    dbo.Reserva(FechaReserva,ClienteId,SesionId)
+    values
+        (GETDATE(),3,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6),
+        (GETDATE(),1,6)
