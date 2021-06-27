@@ -3,10 +3,13 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Common"
+	"API/WebServer/Controllers/Observer/PrizesObserver"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
+
+var prizesNotifier = &PrizesObserver.PrizesNotifier{}
 
 func GetClientInfo(context *fiber.Ctx) error {
 
@@ -175,3 +178,55 @@ func GetSessionParticipants(context *fiber.Ctx) error {
 	return Common.GiveJSONResponse(context, clients, fiber.StatusOK)
 }
 
+func GetNotifications(context *fiber.Ctx) error {
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
+
+	instructors := Requests.GetNotifications(membershipNumber)
+
+	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
+}
+
+func GetMonthlyPrizes(context *fiber.Ctx) error {
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+
+	prizes := Requests.GetMonthlyPrizes(month, year)
+
+	prizesNotifier.Reset()
+	for _, prize := range prizes {
+		newObserver := &PrizesObserver.ClientPrizeObserver{
+			PrizeName:    prize.PrizeName,
+			MembershipId: prize.MembershipId,
+		}
+		prizesNotifier.Register(newObserver)
+	}
+
+	return Common.GiveJSONResponse(context, prizes, fiber.StatusOK)
+}
+
+func NotifyPrizes(context *fiber.Ctx) error {
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	go prizesNotifier.NotifyAll()
+
+	return Common.GiveJSONResponse(context, context.JSON(""), fiber.StatusOK)
+}

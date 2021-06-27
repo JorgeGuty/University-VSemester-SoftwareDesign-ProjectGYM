@@ -337,3 +337,27 @@ func ParsePaymentMethods(resultSet *sql.Rows) []Models.PaymentMethod {
 
 	return paymentMethods
 }
+
+func ParsePrizes(resultSet *sql.Rows) []Models.Prize {
+	var prizes []Models.Prize
+
+	for resultSet.Next() {
+		newPrize := Models.Prize{}
+
+		err := resultSet.Scan(
+			&newPrize.PrizeName,
+			&newPrize.NeededStars,
+			&newPrize.ClientName,
+			&newPrize.MembershipId,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Prize{}
+		}
+
+		prizes = append(prizes, newPrize)
+	}
+
+	return prizes
+}
