@@ -51,6 +51,8 @@ ALTER VIEW dbo.CompleteSessions AS
         (
             SELECT SesionId, COUNT(SesionId) AS Bookings 
                 FROM dbo.Reserva
+                WHERE 
+                Activa = 1
                 GROUP BY SesionId
         ) AS r
         ON r.SesionId = [session].ID
