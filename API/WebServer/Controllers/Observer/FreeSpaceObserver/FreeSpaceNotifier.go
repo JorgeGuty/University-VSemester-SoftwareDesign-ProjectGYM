@@ -9,9 +9,7 @@ func (notifier *FreeSpaceNotifier) Register(o SessionObserver) {
 }
 
 func (notifier *FreeSpaceNotifier) NotifyAll(pDate string, pTime string, pRoom int) {
-	println("Vamos a notificar")
 	for _, sessionObserver := range notifier.ObserverList {
-
 		sessionObserver.Update(pDate, pTime, pRoom)
 	}
 }

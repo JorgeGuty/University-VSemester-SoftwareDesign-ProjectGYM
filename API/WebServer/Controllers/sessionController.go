@@ -83,6 +83,7 @@ func GetReservedSessions(context *fiber.Ctx) error {
 
 func BookSession(context *fiber.Ctx) error {
 
+	// TODO: Quitar Comments
 	// token := Common.AnalyzeToken(context)
 	// if token == nil {
 	// 	return nil
@@ -103,10 +104,9 @@ func BookSession(context *fiber.Ctx) error {
 	// ? Se le puede poner a result el codigo de error?
 	// Para saber si es por no haber espacio?
 
-	if !result.Success {
+	if result.ReturnStatus ==  {
 		dateTimeString := date + "T" + startTime
 		dateTime, _ := time.Parse("2006-01-02T15:04", dateTimeString)
-		println(dateTime.String())
 		dateTimeUnix := dateTime.Unix()
 
 		queue, exist := sessionsQueues[dateTimeUnix]
@@ -125,6 +125,7 @@ func BookSession(context *fiber.Ctx) error {
 
 func CancelBooking(context *fiber.Ctx) error {
 
+	// TODO: Quitar Comments
 	// token := Common.AnalyzeToken(context)
 	// if token == nil {
 	// 	return nil
