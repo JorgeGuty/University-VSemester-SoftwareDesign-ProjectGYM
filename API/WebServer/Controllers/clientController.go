@@ -196,16 +196,39 @@ func GetNotifications(context *fiber.Ctx) error {
 
 	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
 }
-func NotifyPrizes(context *fiber.Ctx) error {
+
+func GetMonthlyPrizes(context *fiber.Ctx) error {
 
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
 
 		return err
 	}
-	membershipNumber, _ := strconv.Atoi(data["membershipNumber"])
 
-	instructors := Requests.GetNotifications(membershipNumber)
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
 
-	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
+	prizes := Requests.GetMonthlyPrizes(month, year)
+
+	for _, prize := range prizes {
+		newObserver := &PrizesObserver.ClientPrizeObserver{
+			PrizeName:    prize.ClientName,
+			MembershipId: prize.MembershipId,
+		}
+		prizesNotifier.Register(newObserver)
+	}
+
+	return Common.GiveJSONResponse(context, prizes, fiber.StatusOK)
+}
+
+func NotifyPrizes(context *fiber.Ctx) error {
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	prizesNotifier.NotifyAll()
+
+	return Common.GiveJSONResponse(context, context.JSON(""), fiber.StatusOK)
 }
