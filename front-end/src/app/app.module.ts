@@ -65,6 +65,8 @@ import { ClientUserGuard } from "./Guards/authClient.guard";
 import { ClientServicesComponent } from "./Components/Dashboards/Client/client-services/client-services.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NotificationsComponent } from "./Components/General/notifications/notifications.component";
+import { AdminCardContainerComponent } from './Components/Dashboards/Admin/admin-card-container/admin-card-container.component';
+import { AdminCardUncheckedComponent } from './Components/Dashboards/Admin/admin-card-unchecked/admin-card-unchecked.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +102,8 @@ import { NotificationsComponent } from "./Components/General/notifications/notif
     AdminScheduleDialogComponent,
     ClientServicesComponent,
     NotificationsComponent,
+    AdminCardContainerComponent,
+    AdminCardUncheckedComponent,
   ],
   imports: [
     AppRoutingModule,

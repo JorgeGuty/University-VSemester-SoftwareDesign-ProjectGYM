@@ -14,6 +14,7 @@ import { AdminScheduleDialogComponent } from "../admin-schedule-dialog/admin-sch
 })
 export class AdminDashboardComponent implements OnInit {
   scheduleMap: Map<Date, any>;
+  scheduleMapUnchecked: Map<Date, any>;
 
   constructor(
     private authService: AuthService,
@@ -22,6 +23,7 @@ export class AdminDashboardComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.scheduleMap = new Map();
+    this.scheduleMapUnchecked = new Map();
   }
 
   ngOnInit(): void {

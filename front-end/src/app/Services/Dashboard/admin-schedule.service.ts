@@ -24,6 +24,18 @@ export class AdminScheduleService {
     );
   }
 
+  // getUncheckedSessionSchedule(): Observable<any> {
+  //   return this.httpClient.get(
+  //     ConnectionsServices.currentConnection + "/client/sessionParticipants",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `${AuthService.getAuthToken()}`,
+  //       },
+  //     }
+  //   );
+  // }
+
   // Todo: do change class instructor
   changeCurrentSessionInstructor(
     sessionForm: any,
