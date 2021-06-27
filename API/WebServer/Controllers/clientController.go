@@ -168,7 +168,7 @@ func GetSessionParticipants(context *fiber.Ctx) error {
 
 	date := data["date"]
 	roomId, _ := strconv.Atoi(data["roomId"])
-	startTime := data["startTime"]
+	startTime := data["time"]
 
 	clients := Requests.GetSessionParticipants(date, roomId, startTime)
 

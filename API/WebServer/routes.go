@@ -50,7 +50,7 @@ func Setup(app *fiber.App) {
 	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor)
 	sessions.Post("/getFilteredSchedule", Controllers.GetFilteredSchedule)
 	sessions.Post("/setAttendance", Controllers.SetSessionAttendance) // New!
-	sessions.Post("/attendancePending", Controllers.GetAttendancePendingSession) // New!
+	sessions.Get("/attendancePending", Controllers.GetAttendancePendingSession) // New!
 
 	instructor := app.Group("/instructor")
 	instructor.Post("/instructors", Controllers.GetInstructors)

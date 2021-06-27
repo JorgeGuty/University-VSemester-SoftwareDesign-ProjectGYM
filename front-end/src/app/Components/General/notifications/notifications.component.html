@@ -1,0 +1,49 @@
+<div *ngIf="this.notificationArray.length != undefined">
+  <div class="row">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          class="btn"
+          id="dropdownBasic1"
+          style="color: #f8f9fc"
+          ngbDropdownToggle
+        >
+          <mat-icon
+            mat-list-icon
+            matBadge="{{ this.notificationArray.length }}"
+            matBadgeColor="accent"
+            style="color: #f8f9fc"
+            >notifications</mat-icon
+          >
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <div *ngFor="let notification of this.notificationArray">
+            <button
+              ngbDropdownItem
+              style="
+                font-size: 14px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                line-height: 1.2;
+              "
+            >
+              Message: {{ this.notification.message }} <br />
+              Date: {{ this.notification.date }} <br />
+              Time: {{ this.notification.time }}
+            </button>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngFor="let notification of this.notificationArray">
+    <button ngbDropdownItem>
+      Message: {{ this.notification.message }} <br />
+      Date: {{ this.notification.date }} <br />
+      Time: {{ this.notification.time }}
+    </button>
+    <hr />
+  </div> -->
