@@ -28,7 +28,6 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMonthlySessions();
-    this.getUncheckedMonthlySessions();
   }
 
   getMonthlySessions() {
@@ -44,6 +43,8 @@ export class AdminDashboardComponent implements OnInit {
           //TODO: Mostrar Error de vacio
           console.log("Erroooooor!!! no hay clases");
         }
+
+        this.getUncheckedMonthlySessions();
       });
   }
 

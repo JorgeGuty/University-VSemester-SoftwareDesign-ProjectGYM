@@ -33,8 +33,6 @@ export class ClientScheduleService {
     let user = this.authService.getCurrentUser();
     if (user != undefined && user.identifier != undefined) {
       var userForm: any = { membershipNumber: user.identifier.toString() };
-      console.log("PRUEBAAAA");
-      console.log(userForm);
     }
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/sessions/reservedSessions",
@@ -54,6 +52,19 @@ export class ClientScheduleService {
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/sessions/getFilteredSchedule",
       userForm,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
+  getNotifications(membershipNumber: string): Observable<any> {
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/getNotifications",
+      membershipNumber,
       {
         headers: {
           "Content-Type": "application/json",

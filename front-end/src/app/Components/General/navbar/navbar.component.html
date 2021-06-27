@@ -1,6 +1,7 @@
 <p>
   <mat-toolbar class="navbar-color">
     <app-notifications
+      *ngIf="authService.loggedIn() && !this.isAdmin()"
       [notificationArray]="this.notificationArray"
     ></app-notifications>
     <span class="button-color">+ GYM</span>

@@ -3,6 +3,8 @@ import { AuthService } from "../../../Services/Auth/auth.service";
 import { Router } from "@angular/router";
 import UserTypes from "src/app/Models/Users/UserTypes";
 import Notifications from "src/app/Models/Schedule/Notifications";
+import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
+import { ClientsService } from "src/app/Services/UserInfo/clients.service";
 
 @Component({
   selector: "app-navbar",
@@ -11,9 +13,15 @@ import Notifications from "src/app/Models/Schedule/Notifications";
 })
 export class NavbarComponent implements OnInit {
   notificationArray: Notifications[] = [];
+  membershipNumber: any = "";
 
-  constructor(public authService: AuthService, private router: Router) {
-    this.loadNotifications();
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private clientSchedule: ClientScheduleService,
+    private clientsService: ClientsService
+  ) {
+    if (!this.isAdmin()) this.loadNotifications();
   }
 
   ngOnInit(): void {}
@@ -33,12 +41,32 @@ export class NavbarComponent implements OnInit {
 
   loadNotifications() {
     console.log("Estoy recargando notificaciones 🎉");
-    this.notificationArray = [
-      { message: "Hola eduardo", time: "18:00", date: "2021-06-06" },
-      { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-      { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-      { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-      { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-    ];
+
+    this.clientsService.getClientInfo().subscribe((profiles: any[]) => {
+      profiles.forEach((profile: any) => {
+        this.membershipNumber = {
+          membershipNumber: profile.membershipNumber.toString(),
+        };
+      });
+      this.clientSchedule.getNotifications(this.membershipNumber).subscribe(
+        (res) => {
+          console.log("Lo logramos equipo 🎉");
+          console.log(res);
+          console.log("Lo logramos equipo 🎉");
+          this.notificationArray = res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    });
+
+    // this.notificationArray = [
+    //   { message: "Hola eduardo", time: "18:00", date: "2021-06-06" },
+    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
+    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
+    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
+    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
+    // ];
   }
 }

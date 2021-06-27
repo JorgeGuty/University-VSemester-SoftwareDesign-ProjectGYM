@@ -19,7 +19,7 @@ export class ClientsService {
     if (user != undefined && user.identifier != undefined) {
       var userForm: any = { membershipNumber: user.identifier.toString() };
     }
-    console.log(userForm);
+    console.log(user);
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/clientInfo",
       userForm,
