@@ -91,19 +91,4 @@ func GetSessionParticipants(pDate string, pRoomId int, pStartTime string) []Mode
 
 }
 
-func GetNotifications(pMembershipNumber int) []Models.Notification {
 
-	query := fmt.Sprintf(`EXEC SP_GetNotifications %d;`, pMembershipNumber)
-
-	resultSet, err := Database.ReadTransaction(query)
-
-	if err != nil {
-		fmt.Println(err.Error())
-		return []Models.Notification{}
-	}
-
-	notifications := ParseNotifications(resultSet)
-
-	return notifications
-
-}
