@@ -41,8 +41,11 @@ BEGIN
                     )
                 OR  [session].[SessionDate] < CONVERT ( DATE , CURRENT_TIMESTAMP )
             )
+        AND [session].[SessionID] IN (SELECT booking.SesionId FROM dbo.Reserva AS booking)
 END
 GO
 -- example to execute the stored procedure we just created
 EXECUTE dbo.SP_GetAttendancePendingSessions
 GO      
+
+exec SP_GetSessionParticipants '2021-05-29', '10:00', 1

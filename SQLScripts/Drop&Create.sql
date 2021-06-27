@@ -7,7 +7,9 @@ COMMIT TRANSACTION
 -- DROPS
 BEGIN TRANSACTION
 GO
+DROP TABLE IF EXISTS dbo.Notificaciones;
 
+DROP TABLE IF EXISTS dbo.PremiosPorCliente;
 DROP TABLE IF EXISTS dbo.UsuarioCliente;
 DROP TABLE IF EXISTS dbo.UsuarioAdmin;
 DROP TABLE IF EXISTS dbo.Usuario;
@@ -22,6 +24,7 @@ DROP TABLE IF EXISTS dbo.TipoMovimiento;
 DROP TABLE IF EXISTS dbo.FormaDePago;
 DROP TABLE IF EXISTS dbo.ConceptosDeCobroFijos;
 
+DROP TABLE IF EXISTS dbo.Premios;
 DROP TABLE IF EXISTS dbo.EstrellasMensuales;
 DROP TABLE IF EXISTS dbo.ServiciosFavoritos;
 DROP TABLE IF EXISTS dbo.Reserva;
@@ -705,6 +708,60 @@ CREATE TABLE dbo.EstrellasMensuales (
 		INT
 		NOT NULL
 		DEFAULT 0		
+
+)
+
+----------------------
+
+----------------------
+-- Premios
+----------------------
+CREATE TABLE dbo.Premios (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	Nombre
+		NVARCHAR(100)
+		NOT NULL
+	,
+	EstrellasNecesarias
+		INT
+		NOT NULL
+
+)
+
+----------------------
+
+----------------------
+-- PremiosPorCliente
+----------------------
+CREATE TABLE dbo.PremiosPorCliente (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,	
+	PremioId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Premios(Id)
+	,	
+	Mes 
+		INT
+		NOT NULL
+	,
+	Año 
+		INT
+		NOT NULL
 
 )
 
