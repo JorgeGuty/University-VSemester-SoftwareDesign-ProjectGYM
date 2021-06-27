@@ -17,7 +17,7 @@ var sessionFilter = &FilteredScheduleStrategy.ScheduleFilter{}
 var assistanceVisitor = &AssistanceVisitor.AssistanceVisitor{}
 
 var freeSpaceNotifier = &FreeSpaceObserver.FreeSpaceNotifier{}
-var sessionsQueues = make(map[int]FreeSpaceObserver.SessionQueue)
+var sessionsQueues = make(map[int64]*FreeSpaceObserver.SessionQueue)
 
 func GetActiveSchedule(context *fiber.Ctx) error {
 
@@ -102,13 +102,21 @@ func BookSession(context *fiber.Ctx) error {
 
 	// ? Se le puede poner a result el codigo de error?
 	// Para saber si es por no haber espacio?
+
 	if !result.Success {
-		//queue, exist := sessionsQueues[]
-		// Se puede revisar en un hash? Si existe la lista ya?
-		timeDate := date + "T" + startTime + ":00"
-		println(timeDate)
-		t, _ := time.Parse("2006-01-02T15:04:05", timeDate)
-		println(t.String())
+		dateTimeString := date + "T" + startTime
+		dateTime, _ := time.Parse("2006-01-02T15:04", dateTimeString)
+		println(dateTime.String())
+		dateTimeUnix := dateTime.Unix()
+
+		queue, exist := sessionsQueues[dateTimeUnix]
+		if !exist {
+			queue = FreeSpaceObserver.NewSessionQueue(date, startTime, roomId)
+			freeSpaceNotifier.Register(queue)
+			sessionsQueues[dateTimeUnix] = queue
+		}
+		queue.Add(clientnumber)
+
 	}
 
 	return Common.GiveVoidOperationResponse(context, result)
@@ -117,10 +125,10 @@ func BookSession(context *fiber.Ctx) error {
 
 func CancelBooking(context *fiber.Ctx) error {
 
-	token := Common.AnalyzeToken(context)
-	if token == nil {
-		return nil
-	}
+	// token := Common.AnalyzeToken(context)
+	// if token == nil {
+	// 	return nil
+	// }
 
 	var data map[string]string
 	if err := context.BodyParser(&data); err != nil {
@@ -135,7 +143,7 @@ func CancelBooking(context *fiber.Ctx) error {
 	result := Requests.CancelBooking(clientnumber, date, roomId, startTime)
 
 	if result.Success {
-		freeSpaceNotifier.NotifyAll()
+		freeSpaceNotifier.NotifyAll(date, startTime, roomId)
 	}
 
 	return Common.GiveVoidOperationResponse(context, result)
