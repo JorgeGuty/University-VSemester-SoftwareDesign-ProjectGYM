@@ -104,7 +104,7 @@ func BookSession(context *fiber.Ctx) error {
 	// ? Se le puede poner a result el codigo de error?
 	// Para saber si es por no haber espacio?
 
-	if result.ReturnStatus ==  {
+	if result.ReturnStatus ==  -50001 /*TODO: cambiar este código de error por el que es, compilando no había nada ahí y se me caía*/{
 		dateTimeString := date + "T" + startTime
 		dateTime, _ := time.Parse("2006-01-02T15:04", dateTimeString)
 		dateTimeUnix := dateTime.Unix()
