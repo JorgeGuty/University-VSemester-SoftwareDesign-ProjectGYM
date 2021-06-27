@@ -5,15 +5,15 @@ type PrizesNotifier struct {
 	Observers []Observer
 }
 
-func (notifier *PrizesNotifier) register(observer Observer) {
+func (notifier *PrizesNotifier) Register(observer Observer) {
 	notifier.Observers = append(notifier.Observers, observer)
 }
 
-func (notifier *PrizesNotifier) reset() {
+func (notifier *PrizesNotifier) Reset() {
 	notifier.Observers = []Observer{}
 }
 
-func (notifier *PrizesNotifier) notifyAll() {
+func (notifier *PrizesNotifier) NotifyAll() {
 	for _, observer := range notifier.Observers {
 		observer.update()
 	}

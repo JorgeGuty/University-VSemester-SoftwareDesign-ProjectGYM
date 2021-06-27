@@ -3,10 +3,13 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Common"
+	"API/WebServer/Controllers/Observer/PrizesObserver"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
+
+var prizesNotifier = &PrizesObserver.PrizesNotifier{}
 
 func GetClientInfo(context *fiber.Ctx) error {
 
