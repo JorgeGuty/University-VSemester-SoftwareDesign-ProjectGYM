@@ -139,10 +139,30 @@ export class AdminScheduleService {
   }
 
   getSessionParticipant(session: any): Observable<any> {
-    session = { date: session.date, roomId: "1", time: session.time };
+    let sessionJson = { date: session.date, roomId: "1", time: session.time };
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/client/sessionParticipants",
-      session,
+      sessionJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
+
+  setAttendance(session: any, attendants: string): Observable<any> {
+    let attendantsJson = {
+      date: session.date,
+      roomId: "1",
+      time: session.time,
+      attendants: attendants,
+    };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/sessions/setAttendance",
+      attendantsJson,
       {
         headers: {
           "Content-Type": "application/json",

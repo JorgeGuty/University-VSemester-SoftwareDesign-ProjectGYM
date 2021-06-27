@@ -58,6 +58,7 @@ export class AdminCardUncheckedComponent implements OnInit {
     const dialogRef = this.dialog.open(AdminDialogueUncheckedComponent, {
       data: {
         participantsArray: participants,
+        session: this.session,
       },
     });
 
