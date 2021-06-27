@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
@@ -65,8 +66,9 @@ import { ClientUserGuard } from "./Guards/authClient.guard";
 import { ClientServicesComponent } from "./Components/Dashboards/Client/client-services/client-services.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NotificationsComponent } from "./Components/General/notifications/notifications.component";
-import { AdminCardContainerComponent } from './Components/Dashboards/Admin/admin-card-container/admin-card-container.component';
-import { AdminCardUncheckedComponent } from './Components/Dashboards/Admin/admin-card-unchecked/admin-card-unchecked.component';
+import { AdminCardContainerComponent } from "./Components/Dashboards/Admin/admin-card-container/admin-card-container.component";
+import { AdminCardUncheckedComponent } from "./Components/Dashboards/Admin/admin-card-unchecked/admin-card-unchecked.component";
+import { AdminDialogueUncheckedComponent } from "./Components/Dashboards/Admin/admin-dialogue-unchecked/admin-dialogue-unchecked.component";
 
 @NgModule({
   declarations: [
@@ -104,6 +106,7 @@ import { AdminCardUncheckedComponent } from './Components/Dashboards/Admin/admin
     NotificationsComponent,
     AdminCardContainerComponent,
     AdminCardUncheckedComponent,
+    AdminDialogueUncheckedComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -115,6 +118,7 @@ import { AdminCardUncheckedComponent } from './Components/Dashboards/Admin/admin
     MatBadgeModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,

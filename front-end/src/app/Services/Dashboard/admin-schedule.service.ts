@@ -24,17 +24,17 @@ export class AdminScheduleService {
     );
   }
 
-  // getUncheckedSessionSchedule(): Observable<any> {
-  //   return this.httpClient.get(
-  //     ConnectionsServices.currentConnection + "/client/sessionParticipants",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `${AuthService.getAuthToken()}`,
-  //       },
-  //     }
-  //   );
-  // }
+  getUncheckedSessionSchedule(): Observable<any> {
+    return this.httpClient.get(
+      ConnectionsServices.currentConnection + "/sessions/attendancePending",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 
   // Todo: do change class instructor
   changeCurrentSessionInstructor(
@@ -128,6 +128,21 @@ export class AdminScheduleService {
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/rooms/setWorkingHours",
       form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
+
+  getSessionParticipant(session: any): Observable<any> {
+    session = { date: session.date, roomId: "1", time: session.time };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/sessionParticipants",
+      session,
       {
         headers: {
           "Content-Type": "application/json",
