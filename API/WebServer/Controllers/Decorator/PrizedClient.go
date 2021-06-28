@@ -5,6 +5,4 @@ type PrizedClient struct {
 	Stars            int
 }
 
-func (p *PrizedClient) AwardPrize() {
-
-}
+func (p *PrizedClient) AwardPrize() {}

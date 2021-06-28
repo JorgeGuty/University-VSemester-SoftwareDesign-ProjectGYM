@@ -1,9 +1,16 @@
 package Decorator
 
+import "API/Database/Requests"
+
 type EvaluationWinner struct {
-	claimer PrizeClaimer
+	claimer          PrizeClaimer
+	membershipNumber int
 }
 
 func (p *EvaluationWinner) AwardPrize() {
-	// TODO:
+	Requests.AddPrizeToClient(p.membershipNumber, p.getPrizeNumber())
+}
+
+func (p *EvaluationWinner) getPrizeNumber() int {
+	return 4
 }

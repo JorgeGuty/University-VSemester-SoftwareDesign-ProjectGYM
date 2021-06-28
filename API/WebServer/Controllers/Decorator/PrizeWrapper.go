@@ -1,10 +1,5 @@
 package Decorator
 
-// Deberia traerlos de la base
-const firstStarMile = 1
-const secondStarMile = 2
-const thirdStarMile = 3
-
 type PrizeWrapper struct {
 }
 
@@ -15,21 +10,37 @@ func (p *PrizeWrapper) GetPrizedClient(pMembershipNumber int, pStars int) PrizeC
 		MembershipNumber: pMembershipNumber,
 	}
 
-	if pStars == firstStarMile {
+	if pStars == p.getFirstStarMile() {
 		prizedClient = &ItemWinner{
-			claimer: prizedClient,
+			claimer:          prizedClient,
+			membershipNumber: pMembershipNumber,
 		}
 	}
-	if pStars == secondStarMile {
+	if pStars == p.getSecondStarMile() {
 		prizedClient = &EvaluationWinner{
-			claimer: prizedClient,
+			claimer:          prizedClient,
+			membershipNumber: pMembershipNumber,
 		}
 	}
-	if pStars == thirdStarMile {
+	if pStars == p.getThirdStarMile() {
 		prizedClient = &SessionWinner{
-			claimer: prizedClient,
+			claimer:          prizedClient,
+			membershipNumber: pMembershipNumber,
 		}
 	}
 
 	return prizedClient
+}
+
+// Deberia traerlos de la base
+func (p *PrizeWrapper) getFirstStarMile() int {
+	return 1
+}
+
+func (p *PrizeWrapper) getSecondStarMile() int {
+	return 2
+}
+
+func (p *PrizeWrapper) getThirdStarMile() int {
+	return 3
 }
