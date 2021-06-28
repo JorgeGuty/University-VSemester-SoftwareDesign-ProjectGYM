@@ -23,6 +23,13 @@
     >
     <a
       *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/prizes']"
+      mat-button
+      class="button-color"
+      >Prizes Table</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
       [routerLink]="['/admin/clientTable']"
       mat-button
       class="button-color"

@@ -10,6 +10,7 @@ import { ProfileComponent } from "./Components/Profile/profile/profile.component
 import { LoginComponent } from "./Components/Registration/login/login.component";
 import { ClientComponent } from "./Components/Tables/client/client.component";
 import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
+import { PrizesComponent } from "./Components/Tables/prizes/prizes.component";
 import { ServiceComponent } from "./Components/Tables/service/service.component";
 
 /* Services */
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path: "admin/instructorTable",
     component: InstructorComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: "admin/prizes",
+    component: PrizesComponent,
     canActivate: [AuthAdminGuard],
   },
   {
