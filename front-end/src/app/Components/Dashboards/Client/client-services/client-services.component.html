@@ -13,6 +13,7 @@
       [instructor]="this.session.instructor"
       [sessionService]="this.session.sessionService"
       [isReserved]="this.isSessionReserved(this.session.id)"
+      (errorMessage)="onError($event)"
     ></app-client-card>
   </mat-expansion-panel>
 </div>

@@ -32,5 +32,13 @@
   style="display: flex; flex-direction: column"
   [scheduleMap]="this.scheduleMap"
   [scheduleMapReservations]="this.scheduleMapReservations"
+  (errorMessage)="onError($event)"
 >
 </app-client-services>
+
+<ngb-alert
+  *ngIf="alert != undefined"
+  (closed)="close()"
+  style="position: fixed; bottom: 0; left: 0; margin-left: 10px"
+  >{{ alert.message }}</ngb-alert
+>

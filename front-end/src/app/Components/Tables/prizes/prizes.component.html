@@ -26,8 +26,15 @@
         class="button-create"
         (click)="openCalendar()"
       >
-        <mat-icon>create</mat-icon>
+        <mat-icon>calendar_today</mat-icon>
       </button>
     </div>
   </div>
 </h2>
+
+<ngb-alert
+  *ngIf="alert != undefined"
+  (closed)="close()"
+  style="position: fixed; bottom: 0; left: 0; margin-left: 10px"
+  >{{ alert.message }}</ngb-alert
+>
