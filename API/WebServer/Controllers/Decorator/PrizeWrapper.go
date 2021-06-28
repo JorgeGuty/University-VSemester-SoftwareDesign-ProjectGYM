@@ -10,28 +10,28 @@ func (p *PrizeWrapper) GetPrizedClient(pMembershipNumber int, pStars int, pMonth
 		MembershipNumber: pMembershipNumber,
 	}
 
-	if pStars == p.getFirstStarMile() {
+	info := WinnerDecorator{
+		membershipNumber: pMembershipNumber,
+		month:            pMonth,
+		year:             pYear,
+	}
+
+	if pStars >= p.getFirstStarMile() {
+		info.claimer = prizedClient
 		prizedClient = &ItemWinner{
-			claimer:          prizedClient,
-			membershipNumber: pMembershipNumber,
-			month:            pMonth,
-			year:             pYear,
+			WinnerDecorator: info,
 		}
 	}
-	if pStars == p.getSecondStarMile() {
+	if pStars >= p.getSecondStarMile() {
+		info.claimer = prizedClient
 		prizedClient = &EvaluationWinner{
-			claimer:          prizedClient,
-			membershipNumber: pMembershipNumber,
-			month:            pMonth,
-			year:             pYear,
+			WinnerDecorator: info,
 		}
 	}
-	if pStars == p.getThirdStarMile() {
+	if pStars >= p.getThirdStarMile() {
+		info.claimer = prizedClient
 		prizedClient = &SessionWinner{
-			claimer:          prizedClient,
-			membershipNumber: pMembershipNumber,
-			month:            pMonth,
-			year:             pYear,
+			WinnerDecorator: info,
 		}
 	}
 
