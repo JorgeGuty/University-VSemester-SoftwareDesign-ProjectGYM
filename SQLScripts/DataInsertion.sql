@@ -173,6 +173,13 @@ VALUES
 (1,2020,1,3,1),
 (1,2020,1,4,3)
 
+INSERT INTO EstrellasMensuales(ClienteId,Año,Mes,SemanaDelMes,Cantidad)
+VALUES
+(1,2020,2,1,3),
+(1,2020,2,2,3),
+(1,2020,2,3,3),
+(1,2020,2,4,3)
+
 --SELECT * FROM PremiosPorCliente
 INSERT INTO PremiosPorCliente(ClienteId, PremioId, Mes, Año)
 VALUES

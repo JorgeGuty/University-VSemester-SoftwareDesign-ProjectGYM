@@ -3,13 +3,11 @@ package Decorator
 import "API/Database/Requests"
 
 type EvaluationWinner struct {
-	claimer          PrizeClaimer
-	membershipNumber int
-	month            int
-	year             int
+	WinnerDecorator
 }
 
 func (p *EvaluationWinner) AwardPrize() {
+	p.claimer.AwardPrize()
 	Requests.AddPrizeToClient(p.membershipNumber, p.getPrizeNumber(), p.month, p.year)
 }
 
