@@ -2,6 +2,7 @@ package Requests
 
 import (
 	"API/Database"
+	"API/Database/Common"
 	"API/Models"
 	"fmt"
 )
@@ -35,5 +36,13 @@ func GetStarredClients(pMonth int, pYear int) []Models.StarredClient {
 	prizes := ParseStarredClients(resultSet)
 
 	return prizes
+
+}
+
+func AddPrizeToClient(pMembershipNumber int, pPrizeNumber int) Common.VoidOperationResult {
+
+	query := fmt.Sprintf(`EXEC SP_InsertPrize %d, %d;`, pMembershipNumber, pPrizeNumber)
+
+	return VoidRequest(query)
 
 }
