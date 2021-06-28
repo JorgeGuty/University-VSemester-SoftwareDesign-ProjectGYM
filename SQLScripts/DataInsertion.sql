@@ -165,6 +165,15 @@ VALUES
 ('Valoracion Nutricional', 2),
 ('Sesión de de Descarga Muscular', 3)
 
+-- Prueba Decorador
+INSERT INTO EstrellasMensuales(ClienteId,Año,Mes,SemanaDelMes,Cantidad)
+VALUES
+(1,2020,1,1,3),
+(1,2020,1,2,3),
+(1,2020,1,3,1),
+(1,2020,1,4,3)
+
+--SELECT * FROM PremiosPorCliente
 INSERT INTO PremiosPorCliente(ClienteId, PremioId, Mes, Año)
 VALUES
 (1,1,1,2020),
