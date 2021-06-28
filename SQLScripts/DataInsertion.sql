@@ -139,55 +139,59 @@ UPDATE dbo.Reserva
     WHERE Id = 2;
 
 -- Reservas para probar el observer
+
+
 INSERT INTO
     dbo.Reserva(FechaReserva,ClienteId,SesionId)
     values
+        (GETDATE(),3,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2)
+
+INSERT INTO Premios(Nombre, EstrellasNecesarias)
+VALUES 
+('Bolso de Gym', 1),
+('Botella', 1),
+('Paño de Billete de 10,000', 1),
+('Valoracion Nutricional', 2),
+('Sesión de de Descarga Muscular', 3)
+
+INSERT INTO PremiosPorCliente(ClienteId, PremioId, Mes, Año)
+VALUES
+(1,1,1,2020),
+(2,4,1,2020)
+
+-- -- Pruebas de Ale
+--SELECT * FROM CompleteSessions
+INSERT INTO 
+    dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
+VALUES
+    (CONVERT(DATE, '2021-04-20'),10, 1, 1),
+    (CONVERT(DATE, '2021-04-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-04-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-04-29'),10, 1, 4),
+    (CONVERT(DATE, '2021-03-20'),10, 1, 1),
+    (CONVERT(DATE, '2021-03-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-03-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-03-29'),10, 1, 4)
+
+INSERT INTO
+    dbo.Reserva(FechaReserva,ClienteId,SesionId)
+    values
+        (GETDATE(),3,5),
+        (GETDATE(),1,5),
+        (GETDATE(),2,5),
         (GETDATE(),3,6),
         (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6),
-        (GETDATE(),1,6)
-
-
--- Pruebas de Ale
-
--- INSERT INTO 
---     dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
--- VALUES
---     (CONVERT(DATE, '2021-04-20'),10, 1, 1),
---     (CONVERT(DATE, '2021-04-30'),10, 2, 2),
---     (CONVERT(DATE, '2021-04-27'),10, 1, 3),
---     (CONVERT(DATE, '2021-04-29'),10, 1, 4),
---     (CONVERT(DATE, '2021-03-20'),10, 1, 1),
---     (CONVERT(DATE, '2021-03-30'),10, 2, 2),
---     (CONVERT(DATE, '2021-03-27'),10, 1, 3),
---     (CONVERT(DATE, '2021-03-29'),10, 1, 4)
-
--- INSERT INTO
---     dbo.Reserva(FechaReserva,ClienteId,SesionId)
---     values
---         (GETDATE(),3,17),
---         (GETDATE(),1,17),
---         (GETDATE(),2,17),
---         (GETDATE(),3,10),
---         (GETDATE(),1,10),
---         (GETDATE(),2,10),
---         (GETDATE(),3,11),
---         (GETDATE(),1,12),
---         (GETDATE(),2,13),
---         (GETDATE(),3,11),
---         (GETDATE(),1,12),
---         (GETDATE(),2,13),
---         (GETDATE(),3,14),
---         (GETDATE(),1,15),
---         (GETDATE(),2,15),
---         (GETDATE(),3,15),
---         (GETDATE(),1,16),
---         (GETDATE(),3,16)
+        (GETDATE(),2,6),
+        (GETDATE(),3,11),
+        (GETDATE(),1,12)
