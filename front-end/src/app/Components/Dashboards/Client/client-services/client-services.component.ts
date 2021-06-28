@@ -13,6 +13,8 @@ export class ClientServicesComponent implements OnInit {
   scheduleMap!: any;
   @Input()
   scheduleMapReservations!: any;
+  @Output()
+  errorMessage = new EventEmitter<string>();
 
   constructor(private clientScheduleService: ClientScheduleService) {}
 
@@ -24,5 +26,10 @@ export class ClientServicesComponent implements OnInit {
 
   isSessionReserved(sessionName: string) {
     return this.scheduleMapReservations.has(sessionName);
+  }
+
+  onError(message: any) {
+    console.log("Catch that m8 yeap i did 👨‍🦰");
+    this.errorMessage.emit(message);
   }
 }

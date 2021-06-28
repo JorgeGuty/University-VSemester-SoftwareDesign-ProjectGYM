@@ -13,6 +13,8 @@ export class PrizesComponent implements OnInit {
   prizes: Prizes[] = [];
   columnContent: string[] = [];
 
+  alert: any = undefined;
+
   constructor(
     private prizeService: PrizeServiceService,
     public dialog: MatDialog
@@ -25,7 +27,7 @@ export class PrizesComponent implements OnInit {
   loadPrizes() {
     this.prizeService.getServicesTypes("6", "2021").subscribe(
       (res) => {
-        if (res.length != 0) {
+        if (res != null && res.length != 0) {
           console.log("Premios cargados 👧👧👧");
           this.prizes = res;
           //console.log(Object.keys(prizes[0]));
@@ -33,7 +35,8 @@ export class PrizesComponent implements OnInit {
           this.columnContent = this.columnContent.reverse();
           //this.columnContent.push("Actions");
         } else {
-          console.log("Error no hay precios");
+          console.log("Error no hay premios 🎁🎁🎁");
+          this.onError("There is no prizes 🎁🎁🎁 on the actual date");
         }
       },
       (err) => {
@@ -57,7 +60,10 @@ export class PrizesComponent implements OnInit {
           //this.columnContent.pop("Actions");
         } else {
           this.prizes = [];
-          console.log("Error no hay premios");
+          console.log("Error no hay premios 🎁🎁🎁");
+          this.onError(
+            "There are no prizes 🎁🎁🎁, date: " + month + " " + year
+          );
         }
       },
       (err) => {
@@ -87,5 +93,17 @@ export class PrizesComponent implements OnInit {
       console.log(result);
       this.loadPrizesCalendar(result.month, result.year);
     });
+  }
+
+  onError(message: any) {
+    console.log("Catch that mate 👨‍🦰");
+    this.alert = {
+      type: "info",
+      message: message,
+    };
+  }
+
+  close() {
+    this.alert = undefined;
   }
 }

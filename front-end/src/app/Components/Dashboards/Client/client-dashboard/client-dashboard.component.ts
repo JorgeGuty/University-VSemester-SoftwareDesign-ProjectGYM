@@ -18,6 +18,8 @@ export class ClientDashboardComponent implements OnInit {
   filterNumber: number[] = [0, 1, 2, 3];
   filtersNumber: number = 0;
 
+  alert: any = undefined;
+
   constructor(
     private authService: AuthService,
     private clientScheduleService: ClientScheduleService
@@ -116,5 +118,17 @@ export class ClientDashboardComponent implements OnInit {
           console.log("Erroooooor!!! no hay clases");
         }
       });
+  }
+
+  onError(message: any) {
+    console.log("Catch that mate 👨‍🦰");
+    this.alert = {
+      type: "info",
+      message: message,
+    };
+  }
+
+  close() {
+    this.alert = undefined;
   }
 }
