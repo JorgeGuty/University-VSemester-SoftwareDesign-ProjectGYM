@@ -69,6 +69,8 @@ import { NotificationsComponent } from "./Components/General/notifications/notif
 import { AdminCardContainerComponent } from "./Components/Dashboards/Admin/admin-card-container/admin-card-container.component";
 import { AdminCardUncheckedComponent } from "./Components/Dashboards/Admin/admin-card-unchecked/admin-card-unchecked.component";
 import { AdminDialogueUncheckedComponent } from "./Components/Dashboards/Admin/admin-dialogue-unchecked/admin-dialogue-unchecked.component";
+import { PrizesTableComponent } from './Components/Tables/prizes-table/prizes-table.component';
+import { PrizesComponent } from './Components/Tables/prizes/prizes.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +109,8 @@ import { AdminDialogueUncheckedComponent } from "./Components/Dashboards/Admin/a
     AdminCardContainerComponent,
     AdminCardUncheckedComponent,
     AdminDialogueUncheckedComponent,
+    PrizesTableComponent,
+    PrizesComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -60,13 +60,5 @@ export class NavbarComponent implements OnInit {
         }
       );
     });
-
-    // this.notificationArray = [
-    //   { message: "Hola eduardo", time: "18:00", date: "2021-06-06" },
-    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-    //   { message: "Hola jorge", time: "13:00", date: "2021-06-06" },
-    // ];
   }
 }
