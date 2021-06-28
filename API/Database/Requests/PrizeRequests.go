@@ -25,7 +25,7 @@ func GetMonthlyPrizes(pMonth int, pYear int) []Models.Prize {
 
 func GetStarredClients(pMonth int, pYear int) []Models.StarredClient {
 
-	query := fmt.Sprintf(`EXEC SP_GetStarredClients %d, %d;`, pMonth, pYear)
+	query := fmt.Sprintf(`EXEC SP_GetStarredClients %d, %d;`, pYear, pMonth)
 
 	resultSet, err := Database.ReadTransaction(query)
 
@@ -39,9 +39,9 @@ func GetStarredClients(pMonth int, pYear int) []Models.StarredClient {
 
 }
 
-func AddPrizeToClient(pMembershipNumber int, pPrizeNumber int) Common.VoidOperationResult {
+func AddPrizeToClient(pMembershipNumber int, pPrizeNumber int, pMonth int, pYear int) Common.VoidOperationResult {
 
-	query := fmt.Sprintf(`EXEC SP_InsertPrize %d, %d;`, pMembershipNumber, pPrizeNumber)
+	query := fmt.Sprintf(`EXEC SP_InsertPrize %d, %d, %d, %d;`, pMembershipNumber, pPrizeNumber, pMonth, pYear)
 
 	return VoidRequest(query)
 

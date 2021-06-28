@@ -369,7 +369,7 @@ func ParseStarredClients(resultSet *sql.Rows) []Models.StarredClient {
 		client := Models.StarredClient{}
 
 		err := resultSet.Scan(
-			&client.Client.Identification,
+			&client.MembershipNumber,
 			&client.Stars,
 		)
 

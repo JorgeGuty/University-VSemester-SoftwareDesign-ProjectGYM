@@ -3,7 +3,7 @@ package Decorator
 type PrizeWrapper struct {
 }
 
-func (p *PrizeWrapper) GetPrizedClient(pMembershipNumber int, pStars int) PrizeClaimer {
+func (p *PrizeWrapper) GetPrizedClient(pMembershipNumber int, pStars int, pMonth int, pYear int) PrizeClaimer {
 
 	var prizedClient PrizeClaimer = &PrizedClient{
 		Stars:            pStars,
@@ -14,18 +14,24 @@ func (p *PrizeWrapper) GetPrizedClient(pMembershipNumber int, pStars int) PrizeC
 		prizedClient = &ItemWinner{
 			claimer:          prizedClient,
 			membershipNumber: pMembershipNumber,
+			month:            pMonth,
+			year:             pYear,
 		}
 	}
 	if pStars == p.getSecondStarMile() {
 		prizedClient = &EvaluationWinner{
 			claimer:          prizedClient,
 			membershipNumber: pMembershipNumber,
+			month:            pMonth,
+			year:             pYear,
 		}
 	}
 	if pStars == p.getThirdStarMile() {
 		prizedClient = &SessionWinner{
 			claimer:          prizedClient,
 			membershipNumber: pMembershipNumber,
+			month:            pMonth,
+			year:             pYear,
 		}
 	}
 

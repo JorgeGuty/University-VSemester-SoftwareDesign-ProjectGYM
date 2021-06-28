@@ -8,10 +8,12 @@ import (
 type ItemWinner struct {
 	claimer          PrizeClaimer
 	membershipNumber int
+	month            int
+	year             int
 }
 
 func (p *ItemWinner) AwardPrize() {
-	Requests.AddPrizeToClient(p.membershipNumber, p.getPrizeNumber())
+	Requests.AddPrizeToClient(p.membershipNumber, p.getPrizeNumber(), p.month, p.year)
 }
 
 func (p *ItemWinner) getPrizeNumber() int {

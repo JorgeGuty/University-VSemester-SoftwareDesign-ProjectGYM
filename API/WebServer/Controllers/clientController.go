@@ -193,7 +193,7 @@ func AwardPrizes(context *fiber.Ctx) error {
 	starredClients := Requests.GetStarredClients(month, year)
 
 	for _, starredClient := range starredClients {
-		clientWrapper.GetPrizedClient(starredClient.Client.MembershipNumber, starredClient.Stars).AwardPrize()
+		clientWrapper.GetPrizedClient(starredClient.Client.MembershipNumber, starredClient.Stars, month, year).AwardPrize()
 	}
 
 	return Common.GiveJSONResponse(context, starredClients, fiber.StatusOK)
