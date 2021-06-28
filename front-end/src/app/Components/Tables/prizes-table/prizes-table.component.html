@@ -1,5 +1,21 @@
 <div *ngIf="this.notifications.length != 0">
-  <table mat-table [dataSource]="notifications" class="mat-elevation-z8">
+  <mat-form-field style="width: 100%">
+    <mat-label>Filter</mat-label>
+    <input
+      style="width: 100%"
+      autocomplete="off"
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
+    />
+  </mat-form-field>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    style="width: 100%"
+  >
     <!-- Position Column -->
     <ng-container matColumnDef="membership_id">
       <th mat-header-cell *matHeaderCellDef>MembershipNumber</th>
@@ -30,7 +46,7 @@
     </ng-container>
 
     <!-- User Display -->
-    <ng-container matColumnDef="Actions" style="justify-content: end">
+    <!-- <ng-container matColumnDef="Actions" style="justify-content: end">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let notification">
         <button
@@ -38,12 +54,12 @@
           mat-dialog-close
           class="myButton"
           style="background-color: #73d689; color: #2a2b31"
-          (click)="notifyUser(notification)"
+          (click)="notifyUser()"
         >
           Send
         </button>
       </td>
-    </ng-container>
+    </ng-container> -->
     <tr mat-header-row *matHeaderRowDef="columnContent"></tr>
     <tr mat-row *matRowDef="let row; columns: columnContent"></tr>
   </table>

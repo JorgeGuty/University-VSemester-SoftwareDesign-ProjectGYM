@@ -16,7 +16,11 @@
             >notifications</mat-icon
           >
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <div
+          ngbDropdownMenu
+          aria-labelledby="dropdownBasic1"
+          style="height: 400px; overflow-y: auto"
+        >
           <div *ngFor="let notification of this.notificationArray">
             <button
               ngbDropdownItem

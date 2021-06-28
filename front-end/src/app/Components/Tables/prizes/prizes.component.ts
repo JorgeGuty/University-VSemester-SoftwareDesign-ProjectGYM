@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import Prizes, { Prize } from "src/app/Models/Prizes/Prizes";
 import { PrizeServiceService } from "src/app/Services/Prizes/prize-service.service";
+import { AdminPreliminaryDatePickerComponent } from "../../Dashboards/Admin_Preliminary/admin-preliminary-date-picker/admin-preliminary-date-picker.component";
 
 @Component({
   selector: "app-prizes",
@@ -11,7 +13,10 @@ export class PrizesComponent implements OnInit {
   prizes: Prizes[] = [];
   columnContent: string[] = [];
 
-  constructor(private prizeService: PrizeServiceService) {}
+  constructor(
+    private prizeService: PrizeServiceService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.loadPrizes();
@@ -26,7 +31,7 @@ export class PrizesComponent implements OnInit {
           //console.log(Object.keys(prizes[0]));
           this.columnContent = Object.keys(this.prizes[0]);
           this.columnContent = this.columnContent.reverse();
-          this.columnContent.push("Actions");
+          //this.columnContent.push("Actions");
         } else {
           console.log("Error no hay precios");
         }
@@ -37,11 +42,50 @@ export class PrizesComponent implements OnInit {
     );
   }
 
-  notifyUser(prize: any) {
+  loadPrizesCalendar(month: string, year: string) {
+    this.prizeService.getServicesTypes(month, year).subscribe(
+      (res) => {
+        console.log("hola");
+        console.log(res);
+        console.log("hola");
+        if (res != null && res.length != 0) {
+          console.log("Premios cargados 👧👧👧");
+          this.prizes = res;
+          //console.log(Object.keys(prizes[0]));
+          this.columnContent = Object.keys(this.prizes[0]);
+          this.columnContent = this.columnContent.reverse();
+          //this.columnContent.pop("Actions");
+        } else {
+          this.prizes = [];
+          console.log("Error no hay premios");
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  notifyUser() {
     console.log("Premio enviado 👧👧👧");
+    this.prizeService.updatePrizes().subscribe(
+      (res) => {
+        console.log("holis");
+        console.log(res);
+      },
+      (err) => {
+        console.log("Error");
+        console.log(err);
+      }
+    );
   }
 
   openCalendar() {
-    console.log("Calendario Abirtop ");
+    const dialogRef = this.dialog.open(AdminPreliminaryDatePickerComponent);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+      this.loadPrizesCalendar(result.month, result.year);
+    });
   }
 }

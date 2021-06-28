@@ -2,12 +2,22 @@
   <app-prizes-table
     [notifications]="this.prizes"
     [columnContent]="this.columnContent"
-    (notifyUser)="notifyUser($event)"
   ></app-prizes-table>
 </div>
 
 <h2 class="element">
   <div class="flex-container">
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
+        (click)="notifyUser()"
+      >
+        <mat-icon>phonelink_ring</mat-icon>
+      </button>
+    </div>
     <div class="elem">
       <button
         mat-fab

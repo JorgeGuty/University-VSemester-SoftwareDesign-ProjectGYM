@@ -26,4 +26,16 @@ export class PrizeServiceService {
       }
     );
   }
+
+  updatePrizes(): Observable<any> {
+    return this.httpClient.get(
+      ConnectionsServices.currentConnection + "/client/notifyPrizes",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
 }

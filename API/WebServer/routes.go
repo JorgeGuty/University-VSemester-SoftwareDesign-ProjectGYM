@@ -16,7 +16,7 @@ func Setup(app *fiber.App) {
 	client.Post("/deleteClient", Controllers.DeleteClient)
 	client.Post("/insertCredit", Controllers.InsertCreditMovement)
 	client.Post("/sessionParticipants", Controllers.GetSessionParticipants)  // New!
-	client.Post("/notifyPrizes", Controllers.NotifyPrizes)  // New!
+	client.Get("/notifyPrizes", Controllers.NotifyPrizes)  // New!
 	client.Post("/monthlyPrizes", Controllers.GetMonthlyPrizes)  // New!
 	//client.Post("/monthlyStars", Controllers.GetClientMonthlyStars)
 
