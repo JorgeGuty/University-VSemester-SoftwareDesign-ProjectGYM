@@ -1,9 +1,11 @@
 package Decorator
 
 type PrizedClient struct {
-	membershipNumber int
+	MembershipNumber int
+	Stars            int
+	claim            PrizeClaimer
 }
 
-func (p *PrizedClient) ClaimPrice() {
-	// TODO:
+func (p *PrizedClient) AwardPrize() {
+	p.claim.AwardPrize()
 }

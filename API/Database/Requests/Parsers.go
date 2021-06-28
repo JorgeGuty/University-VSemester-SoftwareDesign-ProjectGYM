@@ -361,3 +361,25 @@ func ParsePrizes(resultSet *sql.Rows) []Models.Prize {
 
 	return prizes
 }
+
+func ParseStarredClients(resultSet *sql.Rows) []Models.StarredClient {
+	var clients []Models.StarredClient
+
+	for resultSet.Next() {
+		client := Models.StarredClient{}
+
+		err := resultSet.Scan(
+			&client.Client.Identification,
+			&client.Stars,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.StarredClient{}
+		}
+
+		clients = append(clients, client)
+	}
+
+	return clients
+}

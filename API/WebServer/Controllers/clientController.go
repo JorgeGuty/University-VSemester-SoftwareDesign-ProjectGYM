@@ -3,6 +3,7 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Common"
+	"API/WebServer/Controllers/Decorator"
 	"API/WebServer/Controllers/Observer/PrizesObserver"
 	"strconv"
 
@@ -10,6 +11,8 @@ import (
 )
 
 var prizesNotifier = &PrizesObserver.PrizesNotifier{}
+
+var clientWrapper = &Decorator.PrizeWrapper{}
 
 func GetClientInfo(context *fiber.Ctx) error {
 
@@ -176,6 +179,24 @@ func GetSessionParticipants(context *fiber.Ctx) error {
 	clients := Requests.GetSessionParticipants(date, roomId, startTime)
 
 	return Common.GiveJSONResponse(context, clients, fiber.StatusOK)
+}
+
+func AwardPrizes(context *fiber.Ctx) error {
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+
+	starredClients := Requests.GetStarredClients(month, year)
+
+	for _, starredClient := range starredClients {
+		clientWrapper.GetPrizedClient(starredClient.Client.MembershipNumber, starredClient.Stars).AwardPrize()
+	}
+
+	return Common.GiveJSONResponse(context, starredClients, fiber.StatusOK)
 }
 
 func GetMonthlyPrizes(context *fiber.Ctx) error {
