@@ -60,6 +60,14 @@ VALUES ('Prueba',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
 INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
 VALUES ('Prueba',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
 
+
+INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
+VALUES 
+('Aprovecha un 50% de descuento con el cupon: 100 EN PROGRA',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1),
+('Recuerda pagar la membresía en cajas',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1),
+('Bienvenido a GYM+',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1),
+('Que tengas un buen día en GYM+',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
+
 INSERT INTO UsuarioCliente (Id, ClienteId)
 VALUES (2, 1);
 
