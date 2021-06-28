@@ -15,12 +15,13 @@ func Setup(app *fiber.App) {
 	client.Post("/updateClientDetails", Controllers.UpdateClientDetail)
 	client.Post("/deleteClient", Controllers.DeleteClient)
 	client.Post("/insertCredit", Controllers.InsertCreditMovement)
-	client.Post("/sessionParticipants", Controllers.GetSessionParticipants)  // New!
-	client.Get("/notifyPrizes", Controllers.NotifyPrizes)  // New!
-	client.Post("/monthlyPrizes", Controllers.GetMonthlyPrizes)  // New!
-	//client.Post("/monthlyStars", Controllers.GetClientMonthlyStars)
 
 	// ? Aqui esta bien o mejor hacer otra seccion?
+	client.Post("/sessionParticipants", Controllers.GetSessionParticipants) // New!
+	client.Get("/notifyPrizes", Controllers.NotifyPrizes)                   // New!
+	client.Post("/monthlyPrizes", Controllers.GetMonthlyPrizes)             // New!
+	client.Post("/awardPrizes", Controllers.AwardPrizes)
+	//client.Post("/monthlyStars", Controllers.GetClientMonthlyStars)
 	client.Post("/getNotifications", Controllers.GetNotifications)
 
 	//TODO: discuss in which group this request has to be categorized
@@ -51,7 +52,7 @@ func Setup(app *fiber.App) {
 	sessions.Post("/reservedSessions", Controllers.GetReservedSessions)
 	sessions.Post("/changeSessionInstructor", Controllers.ChangeSessionInstructor)
 	sessions.Post("/getFilteredSchedule", Controllers.GetFilteredSchedule)
-	sessions.Post("/setAttendance", Controllers.SetSessionAttendance) // New!
+	sessions.Post("/setAttendance", Controllers.SetSessionAttendance)           // New!
 	sessions.Get("/attendancePending", Controllers.GetAttendancePendingSession) // New!
 
 	instructor := app.Group("/instructor")
