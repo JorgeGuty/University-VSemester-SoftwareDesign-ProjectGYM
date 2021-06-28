@@ -154,3 +154,40 @@ INSERT INTO
         (GETDATE(),1,6),
         (GETDATE(),1,6),
         (GETDATE(),1,6)
+
+
+-- Pruebas de Ale
+
+-- INSERT INTO 
+--     dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
+-- VALUES
+--     (CONVERT(DATE, '2021-04-20'),10, 1, 1),
+--     (CONVERT(DATE, '2021-04-30'),10, 2, 2),
+--     (CONVERT(DATE, '2021-04-27'),10, 1, 3),
+--     (CONVERT(DATE, '2021-04-29'),10, 1, 4),
+--     (CONVERT(DATE, '2021-03-20'),10, 1, 1),
+--     (CONVERT(DATE, '2021-03-30'),10, 2, 2),
+--     (CONVERT(DATE, '2021-03-27'),10, 1, 3),
+--     (CONVERT(DATE, '2021-03-29'),10, 1, 4)
+
+-- INSERT INTO
+--     dbo.Reserva(FechaReserva,ClienteId,SesionId)
+--     values
+--         (GETDATE(),3,17),
+--         (GETDATE(),1,17),
+--         (GETDATE(),2,17),
+--         (GETDATE(),3,10),
+--         (GETDATE(),1,10),
+--         (GETDATE(),2,10),
+--         (GETDATE(),3,11),
+--         (GETDATE(),1,12),
+--         (GETDATE(),2,13),
+--         (GETDATE(),3,11),
+--         (GETDATE(),1,12),
+--         (GETDATE(),2,13),
+--         (GETDATE(),3,14),
+--         (GETDATE(),1,15),
+--         (GETDATE(),2,15),
+--         (GETDATE(),3,15),
+--         (GETDATE(),1,16),
+--         (GETDATE(),3,16)
