@@ -51,3 +51,29 @@ func GetInstructorServices(pInstructorNumber int) []Models.Service {
 
 	return services
 }
+
+func GetFavoriteServices(pMembershipNumber int) []Models.Service {
+
+	query := fmt.Sprintf(`EXEC SP_GetFavoriteServices %d;`, pMembershipNumber)
+
+	resultSet, err := Database.ReadTransaction(query)
+
+	if err != nil {
+		return []Models.Service{}
+	}
+
+	services := ParseServices(resultSet)
+
+	return services
+
+}
+
+func AddFavoriteService(pMembershipNumber int, pServiceNumber int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_AddFavoriteService %d, %d;`, pMembershipNumber, pServiceNumber)
+	return VoidRequest(query)
+}
+
+func RemoveFavoriteService(pMembershipNumber int, pServiceNumber int) Common.VoidOperationResult {
+	query := fmt.Sprintf(`EXEC SP_RemoveFavoriteService %d, %d;`, pMembershipNumber, pServiceNumber)
+	return VoidRequest(query)
+}

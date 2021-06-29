@@ -55,6 +55,19 @@ INSERT INTO Cliente (Cedula,Nombre,Correo,Celular)
     ('1111','Cliente','cliente@gmail.com','99999999'),
     ('118090772', 'Elclien T. Rodriguez', 'aaa@a.gmail', '+506 70560910');
 
+INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
+VALUES ('Prueba',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
+INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
+VALUES ('Prueba',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
+
+
+INSERT INTO Notificaciones ([Message],[Date],[Time],ClienteId)
+VALUES 
+('Aprovecha un 50% de descuento con el cupon: 100 EN PROGRA',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1),
+('Recuerda pagar la membresía en cajas',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1),
+('Bienvenido a GYM+',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1),
+('Que tengas un buen día en GYM+',CONVERT(DATE, '2021-08-19'),CONVERT(TIME, '8:00'),1)
+
 INSERT INTO UsuarioCliente (Id, ClienteId)
 VALUES (2, 1);
 
@@ -82,6 +95,9 @@ values
     ('Yoga', 15, 2000), 
     ('Funcional', 20, 2000)
 
+INSERT INTO ServiciosFavoritos (ClienteId, EspecialidadId)
+VALUES (1,1);
+
 insert into 
     dbo.Instructor (Nombre, Cedula, Correo, Tipo) 
 values 
@@ -100,20 +116,20 @@ VALUES(3,2);
 insert into 
     dbo.SesionPreliminar (Nombre, DiaSemana, Mes, Año, HoraInicio, DuracionMinutos, Cupo,EspecialidadId,SalaId, InstructorId) 
 values 
-    ('Sesion de Yoga',         1, 5, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
-    ('Sesion de Funcional',    1, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 2),
-    ('Sesion de Yoga',         2, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 1),
-    ('Sesion de YogaMax',      3, 5, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
-    ('Sesion de FuncionalMax', 4, 5, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
-    ('Sesion de YogaPro',      4, 5, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
+    ('Sesion de Yoga',         1, 8, 2021, CONVERT(TIME, '8:00'),  120, 12, 1, 1, 1),
+    ('Sesion de Funcional',    1, 8, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 2),
+    ('Sesion de Yoga',         2, 8, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 1),
+    ('Sesion de YogaMax',      3, 7, 2021, CONVERT(TIME, '10:00'), 120, 12, 1, 1, 2),
+    ('Sesion de FuncionalMax', 4, 7, 2021, CONVERT(TIME, '9:30'),  120, 12, 2, 1, 1),
+    ('Sesion de YogaPro',      4, 7, 2021, CONVERT(TIME, '14:30'), 120, 12, 1, 1, 2)
 
 INSERT INTO 
     dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
 VALUES
-    (CONVERT(DATE, '2021-05-31'),10, 1, 1),
-    (CONVERT(DATE, '2021-05-30'),10, 2, 2),
-    (CONVERT(DATE, '2021-05-27'),10, 1, 3),
-    (CONVERT(DATE, '2021-05-29'),10, 1, 4)
+    (CONVERT(DATE, '2021-08-31'),10, 1, 1),
+    (CONVERT(DATE, '2021-08-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-07-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-07-29'),10, 1, 4)
 
 UPDATE SesionPreliminar
 SET Confirmada = 1
@@ -130,3 +146,76 @@ UPDATE dbo.Reserva
     SET Activa = 0 
     WHERE Id = 2;
 
+-- Reservas para probar el observer
+
+
+INSERT INTO
+    dbo.Reserva(FechaReserva,ClienteId,SesionId)
+    values
+        (GETDATE(),3,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2),
+        (GETDATE(),1,2)
+
+INSERT INTO Premios(Nombre, EstrellasNecesarias)
+VALUES 
+('Bolso de Gym', 1),
+('Botella', 1),
+('Paño de Billete de 10,000', 1),
+('Valoracion Nutricional', 2),
+('Sesión de de Descarga Muscular', 3)
+
+-- Prueba Decorador
+INSERT INTO EstrellasMensuales(ClienteId,Año,Mes,SemanaDelMes,Cantidad)
+VALUES
+(1,2020,1,1,3),
+(1,2020,1,2,3),
+(1,2020,1,3,1),
+(1,2020,1,4,3)
+
+INSERT INTO EstrellasMensuales(ClienteId,Año,Mes,SemanaDelMes,Cantidad)
+VALUES
+(1,2020,2,1,3),
+(1,2020,2,2,3),
+(1,2020,2,3,3),
+(1,2020,2,4,3)
+
+--SELECT * FROM PremiosPorCliente
+INSERT INTO PremiosPorCliente(ClienteId, PremioId, Mes, Año)
+VALUES
+(1,1,1,2020),
+(2,4,1,2020)
+
+-- -- Pruebas de Ale
+--SELECT * FROM CompleteSessions
+INSERT INTO 
+    dbo.Sesion(Fecha,Costo,InstructorId,SessionPreliminarId)
+VALUES
+    (CONVERT(DATE, '2021-04-20'),10, 1, 1),
+    (CONVERT(DATE, '2021-04-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-04-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-04-29'),10, 1, 4),
+    (CONVERT(DATE, '2021-03-20'),10, 1, 1),
+    (CONVERT(DATE, '2021-03-30'),10, 2, 2),
+    (CONVERT(DATE, '2021-03-27'),10, 1, 3),
+    (CONVERT(DATE, '2021-03-29'),10, 1, 4)
+
+INSERT INTO
+    dbo.Reserva(FechaReserva,ClienteId,SesionId)
+    values
+        (GETDATE(),3,5),
+        (GETDATE(),1,5),
+        (GETDATE(),2,5),
+        (GETDATE(),3,6),
+        (GETDATE(),1,6),
+        (GETDATE(),2,6),
+        (GETDATE(),3,11),
+        (GETDATE(),1,12)

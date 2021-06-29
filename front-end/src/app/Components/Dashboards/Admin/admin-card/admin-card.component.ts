@@ -32,10 +32,7 @@ export class AdminCardComponent implements OnInit {
     private instructorService: InstructorsService
   ) {}
 
-  ngOnInit(): void {
-    console.log("LOOOOOG");
-    console.log(this.instructorArray);
-  }
+  ngOnInit(): void {}
 
   openDialogue() {
     const dialogRef = this.dialog.open(AdminDialogueChangeComponent, {
@@ -50,7 +47,6 @@ export class AdminCardComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
       console.log(result);
       if (result != undefined) {
-        console.log("Cambieee");
         this.instructor = result;
       }
     });
@@ -89,14 +85,5 @@ export class AdminCardComponent implements OnInit {
     };
 
     return reserveSessionJson;
-  }
-
-  onInstructorChange() {
-    console.log("Modified Session");
-    console.log(this.session);
-    console.log("SELECTEEEED Instructor");
-    console.log(this.instructor.id);
-    console.log(this.instructor.name);
-    //this.adminScheduleService.changeCurrentSessionInstructor(this.session, )
   }
 }

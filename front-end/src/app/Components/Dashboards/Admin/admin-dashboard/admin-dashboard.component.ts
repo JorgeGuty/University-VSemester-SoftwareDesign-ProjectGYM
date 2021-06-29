@@ -14,6 +14,7 @@ import { AdminScheduleDialogComponent } from "../admin-schedule-dialog/admin-sch
 })
 export class AdminDashboardComponent implements OnInit {
   scheduleMap: Map<Date, any>;
+  scheduleMapUnchecked: Map<Date, any>;
 
   constructor(
     private authService: AuthService,
@@ -22,6 +23,7 @@ export class AdminDashboardComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.scheduleMap = new Map();
+    this.scheduleMapUnchecked = new Map();
   }
 
   ngOnInit(): void {
@@ -41,6 +43,8 @@ export class AdminDashboardComponent implements OnInit {
           //TODO: Mostrar Error de vacio
           console.log("Erroooooor!!! no hay clases");
         }
+        this.scheduleMapUnchecked = new Map();
+        this.getUncheckedMonthlySessions();
       });
   }
 
@@ -53,6 +57,39 @@ export class AdminDashboardComponent implements OnInit {
       } else {
         currentDay.push(scheduledSession);
         this.scheduleMap.set(scheduledSession.date, currentDay);
+      }
+    }
+  }
+
+  getUncheckedMonthlySessions() {
+    this.adminScheduleService
+      .getUncheckedSessionSchedule()
+      .subscribe((sessions: any) => {
+        if (sessions.sessions != null) {
+          sessions.sessions.forEach((session: any, key: any) => {
+            let scheduledSession = this.initSession(session);
+            this.fillUncheckedScheduleHashmap(scheduledSession);
+          });
+        } else {
+          //TODO: Mostrar Error de vacio
+          console.log("Erroooooor!!! no hay clases 👩");
+        }
+      });
+  }
+
+  //Auxiliary function for getMonthlySessions
+  fillUncheckedScheduleHashmap(scheduledSession: Session) {
+    if (scheduledSession.date != undefined) {
+      let currentDay: any[] = this.scheduleMapUnchecked.get(
+        scheduledSession.date
+      );
+      if (currentDay == undefined) {
+        this.scheduleMapUnchecked.set(scheduledSession.date, [
+          scheduledSession,
+        ]);
+      } else {
+        currentDay.push(scheduledSession);
+        this.scheduleMapUnchecked.set(scheduledSession.date, currentDay);
       }
     }
   }
@@ -85,5 +122,10 @@ export class AdminDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onUpdate() {
+    console.log("Mensaje Recibido 🎆");
+    this.getMonthlySessions();
   }
 }

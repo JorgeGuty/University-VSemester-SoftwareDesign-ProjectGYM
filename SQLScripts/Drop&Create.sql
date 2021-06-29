@@ -7,7 +7,9 @@ COMMIT TRANSACTION
 -- DROPS
 BEGIN TRANSACTION
 GO
+DROP TABLE IF EXISTS dbo.Notificaciones;
 
+DROP TABLE IF EXISTS dbo.PremiosPorCliente;
 DROP TABLE IF EXISTS dbo.UsuarioCliente;
 DROP TABLE IF EXISTS dbo.UsuarioAdmin;
 DROP TABLE IF EXISTS dbo.Usuario;
@@ -22,8 +24,12 @@ DROP TABLE IF EXISTS dbo.TipoMovimiento;
 DROP TABLE IF EXISTS dbo.FormaDePago;
 DROP TABLE IF EXISTS dbo.ConceptosDeCobroFijos;
 
+DROP TABLE IF EXISTS dbo.Premios;
+DROP TABLE IF EXISTS dbo.EstrellasMensuales;
+DROP TABLE IF EXISTS dbo.ServiciosFavoritos;
 DROP TABLE IF EXISTS dbo.Reserva;
 DROP TABLE IF EXISTS dbo.Cliente;
+DROP TABLE IF EXISTS dbo.Notificaciones;
 DROP TABLE IF EXISTS dbo.Sesion;
 DROP TABLE IF EXISTS dbo.SesionPreliminar
 
@@ -412,7 +418,8 @@ CREATE TABLE dbo.Sesion
 	Cancelada bit NOT NULL DEFAULT 0,
 	Costo MONEY NOT NULL,
 	InstructorId int NOT NULL,
-	SessionPreliminarId int NOT NULL
+	SessionPreliminarId int NOT NULL,
+	AsistenciaTomada bit NOT NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Sesion ADD CONSTRAINT
@@ -452,7 +459,8 @@ CREATE TABLE dbo.Reserva
 	FechaReserva datetime NOT NULL,
 	Activa bit NOT NULL DEFAULT 1,
 	ClienteId int NOT NULL,
-	SesionId int NOT NULL
+	SesionId int NOT NULL,
+	Asistencia bit NOT NULL DEFAULT 0
 	)  ON [PRIMARY]
 GO
 ALTER TABLE dbo.Reserva ADD CONSTRAINT
@@ -609,5 +617,152 @@ GO
 
 COMMIT TRANSACTION
 GO
+
+----------------------
+-- Servicios Favoritos
+----------------------
+CREATE TABLE dbo.ServiciosFavoritos (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,
+	EspecialidadId 
+		INT
+		NOT NULL
+		FOREIGN KEY REFERENCES Especialidades(Id)
+	,
+	Active 
+		BIT 
+		DEFAULT 1
+)
+
+----------------------
+-- Notificaciones
+----------------------
+-- Se me fue y las hice en ingles pero bueno
+CREATE TABLE dbo.Notificaciones (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	[Message] 
+		VARCHAR(100) 
+		NOT NULL 
+	,
+	[Date] 
+		DATE
+		NOT NULL
+	,
+	[TIME] 
+		TIME
+		NOT NULL
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,
+	Active 
+		BIT 
+		DEFAULT 1
+)
+----------------------
+
+----------------------
+-- EstrellasMensuales
+----------------------
+CREATE TABLE dbo.EstrellasMensuales (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,
+	Año
+		INT
+		NOT NULL
+	,		
+	Mes 
+		INT
+		NOT NULL
+	,
+	SemanaDelMes
+		INT
+		NOT NULL	
+	,
+	Cantidad
+		INT
+		NOT NULL
+		DEFAULT 0		
+
+)
+
+----------------------
+
+----------------------
+-- Premios
+----------------------
+CREATE TABLE dbo.Premios (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	Nombre
+		NVARCHAR(100)
+		NOT NULL
+	,
+	EstrellasNecesarias
+		INT
+		NOT NULL
+
+)
+
+----------------------
+
+----------------------
+-- PremiosPorCliente
+----------------------
+CREATE TABLE dbo.PremiosPorCliente (
+	Id 
+		INT 
+		NOT NULL 
+		PRIMARY KEY 
+		IDENTITY
+	,
+	ClienteId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Cliente(Id)
+	,	
+	PremioId 
+		INT 
+		NOT NULL 
+		FOREIGN KEY REFERENCES Premios(Id)
+	,	
+	Mes 
+		INT
+		NOT NULL
+	,
+	Año 
+		INT
+		NOT NULL
+
+)
 
 ----------------------

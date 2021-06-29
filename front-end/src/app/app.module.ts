@@ -9,8 +9,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from "@angular/forms";
 
 /* Angular Material */
+import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
@@ -56,10 +58,19 @@ import { ClientComponent } from "./Components/Tables/client/client.component";
 import { ClientDialogueComponent } from "./Components/Tables/client-dialogue/client-dialogue.component";
 import { ClientPaymentDialogueComponent } from "./Components/Tables/client-payment-dialogue/client-payment-dialogue.component";
 import { AdminDialogueChangeComponent } from "./Components/Dashboards/Admin/admin-dialogue-change/admin-dialogue-change.component";
-import { ServiceMaxSpacesUpdateDialogueComponent } from './Components/Tables/service-max-spaces-update-dialogue/service-max-spaces-update-dialogue.component';
-import { AdminRoomDialogueComponent } from './Components/Dashboards/Admin_Preliminary/admin-room-dialogue/admin-room-dialogue.component';
-import { InstructorDetailsComponent } from './Components/Tables/instructor-details/instructor-details.component';
-import { AdminScheduleDialogComponent } from './Components/Dashboards/Admin/admin-schedule-dialog/admin-schedule-dialog.component';
+import { ServiceMaxSpacesUpdateDialogueComponent } from "./Components/Tables/service-max-spaces-update-dialogue/service-max-spaces-update-dialogue.component";
+import { AdminRoomDialogueComponent } from "./Components/Dashboards/Admin_Preliminary/admin-room-dialogue/admin-room-dialogue.component";
+import { InstructorDetailsComponent } from "./Components/Tables/instructor-details/instructor-details.component";
+import { AdminScheduleDialogComponent } from "./Components/Dashboards/Admin/admin-schedule-dialog/admin-schedule-dialog.component";
+import { ClientUserGuard } from "./Guards/authClient.guard";
+import { ClientServicesComponent } from "./Components/Dashboards/Client/client-services/client-services.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NotificationsComponent } from "./Components/General/notifications/notifications.component";
+import { AdminCardContainerComponent } from "./Components/Dashboards/Admin/admin-card-container/admin-card-container.component";
+import { AdminCardUncheckedComponent } from "./Components/Dashboards/Admin/admin-card-unchecked/admin-card-unchecked.component";
+import { AdminDialogueUncheckedComponent } from "./Components/Dashboards/Admin/admin-dialogue-unchecked/admin-dialogue-unchecked.component";
+import { PrizesTableComponent } from './Components/Tables/prizes-table/prizes-table.component';
+import { PrizesComponent } from './Components/Tables/prizes/prizes.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +104,13 @@ import { AdminScheduleDialogComponent } from './Components/Dashboards/Admin/admi
     AdminRoomDialogueComponent,
     InstructorDetailsComponent,
     AdminScheduleDialogComponent,
+    ClientServicesComponent,
+    NotificationsComponent,
+    AdminCardContainerComponent,
+    AdminCardUncheckedComponent,
+    AdminDialogueUncheckedComponent,
+    PrizesTableComponent,
+    PrizesComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -101,8 +119,10 @@ import { AdminScheduleDialogComponent } from './Components/Dashboards/Admin/admi
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
@@ -116,8 +136,9 @@ import { AdminScheduleDialogComponent } from './Components/Dashboards/Admin/admi
     MatExpansionModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    NgbModule,
   ],
-  providers: [AuthUserGuard, AuthAdminGuard],
+  providers: [AuthUserGuard, AuthAdminGuard, ClientUserGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

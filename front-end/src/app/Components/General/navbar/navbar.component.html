@@ -1,12 +1,9 @@
 <p>
   <mat-toolbar class="navbar-color">
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon class="button-color">menu</mat-icon>
-    </button>
+    <app-notifications
+      *ngIf="authService.loggedIn() && !this.isAdmin()"
+      [notificationArray]="this.notificationArray"
+    ></app-notifications>
     <span class="button-color">+ GYM</span>
     <span class="example-spacer"></span>
     <a [routerLink]="['/']" mat-button class="button-color">Home</a>
@@ -26,13 +23,20 @@
     >
     <a
       *ngIf="authService.loggedIn() && this.isAdmin()"
+      [routerLink]="['/admin/prizes']"
+      mat-button
+      class="button-color"
+      >Prizes Table</a
+    >
+    <a
+      *ngIf="authService.loggedIn() && this.isAdmin()"
       [routerLink]="['/admin/clientTable']"
       mat-button
       class="button-color"
       >Clients Table</a
     >
     <a
-      *ngIf="authService.loggedIn() && this.isAdmin()"
+      *ngIf="authService.loggedIn()"
       [routerLink]="['/admin/serviceTable']"
       mat-button
       class="button-color"

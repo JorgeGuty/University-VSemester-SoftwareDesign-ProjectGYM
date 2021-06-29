@@ -1,11 +1,12 @@
 import { TYPED_NULL_EXPR } from "@angular/compiler/src/output/output_ast";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Session } from "src/app/Models/Schedule/Session";
 import { Instructor } from "src/app/Models/Schedule/Instructor";
 import { Service } from "src/app/Models/Schedule/Service";
 import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
 import { SessionsService } from "src/app/Services/SessionService/sessions.service";
 import { AuthService } from "src/app/Services/Auth/auth.service";
+import Alert from "src/app/Models/Alertas/Alert";
 
 export interface Tile {
   color: string;
@@ -28,6 +29,13 @@ export class ClientCardComponent implements OnInit {
   sessionService!: any;
   @Input()
   isReserved!: boolean;
+  @Output()
+  errorMessage = new EventEmitter<string>();
+
+  alert: any = {
+    type: "danger",
+    message: "This is an standard alert message",
+  };
 
   constructor(
     private sessionScheduleService: SessionsService,
@@ -47,6 +55,11 @@ export class ClientCardComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.onError(
+            "The session of '" +
+              this.session.name +
+              "' full, but we will put you in queue 😊"
+          );
         }
       );
     } else {
@@ -78,5 +91,9 @@ export class ClientCardComponent implements OnInit {
     };
 
     return reserveSessionJson;
+  }
+
+  onError(message: any) {
+    this.errorMessage.emit(message);
   }
 }

@@ -10,10 +10,12 @@ import { ProfileComponent } from "./Components/Profile/profile/profile.component
 import { LoginComponent } from "./Components/Registration/login/login.component";
 import { ClientComponent } from "./Components/Tables/client/client.component";
 import { InstructorComponent } from "./Components/Tables/instructor/instructor.component";
+import { PrizesComponent } from "./Components/Tables/prizes/prizes.component";
 import { ServiceComponent } from "./Components/Tables/service/service.component";
 
 /* Services */
 import { AuthAdminGuard } from "./Guards/authAdmin.guard";
+import { ClientUserGuard } from "./Guards/authClient.guard";
 import { AuthUserGuard } from "./Guards/authUser.guard";
 
 const routes: Routes = [
@@ -45,9 +47,14 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
+    path: "admin/prizes",
+    component: PrizesComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
     path: "admin/serviceTable",
     component: ServiceComponent,
-    canActivate: [AuthAdminGuard],
+    canActivate: [ClientUserGuard],
   },
   {
     path: "admin/clientTable",

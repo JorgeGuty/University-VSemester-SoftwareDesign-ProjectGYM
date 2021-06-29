@@ -279,6 +279,43 @@ func ParseClients(resultSet *sql.Rows) []Models.Client {
 	return clients
 }
 
+func ParseNotifications(resultSet *sql.Rows) []Models.Notification {
+	var notifications []Models.Notification
+	var date time.Time
+	var time time.Time
+
+	for resultSet.Next() {
+		notification := Models.Notification{}
+
+		err := resultSet.Scan(
+			&notification.ID,
+			&notification.Message,
+			&date,
+			&time,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Notification{}
+		}
+		notification.Date = civil.Date{
+			Year:  date.Year(),
+			Month: date.Month(),
+			Day:   date.Day(),
+		}
+		notification.Time = civil.Time{
+			Hour:       time.Hour(),
+			Minute:     time.Minute(),
+			Second:     time.Second(),
+			Nanosecond: time.Nanosecond(),
+		}
+
+		notifications = append(notifications, notification)
+	}
+
+	return notifications
+}
+
 func ParsePaymentMethods(resultSet *sql.Rows) []Models.PaymentMethod {
 	var paymentMethods []Models.PaymentMethod
 
@@ -299,4 +336,50 @@ func ParsePaymentMethods(resultSet *sql.Rows) []Models.PaymentMethod {
 	}
 
 	return paymentMethods
+}
+
+func ParsePrizes(resultSet *sql.Rows) []Models.Prize {
+	var prizes []Models.Prize
+
+	for resultSet.Next() {
+		newPrize := Models.Prize{}
+
+		err := resultSet.Scan(
+			&newPrize.PrizeName,
+			&newPrize.NeededStars,
+			&newPrize.ClientName,
+			&newPrize.MembershipId,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.Prize{}
+		}
+
+		prizes = append(prizes, newPrize)
+	}
+
+	return prizes
+}
+
+func ParseStarredClients(resultSet *sql.Rows) []Models.StarredClient {
+	var clients []Models.StarredClient
+
+	for resultSet.Next() {
+		client := Models.StarredClient{}
+
+		err := resultSet.Scan(
+			&client.MembershipNumber,
+			&client.Stars,
+		)
+
+		if err != nil {
+			println(err.Error())
+			return []Models.StarredClient{}
+		}
+
+		clients = append(clients, client)
+	}
+
+	return clients
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import Filters from "src/app/Models/Calendar/Filters";
 import { AuthService } from "src/app/Services/Auth/auth.service";
 import { ClientScheduleService } from "src/app/Services/Dashboard/client-schedule.service";
 
@@ -10,8 +11,14 @@ import { Session } from "../../../../Models/Schedule/Session";
   styleUrls: ["./client-dashboard.component.scss"],
 })
 export class ClientDashboardComponent implements OnInit {
+  Filters: any = Filters;
   scheduleMap: Map<Date, any>;
   scheduleMapReservations: Map<String, any>;
+  filterTerm: string = "";
+  filterNumber: number[] = [0, 1, 2, 3];
+  filtersNumber: number = 0;
+
+  alert: any = undefined;
 
   constructor(
     private authService: AuthService,
@@ -22,8 +29,8 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMonthlySessions();
     //this.getMonthlyReservedSessions();
+    this.getMonthlySessions();
   }
 
   getMonthlySessions() {
@@ -31,7 +38,6 @@ export class ClientDashboardComponent implements OnInit {
     this.clientScheduleService
       .getCurrentSessionSchedule()
       .subscribe((sessions: any) => {
-        console.log(sessions);
         if (sessions.sessions != null) {
           sessions.sessions.forEach((session: any, key: any) => {
             let scheduledSession = this.initSession(session);
@@ -91,7 +97,38 @@ export class ClientDashboardComponent implements OnInit {
     return scheduledSession;
   }
 
-  isSessionReserved(sessionName: string) {
-    return this.scheduleMapReservations.has(sessionName);
+  filterSessions() {
+    console.log("Filtered by: " + this.filtersNumber);
+    console.log("Filter term: " + this.filterTerm);
+    this.scheduleMap.clear();
+    this.clientScheduleService
+      .getFilteredSessions(this.filtersNumber.toString(), this.filterTerm)
+      .subscribe((sessions: any) => {
+        if (sessions.sessions != null) {
+          sessions.sessions.forEach((session: any, key: any) => {
+            let scheduledSession = this.initSession(session);
+            this.fillScheduleHashmap(scheduledSession);
+          });
+          this.getMonthlyReservedSessions();
+          console.log("Sesiones Filtradas 🙌");
+          console.log(this.scheduleMap);
+          console.log("Sesiones Filtradas 🙌");
+        } else {
+          //TODO: Mostrar Error de vacio
+          console.log("Erroooooor!!! no hay clases");
+        }
+      });
+  }
+
+  onError(message: any) {
+    console.log("Catch that mate 👨‍🦰");
+    this.alert = {
+      type: "info",
+      message: message,
+    };
+  }
+
+  close() {
+    this.alert = undefined;
   }
 }

@@ -24,6 +24,18 @@ export class AdminScheduleService {
     );
   }
 
+  getUncheckedSessionSchedule(): Observable<any> {
+    return this.httpClient.get(
+      ConnectionsServices.currentConnection + "/sessions/attendancePending",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+      }
+    );
+  }
+
   // Todo: do change class instructor
   changeCurrentSessionInstructor(
     sessionForm: any,
@@ -116,6 +128,43 @@ export class AdminScheduleService {
     return this.httpClient.post(
       ConnectionsServices.currentConnection + "/rooms/setWorkingHours",
       form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
+
+  getSessionParticipant(session: any): Observable<any> {
+    let sessionJson = { date: session.date, roomId: "1", time: session.time };
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/client/sessionParticipants",
+      sessionJson,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${AuthService.getAuthToken()}`,
+        },
+        observe: "response",
+      }
+    );
+  }
+
+  setAttendance(session: any, attendants: string): Observable<any> {
+    let attendantsJson = {
+      date: session.date,
+      roomId: "1",
+      startTime: session.time,
+      attendants: attendants,
+    };
+    console.log("ERROR RARO");
+    console.log(attendantsJson);
+    return this.httpClient.post(
+      ConnectionsServices.currentConnection + "/sessions/setAttendance",
+      attendantsJson,
       {
         headers: {
           "Content-Type": "application/json",

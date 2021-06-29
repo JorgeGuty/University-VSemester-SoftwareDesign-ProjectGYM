@@ -1,17 +1,44 @@
-<div *ngFor="let sessionArray of this.scheduleMap.values()">
-  <mat-expansion-panel [expanded]="true" hideToggle class="myExpansion-panel">
-    <mat-expansion-panel-header>
-      <mat-panel-title> {{ sessionArray[0].date }} </mat-panel-title>
-      <mat-panel-description>
-        This are the classes for the day!!!
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <app-client-card
-      *ngFor="let session of sessionArray"
-      [session]="this.session"
-      [instructor]="this.session.instructor"
-      [sessionService]="this.session.sessionService"
-      [isReserved]="this.isSessionReserved(this.session.id)"
-    ></app-client-card>
-  </mat-expansion-panel>
+<div style="display: flex; flex-direction: column">
+  <div style="display: flex; flex-direction: row; align-items: flex-end">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        autocomplete="off"
+        matInput
+        placeholder="Ex. ium"
+        #input
+        [(ngModel)]="filterTerm"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 25%; margin-left: 2rem">
+      <mat-label>Filters</mat-label>
+      <mat-select [(ngModel)]="filtersNumber" required>
+        <mat-option>--</mat-option>
+        <div *ngFor="let filterNumber of this.filterNumber">
+          <mat-option [value]="filterNumber">
+            {{ this.Filters[filterNumber] }}
+          </mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button (click)="filterSessions()" mat-raised-button color="primary">
+    Filter
+  </button>
 </div>
+
+<app-client-services
+  style="display: flex; flex-direction: column"
+  [scheduleMap]="this.scheduleMap"
+  [scheduleMapReservations]="this.scheduleMapReservations"
+  (errorMessage)="onError($event)"
+>
+</app-client-services>
+
+<ngb-alert
+  *ngIf="alert != undefined"
+  (closed)="close()"
+  style="position: fixed; bottom: 0; left: 0; margin-left: 10px"
+  >{{ alert.message }}</ngb-alert
+>

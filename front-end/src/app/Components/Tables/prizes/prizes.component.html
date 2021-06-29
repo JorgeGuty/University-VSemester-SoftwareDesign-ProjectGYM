@@ -1,0 +1,40 @@
+<div *ngIf="this.prizes.length != 0">
+  <app-prizes-table
+    [notifications]="this.prizes"
+    [columnContent]="this.columnContent"
+  ></app-prizes-table>
+</div>
+
+<h2 class="element">
+  <div class="flex-container">
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
+        (click)="notifyUser()"
+      >
+        <mat-icon>phonelink_ring</mat-icon>
+      </button>
+    </div>
+    <div class="elem">
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        class="button-create"
+        (click)="openCalendar()"
+      >
+        <mat-icon>calendar_today</mat-icon>
+      </button>
+    </div>
+  </div>
+</h2>
+
+<ngb-alert
+  *ngIf="alert != undefined"
+  (closed)="close()"
+  style="position: fixed; bottom: 0; left: 0; margin-left: 10px"
+  >{{ alert.message }}</ngb-alert
+>

@@ -3,10 +3,16 @@ package Controllers
 import (
 	"API/Database/Requests"
 	"API/WebServer/Common"
+	"API/WebServer/Controllers/Decorator"
+	"API/WebServer/Controllers/Observer/PrizesObserver"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
+
+var prizesNotifier = &PrizesObserver.PrizesNotifier{}
+
+var clientWrapper = &Decorator.PrizeWrapper{}
 
 func GetClientInfo(context *fiber.Ctx) error {
 
@@ -112,9 +118,9 @@ func GetClients(context *fiber.Ctx) error {
 	}
 	filterDebtors, _ := strconv.Atoi(data["filterDebtors"])
 
-	instructors := Requests.GetClients(filterDebtors)
+	clients := Requests.GetClients(filterDebtors)
 
-	return Common.GiveJSONResponse(context, instructors, fiber.StatusOK)
+	return Common.GiveJSONResponse(context, clients, fiber.StatusOK)
 }
 
 func InsertCreditMovement(context *fiber.Ctx) error {
@@ -151,4 +157,83 @@ func GetPaymentMethods(context *fiber.Ctx) error {
 	paymentMethods := Requests.GetPaymentMethods()
 
 	return Common.GiveJSONResponse(context, paymentMethods, fiber.StatusOK)
+}
+
+func GetSessionParticipants(context *fiber.Ctx) error {
+
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+
+	date := data["date"]
+	roomId, _ := strconv.Atoi(data["roomId"])
+	startTime := data["time"]
+
+	clients := Requests.GetSessionParticipants(date, roomId, startTime)
+
+	return Common.GiveJSONResponse(context, clients, fiber.StatusOK)
+}
+
+func AwardPrizes(context *fiber.Ctx) error {
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+		return err
+	}
+
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+
+	starredClients := Requests.GetStarredClients(month, year)
+
+	for _, starredClient := range starredClients {
+		clientWrapper.GetPrizedClient(starredClient.Client.MembershipNumber, starredClient.Stars, month, year).AwardPrize()
+	}
+
+	return Common.GiveJSONResponse(context, starredClients, fiber.StatusOK)
+}
+
+func GetMonthlyPrizes(context *fiber.Ctx) error {
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+	var data map[string]string
+	if err := context.BodyParser(&data); err != nil {
+
+		return err
+	}
+
+	month, _ := strconv.Atoi(data["month"])
+	year, _ := strconv.Atoi(data["year"])
+
+	prizes := Requests.GetMonthlyPrizes(month, year)
+
+	prizesNotifier.Reset()
+	for _, prize := range prizes {
+		newObserver := &PrizesObserver.ClientPrizeObserver{
+			PrizeName:    prize.PrizeName,
+			MembershipId: prize.MembershipId,
+		}
+		prizesNotifier.Register(newObserver)
+	}
+
+	return Common.GiveJSONResponse(context, prizes, fiber.StatusOK)
+}
+
+func NotifyPrizes(context *fiber.Ctx) error {
+	token := Common.AnalyzeToken(context)
+	if token == nil {
+		return nil
+	}
+
+	go prizesNotifier.NotifyAll()
+
+	return Common.GiveJSONResponse(context, context.JSON(""), fiber.StatusOK)
 }
